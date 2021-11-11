@@ -6,7 +6,13 @@ class BrandController {
     // Nhiều hàm điều khiển
     // Thêm Xóa Sửa hiệu xe
     show(req,res,next) {// request , respond , next
-        res.render('brand/brand')
+        Brand.find({})
+            .then((brands)=> {
+                res.render('brand/brand', {
+                    brands: mutipleMongooseToObject(brands),
+                })
+            })
+            .catch(next)
     } 
     create(req,res,next){
         const newBrand = new Brand(req.body)
@@ -16,6 +22,14 @@ class BrandController {
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
+    delete(req,res,next){
+        const idDelete = req.params.id
+        Brand.delete({_id:idDelete})
+            .then(()=> {
+                res.redirect('/brand')
+            }) 
+            .catch()
+    }   
 
 }
 

@@ -8,6 +8,7 @@ const bandController = require('../app/controllers/BrandController')
 // router.put('/:id',receptionController.edit)
 // router.get('/', receptionController.show)
 router.post('/create', BrandController.create)
+router.delete('/:id/delete', BrandController.delete) //slug
 router.get('/', BrandController.show)
 
 module.exports = router

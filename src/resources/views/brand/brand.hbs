@@ -1,7 +1,28 @@
 <link rel="stylesheet" href="./css/brand.css">
 
 {{!-- THÊM --}}
-<h3>SADADASD</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col" colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each brands}}
+    <tr>
+      {{!-- 1 hiệu xe --}}
+      <th scope="row">{{this._id}}</th>
+      <td>{{this.name}}</td>
+      <td>
+        <button class="btn-delete" data-id="{{this._id}}" >Xoa</button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
 <form method="POST" action="/brand/create">
   <div class="form-group">
     <label for="input-name">Tên hiệu xe</label>
@@ -17,5 +38,31 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-
+<form name="form-delete"method="POST" action=""></form>
 {{!-- Muốn gửi dữ liệu đi. thì phải có 1 cái form tạm để tạo các phương thức --}}
+{{!-- THAO TÁC XÓA K PHẢI GET POST MÀ LÀ DELETE 
+NHUNNG7
+CÁI TRANG WEB CUA MINH NO SE KHONG HO TRO MINH DELETE--}}
+{{!-- /brand/delete?_method=DELETE --}}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Lắng nghe khi mà cái web nó đã dc render xong
+    //var btnDelete = document.querySelectorAll('.btn-delete')
+    //var formDelete = document.forms['form-delete']
+    
+    //for(var item of btnDelete) {
+      //item.onclick = function() {
+      //   var brandId = this.getAttribute('data-id')
+      //   formDelete.action = '/brand/' + brandId + '/delete?_method=DELETE'
+     //    formDelete.submit()
+    //  }
+    //}
+
+    var btnDelete = $('.btn-delete')
+    btnDelete.click(function() {
+        var brandId = $(this).attr('data-id')
+        console.log(brandId)
+    })
+  })
+</script>
