@@ -9,8 +9,10 @@ const Reception = new Scheme({
     license: {type: String},
     brand: {type: String},
     phone: {type: String},
-    debt: {Type: Number},
-    slug: { type: String, slug: "name", unique:true },
+    debt: {type: Number},
+    receptionDate: {type: String},
+    status: {type: String},
+    slug: { type: String, slug: "license", unique:true },
 }, {
     timestamps: true,
 })

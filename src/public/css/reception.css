@@ -1,5 +1,8 @@
 @charset "UTF-8";
 /* Form POP UP */
+.container__reception {
+  margin: 16px 36px; }
+
 .reception__form-btn-close {
   font-size: 16px; }
 

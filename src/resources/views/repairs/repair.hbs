@@ -1,0 +1,90 @@
+<div class="repair__title">
+    Quản lý sửa chữa
+</div>
+<div class="toolbar">
+    <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
+        <span class="toolbar__search-icon ti-search"> </span>
+    </div>
+    <div class="toolbar__filter"></div>
+    <div class="toolbar__btn">
+        <button class="toolbar__btn-add" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
+    </div>
+</div>
+<div class="list-repair">
+    <table class="table table--default">
+        <thead>
+            <tr>
+                <th scope="col">Mã phiếu sửa chữa</th>
+                <th scope="col">Mã phiếu tiếp nhận</th>
+                <th scope="col">Biển số xe</th>
+                <th scope="col">Tên khách hàng</th>
+                <th scope="col">Ngày sửa chữa</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Tổng chi phí</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each repairs}}
+            <tr>
+                <td scope="row">125</th>
+                <td>133</td>
+                <td>99-CD-0999</td>
+                <td>Nguyễn Thành Đạt</td>
+                <td>28/10/2021</td>
+                <td>Mới</td>
+                <td>1.200.000</td>
+                <td>
+                    <button class="btn--view-item" data-toggle="modal" data-target="#form-view" data-id="">Xem</button>
+                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="">Sửa</button>
+                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="">Xóa</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<!-- MODAL -->
+<form method="POST" action="/repair/create">
+  <div class="modal fade" id="form-add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm phiếu sửa chữa</h5>
+          <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+                <label for="input-add-license">Example select</label>
+                <select class="form-control" id="input-add-license" name="bienso">
+                    {{#each waitReceptions}}
+                    <option>{{this.license}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="input-add-name">Example select</label>
+                <select class="form-control" id="input-add-name" name="bienso">
+                    {{#each waitReceptions}}
+                    <option>{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+              <label for="input-add-repairDate" class="col-form-label">Ngày tạo phiếu:</label>
+              <input type="date" class="form-control" id="input-add-repairDate" name="ngaysuachua">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn--send-dialog">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
