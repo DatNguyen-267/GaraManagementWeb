@@ -30,7 +30,13 @@ class BrandController {
             }) 
             .catch()
     }   
-
+    edit(req,res,next){
+        Brand.updateOne({_id: req.params.id} , req.body)
+            .then(()=> {
+                res.redirect('/brand')
+            })
+            .catch(next)
+    }  
 }
 
 

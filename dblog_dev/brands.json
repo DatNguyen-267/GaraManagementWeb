@@ -1,0 +1,98 @@
+[{
+  "_id": {
+    "$oid": "618bd1a05ce0d9fcb1147965"
+  },
+  "name": "KIA",
+  "slug": "",
+  "deleted": false,
+  "deletedAt": {
+    "$date": "2021-11-11T14:33:29.549Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-11T14:33:29.550Z"
+  }
+},{
+  "_id": {
+    "$oid": "618bd9d24fab2cf7b9791ea5"
+  },
+  "name": "MEC",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-11-10T14:40:18.856Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-10T14:40:18.856Z"
+  },
+  "slug": "mec",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "618bd9fa4fab2cf7b9791eaa"
+  },
+  "name": "datnguyen2672001",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-11-10T14:40:58.162Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-10T14:40:58.162Z"
+  },
+  "slug": "datnguyen2672001",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "618bde0434418bc2f8ed0ae3"
+  },
+  "name": "32131",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-11-10T14:58:12.544Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-10T14:58:12.544Z"
+  },
+  "slug": "32131",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "618d2307c887faf6ef1ae8e5"
+  },
+  "name": "BBB",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-11-11T14:04:55.976Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-11T14:04:55.976Z"
+  },
+  "slug": "bbb",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "618d2320c887faf6ef1ae8eb"
+  },
+  "name": "LLLL",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-11-11T14:05:20.612Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-11T14:05:20.612Z"
+  },
+  "slug": "llll",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "618d234cc887faf6ef1ae8f2"
+  },
+  "name": "ppppp",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-11-11T14:06:04.168Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-11T14:06:04.168Z"
+  },
+  "slug": "ppppp",
+  "__v": 0
+}]

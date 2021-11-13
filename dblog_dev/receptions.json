@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "618e6366effb4f053f5e3c2c"
+  },
+  "brand": "KIA",
+  "debt": 0,
+  "license": "D999D",
+  "name": "Nguyễn Thành Đạt",
+  "phone": "0919367584",
+  "slug": "D999D",
+  "receptionDate": "",
+  "status": "New",
+  "updatedAt": {
+    "$date": "2021-11-13T06:42:08.537Z"
+  }
+},{
+  "_id": {
+    "$oid": "618e691cc8ed8f364b5d11a1"
+  },
+  "name": "Nguyễn Hoàng Nam",
+  "license": "NN777",
+  "brand": "Mec",
+  "phone": "0975535435",
+  "receptionDate": "2021-11-12",
+  "deleted": false,
+  "debt": 0,
+  "status": "New",
+  "createdAt": {
+    "$date": "2021-11-12T13:16:12.963Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-13T06:13:24.714Z"
+  },
+  "slug": "nn777",
+  "__v": 0,
+  "deletedAt": {
+    "$date": "2021-11-13T06:13:24.713Z"
+  }
+}]

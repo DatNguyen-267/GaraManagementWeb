@@ -12,15 +12,24 @@ class ReceptionController {
     }
     create(req,res,next){
         const reception = new Reception(req.body)
-        reception.debt = 0;
+        reception.debt = 0
+        reception.status = 'New'
         reception.save()
             .then(()=> {
                 res.redirect('/reception')
             })
+            .catch(next)
     }
     edit(req,res,next){
         Reception.updateOne({_id:req.params.id}, req.body)
             .then(() => res.redirect('/reception'))
+            .catch(next)
+    }
+    delete(req,res,next){
+        Reception.delete({_id: req.params.id})
+            .then(()=> {
+                res.redirect('/reception')
+            })
             .catch(next)
     }
 }
