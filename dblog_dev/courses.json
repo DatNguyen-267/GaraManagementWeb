@@ -1,0 +1,89 @@
+[{
+  "_id": {
+    "$oid": "6175535e9523d9f216c0ac51"
+  },
+  "name": "Khoa hoc node js New",
+  "description": "căn thẳng tột độ kho vkl",
+  "image": "http://img.youtube.com/vi/LnTPJcUQdNU/hqdefault.jpg",
+  "videoId": "LnTPJcUQdNU",
+  "slug": "node-js",
+  "updatedAt": {
+    "$date": "2021-10-27T14:23:58.700Z"
+  },
+  "deleted": false,
+  "deletedAt": {
+    "$date": "2021-10-27T14:23:58.698Z"
+  }
+},{
+  "_id": {
+    "$oid": "617562429523d9f216c0ac52"
+  },
+  "name": "Khóa học javacript",
+  "description": "Học được các kiến thức cơ bản về javacript",
+  "image": "http://img.youtube.com/vi/LnTPJcUQdNU/hqdefault.jpg",
+  "videoId": "LnTPJcUQdNU",
+  "slug": "javascript-co-ban",
+  "deleted": false,
+  "deletedAt": {
+    "$date": "2021-10-27T14:23:59.668Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-27T14:23:59.668Z"
+  }
+},{
+  "_id": {
+    "$oid": "617564379523d9f216c0ac53"
+  },
+  "name": "khoa hoc html css",
+  "description": "adsadsa",
+  "image": "http://img.youtube.com/vi/LnTPJcUQdNU/hqdefault.jpg",
+  "videoId": "LnTPJcUQdNU",
+  "slug": "html-css",
+  "deleted": false,
+  "deletedAt": {
+    "$date": "2021-10-27T14:24:00.920Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-27T14:24:00.920Z"
+  }
+},{
+  "_id": {
+    "$oid": "6176c5fd933da84dc7ee8a58"
+  },
+  "name": "Lập trình WPF",
+  "description": "Khóa học dạy về WPF cơ bản",
+  "image": "http://img.youtube.com/vi/TURbeWK2wwg/hqdefault.jpg",
+  "videoId": "TURbeWK2wwg",
+  "createdAt": {
+    "$date": "2021-10-25T14:58:05.373Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-04T06:58:34.831Z"
+  },
+  "__v": 0,
+  "slug": "wpf-co-ban",
+  "deleted": true,
+  "deletedAt": {
+    "$date": "2021-11-04T06:58:34.831Z"
+  }
+},{
+  "_id": {
+    "$oid": "6177b3ce46aee3530114cb98"
+  },
+  "name": "Khoa hoc Mobile",
+  "description": "cơ bản",
+  "image": "http://img.youtube.com/vi/NpngifA8iRM/hqdefault.jpg",
+  "videoId": "NpngifA8iRM",
+  "createdAt": {
+    "$date": "2021-10-26T07:52:46.507Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-04T06:58:33.637Z"
+  },
+  "slug": "khoa-hoc-mobile",
+  "__v": 0,
+  "deleted": true,
+  "deletedAt": {
+    "$date": "2021-11-04T06:58:33.636Z"
+  }
+}]

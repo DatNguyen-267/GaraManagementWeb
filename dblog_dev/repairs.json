@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "618f733b420b800515415deb"
+  },
+  "baogia": "true",
+  "biensoxe": "5555",
+  "hopdong": "true",
+  "matiepnhan": "618e6366effb4f053f5e3c2c",
+  "ngaysuachua": "06-07-2021",
+  "tenkhachhang": "Dat",
+  "tienno": "1.000.000",
+  "trangthai": "New"
+}]
