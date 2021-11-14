@@ -162,3 +162,6 @@ html {
 .table--default {
   font-size: 14px;
   cursor: default; }
+
+.info-group label:first-child {
+  font-weight: 700; }

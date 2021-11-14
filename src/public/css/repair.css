@@ -1,0 +1,26 @@
+.repair-detail__navbar {
+  display: flex;
+  align-items: center;
+  margin: 8px 0; }
+
+.repair-detail__nav {
+  display: flex; }
+
+.repair-detail__nav-item {
+  margin-right: 8px;
+  cursor: pointer; }
+
+.repair-detail__toolbar {
+  margin-left: auto;
+  display: flex; }
+
+.repair-detail__toolbar-item {
+  margin-left: 8px;
+  cursor: pointer; }
+
+.repair-detail-info__general-item {
+  display: flex;
+  align-items: center; }
+
+.repair-detail-info__general-item-customer {
+  margin-right: 200px; }

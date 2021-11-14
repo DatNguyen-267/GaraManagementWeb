@@ -5,7 +5,6 @@ const Reception = require('../models/Reception');
 var listReception
 class RepairController {
     show(req,res,next) {
-
         Promise.all([Repair.find({}), Reception.find({})])
             .then(([repairs, receptions])=> {
                 var waitReceptions = []
@@ -30,6 +29,37 @@ class RepairController {
     create(req,res,next) {
         console.log(req.body)
         var repair = new Repair(req.body)
+        Reception.findOne({license: req.body.bienso})
+            .then((reception)=> {
+                repair.matiepnhan = reception._id
+                repair.baogia = false;
+                repair.hopdong = false;
+                repair.tienno = 0;
+                repair.trangthai = 'Mới'
+                repair.save()
+                    .then(()=> {
+                        res.redirect('/repairs')
+                    })
+                    .catch(next)
+            })
+            .catch(next)  
+    }
+    edit(req,res,next) {
+        Repair.updateOne({_id: req.params.id}, req.body)
+            .then(()=> {
+                res.redirect('/repairs')
+            })
+            .catch(next)
+    }
+    delete(req,res,next) {
+        Repair.deleteOne({_id: req.params.id})
+            .then(()=> {
+                res.redirect('/repairs')
+            })
+            .catch(next)
+    }
+    detail(req,res,next) {
+        res.render('repairs/detail')
     }
 }
 module.exports = new RepairController;
