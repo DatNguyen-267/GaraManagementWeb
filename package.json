@@ -21,13 +21,13 @@
   "homepage": "https://github.com/DatNguyen-267/nodejs_blog#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.5",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.12",
     "mongoose-delete": "^0.5.4",
     "mongoose-slug-generator": "^1.0.4"
   },
   "devDependencies": {
+    "express-handlebars": "^5.3.5",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.4",
     "morgan": "^1.10.0",

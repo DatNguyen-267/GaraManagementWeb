@@ -139,7 +139,7 @@
   </div>
 </form>
 
-<form method="POST" action="" name="form-edit">
+{{!-- <form method="POST" action="" name="form-edit">
   <div class="modal fade" id="form-edit" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -155,30 +155,14 @@
               <label for="input-edit-id" class="col-form-label">Mã phiếu:</label>
               <input type="text" disabled class="form-control" id="input-edit-id" name="id">
             </div>
-            {{!-- <div class="form-group">
-              <label for="input-edit-matiepnhan" class="col-form-label">Mã tiếp nhận:</label>
-              <input type="text" disabled class="form-control" id="input-edit-matiepnhan" name="matiepnhan">
-            </div> --}}
             <div class="form-group">
               <label for="input-edit-bienso" class="col-form-label">Biển số:</label>
               <input type="text" disabled class="form-control" id="input-edit-bienso" name="bienso">
             </div>
-            {{!-- <div class="form-group">
-              <label for="input-edit-tenkhachhang" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" disabled class="form-control" id="input-edit-tenkhachhang" name="tenkhachhang">
-            </div> --}}
             <div class="form-group">
               <label for="input-edit-ngaysuachua" class="col-form-label">Ngày sửa chữa:</label>
               <input type="text" class="form-control" id="input-edit-ngaysuachua" name="ngaysuachua">
             </div>
-            {{!-- <div class="form-group">
-              <label for="input-edit-trangthai" class="col-form-label">Trạng thái:</label>
-              <input type="text" disabled class="form-control" id="input-edit-trangthai" name="trangthai">
-            </div>
-            <div class="form-group">
-              <label for="input-edit-tienno" class="col-form-label">Tổng chi phí:</label>
-              <input type="text" disabled class="form-control" id="input-edit-tienno" name="tienno">
-            </div> --}}
           </form>
         </div>
         <div class="modal-footer">
@@ -188,7 +172,7 @@
       </div>
     </div>
   </div>
-</form>
+</form> --}}
 
 <form method="POST" name="form-delete" action="">
   <div class="modal fade" id="form-delete" tabindex="-1" role="dialog">
@@ -212,16 +196,15 @@
   </div>
 </form>
 
-
+<form method="GET" name="form-edit"></form>
 
 <script>
-  
   document.addEventListener('DOMContentLoaded', function () {
     var repairId;
     var btnAcceptDelete = $('#btn-accept-delete')
     var btnAcceptEdit = $('#btn-accept-edit')
     var btnView = $('.btn--view-item')
-    
+    var btnEdit = $('.btn--edit-item')
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
     
@@ -241,21 +224,21 @@
       $('#input-view-trangthai').val(rowData.cells[5].textContent)
       $('#input-view-tienno').val(rowData.cells[6].textContent)
     })
-    $('#form-edit').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      repairId = button.data('id')
-      var rowData =  button.parents('tr')[0]
-      $('#input-edit-id').val(rowData.cells[0].textContent)
+    //$('#form-edit').on('show.bs.modal', function (event) {
+      // button = $(event.relatedTarget)
+      //repairId = button.data('id')
+      //var rowData =  button.parents('tr')[0]
+      //$('#input-edit-id').val(rowData.cells[0].textContent)
       //$('#input-edit-matiepnhan').val(rowData.cells[1].textContent)
       //$('#input-edit-bienso').val(rowData.cells[2].textContent)
       //$('#input-edit-tenkhachhang').val(rowData.cells[3].textContent)
-      $('#input-edit-ngaysuachua').val(rowData.cells[4].textContent)
+      //$('#input-edit-ngaysuachua').val(rowData.cells[4].textContent)
       //$('#input-edit-trangthai').val(rowData.cells[5].textContent)
       //$('#input-edit-tienno').val(rowData.cells[6].textContent)
-    })
+    //})
 
-    btnAcceptEdit.click(function(){
-      formEdit.action = 'repairs/' + repairId + '/edit?_method=PUT'
+    btnEdit.click(function(){
+      formEdit.action = 'repairs/' + $(this).data('id') + '/repair-detail'
       formEdit.submit()
     })
     btnAcceptDelete.click(function() {
