@@ -4,7 +4,7 @@ const mongooseDelete = require('mongoose-delete')
 
 const Scheme = mongoose.Schema
 
-const Brand = new Scheme({
+const ImportVoucher = new Scheme({
     name: {type: String, required: true},
     slug: { type: String, slug: "name", unique:true },
 }, {
@@ -12,9 +12,9 @@ const Brand = new Scheme({
 })
 
 mongoose.plugin(slug)
-Brand.plugin(mongooseDelete, {  
+ImportVoucher.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('Brand', Brand)
+module.exports = mongoose.model('ImportVoucher', ImportVoucher)
