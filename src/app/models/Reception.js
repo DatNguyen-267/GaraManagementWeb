@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
-const Scheme = mongoose.Schema
+const Schema = mongoose.Schema
 
-const Reception = new Scheme({
+const Reception = new Schema({
     name: {type: String, required: true},
     license: {type: String},
     brand: {type: String},
