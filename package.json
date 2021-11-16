@@ -7,7 +7,7 @@
     "beautiful": "prettier --single-quote --trailing-comma all --write 'src/**/*.{js,json,scss}'",
     "start": "nodemon --inspect src/index.js",
     "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "dyannn267",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "express-handlebars": "^5.3.5",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.4",
+    "mocha": "^9.1.3",
     "morgan": "^1.10.0",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.15",

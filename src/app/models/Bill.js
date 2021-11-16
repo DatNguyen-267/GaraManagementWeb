@@ -4,17 +4,17 @@ const mongooseDelete = require('mongoose-delete')
 
 const Schema = mongoose.Schema
 
-const Brand = new Schema({
-    name: {type: String, required: true},
-    slug: { type: String, slug: "name", unique:true },
+const Bill = new Scheme({
+    of_reception: {type: Scheme.Types.ObjectId, ref: 'Reception'},
+    of_repair: {type: Scheme.Types.ObjectId, ref: 'Reception'}
 }, {
     timestamps: true,
 })
 
 mongoose.plugin(slug)
-Brand.plugin(mongooseDelete, { 
+Bill.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('Brand', Brand)
+module.exports = mongoose.model('Bill', Bill) 
