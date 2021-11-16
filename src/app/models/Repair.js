@@ -2,17 +2,17 @@ const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
-const Scheme = mongoose.Schema
+const Schema = mongoose.Schema
 
-const Repair = new Scheme({
-    matiepnhan: {type: String, required: true},
-    tenkhachhang: {type: String},
-    bienso: {type: String},
-    tienno: {type: Number},
-    ngaysuachua: {type: String},
-    baogia: {type: Boolean},
-    hopdong: {type: Boolean},
-    trangthai: {type: String},
+const Repair = new Schema({
+    of_reception: {type: Schema.Types.ObjectId, ref: 'Reception'},
+    customer_name: {type: String},
+    license: {type: String},
+    debt: {type: Number},
+    repairDate: {type: String},
+    quoted: {type: Boolean},
+    contracted: {type: Boolean},
+    status: {type: String},
 }, {
     timestamps: true,
 })

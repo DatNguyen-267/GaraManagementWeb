@@ -60,7 +60,7 @@
           <form>
             <div class="form-group">
                 <label for="input-add-license">Biển số:</label>
-                <select class="form-control" id="input-add-license" name="bienso">
+                <select class="form-control" id="input-add-license" name="license">
                     {{#each waitReceptions}}
                     <option>{{this.license}}</option>
                     {{/each}}
@@ -68,7 +68,7 @@
             </div>
             <div class="form-group">
                 <label for="input-add-name">Tên khách hàng:</label>
-                <select class="form-control" id="input-add-name" name="tenkhachhang">
+                <select class="form-control" id="input-add-name" name="customer_name">
                     {{#each waitReceptions}}
                     <option>{{this.name}}</option>
                     {{/each}}
@@ -76,7 +76,7 @@
             </div>
             <div class="form-group">
               <label for="input-add-repairDate" class="col-form-label">Ngày tạo phiếu:</label>
-              <input type="date" class="form-control" id="input-add-repairDate" name="ngaysuachua">
+              <input type="date" class="form-control" id="input-add-repairDate" name="repairDate">
             </div>
           </form>
         </div>
