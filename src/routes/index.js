@@ -5,6 +5,7 @@ const meRouter = require('./me')
 const receptionRouter = require('./reception')
 const brandRouter = require('./brand')
 const repairRouter = require('./repairs')
+const customerRouter =require('./customer')
 
 
 function route(app) {
@@ -19,6 +20,8 @@ function route(app) {
       app.use('/repairs', repairRouter)
 
       app.use('/brand', brandRouter)
+
+      app.use('/customer', customerRouter)
 
       app.use('/', siteRouter)
 

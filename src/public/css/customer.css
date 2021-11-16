@@ -1,9 +1,9 @@
 @charset "UTF-8";
 /* Form POP UP */
-.container__reception {
+.container__customer {
   margin: 16px 36px; }
 
-.reception__form-btn-close {
+.customer__form-btn-close {
   font-size: 16px; }
 
 /* HEADER */
@@ -70,13 +70,22 @@
   font-size: 14px; }
 
 /* DANH SÁCH PHIẾU TIẾP NHẬN */
-.list-reception {
+.list-customer {
   background-color: var(--white-color);
   margin-top: 16px;
   height: 100%;
   border-radius: 5px;
-  overflow: hidden; }
+  overflow: hidden;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%; }
 
-.list-reception__table {
+.list-customer__table {
   font-size: 14px;
-  cursor: default; }
+  cursor: default;
+  text-align: center; }
+
+.list-customer button {
+  width: 60px;
+  height: 40px;
+  margin-top: 5px; }
