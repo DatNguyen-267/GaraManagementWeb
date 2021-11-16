@@ -58,8 +58,8 @@ class RepairController {
             })
             .catch(next)
     }
-    detail(req,res,next) {
-        res.render('repairs/detail')
+    repairDetail(req,res,next) {
+        res.render('repairs/repair-detail')
     }
 }
 module.exports = new RepairController;
