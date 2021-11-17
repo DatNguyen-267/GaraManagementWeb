@@ -1,0 +1,5 @@
+npm install express
+npm i nodemon --save-dev
+npm i morgan --save-dev <co the bo qua>
+npm install express-handlebars --save-dev
+npm install node-sass --save-dev

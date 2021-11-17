@@ -1,0 +1,154 @@
+<link rel="stylesheet" href="/css/repair.css">
+<div class="repair-detail__title">
+    Chi tiết sửa chữa
+</div>
+
+<div class="back">
+
+</div>
+<div class="repair-detail__navbar">
+    <div class="repair-detail__nav">
+        <button class="repair-detail__nav-item">Thông tin sửa chữa</button>
+        <button class="repair-detail__nav-item">Thông tin hợp đồng</button>
+    </div>
+    <div class="repair-detail__toolbar">
+        <button class="repair-detail__toolbar-item">Báo giá</button>
+        <button class="repair-detail__toolbar-item">Lập hợp đồng</button>
+        <button class="repair-detail__toolbar-item">Lệnh sửa</button>
+    </div>
+</div>
+
+
+<div class="repair-detail-info">
+    <div class="repair-detail-info__general">
+        <div class="repair-detail-info__general-item">
+            <div class="repair-detail-info__general-item-customer">
+                <div class="info-group">
+                    <label for="">Mã phiếu sửa chữa:</label>
+                    <label >093d53g6yg</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Tên khách hàng:</label>
+                    <label >Nguyễn Thành Đạt</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Biển số xe:</label>
+                    <label >098JKL</label>
+                </div>
+            </div>
+            <div class="repair-detail-info__general-item-status">
+                <div class="info-group">
+                    <label for="">Trạng thái:</label>
+                    <label >Đã báo giá</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Tổng tiền:</label>
+                    <label >1.200.000</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Hành động kế tiếp:</label>
+                    <label >Lập hợp đồng</label>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="repair-detail-info__table-supplies">
+        <div class="table-name">Bảng thông tin chi tiết vật tư</div> 
+        <table class="table table--default">
+            <colgroup>
+            <col style="width: 100px;">
+            <col style="width: 200px;">
+            <col>
+            </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nội dung</th>
+                <th scope="col">Tên vật tư</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Thành tiền</th>
+                <th scope="col" style="width: 180px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">
+                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="repair-detail-info__table-wage">
+        <div class="table__header">
+            <div class="table__header-name">Bảng thông tin chi tiết tiền công</div> 
+						       
+        </div> 				    
+           
+        <table class="table table--default">
+            <colgroup>
+            <col style="width: 100px;">
+            <col style="width: 200px;" >
+            <col>	
+            </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tên tiền công</th>
+                <th scope="col">Tiền công</th>
+                <th scope="col" style="width: 180px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">
+                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="repair-detail-info__table-employee">
+         <div class="table-name">Bảng thông tin chi tiết nhân viên đảm nhiệm</div> 
+        <table class="table table--default">
+            <colgroup>
+            <col style="width: 100px;">
+            <col >
+            <col>
+            </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tên nhân viên</th>
+                <th scope="col" style="width: 180px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td scope="row">ABC</td>
+                <td scope="row">ABC</td>
+                <td scope="row">
+                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>

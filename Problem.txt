@@ -1,0 +1,19 @@
+MONGO
+
+ - làm theo cách 1: là tự tạo id rồi gán. rồi dò bảng khác
+
+- Kiệt
+    + VẬT tự
+    + NHÀ CUNG CẤP
+    + NHẬP KHO
+    -- XUẤT KHO
+- TUẤN
+    + NHÂN VIÊN
+    + CHỨC VỤ
+    + TIỀN CÔNG
+- NAM
+    + KHÁCH HÀNG - TẠO, 2- LÚC TẠO PHIẾU TIẾP NHẬN NÓ TỰ SEARCH NÓ TỰ THÊM
+    + QUẢN LÝ CÔNG NỢ
+    + LỊCH SỬ
+
+- 2 cái table trở lên -> Mecontroller

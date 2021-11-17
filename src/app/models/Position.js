@@ -4,17 +4,18 @@ const mongooseDelete = require('mongoose-delete')
 
 const Schema = mongoose.Schema
 
-const Brand = new Schema({
-    name: {type: String, required: true},
-    slug: { type: String, slug: "name", unique:true },
+const Position = new Schema({
+    name: String,
+    rule_1: Boolean,
+    rule_2: Boolean,
 }, {
     timestamps: true,
 })
 
 mongoose.plugin(slug)
-Brand.plugin(mongooseDelete, {  
+Position.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('Brand', Brand)
+module.exports = mongoose.model('Position', Position)

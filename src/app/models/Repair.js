@@ -4,23 +4,23 @@ const mongooseDelete = require('mongoose-delete')
 
 const Schema = mongoose.Schema
 
-const Reception = new Schema({
-    name: {type: String, required: true},
+const Repair = new Schema({
+    of_reception: {type: Schema.Types.ObjectId, ref: 'Reception'},
+    customer_name: {type: String},
     license: {type: String},
-    brand: {type: String},
-    phone: {type: String},
     debt: {type: Number},
-    receptionDate: {type: String},
+    repairDate: {type: String},
+    quoted: {type: Boolean},
+    contracted: {type: Boolean},
     status: {type: String},
-    slug: { type: String, slug: "license", unique:true },
 }, {
     timestamps: true,
 })
 
 mongoose.plugin(slug)
-Reception.plugin(mongooseDelete, { 
+Repair.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('Reception', Reception)
+module.exports = mongoose.model('Repair', Repair)

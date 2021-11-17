@@ -1,17 +1,17 @@
 :root {
-  --primary-color:#ee4d2d;
-  --behind-color: #F2F7FF;
-  --primary-color-rgba:rgba(238, 77, 45,0.5);
+  --primary-color: #ee4d2d;
+  --behind-color: #f2f7ff;
+  --primary-color-rgba: rgba(238, 77, 45, 0.5);
   --white-color: #ffffff;
   --black-color: #000;
   --text-color: #333;
   --border-color: #dbdbdbdb;
   --border-color-2: #aaa9a9db;
   --close-btn-color: #6c757d;
-  --btn-color:#007bff;
-  --blue-color:rgb(0, 123, 255);
-  --green-color: rgba(23,162,184,1);
-  --red-color: rgb(220,53,69);
+  --btn-color: #007bff;
+  --blue-color: rgb(0, 123, 255);
+  --green-color: rgba(23, 162, 184, 1);
+  --red-color: rgb(220, 53, 69);
   --blue-color-rgba: rgba(0, 123, 255, 0.1); }
 
 * {
@@ -19,7 +19,7 @@
 
 html {
   /* Hack font size 1rem = 10px */
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box; }
 
 .grid__row {
@@ -61,8 +61,8 @@ html {
   background-color: rgba(0, 0, 0, 0.4); }
 
 .custom-modal__body {
-  --growth-from:0.7;
-  --growth-to:1;
+  --growth-from: 0.7;
+  --growth-to: 1;
   margin: auto;
   margin-top: 5vh;
   position: relative;
@@ -109,16 +109,8 @@ html {
   font-weight: 600;
   color: white;
   border-radius: 3px;
-  outline: none;
   cursor: pointer;
-  border: none;
   margin: 0 4px; }
-
-.btn--delete-item,
-.btn--edit-item,
-.btn--view-item:target {
-  outline: none;
-  border: none; }
 
 .btn--view-item {
   background-color: var(--blue-color);
@@ -132,42 +124,44 @@ html {
   background-color: var(--green-color);
   border: 1px solid var(--green-color); }
 
-/* FORM POP UP */
-.btn--send-dialog {
-  border: none;
-  align-items: center;
-  background-color: var(--blue-color);
+/* MODAL FORM */
+.btn--send-dialog,
+.btn--close-dialog,
+.btn--delete-dialog {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 4px;
   width: 100px;
-  height: 30px;
+  height: 35px;
   font-weight: 500;
-  margin: 0 8px; }
+  margin: 0 8px;
+  border: none;
+  align-items: center; }
+
+.btn--send-dialog {
+  background-color: var(--blue-color); }
 
 .btn--delete-dialog {
-  align-items: center;
-  background-color: var(--red-color);
-  color: white;
-  font-size: 16px;
-  border-radius: 4px; }
+  background-color: var(--red-color); }
 
-.btn--close {
-  background-color: var(--close-btn-color);
-  color: var(--white-color);
-  font-size: 16px;
-  border-radius: 4px;
-  border: none;
-  width: 100px;
-  height: 30px;
-  font-weight: 500;
-  margin: 0 8px; }
+.btn--close-dialog {
+  background-color: var(--close-btn-color); }
 
 .form-group label,
 .form-group input {
-  font-size: 16px; }
+  font-size: 14px; }
+
+.form-group {
+  margin-bottom: 8px !important; }
 
 .modal-body-descreption {
   font-size: 16px;
   color: var(--text-color);
   margin: 16px 0; }
+
+.table--default {
+  font-size: 14px;
+  cursor: default; }
+
+.info-group label:first-child {
+  font-weight: 700; }

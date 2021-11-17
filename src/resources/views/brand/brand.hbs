@@ -17,6 +17,7 @@
       <td>{{this.name}}</td>
       <td>
         <button class="btn-delete" data-id="{{this._id}}" >Xoa</button>
+        <button class="btn-edit" data-id="{{this._id}}" data-toggle="modal" data-target="#form-edit">Sua</button>
       </td>
     </tr>
     {{/each}}
@@ -37,32 +38,60 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+{{!-- FORM SUA --}}
 
-<form name="form-delete"method="POST" action=""></form>
-{{!-- Muốn gửi dữ liệu đi. thì phải có 1 cái form tạm để tạo các phương thức --}}
-{{!-- THAO TÁC XÓA K PHẢI GET POST MÀ LÀ DELETE 
-NHUNNG7
-CÁI TRANG WEB CUA MINH NO SE KHONG HO TRO MINH DELETE--}}
-{{!-- /brand/delete?_method=DELETE --}}
+
+<form name="form-delete" method="POST" action=""></form>
+<form name="form-edit" method="POST" action="">
+  <div class="modal fade" id="form-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="form-edit-name" class="col-form-label">Hiệu xe:</label>
+              <input type="text" class="form-control" id="form-edit-name" name="name">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn--close-dialog" data-dismiss="modal">Đóng</button>
+          <button id="btn-accept-edit" type="button" class="btn--send-dialog">Sửa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Lắng nghe khi mà cái web nó đã dc render xong
-    //var btnDelete = document.querySelectorAll('.btn-delete')
-    //var formDelete = document.forms['form-delete']
-    
-    //for(var item of btnDelete) {
-      //item.onclick = function() {
-      //   var brandId = this.getAttribute('data-id')
-      //   formDelete.action = '/brand/' + brandId + '/delete?_method=DELETE'
-     //    formDelete.submit()
-    //  }
-    //}
-
+    var brandId;
+    var tdActive;
     var btnDelete = $('.btn-delete')
+    var btnAcceptEdit = $('#btn-accept-edit')
+    var formEdit = document.forms['form-edit']
+    var btnEdit = $('.btn-edit')
     btnDelete.click(function() {
         var brandId = $(this).attr('data-id')
-        console.log(brandId)
+    })
+
+    $('#form-edit').on('shown.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        brandId = button.data('id')
+    })
+    btnAcceptEdit.click(function() {
+      formEdit.action = '/brand/' + brandId + '/edit?_method=PUT'
+      formEdit.submit()
+    })
+    btnEdit.click(function(){
+      var row = $(this).parents('tr')[0]
+      $('#form-edit-name').val(row.cells[1].textContent)
     })
   })
 </script>
