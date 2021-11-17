@@ -11,7 +11,7 @@
     <div class="modal-content">
       <form action="/supply/create" method="POST">
       <div class="modal-header">
-        <h5 class="modal-title" id="addSupplyLabel">Thêm vật tư</h5>
+        <h5 class="modal-title">Thêm vật tư</h5>
         <button
           type="button"
           class="btn-close"
@@ -71,16 +71,16 @@
 
 <div
   class="modal fade"
-  id="modifyModal"
+  id="editModal"
   tabindex="-1"
-  aria-labelledby="modifySupplyLabel"
+  aria-labelledby="editSupplyLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/supply/modify" method="POST">
+      <form action="/supply/edit" method="POST" name="form-edit">
       <div class="modal-header">
-        <h5 class="modal-title" id="addSupplyLabel">Sửa vật tư</h5>
+        <h5 class="modal-title">Sửa vật tư</h5>
         <button
           type="button"
           class="btn-close"
@@ -93,19 +93,19 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Mã vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="supply_id"/>
+              <input type="text" class="form-control" id="supplyIdInEdit" name="supply_id"/>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="name"/>
+              <input type="text" class="form-control" id="supplyNameInEdit" name="name"/>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" aria-label="Default select example">
+              <select class="form-control" id="supplierInEdit" aria-label="Default select example">
                 <option value="null">Nhà cung cấp</option>
                 {{#each suppliers}}
                 <option value="{{this.supplier_id}}">{{this.name}}</option>
@@ -116,13 +116,13 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="import_price" />
+              <input type="text" class="form-control" id="importPriceInEdit" name="import_price" />
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá bán</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="sell_price" />
+              <input type="text" class="form-control" id="sellPriceInEdit" name="sell_price" />
             </div>
           </div>
         </div>
@@ -172,12 +172,47 @@
         <td>{{this.sell_price}}</td>
         <td>
           <button class="btn-delete" data-id="{{this._id}}">Xóa</button>
-          <button type="button" class="btn-modify" data-id="{{this._id}}">Sửa</button>
+          <button type="button" class="btn-edit" data-id="{{this._id}}" 
+          data='{ "supply_id": "{{this.supply_id}}", "name": "{{this.name}}", "import_price": {{this.import_price}}, "sell_price": {{this.sell_price}} }'>Sửa</button>
         </td>
       </tr>
     {{/each}}
   </tbody>
 </table>
+
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  aria-labelledby="deleteSupplyLabel"
+  aria-hidden="true"
+>
+<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Xóa vật tư</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Bạn có chắc chắn muốn xóa?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="btnModalDelete">Xóa</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+</div>
+
 
 <form name="form-delete" method="POST" action=""></form>
 
@@ -189,22 +224,37 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var btnModify = document.querySelectorAll('.btn-modify')
+    var btnEdit = document.querySelectorAll('.btn-edit')
     var btnDelete = document.querySelectorAll('.btn-delete')
+    var btnModalDelete = document.getElementById('btnModalDelete');
     var formDelete = document.forms['form-delete']
+    var formEdit = document.forms['form-edit']
     
     for(var item of btnDelete) {
+      item.setAttribute('data-bs-toggle', 'modal')
+      item.setAttribute('data-bs-target', '#deleteModal')
       item.onclick = function() {
         var supplyId = this.getAttribute('data-id')
-        formDelete.action = '/supply/' + supplyId + '/delete?_method=DELETE'
-        formDelete.submit()
+        btnModalDelete.setAttribute('data-id', supplyId);
       }
     }
 
-    for (var item of btnModify) {
+    btnModalDelete.onclick = function () {
+      var supplyId = this.getAttribute('data-id')
+      formDelete.action = '/supply/' + supplyId + '/delete?_method=DELETE'
+      formDelete.submit()
+    }
+
+    for (var item of btnEdit) {
+      item.setAttribute('data-bs-toggle', 'modal')
+      item.setAttribute('data-bs-target', '#editModal')
       item.onclick = function () {
-        this.setAttribute('data-bs-toggle', 'modal')
-        this.setAttribute('data-bs-target', '#modifyModal')
+        var json = JSON.parse(this.getAttribute('data'))
+
+        document.getElementById('supplyIdInEdit').value = json["supply_id"]
+        document.getElementById('supplyNameInEdit').value = json["name"]
+        document.getElementById('importPriceInEdit').value = json["import_price"]
+        document.getElementById('sellPriceInEdit').value = json["sell_price"]
       }
     }
   })
