@@ -4,6 +4,7 @@ const coursesRouter = require('./courses')
 const meRouter = require('./me')
 const receptionRouter = require('./reception')
 const brandRouter = require('./brand')
+const materialRouter = require('./material')
 const repairRouter = require('./repairs')
 
 
@@ -19,6 +20,8 @@ function route(app) {
       app.use('/repairs', repairRouter)
 
       app.use('/brand', brandRouter)
+
+      app.use('/material', materialRouter)
 
       app.use('/', siteRouter)
 

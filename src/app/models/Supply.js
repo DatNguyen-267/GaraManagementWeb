@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
-const Schema = mongoose.Schema
+const Scheme = mongoose.Schema
 
-const Material = new Schema({
-    material_id: {type: String, required: true},
+const Supply = new Scheme({
+    supply_id: {type: String, required: true},
     name: {type: String, required: true},
     amount: {type: Number, required: false, default: 0},
     import_price: {type: Number, required: true},
@@ -17,9 +17,9 @@ const Material = new Schema({
 })
 
 mongoose.plugin(slug)
-Material.plugin(mongooseDelete, { 
+Supply.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('Material', Material)
+module.exports = mongoose.model('Supply', Supply)
