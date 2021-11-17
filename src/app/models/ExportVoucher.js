@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
-const Schema = mongoose.Schema
+const Scheme = mongoose.Schema
 
-const Brand = new Schema({
+const ExportVoucher = new Scheme({
     name: {type: String, required: true},
     slug: { type: String, slug: "name", unique:true },
 }, {
@@ -12,9 +12,9 @@ const Brand = new Schema({
 })
 
 mongoose.plugin(slug)
-Brand.plugin(mongooseDelete, {  
+ExportVoucher.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('Brand', Brand)
+module.exports = mongoose.model('ExportVoucher', ExportVoucher)
