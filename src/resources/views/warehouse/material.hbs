@@ -1,15 +1,15 @@
-<link rel="stylesheet" href="./css/supplies.css" />
+<link rel="stylesheet" href="./css/materials.css" />
 
 <div
   class="modal fade"
   id="addModal"
   tabindex="-1"
-  aria-labelledby="addSupplyLabel"
+  aria-labelledby="addMaterialLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/supply/create" method="POST">
+      <form action="/material/create" method="POST">
       <div class="modal-header">
         <h5 class="modal-title">Thêm vật tư</h5>
         <button
@@ -24,7 +24,7 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Mã vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="supply_id"/>
+              <input type="text" class="form-control" id="" name="material_id"/>
             </div>
           </div>
           <div class="p-2 row">
@@ -38,8 +38,8 @@
             <div class="col-9 form-group">
               <select class="form-control" aria-label="Default select example">
                 <option value="null">Nhà cung cấp</option>
-                {{#each suppliers}}
-                <option value="{{this.supplier_id}}">{{this.name}}</option>
+                {{#each materials}}
+                <option value="{{this.material_id}}">{{this.name}}</option>
                 {{/each}}
               </select>
             </div>
@@ -73,12 +73,12 @@
   class="modal fade"
   id="editModal"
   tabindex="-1"
-  aria-labelledby="editSupplyLabel"
+  aria-labelledby="editMaterialLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/supply/edit" method="POST" name="form-edit">
+      <form action="/material/edit" method="POST" name="form-edit">
       <div class="modal-header">
         <h5 class="modal-title">Sửa vật tư</h5>
         <button
@@ -93,13 +93,13 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Mã vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="supplyIdInEdit" name="supply_id"/>
+              <input type="text" class="form-control" id="materialIdInEdit" name="material_id"/>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="supplyNameInEdit" name="name"/>
+              <input type="text" class="form-control" id="materialNameInEdit" name="name"/>
             </div>
           </div>
           <div class="p-2 row">
@@ -163,9 +163,9 @@
     </tr>
   </thead>
   <tbody>
-    {{#each supplies}}
+    {{#each materials}}
       <tr>
-        <td>{{this.supply_id}}</td>
+        <td>{{this.material_id}}</td>
         <td>{{this.name}}</td>
         <td>{{this.amount}}</td>
         <td>{{this.import_price}}</td>
@@ -173,7 +173,7 @@
         <td>
           <button class="btn-delete" data-id="{{this._id}}">Xóa</button>
           <button type="button" class="btn-edit" data-id="{{this._id}}" 
-          data='{ "supply_id": "{{this.supply_id}}", "name": "{{this.name}}", "import_price": {{this.import_price}}, "sell_price": {{this.sell_price}} }'>Sửa</button>
+          data='{ "material_id": "{{this.material_id}}", "name": "{{this.name}}", "import_price": {{this.import_price}}, "sell_price": {{this.sell_price}} }'>Sửa</button>
         </td>
       </tr>
     {{/each}}
@@ -184,7 +184,7 @@
   class="modal fade"
   id="deleteModal"
   tabindex="-1"
-  aria-labelledby="deleteSupplyLabel"
+  aria-labelledby="deleteMaterialLabel"
   aria-hidden="true"
 >
 <div class="modal-dialog">
@@ -234,14 +234,14 @@
       item.setAttribute('data-bs-toggle', 'modal')
       item.setAttribute('data-bs-target', '#deleteModal')
       item.onclick = function() {
-        var supplyId = this.getAttribute('data-id')
-        btnModalDelete.setAttribute('data-id', supplyId);
+        var materialId = this.getAttribute('data-id')
+        btnModalDelete.setAttribute('data-id', materialId);
       }
     }
 
     btnModalDelete.onclick = function () {
-      var supplyId = this.getAttribute('data-id')
-      formDelete.action = '/supply/' + supplyId + '/delete?_method=DELETE'
+      var materialId = this.getAttribute('data-id')
+      formDelete.action = '/material/' + materialId + '/delete?_method=DELETE'
       formDelete.submit()
     }
 
@@ -251,8 +251,8 @@
       item.onclick = function () {
         var json = JSON.parse(this.getAttribute('data'))
 
-        document.getElementById('supplyIdInEdit').value = json["supply_id"]
-        document.getElementById('supplyNameInEdit').value = json["name"]
+        document.getElementById('materialIdInEdit').value = json["material_id"]
+        document.getElementById('materialNameInEdit').value = json["name"]
         document.getElementById('importPriceInEdit').value = json["import_price"]
         document.getElementById('sellPriceInEdit').value = json["sell_price"]
       }
