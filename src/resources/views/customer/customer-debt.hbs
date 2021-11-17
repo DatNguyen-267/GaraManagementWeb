@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="./css/customer-debt.css">
+<div class="container__customer-debt">
+  <div class="header--customer-debt">
+    <div class="header--customer-debt__title">Khách hàng nợ</div>
+    {{!-- <button class="header--customer-debt__btn-add btn btn--primary" data-toggle="modal" data-target="#form-add-customer-debt">Thêm khách hàng</button> --}}
+  </div>
+  <div class="ctner">
+    <div class="toolbar">
+      <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin khách hàng...">
+        <span class="ti-search toolbar__search-icon"></span>
+        
+      </div>
+      <div class="dropdown toolbar__filter">
+        <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        </button>
+        <div class="toolbar__filter-menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+        </div>
+      </div>
+    </div>
+    <div class="list-customer-debt">
+      <table class="table table--default">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#Stt</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">CMND</th>
+            <th scope="col">Email</th>
+            <th scope="col">Số điện thoại</th>
+             <th scope="col" colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each customers}}
+          <tr data-id="{{this._id}}">
+            <th scope="row">{{@index}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.birthday}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.cardIdentify}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td></td>
+            <td>
+              <button class="btn--view-item" data-id="{{this._id}}" >Chi tiết</button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- scrip -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{{!-- --}}
+
+
+

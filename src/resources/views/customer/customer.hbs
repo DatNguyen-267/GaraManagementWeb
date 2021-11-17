@@ -1,0 +1,300 @@
+<link rel="stylesheet" href="./css/customer.css">
+<div class="container__customer">
+  <div class="header--customer">
+    <div class="header--customer__title">Khách hàng</div>
+    <button class="header--customer__btn-add btn btn--primary" data-toggle="modal" data-target="#form-add-customer">Thêm khách hàng</button>
+  </div>
+  <div class="ctner">
+    <div class="toolbar">
+      <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin khách hàng...">
+        <span class="ti-search toolbar__search-icon"></span>
+        
+      </div>
+      <div class="dropdown toolbar__filter">
+        <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        </button>
+        <div class="toolbar__filter-menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+        </div>
+      </div>
+    </div>
+    <div class="list-customer">
+      <table class="table table--default">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#Stt</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">CMND</th>
+            <th scope="col">Email</th>
+            <th scope="col">Số điện thoại</th>
+             <th scope="col" colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each customers}}
+          <tr data-id="{{this._id}}">
+            <th scope="row">{{@index}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.birthday}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.cardIdentify}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td></td>
+            <td>
+              <button class="btn--view-item" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#form-view-customer" data-id="">Xem</button>
+              <button class="btn--edit-item" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#form-edit-customer" data-id="">Sửa</button>
+              <button class="btn--delete-item" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#form-delete-customer" data-id="">Xóa</button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- POP UP FORM -->
+<!-- FORM THÊM Khách hàng-->
+<form method="POST" action="/customer/create">
+  <div class="modal fade" id="form-add-customer" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+          <button type="button customer__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="customer-add-name" class="col-form-label">Tên khách hàng:</label>
+              <input type="text" class="form-control" id="customer-add-name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-add-cardIdentify" class="col-form-label">CMND:</label>
+              <input type="text" class="form-control" id="customer-add-cardIdentify" name="cardIdentify">
+            </div>
+            <div class="form-group">
+              <label for="customer-add-address" class="col-form-label">CMND:</label>
+              <input type="text" class="form-control" id="customer-add-address" name="address" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-add-phone" class="col-form-label">Số điện thoại:</label>
+              <input type="text" class="form-control" id="customer-add-phone" name="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-add-email" class="col-form-label">Email:</label>
+              <input type="email" class="form-control" id="customer-add-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-add-birthday" class="col-form-label">Ngày sinh:</label>
+              <input type="date" class="form-control" id="customer-add-birthday" name="birthday" required> 
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+          <button id="btn-add-customer" type="submit" class="btn btn--send-dialog">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- FORM XEM Khách hàng-->
+<div class="modal fade" id="form-view-customer" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+        <button type="button customer__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+              <label for="customer-view-name" class="col-form-label">Tên khách hàng:</label>
+              <input readonly type="text" class="form-control" id="customer-view-name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="customer-view-cardIdentify" class="col-form-label">CMND:</label>
+              <input readonly type="text" class="form-control" id="customer-view-cardIdentify" name="cardIdentify">
+            </div>
+            <div class="form-group">
+              <label for="customer-add-address" class="col-form-label">Địa chỉ:</label>
+              <input readonly type="text" class="form-control" id="customer-view-address" name="address">
+            </div>
+            <div class="form-group">
+              <label for="customer-view-phone" class="col-form-label">Số điện thoại:</label>
+              <input readonly type="text" class="form-control" id="customer-view-phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="customer-view-email" class="col-form-label">Email:</label>
+              <input readonly type="email" class="form-control" id="customer-view-email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="customer-view-birthday" class="col-form-label">Ngày sinh:</label>
+              <input readonly type="date" class="form-control" id="customer-view-birthday" name="birthday">
+            </div>
+        
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM SỬA Khách hàng-->
+<form method="POST" name="form-submit">
+  <div class="modal fade" id="form-edit-customer" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+          <button type="button customer__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="customer-edit-name" class="col-form-label">Tên khách hàng:</label>
+              <input type="text" class="form-control" id="customer-edit-name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-edit-cardIdentify" class="col-form-label">CMND:</label>
+              <input type="text" class="form-control" id="customer-edit-cardIdentify" name="cardIdentify">
+            </div>
+            <div class="form-group">
+              <label for="customer-add-address" class="col-form-label">Địa chỉ:</label>
+              <input type="text" class="form-control" id="customer-edit-address" name="address" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-edit-phone" class="col-form-label">Số điện thoại:</label>
+              <input type="text" class="form-control" id="customer-edit-phone" name="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-edit-email" class="col-form-label">Email:</label>
+              <input type="email" class="form-control" id="customer-edit-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-edit-birthday" class="col-form-label">Ngày sinh:</label>
+              <input type="date" class="form-control" id="customer-edit-birthday" name="birthday" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+          <button id="btn-edit-form" type="button" class="btn btn--send-dialog">Sửa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- FORM XÓA Khách hàng-->
+<form method="POST" name="form-delete" action="">
+<div class="modal fade" id="form-delete-customer" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Xóa khách hàng</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body modal-body-descreption">
+        Bạn có chắc chắn muốn xóa khách hàng này!!!
+      </div>
+      <div class="modal-footer">
+        <button id="btn-accept-delete" type="button" class="btn btn--delete-dialog">Xóa</button>
+        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<!-- scrip -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{{!-- --}}
+
+
+
+<!-- MAIN CSS -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var formSubmit = document.forms['form-submit']
+    var formDelete = document.forms['form-delete']
+    var btnSubmitEdit = $('#btn-edit-form')
+    var btnView = $('.btn--view-item')
+    var btnEdit = $('.btn--edit-item')
+    var btnAcceptDelete = $('#btn-accept-delete')
+
+    var customerId;
+
+    $('#form-edit-customer').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      customerId = button.data('id')
+    })
+    btnSubmitEdit.click(function () {
+      formSubmit.action = '/customer/' + customerId + '/?_method=PUT'
+      formSubmit.submit()
+    })
+    $('#form-delete-customer').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      customerId = button.data('id')
+    })
+    btnView.click(function () {
+      var id = $(this).data('id')
+      var rowData = $(this).parents('tr')[0]
+      $('#customer-view-name').val(rowData.cells[1].textContent)
+      $('#customer-view-cardIdentify').val(rowData.cells[4].textContent)
+      $('#customer-view-birthday').val(rowData.cells[2].textContent)
+      $('#customer-view-address').val(rowData.cells[3].textContent)
+      $('#customer-view-phone').val(rowData.cells[6].textContent)
+      $('#customer-view-email').val(rowData.cells[5].textContent)
+     
+    })
+    btnEdit.click(function () {
+      var id = $(this).data('id')
+      var rowData = $(this).parents('tr')[0]
+      $('#customer-edit-name').val(rowData.cells[1].textContent)
+      $('#customer-edit-cardIdentify').val(rowData.cells[4].textContent)
+      $('#customer-edit-birthday').val(rowData.cells[2].textContent)
+      $('#customer-edit-address').val(rowData.cells[3].textContent)
+      $('#customer-edit-phone').val(rowData.cells[6].textContent)
+      $('#customer-edit-email').val(rowData.cells[5].textContent)
+     
+    })
+    btnAcceptDelete.click(function () {
+      if (customerId != null) {
+        formDelete.action = '/customer/' + customerId + '/?_method=DELETE'
+        formDelete.submit()
+      }
+
+    })
+  })
+</script>
