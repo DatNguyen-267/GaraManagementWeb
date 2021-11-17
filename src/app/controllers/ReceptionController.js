@@ -1,4 +1,5 @@
 const Reception = require('../models/Reception')
+const Customer =require('../models/Customer')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { render } = require('node-sass')
 class ReceptionController {

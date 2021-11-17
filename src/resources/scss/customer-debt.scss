@@ -1,25 +1,22 @@
 /* Form POP UP */
-.container__customer {
+.container__customer-debt {
     margin: 16px 36px;
 }
-.customer__form-btn-close {
+.customer-debt__form-btn-close {
     font-size: 16px;
 }
 /* HEADER */
-.header--customer {
+.header--customer-debt {
     display: flex;
     text-align: center;
     justify-content: space-between;
 }
-.header--customer__title {
+.header--customer-debt__title {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-color);
 }
-.header--customer__btn-add {
-    width: 180px;
-    box-shadow: 0 2px 10px var(--blue-color-rgba);
-}
+
 /* BODY */
 .ctner{
     height: 75vh;
@@ -79,7 +76,7 @@
     font-size: 14px;
 }
 /* DANH SÁCH PHIẾU TIẾP NHẬN */
-.list-customer {
+.list-customer-debt {
     background-color: var(--white-color);
     margin-top: 16px;
     height: 100%;
@@ -89,8 +86,12 @@
     border-collapse: collapse;
     width: 100%;
 }
-.list-customer__table{
+.list-customer-debt__table{
     font-size: 14px;
     cursor: default;
     text-align: center;
+}
+.list-customer-debt button{
+    width: 60px;
+    
 }

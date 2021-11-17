@@ -9,11 +9,18 @@ class CustomerController {
                     customers: mutipleMongooseToObject(customers)})
             }) 
             .catch(next)
+        
+    }
+    showdebt(req,res,next) {
+        Customer.find({})
+            .then(customers => {
+                res.render('customer/customer-debt', {
+                    customers: mutipleMongooseToObject(customers)})
+            }) 
+            .catch(next)
     }
     create(req,res,next){
         const customer = new Customer(req.body)
-        customer.debt = 0
-        customer.status = 'New'
         customer.save()
             .then(()=> {
                 res.redirect('/customer')
