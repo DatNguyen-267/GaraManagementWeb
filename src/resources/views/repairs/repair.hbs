@@ -46,6 +46,7 @@
     </table>
 </div>
 <!-- MODAL -->
+
 <form method="POST" action="/repairs/create">
   <div class="modal fade" id="form-add" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -71,6 +72,7 @@
                 <select class="form-control" id="input-add-name" name="customer_name">
                     {{#each waitReceptions}}
                     <option>{{this.name}}</option>
+                    
                     {{/each}}
                 </select>
             </div>
@@ -88,7 +90,6 @@
     </div>
   </div>
 </form>
-
 <form method="POST" action="">
   <div class="modal fade" id="form-view" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

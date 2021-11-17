@@ -8,39 +8,28 @@ const Repair_Detail_Material = require('../models/Repair_Detail_Material');
 var listReception
 class RepairController {
     show(req,res,next) {
-        // Promise.all([Repair.find({}), Reception.find({})])
-        //     .then(([repairs, receptions])=> {
-        //         var waitReceptions = []
-        //         for (var reception of receptions) {
-        //             var check = false;
-        //             for (var repair of repairs) {
-        //                 if (reception.id === repair.matiepnhan) {
-        //                     check = true;
-        //                     break;
-        //                 }
-        //             }
-        //             if (check === false) {
-        //                 waitReceptions.push(reception)
-        //             }
-        //         }
-        //         res.render('repairs/repair', {
-        //             repairs: mutipleMongooseToObject(repairs),
-        //             waitReceptions: mutipleMongooseToObject(waitReceptions)
-        //         })
-        //     })
-        // repairs = Repair.find({}).populate('of_reception').exec()
-        Repair.findOne({license: 'NN777'}).populate('of_reception', ['receptionDate', 'name'])
+        Repair.find({}).populate('of_reception')
             .then((repairs)=> {
-                return repairs;
-            })
-            .then((repairs)=> {
-                return Reception.find({})
-                    .then((reception)=> {
-                        return {reception, repairs}
+                Reception.find({})
+                    .then((receptions)=> {
+                        var waitReceptions =  receptions.map((reception, index)=> {
+                            if (!(reception.repair != null )) {
+                                return reception
+                            }
+                        })
+                        var check
+                        if (waitReceptions.some(el => el == null)) check = true
+                            else check = false
+                        // res.send(check)
+                        res.render('repairs/repair', {
+                            repairs: mutipleMongooseToObject(repairs),
+                            waitReceptions: function() {
+                                if (check) return waitReceptions
+                                else return mutipleMongooseToObject(waitReceptions)
+                            }
+                        })
                     })
-            })
-            .then ((receptions, repairs)=> {
-                res.send({receptions, repairs})
+                    .catch(next)
             })
             .catch(next)
         
@@ -73,7 +62,7 @@ class RepairController {
     delete(req,res,next) {
         Repair.deleteOne({_id: req.params.id})
             .then(()=> {
-                res.redirect('/repairs')
+                    res.redirect('/repairs')
             })
             .catch(next)
     }
