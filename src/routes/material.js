@@ -1,9 +1,10 @@
 const express = require('express')
-const MaterialController = require('../app/controllers/MaterialController')
+const materialController = require('../app/controllers/MaterialController')
 const router = express.Router()
 
-router.get('/', MaterialController.show)
-router.post('/create', MaterialController.create)
-router.delete('/:id/delete', MaterialController.delete)
+router.get('/', materialController.show)
+router.post('/create', materialController.create)
+router.delete('/:id/delete', materialController.delete)
+router.put('/:id', materialController.edit)
 
 module.exports = router;

@@ -35,6 +35,12 @@ class MaterialController {
             }) 
             .catch()
     }
+
+    edit(req, res, next) {
+        Material.updateOne({_id:req.params.id}, req.body)
+            .then(() => res.redirect('/material'))
+            .catch(next)
+    }
 }
 
 
