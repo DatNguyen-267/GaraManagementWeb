@@ -29,14 +29,13 @@
             {{#each repairs}}
             <tr>
                 <td scope="row">{{this._id}}</th>
-                <td>{{this.matiepnhan}}</td>
-                <td>{{this.bienso}}</td>
-                <td>{{this.tenkhachhang}}</td>
-                <td>{{this.ngaysuachua}}</td>
-                <td>{{this.trangthai}}</td>
-                <td>{{this.tienno}}</td>
+                <td>{{this.of_reception._id}}</td>
+                <td>{{this.license}}</td>
+                <td>{{this.customer_name}}</td>
+                <td>{{this.repairDate}}</td>
+                <td>{{this.status}}</td>
+                <td>{{this.debt}}</td>
                 <td>
-                    <button class="btn--view-item" data-toggle="modal" data-target="#form-view" data-id="{{this._id}}">Xem</button>
                     <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
                     <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
                 </td>
@@ -85,55 +84,6 @@
         <div class="modal-footer">
           <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
           <button type="submit" class="btn btn--send-dialog">Thêm</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-<form method="POST" action="">
-  <div class="modal fade" id="form-view" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Xem phiếu sửa chữa</h5>
-          <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="input-view-id" class="col-form-label">Mã phiếu:</label>
-              <input type="text" disabled class="form-control" id="input-view-id" name="id">
-            </div>
-            <div class="form-group">
-              <label for="input-view-matiepnhan" class="col-form-label">Mã tiếp nhận:</label>
-              <input type="text" disabled class="form-control" id="input-view-matiepnhan" name="matiepnhan">
-            </div>
-            <div class="form-group">
-              <label for="input-view-bienso" class="col-form-label">Biển số:</label>
-              <input type="text" disabled class="form-control" id="input-view-bienso" name="bienso">
-            </div>
-            <div class="form-group">
-              <label for="input-view-tenkhachhang" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" disabled class="form-control" id="input-view-tenkhachhang" name="tenkhachhang">
-            </div>
-            <div class="form-group">
-              <label for="input-view-ngaysuachua" class="col-form-label">Ngày sửa chữa:</label>
-              <input type="text" disabled class="form-control" id="input-view-ngaysuachua" name="ngaysuachua">
-            </div>
-            <div class="form-group">
-              <label for="input-view-trangthai" class="col-form-label">Trạng thái:</label>
-              <input type="text" disabled class="form-control" id="input-view-trangthai" name="trangthai">
-            </div>
-            <div class="form-group">
-              <label for="input-view-tienno" class="col-form-label">Tổng chi phí:</label>
-              <input type="text" disabled class="form-control" id="input-view-tienno" name="tienno">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
         </div>
       </div>
     </div>
@@ -213,31 +163,6 @@
       var button = $(event.relatedTarget)
       repairId = button.data('id')
     })
-    $('#form-view').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      repairId = button.data('id')
-      var rowData =  button.parents('tr')[0]
-      $('#input-view-id').val(rowData.cells[0].textContent)
-      $('#input-view-matiepnhan').val(rowData.cells[1].textContent)
-      $('#input-view-bienso').val(rowData.cells[2].textContent)
-      $('#input-view-tenkhachhang').val(rowData.cells[3].textContent)
-      $('#input-view-ngaysuachua').val(rowData.cells[4].textContent)
-      $('#input-view-trangthai').val(rowData.cells[5].textContent)
-      $('#input-view-tienno').val(rowData.cells[6].textContent)
-    })
-    //$('#form-edit').on('show.bs.modal', function (event) {
-      // button = $(event.relatedTarget)
-      //repairId = button.data('id')
-      //var rowData =  button.parents('tr')[0]
-      //$('#input-edit-id').val(rowData.cells[0].textContent)
-      //$('#input-edit-matiepnhan').val(rowData.cells[1].textContent)
-      //$('#input-edit-bienso').val(rowData.cells[2].textContent)
-      //$('#input-edit-tenkhachhang').val(rowData.cells[3].textContent)
-      //$('#input-edit-ngaysuachua').val(rowData.cells[4].textContent)
-      //$('#input-edit-trangthai').val(rowData.cells[5].textContent)
-      //$('#input-edit-tienno').val(rowData.cells[6].textContent)
-    //})
-
     btnEdit.click(function(){
       formEdit.action = 'repairs/' + $(this).data('id') + '/repair-detail'
       formEdit.submit()

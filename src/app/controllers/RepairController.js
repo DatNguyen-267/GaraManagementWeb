@@ -66,8 +66,20 @@ class RepairController {
             })
             .catch(next)
     }
-    repairDetail(req,res,next) {
-        res.render('repairs/repair-detail')
+    repairDetail(req, res, next) {
+        Repair.findOne({_id: req.params.id}).populate('of_reception')
+            .then((repair) => {
+                return repair
+            })
+            .then((repair) => {
+                res.render('repairs/repair-detail', {
+                    repair: mongooseToOject(repair)
+                })
+            })
+        
+    }
+    quote(req,res,next) {
+        res.render('repairs/quote')
     }
 }
 module.exports = new RepairController;

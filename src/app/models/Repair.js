@@ -6,12 +6,14 @@ const Schema = mongoose.Schema
 
 const Repair = new Schema({
     of_reception: {type: Schema.Types.ObjectId, ref: 'Reception'},
+    // employee_create: {type: Schema.Types.ObjectId, ref: 'Employee'},
     customer_name: {type: String},
     license: {type: String},
     debt: {type: Number},
     repairDate: {type: String},
     quoted: {type: Boolean},
     contracted: {type: Boolean},
+    ordered: Boolean,
     status: {type: String},
 }, {
     timestamps: true,
