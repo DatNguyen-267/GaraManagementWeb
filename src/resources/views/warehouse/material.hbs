@@ -32,10 +32,10 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" aria-label="Default select example">
+              <select class="form-control" name="of_supplier" aria-label="Default select example">
                 <option value="null">Nhà cung cấp</option>
-                {{#each materials}}
-                <option value="{{this.material_id}}">{{this.name}}</option>
+                {{#each suppliers}}
+                <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
             </div>
@@ -97,7 +97,7 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" id="material-edit-supplier" aria-label="Default select example">
+              <select class="form-control" name="of_supplier" id="material-edit-supplier" aria-label="Default select example">
                 <option value="null">Nhà cung cấp</option>
                 {{#each suppliers}}
                 <option value="{{this.supplier_id}}">{{this.name}}</option>

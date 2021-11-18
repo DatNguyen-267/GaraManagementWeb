@@ -8,6 +8,7 @@ const materialRouter = require('./material')
 const repairRouter = require('./repairs')
 const customerRouter =require('./customer')
 const customerdebtRouter =require('./customerdebt')
+const supplierRouter = require('./supplier')
 
 
 function route(app) {
@@ -30,6 +31,7 @@ function route(app) {
 
       app.use('/material', materialRouter)
 
+      app.use('/supplier', supplierRouter)
 
       app.use('/', siteRouter)
 

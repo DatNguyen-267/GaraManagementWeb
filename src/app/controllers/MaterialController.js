@@ -33,7 +33,7 @@ class MaterialController {
             .then(()=> {
                 res.redirect('/material')
             }) 
-            .catch()
+            .catch(next)
     }
 
     edit(req, res, next) {
