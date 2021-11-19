@@ -1,4 +1,7 @@
 const Repair = require('../models/Repair')
+const Material = require('../models/Material')
+const Employee = require('../models/Employee')
+const Wage = require('../models/Wage')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 
@@ -67,19 +70,42 @@ class RepairController {
             .catch(next)
     }
     repairDetail(req, res, next) {
+        
         Repair.findOne({_id: req.params.id}).populate('of_reception')
-            .then((repair) => {
-                return repair
+            .then((repair)=> {
+                return Material.find({})
+                    .then((materials) => {
+                        return Wage.find({})
+                            .then((wages) => {
+                                return Employee.find({})
+                                    .then((employees)=> {
+                                        return {
+                                            repair,
+                                            materials,
+                                            wages,
+                                            employees,
+                                        }
+                                    }) 
+                            })
+                    })
             })
-            .then((repair) => {
+            .then((data) => {
                 res.render('repairs/repair-detail', {
-                    repair: mongooseToOject(repair)
-                })
+                            Repair: mongooseToOject(data.repair),
+                            Materials: mutipleMongooseToObject(data.materials),
+                            Employees: mutipleMongooseToObject(data.employees),
+                            Wages: mutipleMongooseToObject(data.wages),
+                        })
             })
+            .catch(next)
         
     }
     quote(req,res,next) {
         res.render('repairs/quote')
+    }
+    createMaterial(req, res, next) {
+        repairDetailMaterial = new Repair_Detail_Material(req.body)
+
     }
 }
 module.exports = new RepairController;
