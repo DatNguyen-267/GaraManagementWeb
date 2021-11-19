@@ -2,13 +2,13 @@ const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
-const Scheme = mongoose.Schema
+const Schema = mongoose.Schema
 
-const ImportVoucher = new Scheme({
+const ImportVoucher = new Schema({
     import_id: {type: String, required: true},
-    //of_supplier: {type: Schema.Types.ObjectId, ref: 'Supplier'},
+    of_supplier: {type: Schema.Types.ObjectId, ref: 'Supplier'},
     import_date: {type: Date, required: true},
-    total_amount: {type: Number, required: false},
+    total_amount: {type: Number, required: false, default: 0},
 }, {
     timestamps: true,
 })
@@ -19,4 +19,4 @@ ImportVoucher.plugin(mongooseDelete, {
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('ImportVoucher', ImportVoucher)
+module.exports = mongoose.model('Import_Voucher', ImportVoucher)
