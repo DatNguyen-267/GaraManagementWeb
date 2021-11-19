@@ -5,8 +5,10 @@ const mongooseDelete = require('mongoose-delete')
 const Scheme = mongoose.Schema
 
 const ImportVoucher = new Scheme({
-    name: {type: String, required: true},
-    slug: { type: String, slug: "name", unique:true },
+    import_id: {type: String, required: true},
+    //of_supplier: {type: Schema.Types.ObjectId, ref: 'Supplier'},
+    import_date: {type: Date, required: true},
+    total_amount: {type: Number, required: false},
 }, {
     timestamps: true,
 })

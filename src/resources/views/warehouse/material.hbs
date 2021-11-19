@@ -18,12 +18,6 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã vật tư</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="" name="material_id"/>
-            </div>
-          </div>
-          <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
               <input type="text" class="form-control" id="" name="name"/>
@@ -82,12 +76,6 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã vật tư</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="material-edit-id" name="material_id"/>
-            </div>
-          </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
@@ -176,7 +164,6 @@
 <table class="table table--default">
   <thead class="thead-dark"> 
     <tr>
-      <th scope="col">Mã vật tư</th>
       <th scope="col">Tên vật tư</th>
       <th scope="col">Số lượng</th>
       <th scope="col">Giá nhập</th>
@@ -187,7 +174,6 @@
   <tbody>
     {{#each materials}}
       <tr>
-        <td>{{this.material_id}}</td>
         <td>{{this.name}}</td>
         <td>{{this.amount}}</td>
         <td>{{this.import_price}}</td>
@@ -235,7 +221,6 @@
 
       var rowData = item.parentElement.parentElement
 
-      document.getElementById('material-edit-id').value = rowData.cells[0].textContent
       document.getElementById('material-edit-name').value = rowData.cells[1].textContent
       document.getElementById('material-edit-importPrice').value = rowData.cells[3].textContent
       document.getElementById('material-edit-sellPrice').value = rowData.cells[4].textContent
@@ -253,7 +238,5 @@
       console.log(formEdit)
       formEdit.submit()
     }
-
-
   })
 </script>

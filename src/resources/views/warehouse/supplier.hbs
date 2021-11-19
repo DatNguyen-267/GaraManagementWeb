@@ -18,12 +18,6 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã nhà cung cấp</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="" name="supplier_id"/>
-            </div>
-          </div>
-          <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên nhà cung cấp</label>
             <div class="col-9">
               <input type="text" class="form-control" id="" name="name"/>
@@ -71,12 +65,6 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã nhà cung cấp</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="supplier-edit-id" name="supplier_id"/>
-            </div>
-          </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên nhà cung cấp</label>
             <div class="col-9">
@@ -154,8 +142,7 @@
 <table class="table table--default">
   <thead class="thead-dark"> 
     <tr>
-      <th scope="col">Mã nhà cung cấp</th>
-      <th scope="col">Tên</th>
+      <th scope="col">Tên nhà cung cấp</th>
       <th scope="col">Email</th>
       <th scope="col">Số điện thoại</th>
       <th scope="col" colspan="2">Thao tác</th>
@@ -164,7 +151,6 @@
   <tbody>
     {{#each suppliers}}
       <tr>
-        <td>{{this.supplier_id}}</td>
         <td>{{this.name}}</td>
         <td>{{this.email}}</td>
         <td>{{this.telephone}}</td>
@@ -211,10 +197,9 @@
 
       var rowData = item.parentElement.parentElement
 
-      document.getElementById('supplier-edit-id').value = rowData.cells[0].textContent
-      document.getElementById('supplier-edit-name').value = rowData.cells[1].textContent
-      document.getElementById('supplier-edit-email').value = rowData.cells[2].textContent
-      document.getElementById('supplier-edit-telephone').value = rowData.cells[3].textContent
+      document.getElementById('supplier-edit-name').value = rowData.cells[0].textContent
+      document.getElementById('supplier-edit-email').value = rowData.cells[1].textContent
+      document.getElementById('supplier-edit-telephone').value = rowData.cells[2].textContent
     }
 
     btnModalDelete.onclick = function () {

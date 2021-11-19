@@ -1,0 +1,217 @@
+
+{{!-- Modal thêm phiếu nhập kho --}}
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="/import/create" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm phiếu nhập kho</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="" name="import_id"/>
+            </div>
+          </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
+            <div class="col-9 form-group">
+              <select class="form-control" name="of_supplier" aria-label="Default select example">
+                <option value="null">Nhà cung cấp</option>
+                {{#each suppliers}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Thêm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Modal sửa thông tin phiếu nhập kho --}}
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editSupplierLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST" name="form-edit">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa thông tin phiếu nhập kho</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="voucher-edit-id" name="import_id"/>
+            </div>
+          </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
+            <div class="col-9 form-group">
+              <select class="form-control" name="of_supplier" aria-label="Default select example">
+                <option value="null">Nhà cung cấp</option>
+                {{#each suppliers}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" id="btnModalEdit">Sửa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{!-- Modal xóa phiếu nhập kho --}}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteSupplierLabel" aria-hidden="true">
+<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Xóa phiếu nhập kho</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Bạn có chắc chắn muốn xóa?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="btnModalDelete">Xóa</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+{{!-- Danh sách phiếu nhập kho --}}
+<div class="row">
+  <div class="d-grid gap-2 d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#addModal"
+    >
+      Thêm
+    </button>
+  </div>
+</div>
+
+<table class="table table--default">
+  <thead class="thead-dark"> 
+    <tr>
+      <th scope="col">Mã phiếu nhập kho</th>
+      <th scope="col">Nhà cung cấp</th>
+      <th scope="col">Ngày tạo</th>
+      <th scope="col">Tổng tiền</th>
+      <th scope="col">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each vouchers}}
+      <tr>
+        <td></td>
+        <td>{{this.import_date}}</td>
+        <td>{{this.total_amount}}</td>
+        <td>
+          <button class="btn--view-item" data-toggle="modal" data-id="{{this._id}}">Xem</button>
+          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+          <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+
+<form name="form-delete" method="POST" action=""></form>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+  crossorigin="anonymous"
+></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var btnEdit = document.querySelectorAll('.btn--edit-item')
+    var btnDelete = document.querySelectorAll('.btn--delete-item')
+    var btnModalDelete = document.getElementById('btnModalDelete')
+    var btnModalEdit = document.getElementById('btnModalEdit')
+    var formDelete = document.forms['form-delete']
+    var formEdit = document.forms['form-edit']
+    
+    for(var item of btnDelete) {
+      item.onclick = function() {
+        var voucherID = this.getAttribute('data-id')
+        btnModalDelete.setAttribute('data-id', voucherID)
+      }
+    }
+
+    for(var item of btnEdit) {
+      item.onclick = function() {
+        var voucherID = this.getAttribute('data-id')
+        btnModalEdit.setAttribute('data-id', voucherID)
+      }
+
+      var rowData = item.parentElement.parentElement
+
+      document.getElementById('supplier-edit-id').value = rowData.cells[0].textContent
+      document.getElementById('supplier-edit-name').value = rowData.cells[1].textContent
+      document.getElementById('supplier-edit-email').value = rowData.cells[2].textContent
+      document.getElementById('supplier-edit-telephone').value = rowData.cells[3].textContent
+    }
+
+    btnModalDelete.onclick = function () {
+      var voucherID = this.getAttribute('data-id')
+      formDelete.action = '/supplier/' + voucherID + '/delete?_method=DELETE'
+      formDelete.submit()
+    }
+
+    btnModalEdit.onclick = function () {
+      var voucherID = this.getAttribute('data-id')
+      formEdit.action = '/supplier/' + voucherID + '/?_method=PUT'
+      formEdit.submit()
+    }
+  })
+</script>

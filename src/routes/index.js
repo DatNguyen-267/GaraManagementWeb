@@ -9,6 +9,7 @@ const repairRouter = require('./repairs')
 const customerRouter =require('./customer')
 const customerdebtRouter =require('./customerdebt')
 const supplierRouter = require('./supplier')
+const importRouter = require('./import-voucher')
 
 
 function route(app) {
@@ -24,7 +25,6 @@ function route(app) {
 
       app.use('/brand', brandRouter)
 
-
       app.use('/customer', customerRouter)
 
       app.use('/customerdebt', customerdebtRouter)
@@ -32,6 +32,8 @@ function route(app) {
       app.use('/material', materialRouter)
 
       app.use('/supplier', supplierRouter)
+
+      app.use('/import', importRouter)
 
       app.use('/', siteRouter)
 

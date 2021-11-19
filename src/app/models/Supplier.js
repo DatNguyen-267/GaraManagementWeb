@@ -5,7 +5,6 @@ const mongooseDelete = require('mongoose-delete')
 const Scheme = mongoose.Schema
 
 const Supplier = new Scheme({
-    supplier_id: {type: String, required: true},
     name: { type: String, required: true },
     email: {type: String, required: true},
     telephone: {type: String, required: true},
