@@ -8,6 +8,8 @@ const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass');
 const Reception = require('../models/Reception');
 const Repair_Detail_Material = require('../models/Repair_Detail_Material');
+const Repair_Detail_Wage = require('../models/Repair_Detail_Wage');
+const Repair_Detail_Employee = require('../models/Repair_Detail_Employee');
 var listReception
 class RepairController {
     show(req,res,next) {
@@ -68,9 +70,9 @@ class RepairController {
                     res.redirect('/repairs')
             })
             .catch(next)
+        
     }
     repairDetail(req, res, next) {
-        
         Repair.findOne({_id: req.params.id}).populate('of_reception')
             .then((repair)=> {
                 return Material.find({})
@@ -90,12 +92,37 @@ class RepairController {
                     })
             })
             .then((data) => {
+                return Repair_Detail_Material.find({ of_repair: data.repair._id })
+                    .then((detail_Materials) => {
+                        return Repair_Detail_Wage.find({ of_repair: data.repair._id })
+                            .then((detail_Wages) => {
+                                return Repair_Detail_Employee.find({ of_repair: data.repair._id })
+                                    .then((detail_Employees) => {
+                                        return {
+                                            detail_Materials: detail_Materials,
+                                            detail_Wages : detail_Wages,
+                                            detail_Employees : detail_Employees,
+                                            repair : data.repair,
+                                            materials : data.materials,
+                                            employees : data.employees,
+                                            wages : data.wages,
+                                        }
+                                    })
+                            })
+                        
+                    })
+                
+            })
+            .then((data) => {
                 res.render('repairs/repair-detail', {
-                            Repair: mongooseToOject(data.repair),
-                            Materials: mutipleMongooseToObject(data.materials),
-                            Employees: mutipleMongooseToObject(data.employees),
-                            Wages: mutipleMongooseToObject(data.wages),
-                        })
+                    Detail_Materials: mutipleMongooseToObject(data.detail_Materials),
+                    Detail_Wages: mutipleMongooseToObject(data.detail_Wages),
+                    Detail_Employees: mutipleMongooseToObject(data.detail_Employees),
+                    Repair: mongooseToOject(data.repair),
+                    Materials: mutipleMongooseToObject(data.materials),
+                    Employees: mutipleMongooseToObject(data.employees),
+                    Wages: mutipleMongooseToObject(data.wages),
+                })
             })
             .catch(next)
         
@@ -104,8 +131,34 @@ class RepairController {
         res.render('repairs/quote')
     }
     createMaterial(req, res, next) {
-        repairDetailMaterial = new Repair_Detail_Material(req.body)
-
+        var repairDetailMaterial = new Repair_Detail_Material(req.body)
+        repairDetailMaterial.of_repair = req.params.id
+        repairDetailMaterial.material = req.params.materialId
+        repairDetailMaterial.save()
+            .then(() => {
+                res.redirect('back')
+            })  
+            .catch(next) 
+    }
+    createWage(req, res, next) {
+        var repairDetailWage = new Repair_Detail_Wage(req.body)
+        repairDetailWage.of_repair = req.params.id
+        repairDetailWage.wage = req.params.wageId
+        repairDetailWage.save()
+            .then(() => {
+                res.redirect('back')
+            })  
+            .catch(next) 
+    }
+    createEmployee(req, res, next) {
+        var repairDetailEmployee = new Repair_Detail_Employee(req.body)
+        repairDetailEmployee.of_repair = req.params.id
+        repairDetailEmployee.employee = req.params.employeeId
+        repairDetailEmployee.save()
+            .then(() => {
+                res.redirect('back')
+            })  
+            .catch(next) 
     }
 }
 module.exports = new RepairController;

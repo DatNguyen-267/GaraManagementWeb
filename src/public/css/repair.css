@@ -25,6 +25,25 @@
 .repair-detail-info__general-item-customer {
   margin-right: 200px; }
 
+.repair-detail-info__table-supplies {
+  margin-bottom: 50px; }
+
+.repair-detail-info__table-wage {
+  margin-bottom: 50px; }
+
+.repair-detail-info__table-employee {
+  margin-bottom: 50px; }
+
+.table__header .table__header-btn-add {
+  margin-right: 60px;
+  height: 40px;
+  width: 110px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 30px;
+  padding: 0 6px;
+  margin-left: auto; }
+
 .quote__body {
   margin: 5px auto;
   width: 800px;
@@ -96,12 +115,8 @@
 
 .table__header {
   display: flex;
-  align-items: center; }
-
-.table__header .table__header-btn-add {
-  margin-right: 20px;
-  height: 30px;
-  font-size: 16px;
-  line-height: 30px;
-  padding: 0 6px;
-  margin-left: 16px; }
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black-color);
+  margin: 8px 0; }

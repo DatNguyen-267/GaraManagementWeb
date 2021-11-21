@@ -49,7 +49,9 @@ html {
 .gird__full-width {
   width: 100%;
 }
-
+.grid__item {
+  margin: 16px 36px;
+}
 /* ANIMATION */
 @keyframes fadein {
   from {
@@ -229,4 +231,24 @@ html {
 }
 .info-group label:first-child{
   font-weight: 700;
+}
+.scrollbar-custom{
+    overflow: auto;
+    position: relative;
+}
+.scrollbar-custom th {
+    top: 0;
+    position: sticky;
+}
+.scrollbar-custom::-webkit-scrollbar {
+    width: 10px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }

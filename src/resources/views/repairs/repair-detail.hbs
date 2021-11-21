@@ -1,165 +1,175 @@
 <link rel="stylesheet" href="/css/repair.css">
-<div class="repair-detail__title">
-    Chi tiết sửa chữa
-</div>
-
-<div class="back">
-
-</div>
-<div class="repair-detail__navbar">
-    <div class="repair-detail__nav">
-        <button class="repair-detail__nav-item">Thông tin sửa chữa</button>
-        <button class="repair-detail__nav-item">Thông tin hợp đồng</button>
+<div class="grid__item">
+    <div class="repair-detail__title">
+        Chi tiết sửa chữa
     </div>
-    <div class="repair-detail__toolbar">
-        <button class="repair-detail__toolbar-item">Báo giá</button>
-        <button class="repair-detail__toolbar-item">Lập hợp đồng</button>
-        <button class="repair-detail__toolbar-item">Lệnh sửa</button>
+
+    <div class="back">
+
     </div>
-</div>
+    <div class="repair-detail__navbar">
+        <div class="repair-detail__nav">
+            <button class="repair-detail__nav-item">Thông tin sửa chữa</button>
+            <button class="repair-detail__nav-item">Thông tin hợp đồng</button>
+        </div>
+        <div class="repair-detail__toolbar">
+            <button id="btn-quote" class="repair-detail__toolbar-item">Báo giá</button>
+            <button id="btn-contract" class="repair-detail__toolbar-item">Lập hợp đồng</button>
+            <button id="btn-ordered" class="repair-detail__toolbar-item">Lệnh sửa</button>
+        </div>
+    </div>
 
 
-<div class="repair-detail-info">
-    <div class="repair-detail-info__general">
-        <div class="repair-detail-info__general-item">
-            <div class="repair-detail-info__general-item-customer">
-                <div class="info-group">
-                    <label for="">Mã phiếu sửa chữa:</label>
-                    <label id="label-repair-id">{{Repair._id}}</label>
+    <div class="repair-detail-info">
+        <div class="repair-detail-info__general">
+            <div class="repair-detail-info__general-item">
+                <div class="repair-detail-info__general-item-customer">
+                    <div class="info-group">
+                        <label for="">Mã phiếu sửa chữa:</label>
+                        <label id="label-repair-id">{{Repair._id}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Tên khách hàng:</label>
+                        <label >{{Repair.of_reception.name}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Biển số xe:</label>
+                        <label >{{Repair.of_reception.license}}</label>
+                    </div>
                 </div>
-                <div class="info-group">
-                    <label for="">Tên khách hàng:</label>
-                    <label >{{Repair.of_reception.name}}</label>
+                <div class="repair-detail-info__general-item-status">
+                    <div class="info-group">
+                        <label for="">Trạng thái:</label>
+                        <label >{{Repair.status}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Tổng tiền:</label>
+                        <label >{{Repair.debt}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Hành động kế tiếp:</label>
+                        <label >Lập hợp đồng</label>
+                    </div>
                 </div>
-                <div class="info-group">
-                    <label for="">Biển số xe:</label>
-                    <label >{{Repair.of_reception.license}}</label>
-                </div>
+                
             </div>
-            <div class="repair-detail-info__general-item-status">
-                <div class="info-group">
-                    <label for="">Trạng thái:</label>
-                    <label >{{Repair.status}}</label>
-                </div>
-                <div class="info-group">
-                    <label for="">Tổng tiền:</label>
-                    <label >{{Repair.debt}}</label>
-                </div>
-                <div class="info-group">
-                    <label for="">Hành động kế tiếp:</label>
-                    <label >Lập hợp đồng</label>
-                </div>
+        </div>
+        <div class="repair-detail-info__table-supplies">
+            <div class="table__header">
+                <div class="table__header-name">Bảng thông tin vật tư</div> 
+                <button id="btn-add-material" class="table__header-btn-add btn btn-primary"
+                    data-toggle="modal" data-target="#form-add-material"
+                    data-id="{{repair._id}}">Thêm</button>
             </div>
             
+            <div class="table-material">
+                <table class="table table--default" style="overflow-y:scroll">
+                    <colgroup>
+                        <col style="width: 100px;">
+                        <col style="width: 200px;">
+                        <col>
+                    </colgroup>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nội dung</th>
+                            <th scope="col">Tên vật tư</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Thành tiền</th>
+                            <th scope="col" style="width: 180px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each Detail_Materials}}
+                        <tr>
+                            <td scope="row">{{this._id}}</td>
+                            <td scope="row">{{this.content}}</td>
+                            <td scope="row">{{this.material_name}}</td>
+                            <td scope="row">{{this.amount}}</td>
+                            <td scope="row">{{this.sell_price}}</td>
+                            <td scope="row">{{this.total_money}}</td>
+                            <td scope="row">
+                                <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                                <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+            </table>
+            </div>
         </div>
-    </div>
-    <div class="repair-detail-info__table-supplies">
-        <div class="table__header">
-            <div class="table__header-name">Bảng thông tin vật tư</div> 
-            <button id="btn-add-material" class="table__header-btn-add btn-success btn"
-                data-toggle="modal" data-target="#form-add-material"
-                data-id="{{repair._id}}">Thêm</button>
+
+        <div class="repair-detail-info__table-wage">
+            <div class="table__header">
+                <div class="table__header-name">Bảng thông tiền công</div> 
+                <button id="btn-add-wage" class="table__header-btn-add btn btn-primary"
+                data-toggle="modal" data-target="#form-add-wage">Thêm</button>     
+            </div> 				    
+            <table class="table table--default table-wage">
+                <colgroup>
+                <col style="width: 100px;">
+                <col style="width: 200px;" >
+                <col>	
+                </colgroup>
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên tiền công</th>
+                    <th scope="col">Tiền công</th>
+                    <th scope="col" style="width: 180px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each Detail_Wages}}
+                <tr>
+                    <td scope="row">{{this._id}}</td>
+                    <td scope="row">{{this.wage_name}}</td>
+                    <td scope="row">{{this.wage_money}}</td>
+                    <td scope="row">
+                        <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                        <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+            </table>
         </div>
-        
-        <table class="table table--default">
-            <colgroup>
-            <col style="width: 100px;">
-            <col style="width: 200px;">
-            <col>
-            </colgroup>
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nội dung</th>
-                <th scope="col">Tên vật tư</th>
-                <th scope="col">Số lượng</th>
-                <th scope="col">Đơn giá</th>
-                <th scope="col">Thành tiền</th>
-                <th scope="col" style="width: 180px;"></th>
-            </tr>
-        </thead>
-        <tbody>
 
-            <tr>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">
-                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
-                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-
-    <div class="repair-detail-info__table-wage">
-        <div class="table__header">
-            <div class="table__header-name">Bảng thông tiền công</div> 
-            <button id="btn-add-wage" class="table__header-btn-add btn-success btn">Thêm</button>     
-        </div> 				    
-        <table class="table table--default">
-            <colgroup>
-            <col style="width: 100px;">
-            <col style="width: 200px;" >
-            <col>	
-            </colgroup>
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Tên tiền công</th>
-                <th scope="col">Tiền công</th>
-                <th scope="col" style="width: 180px;"></th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">
-                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
-                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-
-    <div class="repair-detail-info__table-employee">
-        <div class="table__header">
-            <div class="table__header-name">Bảng thông tin nhân viên đảm nhiệm</div> 
-            <button id="btn-add-employee" class="table__header-btn-add btn-success btn">Thêm</button>     
-        </div> 	
-        <table class="table table--default">
-            <colgroup>
-            <col style="width: 100px;">
-            <col >
-            <col>
-            </colgroup>
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Tên nhân viên</th>
-                <th scope="col" style="width: 180px;"></th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td scope="row">ABC</td>
-                <td scope="row">ABC</td>
-                <td scope="row">
-                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
-                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
-                </td>
-            </tr>
-        </tbody>
-        </table>
+        <div class="repair-detail-info__table-employee">
+            <div class="table__header">
+                <div class="table__header-name">Bảng thông tin nhân viên đảm nhiệm</div> 
+                <button id="btn-add-employee" class="table__header-btn-add btn btn-primary"
+                data-toggle="modal" data-target="#form-add-employee">Thêm</button>     
+            </div> 	
+            <table class="table table--default table-employee">
+                <colgroup>
+                <col style="width: 100px;">
+                <col >
+                <col>
+                </colgroup>
+            <thead class="thead-dark">
+                
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên nhân viên</th>
+                    <th scope="col" style="width: 180px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each Detail_Employees}}
+                <tr>
+                    <td scope="row">{{this._id}}</td>
+                    <td scope="row">{{this.employee_name}}</td>
+                    <td scope="row">
+                        <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                        <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -182,15 +192,20 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Vật tư:</label>
-                    <select type="text" class="form-control" name="name">
+                    <select type="text" class="form-control" name="material_name" id="select-material">
+                        <option>-- Chọn vật tư --</option>
+
                         {{#each Materials}}
-                        <option value="{{this._id}}" data-id="">{{this.name}}</option>
+                        <option data-id="{{this._id}}" data-amount="{{this.amount}} "
+                            data-sellprice="{{this.sell_price}}">{{this.name}}</option>
                         {{/each}}
+
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Số lượng:</label>
-                    <select type="text" class="form-control" name="amount">
+                    <select type="text" class="form-control" name="amount" id="select-amount">
+                        <option data-id="">-- Chọn số lượng --</option>
                         <option value="1" data-id="">1</option>
                         <option value="2" data-id="">2</option>
                         <option value="3" data-id="">3</option>
@@ -198,17 +213,89 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Đơn giá:</label>
-                    <input type="text" class="form-control" name="sell_price">
+                    <input type="text" class="form-control" name="sell_price" id="sell-price">
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Thành tiền:</label>
-                    <input type="text" class="form-control" name="total_money">
+                    <input type="text" class="form-control" name="total_money" id="total-money">
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
             <button id="btn-accept-add-material" type="button" class="btn btn--send-dialog">Thêm</button>
+        </div>
+    </div>
+    </div>
+    </div>
+</form>
+<form method="POST" action="" name="form-add-wage">
+    <div class="modal fade" id="form-add-wage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Thêm tiền công</h5>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Tên tiền công:</label>
+                    <select type="text" class="form-control" name="wage_name" id="select-wage">
+                        <option>-- Chọn tiền công --</option>
+                        {{#each Wages}}
+                        <option  data-id="{{this._id}}" data-money="{{this.money}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Tiền công:</label>
+                    <input type="text" class="form-control" name="wage_money" id="input-wage-money">
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+            <button id="btn-accept-add-wage" type="button" class="btn btn--send-dialog">Thêm</button>
+        </div>
+    </div>
+    </div>
+    </div>
+</form>
+<form method="POST" action="" name="form-add-employee">
+    <div class="modal fade" id="form-add-employee" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Thêm tiền công</h5>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Tên nhân viên:</label>
+                    <select type="text" class="form-control" name="employee_name" id="select-employee">
+                        <option>-- Chọn nhân viên --</option>
+                        {{#each Employees}}
+                        <option  data-id="{{this._id}}" data-phone="{{this.phone}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Số điện thoại:</label>
+                    <input readonly type="text" class="form-control" name="employee_phone" id="input-employee-phone">
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+            <button id="btn-accept-add-employee" type="button" class="btn btn--send-dialog">Thêm</button>
         </div>
     </div>
     </div>
@@ -221,13 +308,97 @@
         var btnAddWage = $('#btn-add-wage')
         var btnAddEmployee = $('#btn-add-employee')
         var repairId = $('#label-repair-id')[0].textContent;
+        //var selectMaterial = $('#select-material option:selected')
+        var selectMaterial = document.querySelector('#select-material')
+        var selectAmount = document.querySelector('#select-amount')
+        var sellPrice = document.querySelector('#sell-price')
+        var totalMoney = document.querySelector('#total-money')
         formAdd = document.forms['form-add-material']
-
         btnAcceptAddMaterial.click(function() {
-
-            formAdd.action =  '/repairs/' + repairId + '/create-material'
+            var optionSelected = selectMaterial.options[selectMaterial.options.selectedIndex]
+            var materialId = optionSelected.getAttribute('data-id')
+            formAdd.action =  '/repairs/' + repairId +'/' + materialId + '/create-material'
             formAdd.submit()
         })
+        function reloadTotalPrice(sellPirce, amount) {
+            if (sellPrice == null || amount == null) {
+                totalMoney.value = 0;
+                return
+            }
+            var sum = sellPirce * amount;
+            totalMoney.value = sum
+            return
+        }
+        selectMaterial.onchange = function() {
+            var optionSelected = this.options[this.options.selectedIndex]
+            var materialId = optionSelected.getAttribute('data-id')
+            var materialAmount = optionSelected.getAttribute('data-amount')
+            var materialSellPrice = optionSelected.getAttribute('data-sellprice')
+            sellPrice.value = materialSellPrice
+            while (selectAmount.options.length > 1){
+                selectAmount.remove(selectAmount.options.length-1)
+            }
+            for (var i = 1 ; i <= materialAmount ; i++){
+                selectAmount.options.add(new Option(i))
+            }   
+            reloadTotalPrice(materialSellPrice, selectAmount.options.selectedIndex)
+        }
+        selectAmount.onchange = function() {
+            var optionSelected = selectMaterial.options[selectMaterial.options.selectedIndex]
+            var materialSellPrice = optionSelected.getAttribute('data-sellprice')
+            reloadTotalPrice(materialSellPrice, selectAmount.options.selectedIndex)
+        }
 
+        ///
+        /// Tiền công
+        ///
+
+        var btnAcceptAddWage = document.querySelector('#btn-accept-add-wage')
+        var selectWage = document.querySelector('#select-wage')
+        var inputWageMoney = document.querySelector('#input-wage-money')
+        var wageSelected;
+        var wageSelectedId;
+        var wageSelectedMoney;
+        var formAddWage = document.forms['form-add-wage']
+        
+        function loadWageMoney(money) {
+            inputWageMoney.value = money
+        }
+        btnAcceptAddWage.onclick = function() {
+            formAddWage.action =  '/repairs/' + repairId +'/' + wageSelectedId + '/create-wage'
+            formAddWage.submit()
+        }
+        selectWage.onchange = function() {
+            wageSelected = this.options[this.options.selectedIndex]
+            wageSelectedId = wageSelected.getAttribute('data-id')
+            wageSelectedMoney = wageSelected.getAttribute('data-money')
+            loadWageMoney(wageSelectedMoney)
+        }
+
+        ///
+        /// Nhân viên
+        ///
+        var btnAcceptAddEmployee = document.querySelector('#btn-accept-add-employee')
+        var selectEmployee = document.querySelector('#select-employee')
+        var inputEmployeePhone = document.querySelector('#input-employee-phone')
+        var employeeSelected;
+        var employeeSelectedId;
+        var employeePhone;
+        var formAddEmployee = document.forms['form-add-employee']
+
+        
+        function loadEmployeePhone(phone) {
+            inputEmployeePhone.value = phone
+        }
+        btnAcceptAddEmployee.onclick = function() {
+            formAddEmployee.action =  '/repairs/' + repairId +'/' + employeeSelectedId + '/create-employee'
+            formAddEmployee.submit()
+        }
+        selectEmployee.onchange = function() {
+            employeeSelected = this.options[this.options.selectedIndex]
+            employeeSelectedId = employeeSelected.getAttribute('data-id')
+            employeePhone = employeeSelected.getAttribute('data-phone')
+            loadEmployeePhone(employeePhone)
+        }
     })
 </script>

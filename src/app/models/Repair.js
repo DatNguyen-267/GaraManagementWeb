@@ -14,6 +14,7 @@ const Repair = new Schema({
     quoted: {type: Boolean},
     contracted: {type: Boolean},
     ordered: Boolean,
+    isSuccess: Boolean,
     status: {type: String},
 }, {
     timestamps: true,

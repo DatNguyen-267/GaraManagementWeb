@@ -6,7 +6,9 @@ const Schema = mongoose.Schema
 
 const Repair_Detail_Employee = new Schema({
     of_repair: {type:Schema.Types.ObjectId, ref: "Repair"},
-    repair_of_employee: {type:Schema.Types.ObjectId , ref: "Employee" },
+    employee: { type: Schema.Types.ObjectId, ref: "Employee" },
+    employee_name: String,
+    employee_phone: String,
 }, {
     timestamps: true,
 })
