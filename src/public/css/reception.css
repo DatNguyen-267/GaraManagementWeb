@@ -8,8 +8,12 @@
 
 /* HEADER */
 .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   text-align: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between; }
 
 .header__title {
@@ -19,6 +23,7 @@
 
 .header__btn-add {
   width: 180px;
+  -webkit-box-shadow: 0 2px 10px var(--blue-color-rgba);
   box-shadow: 0 2px 10px var(--blue-color-rgba); }
 
 /* BODY */
@@ -27,6 +32,8 @@
 
 /* THANH TIỆN ÍCH */
 .toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 0 0 8px 0; }
 
@@ -34,10 +41,15 @@
   width: 300px;
   margin-right: 16px;
   border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   overflow: hidden;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background-color: var(--white-color);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
 
 .toolbar__search-icon {
@@ -49,6 +61,8 @@
 
 .toolbar__search-input {
   border: none;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   outline: none;
   font-size: 14px;
@@ -63,6 +77,7 @@
   color: var(--text-color);
   width: 100%;
   background-color: var(--white-color);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   outline: none; }
 
@@ -80,3 +95,5 @@
 .list-reception__table {
   font-size: 14px;
   cursor: default; }
+
+/*# sourceMappingURL=reception.css.map */

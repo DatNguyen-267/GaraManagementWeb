@@ -1,0 +1,259 @@
+<link rel="stylesheet" href="/css/employeeSalary.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<title>Quản lý tiền công</title>
+    <header class = "employeeSalary__header">
+        <h1 class = "employeeSalary__header__title">Quản lý tiền công</h1>
+        <h5>1/11/2021 - 30/11/2021</h5>
+        <nav class="navbar">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+    </header>
+    <body class = "employeeSalary__body">
+        <div class = "body__btnContainer">
+            
+            <button type="button" class="btn btn-primary" style="float: right;"><i class="fas fa-file-export"></i></button>
+        </div>
+        <div class = "table-responsive" style="margin-left:2em; margin-right:2em;">
+            <table class="table employeeSalary__body__table" >
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Họ và Tên</th>
+                    <th scope="col">Chức vụ</th>
+                    <th scope="col">Số lần vi phạm</th>
+                    <th scope="col">Số ngày nghỉ</th>
+                    <th scope="col">Lương</th>   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-toggle="modal" data-target="#infoModal">
+                    <th scope="row">1</th>
+                    <td>nv001</td>
+                    <td>Tran Quang Tuan</td>
+                    <td>Quản lý</td>
+                    <td>0</td>
+                    <td>2</td>  
+                    <td class = "salary">5.000.000</td>             
+                  </tr>
+                  <tr data-toggle="modal" data-target="#infoModal">
+                    <th scope="row">2</th>
+                    <td>nv002</td>
+                    <td>Tran Gia Huy</td>
+                    <td>Nhân viên</td>
+                    <td>0</td>
+                    <td>2</td>  
+                    <td class = "salary">5.000.000</td>   
+                  </tr>
+                  <tr data-toggle="modal" data-target="#infoModal">
+                    <th scope="row">3</th>
+                    <td>nv003</td>
+                    <td>Ho Phuoc Thinh</td>
+                    <td>Nhân viên</td>
+                    <td>0</td>
+                    <td>2</td>  
+                    <td class = "salary">5.000.000</td>   
+                  </tr>
+                  <tr data-toggle="modal" data-target="#infoModal">
+                    <th scope="row">4</th>
+                    <td>nv001</td>
+                    <td>Tran Quang Tuan</td>
+                    <td>Quản lý</td>
+                    <td>0</td>
+                    <td>2</td>  
+                    <td class = "salary">5.000.000</td>   
+                  </tr>
+                  <tr data-toggle="modal" data-target="#infoModal">
+                    <th scope="row">5</th>
+                    <td>nv002</td>
+                    <td>Tran Quang Tuan</td>
+                    <td>Quản lý</td>
+                    <td>0</td>
+                    <td>2</td>  
+                    <td class = "salary">5.000.000</td>   
+                  </tr>
+                  <tr data-toggle="modal" data-target="#infoModal">
+                    <th scope="row">6</th>
+                    <td>nv003</td>
+                    <td>Tran Quang Tuan</td>
+                    <td>Quản lý</td>
+                    <td>0</td>
+                    <td>2</td>  
+                    <td class = "salary">5.000.000</td>   
+                  </tr>
+                  <tr style="border-top: 1px black solid;">
+                    <th scope="row">#</th>
+                    <td></td>
+                    <td><Strong>Tổng</Strong></td>
+                    <td></td>
+                    <td>0</td>
+                    <td>10</td>  
+                    <td class = "salary" style="font-weight: bolder;">30.000.000</td>   
+                  </tr>
+              </table> 
+        </div>
+          
+          <!--Info Modal -->
+          <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " role="document">
+              <div class="modal-content body__infoModal">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Tiền công chi tiết (1/11/2021 - 30/11/2021)</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id =  "test">
+                  <div class="row">
+                    <table class = "infoTable">
+                      <tr>
+                        <td>
+                          <label>ID</label>
+                        </td>
+                        <td>
+                          <p class = "id">nv001</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label>Họ và Tên</label>
+                        </td>
+                        <td>
+                          <p class = "name">Tran Quang Tuan</p>
+                        </td>
+                      </tr>
+                      <tr >
+                        <td>
+                          <label >Chức vụ</label></td>
+                        <td>
+                          <p class = "tag">Nhân viên</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label >Tiền công</label></td>
+                        <td>
+                          <p class = "tag">5.000.000</p>
+                        </td>
+                      </tr>
+                      <tr style="border-bottom: 1px black solid;">
+                        <td>
+                          <label >Số tiền thưởng</label></td>
+                        <td>
+                          <p class = "tag">+ 200.000</p>
+                        </td>
+                      </tr>
+                      <!--So tien thuong-->
+                      
+                      <!--So ngay nghi-->
+                      <tr>
+                        <td>
+                          <label >Tổng số ngày nghỉ</label></td>
+                        <td>
+                          <p class = "tag">5</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label >Số ngày nghỉ có phép</label></td>
+                        <td>
+                          <p class = "tag">2</p>
+                        </td>
+                      </tr>
+                      <tr style="border-bottom: 1px black solid;">
+                        <td>
+                          <label >Số ngày nghỉ không phép</label></td>
+                        <td>
+                          <p class = "tag">3</p>
+                        </td>
+                      </tr>
+                      <!--So lan vi pham-->
+                      <tr>
+                        <td>
+                          <label>Số lần vi phạm</label>
+                        </td>
+                        <td>
+                          <p class = "tag">2</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label >Số tiền phạt</label></td>
+                        <td>
+                          <p class = "tag">- 200.000</p>
+                        </td>
+                      </tr>
+                    </table>
+                    <div style="width: 100%">
+                      <label style="float:left; margin: 0 1em;">Lương</label></td>
+                      <p style="float:right; font-weight: Bold; margin: 0 1em;" class = "tag">5.000.000</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </body>
+
+
+    <script>
+      var employeeID;
+      const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
+      $('#employeeTable tbody tr').click(function () {
+        employeeID = $(this).children('#id').text();
+        $('#m_ID').val($(this).children('#id').text());
+        $('#m_name').val($(this).children('#name').text());
+        $('#m_address').val($(this).children('#address').text());
+        $('#m_phone').val($(this).children('#phoneNumber').text());
+        $('#m_CMND').val($(this).children('#CMND').text());
+        $('#m_email').val($(this).children('#email').text());
+        $('#m_tag').val($(this).children('#tag').text());
+        $('#form-edit').val($(this).children('#id').text());
+        $("#modifiedModal").modal();
+        //your code
+      });
+      function modified(){
+        
+      };
+
+      document.addEventListener('DOMContentLoaded', function () {
+      
+      var tdActive;
+      var btnDelete = $('#btn-delete')
+      var btnAcceptEdit = $('#btn-accept-edit')
+      var formEdit = document.forms['form-edit']
+      var formDelete = document.forms['form-delete']
+      var btnEdit = $('.btn-edit')
+      btnDelete.click(function() {
+          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
+          formDelete.submit();
+      })
+
+      $('#form-edit').on('shown.bs.modal', function (event) {
+          var button = $(event.relatedTarget)
+          employeeID = button.data('id')
+      })
+      btnAcceptEdit.click(function() {
+        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
+        formEdit.submit()
+      })
+      btnEdit.click(function(){
+        var row = $(this).parents('tr')[0]
+        $('#form-edit-name').val(row.cells[1].textContent)
+      })
+    });
+    </script>

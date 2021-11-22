@@ -1,0 +1,164 @@
+@charset "UTF-8";
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+a, a:hover, a {
+  text-decoration: none;
+  color: #626262;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex-jc-sb {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.flex-jc-c {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.flex-ac-c {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.shadow {
+  border-radius: .5em;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+hr.solid {
+  border-top: 1px solid #bbb;
+  margin: 0 40px;
+}
+
+.employeeManagerment__body__table tbody > tr:hover {
+  color: #ec1f55;
+}
+
+.employeeManagerment__body__table tbody > tr:hover button {
+  opacity: 1;
+  color: #ec1f55;
+}
+
+.employeeManagerment__body .infoModal {
+  width: 750px;
+}
+
+.employeeManagerment__body .infoModal .infoDiv {
+  width: 100%;
+  margin: 0 2em;
+}
+
+.employeeManagerment__body .infoModal .infoDiv .id {
+  float: left;
+}
+
+.employeeManagerment__body .infoModal .infoDiv .name {
+  margin-left: 3em;
+}
+
+.employeeManagerment__body .infoModal .infoDiv .limitOffDate {
+  margin-left: 3em;
+}
+
+.employeeManagerment__body .infoModal .tagDiv {
+  width: 100%;
+  margin: 0 2em;
+}
+
+.employeeManagerment__body .infoModal .contentDiv {
+  width: 100%;
+  margin: 0 2em;
+  margin-top: 1em;
+}
+
+.employeeManagerment__body .infoModal .contentDiv .textDiv {
+  float: left;
+  margin-left: 2em;
+  margin-top: .2em;
+  margin-bottom: .2em;
+}
+
+.employeeManagerment__body .infoModal .contentDiv .card {
+  margin-top: 1em;
+}
+
+.employeeManagerment__body .infoModal .contentDiv .card .card-text {
+  margin: 0;
+}
+
+.employeeManagerment__body .infoModal .contentDiv .card .btn {
+  float: right;
+}
+
+.employeeManagerment__body .infoModal .contentDiv .card .title {
+  font-weight: bold;
+  margin-bottom: .3em;
+}
+
+.employeeManagerment__body .infoModal .btnDiv {
+  width: 100%;
+  margin: 1em;
+  margin-bottom: 0;
+}
+
+.employeeManagerment__body .infoModal .modal-footer .btnDiv {
+  width: auto;
+  margin: 0 auto;
+}
+
+.employeeManagerment__body .infoModal .modal-footer .pageBtn {
+  border: none;
+  padding: 8px;
+  background-color: transparent;
+  border-radius: 10%;
+}
+
+.employeeManagerment__body .infoModal .modal-footer .pageBtn:hover {
+  background-color: #ec1f55;
+  color: white;
+}
+
+.employeeManagerment__body .infoModal .modal-footer .pageBtn.active {
+  background-color: #ec1f55;
+  color: white;
+  font-weight: bold;
+}
+
+.employeeManagerment__header {
+  padding: 2em;
+}
+
+.employeeManagerment__header__title {
+  color: #ec1f55;
+}
+
+.employeeManagerment__header .navbar {
+  padding-left: 0;
+}
+/*# sourceMappingURL=employeeManagerment.css.map */

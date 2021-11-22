@@ -10,6 +10,6 @@ const bandController = require('../app/controllers/BrandController')
 router.post('/create', BrandController.create)
 router.delete('/:id/delete', BrandController.delete) //slug
 router.put('/:id/edit', BrandController.edit) //slug
-router.get('/', BrandController.show)
+.get('/', BrandController.show)
 
 module.exports = router

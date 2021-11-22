@@ -1,0 +1,235 @@
+
+<link rel="stylesheet" href="/css/employeeManagerment.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<title>Nghỉ phép và vi phạm</title>
+     <header class = "employeeManagerment__header">
+        <h1 class = "employeeManagerment__header__title">Nghỉ phép và vi phạm</h1>
+        <nav class="navbar">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+    </header>
+    <body class = "employeeManagerment__body">
+        <div class = "table-responsive" style="margin-left:2em; margin-right:2em;">
+          <table class="table employeeManagerment__body__table" >
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Họ và Tên</th>
+                  <th scope="col">Chức vụ</th>
+                  <th scope="col">Số lần vi phạm</th>
+                  <th scope="col">Số ngày nghỉ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-toggle="modal" data-target="#infoModal">
+                  <th scope="row">1</th>
+                  <td>nv001</td>
+                  <td>Tran Quang Tuan</td>
+                  <td>Quản lý</td>
+                  <td>0</td>
+                  <td>2</td>  
+                </tr>
+                <tr data-toggle="modal" data-target="#infoModal">
+                  <th scope="row">2</th>
+                  <td>nv002</td>
+                  <td>Tran Gia Huy</td>
+                  <td>Nhân viên</td>
+                  <td>0</td>
+                  <td>2</td>
+                </tr>
+                <tr data-toggle="modal" data-target="#infoModal">
+                  <th scope="row">3</th>
+                  <td>nv003</td>
+                  <td>Ho Phuoc Thinh</td>
+                  <td>Nhân viên</td>
+                  <td>0</td>
+                  <td>2</td>   
+                </tr>
+                <tr data-toggle="modal" data-target="#infoModal">
+                  <th scope="row">4</th>
+                  <td>nv001</td>
+                  <td>Tran Quang Tuan</td>
+                  <td>Quản lý</td>
+                  <td>0</td>
+                  <td>2</td>
+                </tr>
+                <tr data-toggle="modal" data-target="#infoModal">
+                  <th scope="row">5</th>
+                  <td>nv002</td>
+                  <td>Tran Quang Tuan</td>
+                  <td>Quản lý</td>
+                  <td>0</td>
+                  <td>2</td>
+                </tr>
+                <tr data-toggle="modal" data-target="#infoModal">
+                  <th scope="row">6</th>
+                  <td>nv003</td>
+                  <td>Tran Quang Tuan</td>
+                  <td>Quản lý</td>
+                  <td>0</td>
+                  <td>2</td>                   
+                </tr>
+            </table> 
+      </div>
+          
+          <!-- Modal -->
+          <div class="modal fade " id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id =  "test">
+                  <div class="row">
+                    <div class = "infoDiv">
+                      <h5>Thông tin nhân viên</h5>
+                      <label class = "id">ID: nv001</label>
+                      <label class = "name">Tên: Tran Quang Tuan</label>
+                      <label class = "limitOffDate">Số ngày nghỉ có phép còn lại: 2</label>
+                    </div>
+                    <div class = "tagDiv">
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="#">Nghỉ phép</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Vi phạm</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class = "contentDiv">
+                      <h6>Ngày nghỉ gần đây</h6>
+                      <div class="card">
+                        <div class = "textDiv">
+                          <div style="float:left">
+                            <p class = "title">Thông tin</p>
+                            <p class="card-text">Ngày: 11/9/2021</p>
+                            <p class="card-text">Lý do: Cách ly</p>
+                            <p class="card-text">Có phép</p>
+                          </div>
+                          <div class = "textDiv">
+                            <p class = "title" >Người tạo</p>
+                            <p class="card-text">ID: nv002</p>
+                            <p class="card-text">Tên: Huy</p>
+                          </div>
+                          <button class="btn"><i class="fas fa-trash"></i></button>
+                          <button class="btn"><i class="fas fa-pen"></i></button>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <div style="float:left">
+                            <p class = "title">Thông tin</p>
+                            <p class="card-text">Ngày: 11/9/2021</p>
+                            <p class="card-text">Lý do: Cách ly</p>
+                            <p class="card-text">Có phép</p>
+                          </div>
+                          <div class = "textDiv">
+                            <p class = "title" >Người tạo</p>
+                            <p class="card-text">ID: nv002</p>
+                            <p class="card-text">Tên: Huy</p>
+                          </div>
+                          <button class="btn"><i class="fas fa-trash"></i></button>
+                          <button class="btn"><i class="fas fa-pen"></i></button>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <div style="float:left">
+                            <p class = "title">Thông tin</p>
+                            <p class="card-text">Ngày: 11/9/2021</p>
+                            <p class="card-text">Lý do: Cách ly</p>
+                            <p class="card-text">Có phép</p>
+                          </div>
+                          <div class = "textDiv">
+                            <p class = "title" >Người tạo</p>
+                            <p class="card-text">ID: nv002</p>
+                            <p class="card-text">Tên: Huy</p>
+                          </div>
+                          <button class="btn"><i class="fas fa-trash"></i></button>
+                          <button class="btn"><i class="fas fa-pen"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "btnDiv">
+                      <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class = "btnDiv">
+                    <button class = "pageBtn active">1</button>
+                    <button class = "pageBtn ">2</button>
+                    <button class = "pageBtn ">3</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+    </body>
+
+
+    <script>
+      var employeeID;
+      const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
+      $('#employeeTable tbody tr').click(function () {
+        employeeID = $(this).children('#id').text();
+        $('#m_ID').val($(this).children('#id').text());
+        $('#m_name').val($(this).children('#name').text());
+        $('#m_address').val($(this).children('#address').text());
+        $('#m_phone').val($(this).children('#phoneNumber').text());
+        $('#m_CMND').val($(this).children('#CMND').text());
+        $('#m_email').val($(this).children('#email').text());
+        $('#m_tag').val($(this).children('#tag').text());
+        $('#form-edit').val($(this).children('#id').text());
+        $("#modifiedModal").modal();
+        //your code
+      });
+      function modified(){
+        
+      };
+
+      document.addEventListener('DOMContentLoaded', function () {
+      
+      var tdActive;
+      var btnDelete = $('#btn-delete')
+      var btnAcceptEdit = $('#btn-accept-edit')
+      var formEdit = document.forms['form-edit']
+      var formDelete = document.forms['form-delete']
+      var btnEdit = $('.btn-edit')
+      btnDelete.click(function() {
+          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
+          formDelete.submit();
+      })
+
+      $('#form-edit').on('shown.bs.modal', function (event) {
+          var button = $(event.relatedTarget)
+          employeeID = button.data('id')
+      })
+      btnAcceptEdit.click(function() {
+        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
+        formEdit.submit()
+      })
+      btnEdit.click(function(){
+        var row = $(this).parents('tr')[0]
+        $('#form-edit-name').val(row.cells[1].textContent)
+      })
+    });
+    </script>

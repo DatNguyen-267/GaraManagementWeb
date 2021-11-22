@@ -5,6 +5,10 @@ const meRouter = require('./me')
 const receptionRouter = require('./reception')
 const brandRouter = require('./brand')
 const repairRouter = require('./repairs')
+const employeeListRouter = require('./employeeList')
+const employeeTagRouter = require('./employeeTag')
+const employeeSalaryRouter = require('./employeeSalary')
+const employeeManagermentRouter = require('./employeeManagerment')
 
 
 function route(app) {
@@ -18,9 +22,19 @@ function route(app) {
       
       app.use('/repairs', repairRouter)
 
-      app.use('/brand', brandRouter)
+      app.use('/employeeList', employeeListRouter)
 
+      app.use('/employeeTag', employeeTagRouter)
+      
+      app.use('/employeeSalary', employeeSalaryRouter)
+
+      app.use('/employeeManagerment', employeeManagermentRouter)
+
+      app.use('/brand', brandRouter)
+      
       app.use('/', siteRouter)
+
+      
 
       // app.post('/search', (req,res) => {
       //   console.log(req.body)
