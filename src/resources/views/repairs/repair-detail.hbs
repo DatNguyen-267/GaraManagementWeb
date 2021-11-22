@@ -19,7 +19,6 @@
         </div>
     </div>
 
-
     <div class="repair-detail-info">
         <div class="repair-detail-info__general">
             <div class="repair-detail-info__general-item">
@@ -90,7 +89,7 @@
                             <td scope="row">{{this.sell_price}}</td>
                             <td scope="row">{{this.total_money}}</td>
                             <td scope="row">
-                                <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                                <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit-material" data-id="{{this._id}}">Sửa</button>
                                 <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
                             </td>
                         </tr>
@@ -127,8 +126,8 @@
                     <td scope="row">{{this.wage_name}}</td>
                     <td scope="row">{{this.wage_money}}</td>
                     <td scope="row">
-                        <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
-                        <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                        <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit-wage" data-id="{{this._id}}">Sửa</button>
+                        <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete-wage" data-id="{{this._id}}">Xóa</button>
                     </td>
                 </tr>
                 {{/each}}
@@ -302,6 +301,102 @@
     </div>
 </form>
 
+{{!-- EDIT FORM --}}
+<form method="POST" action="" name="form-edit-material">
+    <div class="modal fade" id="form-edit-material" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Thêm vật tư</h5>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Nội dung:</label>
+                    <input type="text" class="form-control" name="content" id="input-edit-content">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Vật tư:</label>
+                    <select type="text" class="form-control" name="material_name"
+                    id="select-edit-material">
+                        <option>-- Chọn vật tư --</option>
+                        {{#each Materials}}
+                        <option data-id="{{this._id}}" data-amount="{{this.amount}} "
+                            data-sellprice="{{this.sell_price}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Số lượng:</label>
+                    <select type="text" class="form-control" name="amount"
+                    id="select-edit-amount">
+                        <option data-id="">-- Chọn số lượng --</option>
+                        <option value="1" data-id="">1</option>
+                        <option value="2" data-id="">2</option>
+                        <option value="3" data-id="">3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Đơn giá:</label>
+                    <input type="text" class="form-control" name="sell_price" id="input-edit-sell-price">
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Thành tiền:</label>
+                    <input type="text" class="form-control" name="total_money" id="input-edit-total-money">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+            <button id="btn-accept-edit-material" type="button" class="btn btn--send-dialog">Sửa</button>
+        </div>
+    </div>
+    </div>
+    </div>
+</form>
+<form method="POST" action="" name="form-edit-wage">
+    <div class="modal fade" id="form-edit-wage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Sửa tiền công</h5>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Tên tiền công:</label>
+                    <select type="text" class="form-control" name="wage_name"
+                    id="select-edit-wage">
+                        <option>-- Chọn vật tư --</option>
+                        {{#each Wages}}
+                        <option data-id="{{this._id}}" data-money="{{this.money}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-form-label">Tiền công:</label>
+                    <input type="text" class="form-control" name="wage_money" id="input-edit-wage-money">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+            <button id="btn-accept-edit-wage" type="button" class="btn btn--send-dialog">Sửa</button>
+        </div>
+    </div>
+    </div>
+    </div>
+
+</form>
+
+{{!-- Contract --}}
+<form method="GET" name="form-contract"></form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var btnAcceptAddMaterial = $('#btn-accept-add-material')
@@ -399,6 +494,121 @@
             employeeSelectedId = employeeSelected.getAttribute('data-id')
             employeePhone = employeeSelected.getAttribute('data-phone')
             loadEmployeePhone(employeePhone)
+        }
+
+        ///
+        /// SỬA VẬT TƯ
+        ///
+        var materialItemId
+        var rowFocus
+        var selectAmountEdit = document.querySelector('#select-edit-amount')
+        var selectMaterialEdit = document.querySelector('#select-edit-material')
+        var inputSellPriceEdit = document.querySelector('#input-edit-sell-price')
+        var inputTotalMoneyEdit = document.querySelector('#input-edit-total-money')
+        var materialSelectedEdit;
+        var btnAcceptEditMaterial = document.querySelector('#btn-accept-edit-material')
+        var formEditMaterial = document.forms['form-edit-material']
+
+        function loadTotalMoneyEdit(){
+            console.log(inputSellPriceEdit.value )
+            console.log(selectAmount.options.selectedIndex )
+            if (inputSellPriceEdit.value == null || selectAmountEdit.options.selectedIndex == null) {
+                inputTotalMoneyEdit.value = 0;
+                return
+            }
+            else 
+            inputTotalMoneyEdit.value = inputSellPriceEdit.value * selectAmountEdit.options.selectedIndex
+        }
+        function loadAmountEdit(){
+            var select = document.querySelector('#select-edit-amount')
+            var amount = materialSelectedEdit.getAttribute('data-amount')
+            while(select.options.length > 1){
+                select.remove(1)
+            }
+            for(var i = 1 ; i <= amount ; i++){
+                select.options.add(new Option(i,i))
+            }
+        }
+        selectAmountEdit.onchange = function() {
+            loadTotalMoneyEdit()
+        }
+        selectMaterialEdit.onchange = function() {
+            materialSelectedEdit = this.options[this.options.selectedIndex]
+            inputSellPriceEdit.value = materialSelectedEdit.getAttribute('data-sellprice')
+            loadAmountEdit()
+            loadTotalMoneyEdit()
+        }
+        $('#form-edit-material').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            materialItemId = button.data('id')
+            
+            rowFocus = button.parents('tr')[0]
+            $('#input-edit-content').val(rowFocus.cells[1].textContent)
+            $('#input-edit-sell-price').val(rowFocus.cells[4].textContent)
+            $('#input-edit-total-money').val(rowFocus.cells[5].textContent)
+            console.log(rowFocus.cells[2].textContent)
+            for (var i = 1 ; i < selectMaterialEdit.options.length; i++) {
+                if (rowFocus.cells[2].textContent == selectMaterialEdit.options[i].textContent){
+                    selectMaterialEdit.options.item(i).selected = 'selected'
+                    materialSelectedEdit = selectMaterialEdit.options.item(i)
+                    
+                }
+                
+            }
+            loadAmountEdit()
+            for (var i = 1 ; i < selectAmountEdit.options.length; i++) {
+                
+                if (rowFocus.cells[3].textContent == selectAmountEdit.options[i].textContent){
+                    selectAmountEdit.options.item(i).selected = 'selected'
+                }
+            }
+        })
+        btnAcceptEditMaterial.onclick = function() {
+            formEditMaterial.action = '/repairs/' + materialItemId +'/'+ materialSelectedEdit.getAttribute('data-id') + '/edit-material?_method=PUT'
+            formEditMaterial.submit() 
+        }
+        ///
+        /// SỬA TIỀN công
+        /// 
+        var wageItemId
+        var wageItemFocus
+        var selectEditWage = document.querySelector('#select-edit-wage')
+        var inputEditWageMoney = document.querySelector('#input-edit-wage-money')
+        var wageSelectedId
+        var wageMoney
+        var btnAcceptEditWage = document.querySelector('#btn-accept-edit-wage')
+        var formEditWage = document.forms['form-edit-wage']
+        selectEditWage.onchange = function() {
+            wageSelectedId = selectEditWage.options[this.options.selectedIndex].getAttribute('data-id')
+            wageMoney = selectEditWage.options[this.options.selectedIndex].getAttribute('data-money')
+            console.log(selectEditWage)
+            $('#input-edit-wage-money').val(wageMoney)
+        }
+        $('#form-edit-wage').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            wageItemId = button.data('id')
+            wageItemFocus = button.parents('tr')[0]
+            $('#input-edit-wage-money').val(wageItemFocus.cells[2].textContent)
+            
+            console.log(selectEditWage.options.length)
+            for(var i = 1; i < selectEditWage.options.length; i++){
+                if (selectEditWage.options[i].text == wageItemFocus.cells[1].textContent) {
+                    selectEditWage.options.item(i).selected = 'selected'
+                    break;
+                }
+            }
+        })
+        btnAcceptEditWage.onclick = function() {
+            formEditWage.action = '/repairs/' + wageItemId + '/' + wageSelectedId + '/edit-wage?_method=PUT'
+            formEditWage.submit()
+        }
+
+        //btn-contract
+        var btnContract = document.querySelector('#btn-contract')
+        var formContract = document.forms['form-contract']
+        btnContract.onclick = function() {
+            formContract.action = '/repairs/' + repairId + '/contract'
+            formContract.submit()
         }
     })
 </script>

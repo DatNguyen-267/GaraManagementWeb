@@ -12,6 +12,8 @@ const Repair_Detail_Material = new Schema({
     amount: Number,
     sell_price: Number,
     total_money: Number,
+    exported: Boolean,
+    contracted: Boolean,
 }, {
     timestamps: true,
 })

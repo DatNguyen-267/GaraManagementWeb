@@ -160,5 +160,30 @@ class RepairController {
             })  
             .catch(next) 
     }
+    editMaterial(req, res, next) {
+        Material.find({ _id: req.params.idMaterial })
+            .then((material) => {
+                var temp = req.body
+                temp.material = req.params.idMaterial
+                Repair_Detail_Material.updateOne({_id: req.params.idMaterialDetail}, temp)
+                .then(()=> {
+                    res.redirect('back')
+                })
+                .catch(next)
+            })
+        .catch(next)
+    }
+    editWage(req, res, next) {
+        var temp = req.body
+        temp.wage = req.params.idWage
+        Repair_Detail_Wage.updateOne({_id: req.params.idWageDetail}, temp)
+        .then(()=> {
+            res.redirect('back')
+        })
+        .catch(next)
+    }
+    contract(req, res, next) {
+        res.render('repairs/contract')
+    }
 }
 module.exports = new RepairController;
