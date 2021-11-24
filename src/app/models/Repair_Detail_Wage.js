@@ -5,8 +5,11 @@ const mongooseDelete = require('mongoose-delete')
 const Schema = mongoose.Schema
 
 const Repair_Detail_Wage = new Schema({
-    responsibility_of_wage: {type:Schema.Types.ObjectId , ref: "Wage" },
-    
+    wage: {type:Schema.Types.ObjectId , ref: "Wage" },
+    of_repair: {type:Schema.Types.ObjectId , ref: "Repair" },
+    wage_name: String,
+    wage_money: String,
+    contracted: Boolean,
 }, {
     timestamps: true,
 })

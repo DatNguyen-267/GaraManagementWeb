@@ -1,17 +1,33 @@
 :root {
+  // PRIMARY
   --primary-color: #ee4d2d;
   --behind-color: #f2f7ff;
-  --primary-color-rgba: rgba(238, 77, 45, 0.5);
-  --white-color: #ffffff;
-  --black-color: #000;
+  --primary-color-rgba: #ee4d2d80;
+
+  // TEXT 
   --text-color: #333;
+
+  // BORDER
   --border-color: #dbdbdbdb;
   --border-color-2: #aaa9a9db;
-  --close-btn-color: #6c757d;
+
+  // BUTTON
   --btn-color: #007bff;
-  --blue-color: rgb(0, 123, 255);
-  --green-color: rgba(23, 162, 184, 1);
-  --red-color: rgb(220, 53, 69);
+
+  // BUTTON ADD
+  --btn-add-hover: #1e7e34;
+  --btn-add: #218838;
+  --btn-add-border: #1e7e34; 
+
+  --btn-success: #1e7e34;
+  --close-btn-color: #6c757d;
+
+  // 
+  --white-color: #ffffff;
+  --black-color: #000;
+  --blue-color: #007bff;
+  --green-color: #17a2b8;
+  --red-color: #dc3545;
   --blue-color-rgba: rgba(0, 123, 255, 0.1);
 }
 
@@ -33,7 +49,9 @@ html {
 .gird__full-width {
   width: 100%;
 }
-
+.grid__item {
+  margin: 16px 36px;
+}
 /* ANIMATION */
 @keyframes fadein {
   from {
@@ -101,6 +119,18 @@ html {
   line-height: 16px;
   position: relative;
 }
+.btn--add {
+  background-color: var(--btn-add);
+  
+  border-color: var(--btn-add-border);
+  color: var(--white-color);
+}
+.bth--add:focus {
+  box-shadow: 0 0 0 0.2 rgba(40,167,69 , 50%);
+}
+.btn--add:hover {
+
+}
 
 .btn.btn--normal:hover {
   background: rgba(0, 0, 0, 0.1);
@@ -158,6 +188,7 @@ html {
 .btn--send-dialog,
 .btn--close-dialog,
 .btn--delete-dialog {
+  cursor: pointer;
   color: white;
   font-size: 14px;
   border-radius: 4px;
@@ -201,4 +232,46 @@ html {
 }
 .info-group label:first-child{
   font-weight: 700;
+}
+.scrollbar-custom{
+    overflow: auto;
+    position: relative;
+}
+.scrollbar-custom th {
+    top: 0;
+    position: sticky;
+}
+.scrollbar-custom::-webkit-scrollbar {
+    width: 10px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+// table
+.table--min {
+  font-size: 14px;
+}
+.icon-check--on {
+  text-align: center;
+  margin-left: -4px;
+  font-size: 18px;
+  color: #218838;
+}
+.td-contain-btn {
+  text-align: right;
+  width: 200px;
+}
+.td-contain-check-icon {
+  text-align: center;
+  
+}
+.table th {
+  padding: 6px !important;
 }

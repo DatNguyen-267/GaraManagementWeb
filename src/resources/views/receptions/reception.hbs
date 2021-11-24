@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/reception.css">
-<div class="container__reception">
+<div class="grid__item">
   <div class="header">
     <div class="header__title">Tiếp nhận xe</div>
     <button class="header__btn-add btn btn--primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
@@ -41,7 +41,7 @@
         <tbody>
           {{#each Receptions}}
           <tr data-id="{{this._id}}">
-            <th scope="row">{{@index}}</th>
+            <th scope="row"> {{sum @index 1}} </th>
             <td>{{this.license}}</td>
             <td>{{this.brand}}</td>
             <td>{{this.name}}</td>

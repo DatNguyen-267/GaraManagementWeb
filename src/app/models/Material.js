@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const slug = require('mongoose-slug-generator')
+// const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
 const Schema = mongoose.Schema
@@ -16,7 +16,7 @@ const Material = new Schema({
     timestamps: true,
 })
 
-mongoose.plugin(slug)
+// mongoose.plugin(slug)
 Material.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
