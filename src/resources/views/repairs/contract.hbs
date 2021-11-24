@@ -1,0 +1,162 @@
+<link rel="stylesheet" href="/css/contract.css">
+
+<div class="main">
+    <div class="header">
+        <div class="header__title">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div> 
+        <div class="header__sub-title">Độc Lập - Tự Do - Hạnh Phúc</div> 
+        <div class="header__separate">-----------</div> 
+        <div class="header__form-name">Hợp Đồng Sửa Chữa Xe Ô Tô</div>
+    </div>
+    <div class="contract_body">
+        <div class="contract__day">Hôm nay ngày: </div>
+        <div class="contract__info-A">
+            <div class="contract__info-A__header">Bên sửa xe (Bên A)</div>
+            <div class="contract__info-item">
+                <label for="">Tên khách hàng:</label>
+                <label>{{Repair.customer_name}}</label>
+            </div>
+            <div class="contract__info-item">
+                <label for="">Biển số xe:</label>
+                <label >{{Repair.license}}</label>
+            </div>
+            <div class="contract__info-item">
+                <label for="">Số điện thoại:</label>
+                <label >{{Repair.of_reception.phone}}</label>
+            </div>
+
+        </div>
+        <div class="contract__info-B">
+            <div class="contract__info-B__header">Bên nhận sửa xe (Bên B)</div>
+            <div class="contract__info-item">
+                <label for="">Địa chỉ:</label>
+                <label ></label>
+            </div>
+            <div class="contract__info-item">
+                <label for="">Đại diện:</label>
+                <label >098JKL</label>
+            </div>
+            
+            <div class="contract__info-item">
+                <label for="">Số điện thoại:</label>
+                <label >095822782</label>
+            </div>
+        </div>  
+        <div class="contract__rule">
+            <div class="contract__rule-header">Điều khoản</div>
+            <div class="contract__rule-item">Điều 1: Nội dung sửa chữa</div>
+            <div>- Bên B tiến hành bảo trì và sửa chữa cho xe của bên A theo những thông tin tiền công và vật tư bến dưới</div>
+            <div class="contract__rule-item">Điều 2: Giá trị hợp đồng và phương thức thanh toán</div>
+            <div class="contract__rule-item">1. Giá trị hợp đồng</div>
+            <div>- Giá trị hợp đồng là: </div>
+            <div>- Chưa bao gồm 10% GTGT</div>
+            <div class="contract__rule-item">2. Phương thức thanh toán</div>
+            <div>- Khách hàng trả 100% số tiền sau khi ký kết hợp đồng này và Bên B hoàn thành sửa chữa xe cho Bên A</div>
+            <div>- Khách hàng chỉ được lấy xe ra khỏi Gara khi hoàn thành thanh toán hoặc ghi nợ</div>
+            <div class="contract__rule-item">3. Trách nhiệm do vi phạm hợp đồng</div>
+            <div>- Bên nào vi phạm hợp đồng một mặt phải trả cho bên bị vi phạm hợp đồng, mặt khác nếu có thiệt hại xảy ra do lỗi vi phạm hợp đồng dẫn đến như: mất mát, hư hỏng tài sản, phải chi phí để ngăn chặn, hạn chế thiệt hại do vi phạm gây ra, tiền phạt do vi phạm hợp đồng khác và tiền bồi thường thiệt hại mà bên bị vi phạm phải trả cho bên thứ ba là hậu quả trực tiếp của sự vi phạm này gây ra</div3>
+            <div>- Khi công việc không đúng với yêu cầu kỹ thuật đã thỏa thuận trong hợp đồng thì bên A có quyền không nhận. Nếu nhận có quyền yêu cầu phải giảm giá hoặc sửa chữa sai sót trước khi nhận. Trong trường hợp do phải sửa chữa sai sót mà hợp đồng không được thực hiện đúng thời hạn thì bên B bị phạt vi phạm hợp đồng như trường hợp vi phạm thời hạn thực hiện hợp đồng.</div3>
+        </div>
+        <div class="table-material">
+            <table class="table table--default table--min" style="overflow-y:scroll">
+                <thead>
+                    <tr>
+                        <th scope="col">Nội dung</th>
+                        <th scope="col">Tên vật tư</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Detail_Materials}}
+                    <tr>
+                        <td scope="row">{{this.content}}</td>
+                        <td scope="row">{{this.material_name}}</td>
+                        <td scope="row">{{this.amount}}</td>
+                        <td scope="row">{{this.sell_price}}</td>
+                        <td scope="row">{{this.total_money}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+        </table>
+        </div>
+        <div class="table-wage">
+            <table class="table table--default table--min">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên tiền công</th>
+                        <th scope="col">Tiền công</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Detail_Wages}}
+                    <tr>
+                        <td scope="row">{{this.wage_name}}</td>
+                        <td scope="row">{{this.wage_money}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                </table>
+        </div>
+        <div class="sign-side">
+            <div class="sign-side-A">
+                <div class="sign-side-header">Đại diện bên A</div>
+                <div>Chức vụ, ký tên, đóng dấu</div>
+            </div>
+            <div class="sign-side-B">
+                <div class="sign-side-header">Đại diện bên B</div>
+                <div>ký tên, đóng dấu</div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="contract__footer">
+        <button id="btn-back" class="contract__footer-btn btn btn-secondary">Trở lại</button>
+        <button id="btn-print" class="contract__footer-btn btn btn-success" >In hợp đồng</button>
+        <button class="contract__footer-btn btn btn-primary"
+            data-toggle="modal" data-target="#modal-accept-contract"
+            data-id="{{Repair._id}}">Xác nhận hợp đồng</button>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-accept-contract" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận hợp đồng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắc đồng ý muốn lập hợp đồng này!!!!.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn--close-dialog" data-dismiss="modal">Đóng</button>
+                <button id="btn-accept" type="button" class="btn--send-dialog">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="POST" name="form-accept-contract"></form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var btnBack = document.querySelector('#btn-back')
+    var btnPrint= document.querySelector('#btn-print')
+    var btnAccept = document.querySelector('#btn-accept')
+    var repairId
+    var formAcceptContract = document.forms['form-accept-contract']
+    
+    $('#modal-accept-contract').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        repairId = button.data('id')
+    })
+
+    btnAccept.onclick = function() {
+        formAcceptContract.action = '/repairs/' + repairId + '/create-contract'
+        formAcceptContract.submit()
+    }
+
+})
+</script>

@@ -28,7 +28,11 @@ app.use(morgan('combined'))
 app.engine('hbs', handlebars({
   extname:'.hbs',
   helpers: {
-    sum: (a,b) => a + b,
+    sum: (a, b) => a + b,
+    isShow: (a) => {
+      if (a == false) return "hidden"
+      else return "xxx"
+    }
   }
 
 }));

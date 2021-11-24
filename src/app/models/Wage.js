@@ -7,7 +7,6 @@ const Schema = mongoose.Schema
 const Wage = new Schema({
     name: String, 
     money: Number, 
-    of_supplier: {type:Schema.Types.ObjectId, ref: 'Supplier'}
 }, {
     timestamps: true,
 })
