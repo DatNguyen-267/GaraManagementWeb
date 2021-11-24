@@ -6,7 +6,7 @@ const { render } = require('node-sass')
 class MaterialController {
     show(req, res, next) {
         Supplier.find({}).then((suppliers) => {
-            Material.find({})
+            Material.find({}).populate('of_supplier', 'name')
                 .then((materials) => {
                     res.render('warehouse/material', {
                         materials: mutipleMongooseToObject(materials),

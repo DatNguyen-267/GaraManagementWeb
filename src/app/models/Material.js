@@ -11,6 +11,7 @@ const Material = new Schema({
     import_price: {type: Number, required: true},
     sell_price: {type: Number, required: true},
     warranty_period: {type: Number, required: false},
+    slug: { type: String, slug: "name", unique:true },
 }, {
     timestamps: true,
 })

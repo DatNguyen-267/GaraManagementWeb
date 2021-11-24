@@ -165,6 +165,7 @@
   <thead class="thead-dark"> 
     <tr>
       <th scope="col">Tên vật tư</th>
+      <th scope="col">Nhà cung cấp</th>
       <th scope="col">Số lượng</th>
       <th scope="col">Giá nhập</th>
       <th scope="col">Giá bán</th>
@@ -175,6 +176,7 @@
     {{#each materials}}
       <tr>
         <td>{{this.name}}</td>
+        <td>{{this.of_supplier.name}}</td>
         <td>{{this.amount}}</td>
         <td>{{this.import_price}}</td>
         <td>{{this.sell_price}}</td>

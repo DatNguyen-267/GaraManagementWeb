@@ -161,7 +161,7 @@
     {{#each vouchers}}
       <tr>
         <td>{{this.import_id}}</td>
-        <td>{{this.of_supplier}}</td>
+        <td>{{this.of_supplier.name}}</td>
         <td>{{this.import_date}}</td>
         <td>{{this.total_amount}}</td>
         <td>
@@ -175,7 +175,7 @@
 </table>
 
 
-
+<form name="form-view" method="GET" action=""></form>
 <form name="form-delete" method="POST" action=""></form>
 
 <script
@@ -186,12 +186,22 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    var btnView = document.querySelectorAll('.btn--view-item')
     var btnEdit = document.querySelectorAll('.btn--edit-item')
     var btnDelete = document.querySelectorAll('.btn--delete-item')
     var btnModalDelete = document.getElementById('btnModalDelete')
     var btnModalEdit = document.getElementById('btnModalEdit')
+    var formView = document.forms['form-view']
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
+
+    for(var item of btnView) {
+      item.onclick = function () {
+        var voucherID = this.getAttribute('data-id')
+        formView.action = '/import/' + voucherID
+        formView.submit()
+      }
+    }
     
     for(var item of btnDelete) {
       item.onclick = function() {
