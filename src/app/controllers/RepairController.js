@@ -2,6 +2,7 @@ const Repair = require('../models/Repair')
 const Material = require('../models/Material')
 const Employee = require('../models/Employee')
 const Wage = require('../models/Wage')
+const Contract = require('../models/Contract')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 
@@ -47,6 +48,7 @@ class RepairController {
                 repair.of_reception = reception;
                 repair.quoted = false;
                 repair.contracted = false;
+                repair.exported = false;
                 repair.debt = 0;
                 repair.status = 'Mới'
                 repair.save()
@@ -183,7 +185,68 @@ class RepairController {
         .catch(next)
     }
     contract(req, res, next) {
-        res.render('repairs/contract')
+        Repair.findOne({ _id: req.params.id }).populate('of_reception')
+            .then((repair) => {
+                return Repair_Detail_Material.find({ of_repair: req.params.id })
+                    .then((materials) => {
+                        return Repair_Detail_Wage.find({ of_repair: req.params.id })
+                            .then((wages) => {
+                                return {
+                                    repair,
+                                    materials,
+                                    wages
+                                }
+                            })
+                    })
+            })
+            .then((data) => {
+                res.render('repairs/contract', {
+                    Repair: mongooseToOject(data.repair),
+                    Detail_Materials: mutipleMongooseToObject(data.materials),
+                    Detail_Wages: mutipleMongooseToObject(data.wages),
+                })
+            })
+            .catch(next)
+        
+    }
+    createContract(req, res, next) {
+        var contract = new Contract()
+        contract.of_repair = req.params.id
+        contract.save()
+            .then(() => {
+                return Repair_Detail_Material.find({ of_repair: req.params.id })
+                    .then((detail_materials) => {
+                        return Repair_Detail_Wage.find({ of_repair: req.params.id })
+                            .then((detai_wages) => {
+                                var idMaterial= []
+                                var idWage= []
+                                for (const item of detail_materials) {
+                                    idMaterial.push(item._id)
+                                }
+                                for (const item of detai_wages) {
+                                    idWage.push(item._id)
+                                }
+                                return {
+                                    idMaterial,
+                                    idWage,
+                                }
+                            })
+                    })
+            })
+            .then((data) => {
+                Repair_Detail_Material.updateMany({ _id: { $in: data.idMaterial } }, {
+                    contracted: true
+                })
+                    .then(() => {
+                    res.redirect('back')
+                })
+            })
+            .catch(next)
+        
+
+    }
+    deleteDetailMaterial(req, res, next) {
+        res.send(req.params.id)
     }
 }
 module.exports = new RepairController;

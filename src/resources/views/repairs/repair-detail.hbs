@@ -64,33 +64,47 @@
             <div class="table-material">
                 <table class="table table--default" style="overflow-y:scroll">
                     <colgroup>
+                        <col style="width: 70px;">
+                        <col style="width: 300px;">
+                        <col style="width: 270px;">
                         <col style="width: 100px;">
-                        <col style="width: 200px;">
-                        <col>
+                        <col style="width: 100px;"> 
+                        <col style="width: 100px;"> 
+                        <col style="width: 100px;"> 
+                        <col style="width: 100px;"> 
+
                     </colgroup>
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">STT</th>
                             <th scope="col">Nội dung</th>
                             <th scope="col">Tên vật tư</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Đơn giá</th>
                             <th scope="col">Thành tiền</th>
-                            <th scope="col" style="width: 180px;"></th>
+                            <th scope="col">Hợp đồng</th>
+                            <th scope="col">Xuất Kho</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each Detail_Materials}}
                         <tr>
-                            <td scope="row">{{this._id}}</td>
+                            <td scope="row">{{sum @index 1}}</td>
                             <td scope="row">{{this.content}}</td>
                             <td scope="row">{{this.material_name}}</td>
                             <td scope="row">{{this.amount}}</td>
                             <td scope="row">{{this.sell_price}}</td>
                             <td scope="row">{{this.total_money}}</td>
-                            <td scope="row">
+                            <td class="td-contain-check-icon" scope="row" style="text-align:center">
+                                <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
+                            </td> 
+                            <td class="td-contain-check-icon" scope="row" style="text-align:center">
+                                <span {{isShow this.exported}} class="oi oi-circle-check icon-check--on"></span>
+                            </td>
+                            <td class="td-contain-btn" scope="row"> 
                                 <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit-material" data-id="{{this._id}}">Sửa</button>
-                                <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                                <button class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-material" data-id="{{this._id}}">Xóa</button>
                             </td>
                         </tr>
                         {{/each}}
@@ -107,13 +121,13 @@
             </div> 				    
             <table class="table table--default table-wage">
                 <colgroup>
-                <col style="width: 100px;">
-                <col style="width: 200px;" >
+                    <col style="width: 70px;">
+                    <col style="width: 300px;">
                 <col>	
                 </colgroup>
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">STT</th>
                     <th scope="col">Tên tiền công</th>
                     <th scope="col">Tiền công</th>
                     <th scope="col" style="width: 180px;"></th>
@@ -122,10 +136,10 @@
             <tbody>
                 {{#each Detail_Wages}}
                 <tr>
-                    <td scope="row">{{this._id}}</td>
+                    <td scope="row">{{sum @index 1}}</td>
                     <td scope="row">{{this.wage_name}}</td>
                     <td scope="row">{{this.wage_money}}</td>
-                    <td scope="row">
+                    <td scope="row"  class="td-contain-btn">
                         <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit-wage" data-id="{{this._id}}">Sửa</button>
                         <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete-wage" data-id="{{this._id}}">Xóa</button>
                     </td>
@@ -143,14 +157,14 @@
             </div> 	
             <table class="table table--default table-employee">
                 <colgroup>
-                <col style="width: 100px;">
+                    <col style="width: 70px;">
                 <col >
                 <col>
                 </colgroup>
             <thead class="thead-dark">
                 
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">STT</th>
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col" style="width: 180px;"></th>
                 </tr>
@@ -158,9 +172,9 @@
             <tbody>
                 {{#each Detail_Employees}}
                 <tr>
-                    <td scope="row">{{this._id}}</td>
+                    <td scope="row">{{sum @index 1}}</td>
                     <td scope="row">{{this.employee_name}}</td>
-                    <td scope="row">
+                    <td scope="row" class="td-contain-btn">
                         <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
                         <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
                     </td>
@@ -395,6 +409,28 @@
 
 </form>
 
+{{!-- DELETE --}}
+<form method="POST" action="" name="form-delete-material"></form>
+<div class="modal fade" id="modal-delete-material" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa vật tư</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắc đồng ý muốn xóa nội dung sửa chữa này!!!!.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn--close-dialog" data-dismiss="modal">Đóng</button>
+                <button id="btn-accept-delete-material" type="button" class="btn--delete-dialog">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{!-- Contract --}}
 <form method="GET" name="form-contract"></form>
 <script>
@@ -480,8 +516,6 @@
         var employeeSelectedId;
         var employeePhone;
         var formAddEmployee = document.forms['form-add-employee']
-
-        
         function loadEmployeePhone(phone) {
             inputEmployeePhone.value = phone
         }
@@ -609,6 +643,19 @@
         btnContract.onclick = function() {
             formContract.action = '/repairs/' + repairId + '/contract'
             formContract.submit()
+        }
+
+        // XÓA VẬT TƯ 
+        var btnAcceptDeleteMaterial = document.querySelector('#btn-accept-delete-material')
+        var detailMaterialIdDelete
+        var formDeleteMaterial = document.forms['form-delete-material']
+        $('#modal-delete-material').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            detailMaterialIdDelete = button.data('id')
+        })
+        btnAcceptDeleteMaterial.onclick = function() {
+            formDeleteMaterial.action = '/repairs/' + detailMaterialIdDelete + '/delete-detail-material?_method=DELETE'
+            formDeleteMaterial.submit()
         }
     })
 </script>

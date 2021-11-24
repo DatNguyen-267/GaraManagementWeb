@@ -188,6 +188,7 @@ html {
 .btn--send-dialog,
 .btn--close-dialog,
 .btn--delete-dialog {
+  cursor: pointer;
   color: white;
   font-size: 14px;
   border-radius: 4px;
@@ -251,4 +252,26 @@ html {
 }
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
     background: #555; 
+}
+
+// table
+.table--min {
+  font-size: 14px;
+}
+.icon-check--on {
+  text-align: center;
+  margin-left: -4px;
+  font-size: 18px;
+  color: #218838;
+}
+.td-contain-btn {
+  text-align: right;
+  width: 200px;
+}
+.td-contain-check-icon {
+  text-align: center;
+  
+}
+.table th {
+  padding: 6px !important;
 }
