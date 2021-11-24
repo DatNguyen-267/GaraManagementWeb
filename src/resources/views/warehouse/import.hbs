@@ -163,7 +163,7 @@
         <td>{{this.import_id}}</td>
         <td>{{this.of_supplier.name}}</td>
         <td>{{this.import_date}}</td>
-        <td>{{this.total_amount}}</td>
+        <td>{{this.total_price}}</td>
         <td>
           <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
           <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
@@ -198,7 +198,7 @@
     for(var item of btnView) {
       item.onclick = function () {
         var voucherID = this.getAttribute('data-id')
-        formView.action = '/import/' + voucherID
+        formView.action = '/import/detail/' + voucherID
         formView.submit()
       }
     }

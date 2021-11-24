@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
 const Scheme = mongoose.Schema
@@ -11,7 +10,6 @@ const ExportVoucher = new Scheme({
     timestamps: true,
 })
 
-mongoose.plugin(slug)
 ExportVoucher.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 

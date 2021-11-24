@@ -7,8 +7,9 @@ router.post('/create', importController.create)
 router.delete('/:id/delete', importController.delete)
 router.put('/:id', importController.edit)
 
-router.get('/:idVoucher', importController.showDetail)
-router.post('/:idVoucher/:idMaterial/add', importController.addMaterial)
-router.delete('/:idVoucher/:idMaterial/delete', importController.deleteMaterial)
+router.get('/detail/:idVoucher', importController.showDetail)
+router.post('/detail/:idVoucher/add', importController.addMaterial)
+router.delete('/detail/:idVoucher/:idDetail/delete', importController.deleteMaterial)
+router.put('/detail/:idVoucher/:idDetail', importController.editMaterial)
 
 module.exports = router;

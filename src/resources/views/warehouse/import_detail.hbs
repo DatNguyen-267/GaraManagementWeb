@@ -1,11 +1,9 @@
 
-
 {{!-- Modal thêm vật tư --}}
-
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="" method="POST">
+      <form action="" method="POST" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm vật tư</h5>
         <button
@@ -20,12 +18,18 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Vật tư</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" aria-label="Default select example">
-                <option value="null">Nhà cung cấp</option>
+              <select class="form-control" name="material" aria-label="Default select example">
+                <option value="null">Loại vật tư</option>
                 {{#each materials}}
-                <option value="{{this._id}}">{{this.name}} - {{this.of_supplier.name}}</option>
+                <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
+            </div>
+          </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Giá nhập</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="" name="import_price" />
             </div>
           </div>
           <div class="p-2 row">
@@ -38,6 +42,58 @@
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-success">Thêm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{!-- Modal sửa vật tư --}}
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="" method="POST" name="form-edit">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa vật tư</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Vật tư</label>
+            <div class="col-9 form-group">
+              <select class="form-control" name="material" aria-label="Default select example">
+                <option value="null">Loại vật tư</option>
+                {{#each materials}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Giá nhập</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="" name="import_price" />
+            </div>
+          </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Số lượng</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="" name="amount" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" id="btnModalEdit">Sửa</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
@@ -94,23 +150,20 @@
   <thead class="thead-dark"> 
     <tr>
       <th scope="col">Tên vật tư</th>
-      <th scope="col">Nhà cung cấp</th>
       <th scope="col">Số lượng</th>
       <th scope="col">Giá nhập</th>
-      <th scope="col">Giá bán</th>
       <th scope="col" colspan="2">Thao tác</th>
     </tr>
   </thead>
   <tbody>
-    {{#each materials_list}}
+    {{#each details}}
       <tr>
-        <td>{{this.name}}</td>
-        <td>{{this.of_supplier.name}}</td>
+        <td>{{this.material.name}}</td>
         <td>{{this.amount}}</td>
         <td>{{this.import_price}}</td>
-        <td>{{this.sell_price}}</td>
         <td>
           <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+          <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
         </td>
       </tr>
     {{/each}}
@@ -127,6 +180,42 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    
+    var addMaterialForm = document.getElementById('addMaterialForm')
+    var btnDelete = document.querySelectorAll('.btn--delete-item')
+    var btnEdit = document.querySelectorAll('.btn--edit-item')
+    var btnModalDelete = document.getElementById('btnModalDelete')
+    var btnModalEdit = document.getElementById('btnModalEdit')
+    var formAdd = document['form-add']
+    var formDelete = document['form-delete']
+    var formEdit = document['form-edit']
+
+    formAdd.action = window.location.pathname + '/add'
+    formEdit.action = window.location.pathname + '/add'
+
+    for(var item of btnDelete) {
+      item.onclick = function() {
+        var detailID = this.getAttribute('data-id') 
+        btnModalDelete.setAttribute('data-id', detailID)
+      }
+    }
+
+    for(var item of btnEdit) {
+      item.onclick = function() {
+        var detailID = this.getAttribute('data-id') 
+        btnModalEdit.setAttribute('data-id', detailID)
+      }
+    }
+
+    btnModalDelete.onclick = function () {
+      var detailID = this.getAttribute('data-id')
+      formDelete.action = `${window.location.pathname}/${detailID}/delete?_method=DELETE`
+      formDelete.submit()
+    }
+
+    btnModalEdit.onclick = function () {
+      var detailID = this.getAttribute('data-id')
+      formEdit.action = `${window.location.pathname}/${detailID}/?_method=PUT`
+      formEdit.submit()
+    }
   })
 </script>

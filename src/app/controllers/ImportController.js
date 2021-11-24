@@ -15,26 +15,47 @@ class ImportController {
                         suppliers: mutipleMongooseToObject(suppliers),
                     })
                 })
-                .catch(next)
         })
+            .catch(next)
     }
 
     showDetail(req, res, next) {
-        Material.find({}).populate('of_supplier', 'name')
-            .then((materials) => {
-                ImportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
-                    
+        ImportDetail.find({ of_voucher: req.params.idVoucher }).populate('material').then((details) => {
+            Voucher.findById(req.params.idVoucher).then((voucher) => {
+                Material.find({ of_supplier: voucher.of_supplier }).then((materials) => {
+                    res.render('warehouse/import_detail', {
+                        materials: mutipleMongooseToObject(materials),
+                        details: mutipleMongooseToObject(details)
+                    })
                 })
             })
+
+        })
             .catch(next)
     }
 
     addMaterial(req, res, next) {
-
+        const material = new ImportDetail(req.body);
+        material.of_voucher = req.params.idVoucher;
+        material.save()
+            .then(() => {
+                res.redirect(`/import/detail/${req.params.idVoucher}`)
+            })
     }
 
     deleteMaterial(req, res, next) {
+        const idDelete = req.params.idDetail
+        ImportDetail.deleteOne({ _id: idDelete })
+            .then(() => {
+                res.redirect(`/import/detail/${req.params.idVoucher}`)
+            })
+            .catch(next)
+    }
 
+    editMaterial(req, res, next) {
+        ImportDetail.updateOne({ _id: req.params.idDetail }, req.body)
+            .then(() => res.redirect(`/import/detail/${req.params.idVoucher}`))
+            .catch(next)
     }
 
     create(req, res, next) {
@@ -62,5 +83,8 @@ class ImportController {
     }
 }
 
+const updateTotalPrice = () => {
+    
+}
 
 module.exports = new ImportController;
