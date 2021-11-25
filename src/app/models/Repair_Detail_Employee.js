@@ -9,6 +9,7 @@ const Repair_Detail_Employee = new Schema({
     employee: { type: Schema.Types.ObjectId, ref: "Employee" },
     employee_name: String,
     employee_phone: String,
+    contracted: { type: Boolean, default: false },
 }, {
     timestamps: true,
 })

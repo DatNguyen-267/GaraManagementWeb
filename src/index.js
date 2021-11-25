@@ -32,6 +32,10 @@ app.engine('hbs', handlebars({
     isShow: (a) => {
       if (a == false) return "hidden"
       else return "xxx"
+    },
+    isDisable: (a) => {
+      if (a == false) return ""
+      else return "disabled"
     }
   }
 

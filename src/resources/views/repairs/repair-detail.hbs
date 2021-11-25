@@ -103,8 +103,8 @@
                                 <span {{isShow this.exported}} class="oi oi-circle-check icon-check--on"></span>
                             </td>
                             <td class="td-contain-btn" scope="row"> 
-                                <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit-material" data-id="{{this._id}}">Sửa</button>
-                                <button class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-material" data-id="{{this._id}}">Xóa</button>
+                                <button {{isDisable this.contracted}} class="btn--edit-item btn--disable" data-toggle="modal" data-target="#form-edit-material" data-id="{{this._id}}">Sửa</button>
+                                <button {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-material" data-id="{{this._id}}">Xóa</button>
                             </td>
                         </tr>
                         {{/each}}
@@ -140,8 +140,8 @@
                     <td scope="row">{{this.wage_name}}</td>
                     <td scope="row">{{this.wage_money}}</td>
                     <td scope="row"  class="td-contain-btn">
-                        <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit-wage" data-id="{{this._id}}">Sửa</button>
-                        <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete-wage" data-id="{{this._id}}">Xóa</button>
+                        <button {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#form-edit-wage" data-id="{{this._id}}">Sửa</button>
+                        <button {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#form-delete-wage" data-id="{{this._id}}">Xóa</button>
                     </td>
                 </tr>
                 {{/each}}

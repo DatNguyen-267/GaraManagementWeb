@@ -40,7 +40,12 @@ html {
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 }
-
+button[disabled] {
+  cursor: default;
+  background: #c3c3c3;
+  color: #94949494;
+  border: 1px solid #94949494;
+}
 .grid__row {
   display: flex;
   flex-wrap: wrap;

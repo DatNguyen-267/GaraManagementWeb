@@ -246,7 +246,10 @@ class RepairController {
 
     }
     deleteDetailMaterial(req, res, next) {
-        res.send(req.params.id)
+        Repair_Detail_Material.deleteOne({ _id: req.params.id })
+            .then(() => {  
+                res.redirect('back')
+            })
     }
 }
 module.exports = new RepairController;
