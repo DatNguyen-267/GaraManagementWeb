@@ -136,4 +136,15 @@
     color: var(--black-color);
     margin: 8px 0   ;
 }
-
+.repair-modal-quote-dialog {
+    max-width: 50vw !important;
+    margin:50px auto !important;
+    display: flex !important;
+}
+.repair-modal-quote-content {
+    display: block;
+    width: 70vw !important;
+}
+.repair-modal-quote {
+    
+}

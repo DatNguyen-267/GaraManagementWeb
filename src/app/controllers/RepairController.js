@@ -129,7 +129,16 @@ class RepairController {
             .catch(next)
         
     }
-    quote(req,res,next) {
+    quote(req, res, next) {
+        // Repair.updateOne({ _id: req.params.id }, {
+        //             contracted: false,
+        //             ordered: false,
+        //             quote: true,
+        //             status: "Đã báo giá"
+        // })
+        //     .then(() => {
+                
+        // })
         res.render('repairs/quote')
     }
     createMaterial(req, res, next) {
@@ -138,7 +147,12 @@ class RepairController {
         repairDetailMaterial.material = req.params.materialId
         repairDetailMaterial.save()
             .then(() => {
-                res.redirect('back')
+                Repair.updateOne({ _id: req.params.id }, {
+                    edited: true
+                })
+                    .then(() => {
+                        res.redirect('back')
+                    })
             })  
             .catch(next) 
     }
@@ -148,7 +162,13 @@ class RepairController {
         repairDetailWage.wage = req.params.wageId
         repairDetailWage.save()
             .then(() => {
-                res.redirect('back')
+                Repair.updateOne({ _id: req.params.id }, {
+                    edited: true
+                })
+                    .then(() => {
+                    res.redirect('back')
+                })
+                
             })  
             .catch(next) 
     }
@@ -158,7 +178,12 @@ class RepairController {
         repairDetailEmployee.employee = req.params.employeeId
         repairDetailEmployee.save()
             .then(() => {
-                res.redirect('back')
+                Repair.updateOne({ _id: req.params.id }, {
+                    edited: true
+                })
+                    .then(() => {
+                    res.redirect('back')
+                })
             })  
             .catch(next) 
     }
@@ -179,6 +204,15 @@ class RepairController {
         var temp = req.body
         temp.wage = req.params.idWage
         Repair_Detail_Wage.updateOne({_id: req.params.idWageDetail}, temp)
+        .then(()=> {
+            res.redirect('back')
+        })
+        .catch(next)
+    }
+    editEmployee(req, res, next) {
+        var temp = req.body
+        temp.employee = req.params.idEmployee
+        Repair_Detail_Employee.updateOne({_id: req.params.idEmployeeDetail}, temp)
         .then(()=> {
             res.redirect('back')
         })
@@ -218,38 +252,149 @@ class RepairController {
                     .then((detail_materials) => {
                         return Repair_Detail_Wage.find({ of_repair: req.params.id })
                             .then((detai_wages) => {
-                                var idMaterial= []
-                                var idWage= []
-                                for (const item of detail_materials) {
-                                    idMaterial.push(item._id)
-                                }
-                                for (const item of detai_wages) {
-                                    idWage.push(item._id)
-                                }
-                                return {
-                                    idMaterial,
-                                    idWage,
-                                }
+                                return Repair_Detail_Employee.find({ of_repair: req.params.id })
+                                    .then((detai_employees) => {
+                                        var idMaterial= []
+                                        var idWage= []
+                                        var idEmployees= []
+                                        for (const item of detail_materials) {
+                                            idMaterial.push(item._id)
+                                        }
+                                        for (const item of detai_wages) {
+                                            idWage.push(item._id)
+                                        }
+                                        for (const item of detai_employees) {
+                                            idEmployees.push(item._id)
+                                        }
+                                        return {
+                                            idMaterial,
+                                            idWage,
+                                            idEmployees
+                                        }
+                                    })
                             })
                     })
             })
             .then((data) => {
-                Repair_Detail_Material.updateMany({ _id: { $in: data.idMaterial } }, {
-                    contracted: true
+                Repair.updateOne({ _id: req.params.id }, {
+                    contracted: true,
+                    edited: false,
+                    ordered: false,
+                    status: "Đã lập hợp đồng"
                 })
                     .then(() => {
-                    res.redirect('back')
+                    Repair_Detail_Material.updateMany({ _id: { $in: data.idMaterial } }, {
+                    contracted: true})
+                    .then(() => {
+                        Repair_Detail_Wage.updateMany({ _id: { $in: data.idWage } }, {
+                            contracted: true})
+                            .then(() => {
+                                Repair_Detail_Employee.updateMany({ _id: { $in: data.idEmployees } }, {
+                                    contracted: true })
+                                    .then(() => {
+                                        res.redirect('/repairs/'+ req.params.id +'/repair-detail')
+                                    })
+                                
+                            })
+                    })
                 })
             })
             .catch(next)
-        
-
     }
+    
     deleteDetailMaterial(req, res, next) {
-        Repair_Detail_Material.deleteOne({ _id: req.params.id })
-            .then(() => {  
-                res.redirect('back')
+        Repair.findOne({ _id: req.params.id })
+            .then((repair) => {
+            Repair_Detail_Material.deleteOne({ _id: req.params.idDetail })
+                .then(() => {
+                    Repair_Detail_Material.find({ of_repair: repair._id, contracted: false })
+                        .then((detail_Materials) => {
+                            Repair_Detail_Wage.find({ of_repair: repair._id, contracted: false  })
+                                .then((detail_Wages) => {
+                                    Repair_Detail_Employee.find({ of_repair: repair._id, contracted: false  })
+                                        .then((detail_Employees) => {
+                                            if (repair.edited && !(detail_Materials.length > 0 ||
+                                                detail_Wages.length > 0 || detail_Employees> 0 )) {
+                                                Repair.updateOne({ _id: repair.id }, {
+                                                    edited: false
+                                                })
+                                                    .then(() => {
+                                                    res.redirect('back')
+                                                })
+                                            }
+                                            res.redirect('back')
+                                    })
+                                })
+                                
+                        })
             })
+        })
+        
+    }
+    deleteDetailWage(req, res, next) {
+        Repair.findOne({ _id: req.params.id })
+            .then((repair) => {
+            Repair_Detail_Wage.deleteOne({ _id: req.params.idDetail })
+                .then(() => {
+                    Repair_Detail_Material.find({ of_repair: repair._id, contracted: false })
+                        .then((detail_Materials) => {
+                            Repair_Detail_Wage.find({ of_repair: repair._id, contracted: false  })
+                                .then((detail_Wages) => {
+                                    Repair_Detail_Employee.find({ of_repair: repair._id, contracted: false  })
+                                        .then((detail_Employees) => {
+                                            if (repair.edited && !(detail_Materials.length > 0 ||
+                                                detail_Wages.length > 0 || detail_Employees> 0 )) {
+                                                Repair.updateOne({ _id: repair.id }, {
+                                                    edited: false
+                                                })
+                                                    .then(() => {
+                                                    res.redirect('back')
+                                                })
+                                            }
+                                            res.redirect('back')
+                                    })
+                                })
+                                
+                        })
+            })
+        })
+    }
+    deleteDetailEmployee(req, res, next) {
+        Repair.findOne({ _id: req.params.id })
+            .then((repair) => {
+            Repair_Detail_Employee.deleteOne({ _id: req.params.idDetail })
+                .then(() => {
+                    Repair_Detail_Material.find({ of_repair: repair._id, contracted: false })
+                        .then((detail_Materials) => {
+                            Repair_Detail_Wage.find({ of_repair: repair._id, contracted: false  })
+                                .then((detail_Wages) => {
+                                    Repair_Detail_Employee.find({ of_repair: repair._id, contracted: false  })
+                                        .then((detail_Employees) => {
+                                            if (repair.edited && !(detail_Materials.length > 0 ||
+                                                detail_Wages.length > 0 || detail_Employees> 0 )) {
+                                                Repair.updateOne({ _id: repair.id }, {
+                                                    edited: false
+                                                })
+                                                    .then(() => {
+                                                    res.redirect('back')
+                                                })
+                                            }
+                                            res.redirect('back')
+                                    })
+                                })
+                                
+                        })
+            })
+        })
+    }
+    ordered(req, res, next) {
+        Repair.updateOne({ _id: req.params.id }, {
+            ordered: true,
+            status: "Đang sửa chữa"
+        })
+            .then(() => {
+            res.redirect('back')
+        })
     }
 }
 module.exports = new RepairController;
