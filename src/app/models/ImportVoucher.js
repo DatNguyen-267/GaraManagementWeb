@@ -9,6 +9,7 @@ const ImportVoucher = new Schema({
     details: { type: Schema.Types.ObjectId, ref: 'ImportDetail' },
     import_date: { type: Date, required: true },
     total_price: { type: Number, required: false, default: 0 },
+    imported: {type: Boolean, required: true, default: false}
 }, {
     timestamps: true,
 })

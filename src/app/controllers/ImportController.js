@@ -4,11 +4,12 @@ const Material = require('../models/Material')
 const ImportDetail = require('../models/ImportDetail')
 const { mutipleMongooseToObject, mongooseToObject } = require('../../util/mongoose')
 const { render } = require('node-sass')
+const ImportVoucher = require('../models/ImportVoucher')
 
 class ImportController {
     show(req, res, next) {
         Supplier.find({}).then((suppliers) => {
-            Voucher.find({}).populate('of_supplier', 'name')
+            Voucher.find({ imported: false }).populate('of_supplier', 'name')
                 .then((vouchers) => {
                     res.render('warehouse/import', {
                         vouchers: mutipleMongooseToObject(vouchers),
@@ -16,6 +17,30 @@ class ImportController {
                     })
                 })
         })
+            .catch(next)
+    }
+
+    create(req, res, next) {
+        const newVoucher = new Voucher(req.body)
+        newVoucher.save()
+            .then(() => {
+                res.redirect('/import')
+            }) // Khi thành công 
+            .catch(next) // Khi thất bại
+    }
+
+    delete(req, res, next) {
+        const idDelete = req.params.id
+        Voucher.deleteOne({ _id: idDelete })
+            .then(() => {
+                res.redirect('/import')
+            })
+            .catch(next)
+    }
+
+    edit(req, res, next) {
+        Voucher.updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.redirect('/import'))
             .catch(next)
     }
 
@@ -58,33 +83,22 @@ class ImportController {
             .catch(next)
     }
 
-    create(req, res, next) {
-        const newVoucher = new Voucher(req.body)
-        newVoucher.save()
-            .then(() => {
-                res.redirect('/import')
-            }) // Khi thành công 
-            .catch(next) // Khi thất bại
-    }
-
-    delete(req, res, next) {
-        const idDelete = req.params.id
-        Voucher.deleteOne({ _id: idDelete })
-            .then(() => {
-                res.redirect('/import')
+    importVoucher(req, res, next) {
+        ImportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
+            for (detail of details) {
+                Material.findOne({ _id: detail.material }).then((material) => {
+                    material.amount += detail.amount
+                    Material.updateOne({ _id: detail.material}, material).then(() => {})
+                })
+            }
+        }).then(() => {
+            ImportVoucher.findOne({_id: req.params.idVoucher}).then((voucher) => {
+                voucher.imported = true
+                ImportVoucher.updateOne({_id: req.params.idVoucher}, voucher).then(() => res.redirect('/import'))
             })
-            .catch(next)
-    }
-
-    edit(req, res, next) {
-        Voucher.updateOne({ _id: req.params.id }, req.body)
-            .then(() => res.redirect('/import'))
-            .catch(next)
+        })
     }
 }
 
-const updateTotalPrice = () => {
-    
-}
 
 module.exports = new ImportController;

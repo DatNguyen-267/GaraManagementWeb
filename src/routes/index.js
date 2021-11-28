@@ -9,7 +9,7 @@ const repairRouter = require('./repairs')
 const customerRouter =require('./customer')
 const customerdebtRouter =require('./customerdebt')
 const supplierRouter = require('./supplier')
-const importRouter = require('./import-voucher')
+const importRouter = require('./import')
 
 
 function route(app) {

@@ -132,6 +132,34 @@
       </div>
 </div>
 
+{{!-- Modal nhập kho --}}
+<div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Nhập kho</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Xác nhận nhập kho</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" id="btnModalImport">Xác nhận</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+</div>
+
 {{!-- Danh sách vật tư --}}
 <div class="row">
   <div class="d-grid gap-2 d-flex justify-content-end">
@@ -142,6 +170,16 @@
       data-bs-target="#addModal"
     >
       Thêm
+    </button>
+  </div>
+  <div class="d-grid gap-2 d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-warning"
+      data-bs-toggle="modal"
+      data-bs-target="#importModal"
+    >
+      Nhập kho
     </button>
   </div>
 </div>
@@ -171,6 +209,7 @@
 </table>
 
 <form name="form-delete" method="POST" action=""></form>
+<form name="form-import" method="PUT" action=""></form>
 
 <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -185,12 +224,14 @@
     var btnEdit = document.querySelectorAll('.btn--edit-item')
     var btnModalDelete = document.getElementById('btnModalDelete')
     var btnModalEdit = document.getElementById('btnModalEdit')
+    var btnModalImport = document.getElementById('btnModalImport')
     var formAdd = document['form-add']
     var formDelete = document['form-delete']
     var formEdit = document['form-edit']
+    var formImport = document['form-import']
 
     formAdd.action = window.location.pathname + '/add'
-    formEdit.action = window.location.pathname + '/add'
+    formImport.action = window.location.pathname + '/?_method=PUT'
 
     for(var item of btnDelete) {
       item.onclick = function() {
@@ -216,6 +257,10 @@
       var detailID = this.getAttribute('data-id')
       formEdit.action = `${window.location.pathname}/${detailID}/?_method=PUT`
       formEdit.submit()
+    }
+
+    btnModalImport.onclick = function () {
+      formImport.submit()
     }
   })
 </script>

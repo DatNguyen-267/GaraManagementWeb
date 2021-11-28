@@ -72,24 +72,24 @@ class RepairController {
                 res.redirect('/repairs')
             })
             .catch(next)
-        
+
     }
     repairDetail(req, res, next) {
-        Repair.findOne({_id: req.params.id}).populate('of_reception')
-            .then((repair)=> {
+        Repair.findOne({ _id: req.params.id }).populate('of_reception')
+            .then((repair) => {
                 return Material.find({})
                     .then((materials) => {
                         return Wage.find({})
                             .then((wages) => {
                                 return Employee.find({})
-                                    .then((employees)=> {
+                                    .then((employees) => {
                                         return {
                                             repair,
                                             materials,
                                             wages,
                                             employees,
                                         }
-                                    }) 
+                                    })
                             })
                     })
             })
@@ -102,18 +102,16 @@ class RepairController {
                                     .then((detail_Employees) => {
                                         return {
                                             detail_Materials: detail_Materials,
-                                            detail_Wages : detail_Wages,
-                                            detail_Employees : detail_Employees,
-                                            repair : data.repair,
-                                            materials : data.materials,
-                                            employees : data.employees,
-                                            wages : data.wages,
+                                            detail_Wages: detail_Wages,
+                                            detail_Employees: detail_Employees,
+                                            repair: data.repair,
+                                            materials: data.materials,
+                                            employees: data.employees,
+                                            wages: data.wages,
                                         }
                                     })
                             })
-                        
                     })
-                
             })
             .then((data) => {
                 res.render('repairs/repair-detail', {
@@ -127,9 +125,9 @@ class RepairController {
                 })
             })
             .catch(next)
-        
+
     }
-    quote(req,res,next) {
+    quote(req, res, next) {
         res.render('repairs/quote')
     }
     createMaterial(req, res, next) {
@@ -139,8 +137,8 @@ class RepairController {
         repairDetailMaterial.save()
             .then(() => {
                 res.redirect('back')
-            })  
-            .catch(next) 
+            })
+            .catch(next)
     }
     createWage(req, res, next) {
         var repairDetailWage = new Repair_Detail_Wage(req.body)
@@ -149,8 +147,8 @@ class RepairController {
         repairDetailWage.save()
             .then(() => {
                 res.redirect('back')
-            })  
-            .catch(next) 
+            })
+            .catch(next)
     }
     createEmployee(req, res, next) {
         var repairDetailEmployee = new Repair_Detail_Employee(req.body)
@@ -159,30 +157,30 @@ class RepairController {
         repairDetailEmployee.save()
             .then(() => {
                 res.redirect('back')
-            })  
-            .catch(next) 
+            })
+            .catch(next)
     }
     editMaterial(req, res, next) {
         Material.find({ _id: req.params.idMaterial })
             .then((material) => {
                 var temp = req.body
                 temp.material = req.params.idMaterial
-                Repair_Detail_Material.updateOne({_id: req.params.idMaterialDetail}, temp)
-                .then(()=> {
-                    res.redirect('back')
-                })
-                .catch(next)
+                Repair_Detail_Material.updateOne({ _id: req.params.idMaterialDetail }, temp)
+                    .then(() => {
+                        res.redirect('back')
+                    })
+                    .catch(next)
             })
-        .catch(next)
+            .catch(next)
     }
     editWage(req, res, next) {
         var temp = req.body
         temp.wage = req.params.idWage
-        Repair_Detail_Wage.updateOne({_id: req.params.idWageDetail}, temp)
-        .then(()=> {
-            res.redirect('back')
-        })
-        .catch(next)
+        Repair_Detail_Wage.updateOne({ _id: req.params.idWageDetail }, temp)
+            .then(() => {
+                res.redirect('back')
+            })
+            .catch(next)
     }
     contract(req, res, next) {
         Repair.findOne({ _id: req.params.id }).populate('of_reception')
@@ -207,7 +205,7 @@ class RepairController {
                 })
             })
             .catch(next)
-        
+
     }
     createContract(req, res, next) {
         var contract = new Contract()
@@ -218,8 +216,8 @@ class RepairController {
                     .then((detail_materials) => {
                         return Repair_Detail_Wage.find({ of_repair: req.params.id })
                             .then((detai_wages) => {
-                                var idMaterial= []
-                                var idWage= []
+                                var idMaterial = []
+                                var idWage = []
                                 for (const item of detail_materials) {
                                     idMaterial.push(item._id)
                                 }
@@ -238,17 +236,17 @@ class RepairController {
                     contracted: true
                 })
                     .then(() => {
-                    res.redirect('back')
-                })
+                        res.redirect('back')
+                    })
             })
             .catch(next)
-        
+
 
     }
     repairDetail(req, res, next) {
         res.render('repairs/repair-detail')
     }
-    
+
     deleteDetailMaterial(req, res, next) {
         res.send(req.params.id)
     }
