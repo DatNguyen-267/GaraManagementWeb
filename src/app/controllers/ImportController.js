@@ -8,16 +8,27 @@ const ImportVoucher = require('../models/ImportVoucher')
 
 class ImportController {
     show(req, res, next) {
-        Supplier.find({}).then((suppliers) => {
-            Voucher.find({ imported: false }).populate('of_supplier', 'name')
-                .then((vouchers) => {
-                    res.render('warehouse/import', {
-                        vouchers: mutipleMongooseToObject(vouchers),
-                        suppliers: mutipleMongooseToObject(suppliers),
-                    })
+        ImportVoucher.find({ imported: false }).then((vouchers) => {
+            for (var voucher of vouchers) {
+                ImportDetail.find({ of_voucher: voucher._id }).then((details) => {
+                    let total = 0
+                    for (var detail of details) {
+                        total += detail.import_price * detail.amount
+                    }
+                    ImportVoucher.updateOne({ _id: voucher._id }, { total_price: total }).then(() => {})
                 })
+            }
+        }).then(() => {
+            Supplier.find({}).then((suppliers) => {
+                Voucher.find({ imported: false }).populate('of_supplier', 'name')
+                    .then((vouchers) => {
+                        res.render('warehouse/import', {
+                            vouchers: mutipleMongooseToObject(vouchers),
+                            suppliers: mutipleMongooseToObject(suppliers),
+                        })
+                    })
+            }).catch(next)
         })
-            .catch(next)
     }
 
     create(req, res, next) {
@@ -36,6 +47,7 @@ class ImportController {
                 res.redirect('/import')
             })
             .catch(next)
+        ImportDetail.deleteMany({ of_voucher: req.params.id })
     }
 
     edit(req, res, next) {
@@ -83,22 +95,20 @@ class ImportController {
             .catch(next)
     }
 
-    importVoucher(req, res, next) {
+    importMaterial(req, res, next) {
         ImportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
-            for (detail of details) {
+            for (var detail of details) {
                 Material.findOne({ _id: detail.material }).then((material) => {
                     material.amount += detail.amount
-                    Material.updateOne({ _id: detail.material}, material).then(() => {})
+                    material.import_price = detail.import_price
+                    Material.updateOne({ _id: detail.material }, material)
                 })
             }
         }).then(() => {
-            ImportVoucher.findOne({_id: req.params.idVoucher}).then((voucher) => {
-                voucher.imported = true
-                ImportVoucher.updateOne({_id: req.params.idVoucher}, voucher).then(() => res.redirect('/import'))
-            })
+            ImportVoucher.updateOne({ _id: req.params.idVoucher }, { imported: true })
+                .then(() => res.redirect('/import'));
         })
     }
 }
-
 
 module.exports = new ImportController;

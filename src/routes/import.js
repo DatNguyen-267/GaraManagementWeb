@@ -12,6 +12,6 @@ router.post('/detail/:idVoucher/add', importController.addMaterial)
 router.delete('/detail/:idVoucher/:idDetail/delete', importController.deleteMaterial)
 router.put('/detail/:idVoucher/:idDetail', importController.editMaterial)
 
-router.put('/detail/:idVoucher', importController.importVoucher)
+router.put('/detail/:idVoucher', importController.importMaterial)
 
 module.exports = router;

@@ -4,13 +4,12 @@ const mongooseDelete = require('mongoose-delete')
 const Schema = mongoose.Schema
 
 const Material = new Schema({
-    name: {type: String, required: true},
+    name: {type: String},
     of_supplier: {type: Schema.Types.ObjectId, ref: 'Supplier'},
-    amount: {type: Number, required: false, default: 0},
-    import_price: {type: Number, required: true},
-    sell_price: {type: Number, required: true},
-    warranty_period: {type: Number, required: false},
-    slug: { type: String, slug: "name", unique:true },
+    amount: {type: Number, default: 0},
+    import_price: {type: Number},
+    sell_price: {type: Number},
+    warranty_period: {type: Number},
 }, {
     timestamps: true,
 })

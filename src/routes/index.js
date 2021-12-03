@@ -10,6 +10,7 @@ const customerRouter =require('./customer')
 const customerdebtRouter =require('./customerdebt')
 const supplierRouter = require('./supplier')
 const importRouter = require('./import')
+const exportRouter = require('./export')
 
 
 function route(app) {
@@ -34,6 +35,8 @@ function route(app) {
       app.use('/supplier', supplierRouter)
 
       app.use('/import', importRouter)
+
+      app.use('/export', exportRouter)
 
       app.use('/', siteRouter)
 
