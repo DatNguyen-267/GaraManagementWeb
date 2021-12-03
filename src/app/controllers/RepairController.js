@@ -38,7 +38,7 @@ class RepairController {
                     .catch(next)
             })
             .catch(next)
-        
+
     }
     create(req, res, next) {
         console.log(req.body)
@@ -72,7 +72,7 @@ class RepairController {
                 res.redirect('/repairs')
             })
             .catch(next)
-        
+
     }
     repairDetail(req, res, next) {
         Repair.findOne({ _id: req.params.id }).populate('of_reception')
@@ -111,9 +111,7 @@ class RepairController {
                                         }
                                     })
                             })
-                        
                     })
-                
             })
             .then((data) => {
                 res.render('repairs/repair-detail', {
@@ -127,7 +125,7 @@ class RepairController {
                 })
             })
             .catch(next)
-        
+
     }
     quote(req, res, next) {
         // Repair.updateOne({ _id: req.params.id }, {
@@ -292,7 +290,7 @@ class RepairController {
                 })
             })
             .catch(next)
-        
+
     }
     createContract(req, res, next) {
         var contract = new Contract()
