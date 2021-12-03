@@ -5,13 +5,16 @@ const mongooseDelete = require('mongoose-delete')
 const Scheme = mongoose.Schema
 
 const Customer = new Scheme({
+    of_reception: [{type: Scheme.Types.ObjectId, ref: 'Reception'}],
     name: {type: String, required: true},
-    cardIdentify: {type: String},
+    cardIdentify: {type: String, unique: true},
     birthday: {type: String},
     address: {type: String},
     phone: {type: String},
     email: {type: String},
-    slug: { type: String, slug: "cardIdentify", unique:true },
+    debt:Number,
+    number_of_reception:Number,
+    
 }, {
     timestamps: true,
 })

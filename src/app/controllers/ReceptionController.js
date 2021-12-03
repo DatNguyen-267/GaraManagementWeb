@@ -14,6 +14,7 @@ class ReceptionController {
     create(req,res,next){
         const reception = new Reception(req.body)
         reception.debt = 0
+        reception.paied = 0
         reception.status = 'New'
         reception.save()
             .then(()=> {

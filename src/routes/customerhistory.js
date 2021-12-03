@@ -3,6 +3,7 @@ const router = express.Router()
 
 const customerController = require('../app/controllers/CustomerController')
 
-router.get('/', customerController.showdebt)
-router.get('/:id/customerdebtdetail', customerController.customerDebtDetail)
+router.get('/', customerController.showhistory)
+router.get('/:id/customerhistorydetail', customerController.customerHistoryDetail)
+
 module.exports = router
