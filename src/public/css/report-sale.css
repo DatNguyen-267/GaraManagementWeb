@@ -1,0 +1,146 @@
+@charset "UTF-8";
+/* Form POP UP */
+.container__report-sale {
+  margin: 16px 36px; }
+
+.report-sale__form-btn-close {
+  font-size: 16px; }
+
+/* HEADER */
+.header__report-sale {
+  display: flex;
+  justify-content: space-between; }
+
+.header__report-sale__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color); }
+
+/* BODY */
+.ctner__report-sale {
+  height: 75vh; }
+
+/* THANH TIỆN ÍCH */
+.toolbar {
+  margin: 0 0 20px 0; }
+
+.toolbar__report-sale-date {
+  display: flex;
+  align-items: center; }
+
+.toolbar__report-sale-date__title {
+  margin-top: 15px;
+  color: var(--text-color); }
+
+.toolbar__report-sale-date__input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  height: 30px;
+  width: 135px;
+  margin-left: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: var(--white-color);
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+.toolbar__active {
+  flex: 1;
+  display: flex;
+  justify-content: space-between; }
+
+.toolbar__search {
+  margin-right: 16px;
+  width: 400px;
+  display: flex;
+  align-items: center; }
+
+.toolbar__search-month,
+.toolbar__search-year {
+  width: 200px;
+  display: flex;
+  align-items: center; }
+
+.toolbar__search-month__title,
+.toolbar__search-year__title {
+  margin-top: 15px;
+  margin-right: 5px; }
+
+.toolbar__search-month__select,
+.toolbar__search-year__select {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  height: 30px;
+  width: 50px;
+  flex: 1;
+  margin-right: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: var(--white-color);
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+.toolbar__filter {
+  margin-right: auto;
+  width: 50px; }
+
+.toolbar__filter-btn {
+  border: none;
+  color: var(--text-color);
+  width: 100%;
+  background-color: var(--white-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none; }
+
+.toolbar__btn-add {
+  margin-right: 10px;
+  width: 120px;
+  box-shadow: 0 2px 10px var(--blue-color-rgba); }
+
+.toolbar__btn-edit {
+  margin-right: 10px;
+  width: 120px;
+  height: 40px;
+  font-size: 15px; }
+
+.toolbar__btn-export {
+  width: 120px; }
+
+/* DANH SÁCH KHÁCH HÀNG */
+.list-report-sale {
+  background-color: var(--white-color);
+  margin-top: 16px;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%; }
+
+.list-report-sale__table {
+  font-size: 14px;
+  cursor: default;
+  text-align: center; }
+
+/* FOOTER */
+.total-money {
+  border-top: 1px solid black;
+  display: flex; }
+
+.total-money__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  color: #ff3e3e; }
+
+.total-money__value {
+  margin-left: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  color: #ff3e3e;
+  border: none; }
+
+.total-money__value:hover,
+.total-money__value:active {
+  border: none; }

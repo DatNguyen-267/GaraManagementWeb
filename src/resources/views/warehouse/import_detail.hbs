@@ -1,11 +1,11 @@
 
-{{!-- Modal thêm phiếu nhập kho --}}
+{{!-- Modal thêm vật tư --}}
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/import/create" method="POST">
+      <form action="" method="POST" name="form-add">
       <div class="modal-header">
-        <h5 class="modal-title">Thêm phiếu nhập kho</h5>
+        <h5 class="modal-title">Thêm vật tư</h5>
         <button
           type="button"
           class="btn-close"
@@ -16,26 +16,26 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="" name="import_id"/>
-            </div>
-          </div>
-          <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
+            <label for="" class="col-3 col-form-label">Vật tư</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" aria-label="Default select example">
-                <option value="null">Nhà cung cấp</option>
-                {{#each suppliers}}
+              <select class="form-control" name="material" aria-label="Default select example">
+                <option value="null">Loại vật tư</option>
+                {{#each materials}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
             </div>
           </div>
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Ngày nhập kho</label>
+            <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="date" class="form-control" id="voucher-edit-date" name="import_date"/>
+              <input type="text" class="form-control" id="" name="import_price" />
+            </div>
+          </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Số lượng</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="" name="amount" />
             </div>
           </div>
         </div>
@@ -51,14 +51,13 @@
   </div>
 </div>
 
-
-{{!-- Modal sửa thông tin phiếu nhập kho --}}
+{{!-- Modal sửa vật tư --}}
 <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form method="POST" name="form-edit">
+      <form action="" method="POST" name="form-edit">
       <div class="modal-header">
-        <h5 class="modal-title">Sửa thông tin phiếu nhập kho</h5>
+        <h5 class="modal-title">Sửa vật tư</h5>
         <button
           type="button"
           class="btn-close"
@@ -69,26 +68,26 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="voucher-edit-id" name="import_id"/>
-            </div>
-          </div>
-          <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
+            <label for="" class="col-3 col-form-label">Vật tư</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" aria-label="Default select example">
-                <option value="null">Nhà cung cấp</option>
-                {{#each suppliers}}
+              <select class="form-control" name="material" aria-label="Default select example">
+                <option value="null">Loại vật tư</option>
+                {{#each materials}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
             </div>
           </div>
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Ngày nhập kho</label>
+            <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="date" class="form-control" id="voucher-edit-date" name="import_date"/>
+              <input type="text" class="form-control" id="" name="import_price" />
+            </div>
+          </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Số lượng</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="" name="amount" />
             </div>
           </div>
         </div>
@@ -104,12 +103,13 @@
   </div>
 </div>
 
-{{!-- Modal xóa phiếu nhập kho --}}
+
+{{!-- Modal xóa vật tư --}}
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
 <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Xóa phiếu nhập kho</h5>
+            <h5 class="modal-title">Xóa vật tư</h5>
             <button
               type="button"
               class="btn-close"
@@ -132,8 +132,35 @@
       </div>
 </div>
 
+{{!-- Modal nhập kho --}}
+<div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Nhập kho</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Xác nhận nhập kho</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" id="btnModalImport">Xác nhận</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+</div>
 
-{{!-- Danh sách phiếu nhập kho --}}
+{{!-- Danh sách vật tư --}}
 <div class="row">
   <div class="d-grid gap-2 d-flex justify-content-end">
     <button
@@ -145,27 +172,34 @@
       Thêm
     </button>
   </div>
+  <div class="d-grid gap-2 d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-warning"
+      data-bs-toggle="modal"
+      data-bs-target="#importModal"
+    >
+      Nhập kho
+    </button>
+  </div>
 </div>
 
 <table class="table table--default">
   <thead class="thead-dark"> 
     <tr>
-      <th scope="col">Mã phiếu nhập kho</th>
-      <th scope="col">Nhà cung cấp</th>
-      <th scope="col">Ngày nhập kho</th>
-      <th scope="col">Tổng tiền</th>
-      <th scope="col">Thao tác</th>
+      <th scope="col">Tên vật tư</th>
+      <th scope="col">Số lượng</th>
+      <th scope="col">Giá nhập</th>
+      <th scope="col" colspan="2">Thao tác</th>
     </tr>
   </thead>
   <tbody>
-    {{#each vouchers}}
+    {{#each details}}
       <tr>
-        <td>{{this.import_id}}</td>
-        <td>{{this.of_supplier.name}}</td>
-        <td>{{this.import_date}}</td>
-        <td>{{this.total_price}}</td>
+        <td>{{this.material.name}}</td>
+        <td>{{this.amount}}</td>
+        <td>{{this.import_price}}</td>
         <td>
-          <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
           <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
           <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
         </td>
@@ -174,9 +208,8 @@
   </tbody>
 </table>
 
-
-<form name="form-view" method="GET" action=""></form>
 <form name="form-delete" method="POST" action=""></form>
+<form name="form-import" method="POST" action=""></form>
 
 <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -186,52 +219,48 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var btnView = document.querySelectorAll('.btn--view-item')
-    var btnEdit = document.querySelectorAll('.btn--edit-item')
+    var addMaterialForm = document.getElementById('addMaterialForm')
     var btnDelete = document.querySelectorAll('.btn--delete-item')
+    var btnEdit = document.querySelectorAll('.btn--edit-item')
     var btnModalDelete = document.getElementById('btnModalDelete')
     var btnModalEdit = document.getElementById('btnModalEdit')
-    var formView = document.forms['form-view']
-    var formDelete = document.forms['form-delete']
-    var formEdit = document.forms['form-edit']
+    var btnModalImport = document.getElementById('btnModalImport')
+    var formAdd = document['form-add']
+    var formDelete = document['form-delete']
+    var formEdit = document['form-edit']
+    var formImport = document['form-import']
 
-    for(var item of btnView) {
-      item.onclick = function () {
-        var voucherID = this.getAttribute('data-id')
-        formView.action = '/import/detail/' + voucherID
-        formView.submit()
-      }
-    }
-    
+    formAdd.action = window.location.pathname + '/add'
+    formImport.action = window.location.pathname + '/?_method=PUT'
+
     for(var item of btnDelete) {
       item.onclick = function() {
-        var voucherID = this.getAttribute('data-id')
-        btnModalDelete.setAttribute('data-id', voucherID)
+        var detailID = this.getAttribute('data-id') 
+        btnModalDelete.setAttribute('data-id', detailID)
       }
     }
 
     for(var item of btnEdit) {
       item.onclick = function() {
-        var voucherID = this.getAttribute('data-id')
-        btnModalEdit.setAttribute('data-id', voucherID)
+        var detailID = this.getAttribute('data-id') 
+        btnModalEdit.setAttribute('data-id', detailID)
       }
-
-      var rowData = item.parentElement.parentElement
-
-      document.getElementById('voucher-edit-id').value = rowData.cells[0].textContent
-      document.getElementById('voucher-edit-date').value = rowData.cells[2].textContent
     }
 
     btnModalDelete.onclick = function () {
-      var voucherID = this.getAttribute('data-id')
-      formDelete.action = '/import/' + voucherID + '/delete?_method=DELETE'
+      var detailID = this.getAttribute('data-id')
+      formDelete.action = `${window.location.pathname}/${detailID}/delete?_method=DELETE`
       formDelete.submit()
     }
 
     btnModalEdit.onclick = function () {
-      var voucherID = this.getAttribute('data-id')
-      formEdit.action = '/import/' + voucherID + '/?_method=PUT'
+      var detailID = this.getAttribute('data-id')
+      formEdit.action = `${window.location.pathname}/${detailID}/?_method=PUT`
       formEdit.submit()
+    }
+
+    btnModalImport.onclick = function () {
+      formImport.submit()
     }
   })
 </script>

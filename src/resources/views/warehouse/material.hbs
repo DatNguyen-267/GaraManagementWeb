@@ -1,12 +1,8 @@
 <link rel="stylesheet" href="./css/materials.css" />
 
-<div
-  class="modal fade"
-  id="addModal"
-  tabindex="-1"
-  aria-labelledby="addMaterialLabel"
-  aria-hidden="true"
->
+{{!-- Modal thêm vật tư --}}
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addMaterialLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form action="/material/create" method="POST">
@@ -22,12 +18,6 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã vật tư</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="" name="material_id"/>
-            </div>
-          </div>
-          <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
               <input type="text" class="form-control" id="" name="name"/>
@@ -36,10 +26,10 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" aria-label="Default select example">
+              <select class="form-control" name="of_supplier" aria-label="Default select example">
                 <option value="null">Nhà cung cấp</option>
-                {{#each materials}}
-                <option value="{{this.material_id}}">{{this.name}}</option>
+                {{#each suppliers}}
+                <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
             </div>
@@ -69,16 +59,12 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="editModal"
-  tabindex="-1"
-  aria-labelledby="editMaterialLabel"
-  aria-hidden="true"
->
+
+{{!-- Modal sửa vật tư --}}
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editMaterialLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/material/edit" method="POST" name="form-edit">
+      <form method="POST" name="form-edit">
       <div class="modal-header">
         <h5 class="modal-title">Sửa vật tư</h5>
         <button
@@ -91,21 +77,15 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã vật tư</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="materialIdInEdit" name="material_id"/>
-            </div>
-          </div>
-          <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="materialNameInEdit" name="name"/>
+              <input type="text" class="form-control" id="material-edit-name" name="name"/>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" id="supplierInEdit" aria-label="Default select example">
+              <select class="form-control" name="of_supplier" id="material-edit-supplier" aria-label="Default select example">
                 <option value="null">Nhà cung cấp</option>
                 {{#each suppliers}}
                 <option value="{{this.supplier_id}}">{{this.name}}</option>
@@ -116,19 +96,19 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="importPriceInEdit" name="import_price" />
+              <input type="text" class="form-control" id="material-edit-importPrice" name="import_price" />
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá bán</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="sellPriceInEdit" name="sell_price" />
+              <input type="text" class="form-control" id="material-edit-sellPrice" name="sell_price" />
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-success">Sửa</button>
+        <button type="submit" class="btn btn-success" id="btnModalEdit">Sửa</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
@@ -138,55 +118,8 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="d-grid gap-2 d-flex justify-content-end">
-    <button
-      type="button"
-      class="btn btn-success"
-      data-bs-toggle="modal"
-      data-bs-target="#addModal"
-    >
-      Thêm
-    </button>
-  </div>
-</div>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Mã vật tư</th>
-      <th scope="col">Tên vật tư</th>
-      <th scope="col">Số lượng</th>
-      <th scope="col">Giá nhập</th>
-      <th scope="col">Giá bán</th>
-      <th scope="col">Thao tác</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each materials}}
-      <tr>
-        <td>{{this.material_id}}</td>
-        <td>{{this.name}}</td>
-        <td>{{this.amount}}</td>
-        <td>{{this.import_price}}</td>
-        <td>{{this.sell_price}}</td>
-        <td>
-          <button class="btn-delete" data-id="{{this._id}}">Xóa</button>
-          <button type="button" class="btn-edit" data-id="{{this._id}}" 
-          data='{ "material_id": "{{this.material_id}}", "name": "{{this.name}}", "import_price": {{this.import_price}}, "sell_price": {{this.sell_price}} }'>Sửa</button>
-        </td>
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
-
-<div
-  class="modal fade"
-  id="deleteModal"
-  tabindex="-1"
-  aria-labelledby="deleteMaterialLabel"
-  aria-hidden="true"
->
+{{!-- Modal xóa vật tư --}}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteMaterialLabel" aria-hidden="true">
 <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -214,6 +147,50 @@
 </div>
 
 
+{{!-- Danh sách vật tư --}}
+<div class="row">
+  <div class="d-grid gap-2 d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#addModal"
+    >
+      Thêm
+    </button>
+  </div>
+</div>
+
+<table class="table table--default">
+  <thead class="thead-dark"> 
+    <tr>
+      <th scope="col">Tên vật tư</th>
+      <th scope="col">Nhà cung cấp</th>
+      <th scope="col">Số lượng</th>
+      <th scope="col">Giá nhập</th>
+      <th scope="col">Giá bán</th>
+      <th scope="col" colspan="2">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each materials}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.of_supplier.name}}</td>
+        <td>{{this.amount}}</td>
+        <td>{{this.import_price}}</td>
+        <td>{{this.sell_price}}</td>
+        <td>
+          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+          <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+
 <form name="form-delete" method="POST" action=""></form>
 
 <script
@@ -224,19 +201,31 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var btnEdit = document.querySelectorAll('.btn-edit')
-    var btnDelete = document.querySelectorAll('.btn-delete')
-    var btnModalDelete = document.getElementById('btnModalDelete');
+    var btnEdit = document.querySelectorAll('.btn--edit-item')
+    var btnDelete = document.querySelectorAll('.btn--delete-item')
+    var btnModalDelete = document.getElementById('btnModalDelete')
+    var btnModalEdit = document.getElementById('btnModalEdit')
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
     
     for(var item of btnDelete) {
-      item.setAttribute('data-bs-toggle', 'modal')
-      item.setAttribute('data-bs-target', '#deleteModal')
       item.onclick = function() {
         var materialId = this.getAttribute('data-id')
-        btnModalDelete.setAttribute('data-id', materialId);
+        btnModalDelete.setAttribute('data-id', materialId)
       }
+    }
+
+    for(var item of btnEdit) {
+      item.onclick = function() {
+        var materialId = this.getAttribute('data-id')
+        btnModalEdit.setAttribute('data-id', materialId)
+      }
+
+      var rowData = item.parentElement.parentElement
+
+      document.getElementById('material-edit-name').value = rowData.cells[1].textContent
+      document.getElementById('material-edit-importPrice').value = rowData.cells[3].textContent
+      document.getElementById('material-edit-sellPrice').value = rowData.cells[4].textContent
     }
 
     btnModalDelete.onclick = function () {
@@ -245,17 +234,11 @@
       formDelete.submit()
     }
 
-    for (var item of btnEdit) {
-      item.setAttribute('data-bs-toggle', 'modal')
-      item.setAttribute('data-bs-target', '#editModal')
-      item.onclick = function () {
-        var json = JSON.parse(this.getAttribute('data'))
-
-        document.getElementById('materialIdInEdit').value = json["material_id"]
-        document.getElementById('materialNameInEdit').value = json["name"]
-        document.getElementById('importPriceInEdit').value = json["import_price"]
-        document.getElementById('sellPriceInEdit').value = json["sell_price"]
-      }
+    btnModalEdit.onclick = function () {
+      var materialId = this.getAttribute('data-id')
+      formEdit.action = '/material/' + materialId + '/?_method=PUT'
+      console.log(formEdit)
+      formEdit.submit()
     }
   })
 </script>

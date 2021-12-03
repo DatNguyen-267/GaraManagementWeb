@@ -1,0 +1,37 @@
+
+
+<table class="table table--default">
+  <thead class="thead-dark"> 
+    <tr>
+      <th scope="col">Tên vật tư</th>
+      <th scope="col">Số lượng</th>
+      <th scope="col">Giá bán</th>
+      <th scope="col" colspan="2">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each details}}
+      <tr>
+        <td>{{this.material_name}}</td>
+        <td>{{this.amount}}</td>
+        <td>{{this.sell_price}}</td>
+        <td>{{this.total_money}}</td>
+        <td>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+  crossorigin="anonymous"
+></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    
+  })
+</script>

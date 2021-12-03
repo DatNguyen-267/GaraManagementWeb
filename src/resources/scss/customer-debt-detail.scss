@@ -1,24 +1,24 @@
 /* Form POP UP */
-.container__customer-debt {
+.container__customer-debt-detail {
     margin: 16px 36px;
 }
-.customer-debt__form-btn-close {
+.customer-debt-detail__form-btn-close {
     font-size: 16px;
 }
 /* HEADER */
-.header__customer-debt {
+.header__customer-debt-detail {
     display: flex;
     text-align: center;
     justify-content: space-between;
 }
-.header__customer-debt__title {
+.header__customer-debt-detail__title {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-color);
 }
 
 /* BODY */
-.ctner__customer-debt{
+.ctner__customer-debt-detail{
     height: 75vh;
     
 }
@@ -75,8 +75,8 @@
 .toolbar__filter-item {
     font-size: 14px;
 }
-/* DANH SÁCH KHÁCH HÀNG CÒN NỢ */
-.list-customer-debt {
+/* DANH SÁCH PHIẾU TIẾP NHẬN CỦA KHÁCH HÀNG*/
+.list-customer-debt-detail {
     background-color: var(--white-color);
     margin-top: 16px;
     height: 100%;
@@ -86,12 +86,12 @@
     border-collapse: collapse;
     width: 100%;
 }
-.list-customer-debt__table{
+.list-customer-debt-detail__table{
     font-size: 14px;
     cursor: default;
     text-align: center;
 }
-.list-customer-debt button{
+.list-customer-debt-detail button{
     width: 60px;
     
 }
