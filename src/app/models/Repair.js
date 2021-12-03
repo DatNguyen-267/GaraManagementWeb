@@ -9,7 +9,7 @@ const Repair = new Schema({
     // employee_create: {type: Schema.Types.ObjectId, ref: 'Employee'},
     customer_name: {type: String},
     license: {type: String},
-    debt: {type: Number},
+    debt: {type: Number, default: 0},
     repairDate: {type: String},
     quoted: {type: Boolean, default: false},
     contracted: {type: Boolean, default: false},

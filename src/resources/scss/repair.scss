@@ -1,3 +1,9 @@
+html {
+    font-size: 16px;
+}
+.repair-detail__title {
+    display: flex;
+}
 .repair-detail__navbar {
     display: flex;
     align-items: center;
@@ -26,7 +32,7 @@
     margin-right: 200px;
 }
 .repair-detail-info__general-item-status {
-
+    
 }
 .repair-detail-info__table-supplies {
     margin-bottom: 50px;

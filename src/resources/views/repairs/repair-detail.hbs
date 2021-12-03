@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="/css/repair.css">
 <div class="grid__item">
     <div class="repair-detail__title">
-        Chi tiết sửa chữa
+        <div>Quản lý sửa chữa</div>
+        <div>></div>
+        <div>Thông tin sửa chữa</div>
     </div>
 
     <div class="back">
@@ -10,7 +12,9 @@
     <div class="repair-detail__navbar">
         <div class="repair-detail__nav">
             <button class="repair-detail__nav-item">Thông tin sửa chữa</button>
-            <button class="repair-detail__nav-item">Thông tin hợp đồng</button>
+            <form method="GET" action="/repairs/{{Repair._id}}/contract-detail">
+                <button style="submit" class="repair-detail__nav-item">Thông tin hợp đồng</button>
+            </form>
         </div>
         <div class="repair-detail__toolbar">
             <button id="btn-quote" class="repair-detail__toolbar-item"
@@ -18,6 +22,8 @@
             <button id="btn-contract" class="repair-detail__toolbar-item">Lập hợp đồng</button>
             <button id="btn-ordered" class="repair-detail__toolbar-item"
                 data-toggle="modal" data-target="#modal-ordered">Lệnh sửa</button>
+            <button id="btn-success" class="repair-detail__toolbar-item"
+            data-toggle="modal" data-target="#modal-success">Xác nhận hoàn thành</button>
         </div>
     </div>
 
@@ -45,15 +51,17 @@
                             data-contracted="{{Repair.contracted}}"
                             data-quoted="{{Repair.quoted}}"
                             data-edited="{{Repair.edited}}"
-                            data-ordered="{{Repair.ordered}}">{{Repair.status}}</label>
+                            data-ordered="{{Repair.ordered}}"
+                            data-success="{{Repair.isSuccess}}"
+                            >{{Repair.status}}</label>
                     </div>
                     <div class="info-group">
                         <label for="">Tổng tiền:</label>
                         <label >{{Repair.debt}}</label>
                     </div>
                     <div class="info-group">
-                        <label for="">Hành động kế tiếp:</label>
-                        <label >Lập hợp đồng</label>
+                        <label for=""></label>
+                        <label ></label>
                     </div>
                 </div>
                 
@@ -64,7 +72,7 @@
                 <div class="table__header-name">Bảng thông tin vật tư</div> 
                 <button id="btn-add-material" class="table__header-btn-add btn btn-primary"
                     data-toggle="modal" data-target="#form-add-material"
-                    data-id="{{repair._id}}">Thêm</button>
+                    data-id="{{repair._id}}" {{isHidden Repair.isSuccess}}>Thêm</button>
             </div>
             
             <div class="table-material">
@@ -76,8 +84,8 @@
                         <col style="width: 100px;">
                         <col style="width: 100px;"> 
                         <col style="width: 100px;"> 
-                        <col style="width: 100px;"> 
-                        <col style="width: 100px;"> 
+                        <col style="width: 120px;"> 
+                        <col style="width: 120px;"> 
 
                     </colgroup>
                     <thead class="thead-dark">
@@ -90,7 +98,7 @@
                             <th scope="col">Thành tiền</th>
                             <th scope="col">Hợp đồng</th>
                             <th scope="col">Xuất Kho</th>
-                            <th scope="col"></th>
+                            <th scope="col" {{isHidden Repair.isSuccess}}></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,7 +116,7 @@
                             <td class="td-contain-check-icon" scope="row" >
                                 <span {{isShow this.exported}} class="oi oi-circle-check icon-check--on"></span>
                             </td>
-                            <td class="td-contain-btn" scope="row"> 
+                            <td {{isHidden ../Repair.isSuccess}} class="td-contain-btn" scope="row"> 
                                 <button {{isDisable this.contracted}} class="btn--edit-item btn--disable" data-toggle="modal" data-target="#form-edit-material" data-id="{{this._id}}">Sửa</button>
                                 <button {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-material" data-id="{{this._id}}">Xóa</button>
                             </td>
@@ -122,7 +130,7 @@
         <div class="repair-detail-info__table-wage">
             <div class="table__header">
                 <div class="table__header-name">Bảng thông tiền công</div> 
-                <button id="btn-add-wage" class="table__header-btn-add btn btn-primary"
+                <button {{isHidden Repair.isSuccess}} id="btn-add-wage" class="table__header-btn-add btn btn-primary"
                 data-toggle="modal" data-target="#form-add-wage">Thêm</button>     
             </div> 				    
             <table class="table table--default table-wage">
@@ -138,7 +146,7 @@
                     <th scope="col">Tên tiền công</th>
                     <th scope="col">Tiền công</th>
                     <th scope="col">Hợp đồng</th>
-                    <th scope="col"></th>
+                    <th scope="col" {{isHidden Repair.isSuccess}}></th>
                 </tr>
             </thead>
             <tbody>
@@ -150,7 +158,7 @@
                     <td class="td-contain-check-icon" scope="row" >
                         <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
                     </td> 
-                    <td scope="row"  class="td-contain-btn">
+                    <td scope="row"  class="td-contain-btn" {{isHidden ../Repair.isSuccess}}>
                         <button {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#form-edit-wage" data-id="{{this._id}}">Sửa</button>
                         <button {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-wage" data-id="{{this._id}}">Xóa</button>
                     </td>
@@ -164,7 +172,7 @@
             <div class="table__header">
                 <div class="table__header-name">Bảng thông tin nhân viên đảm nhiệm</div> 
                 <button id="btn-add-employee" class="table__header-btn-add btn btn-primary"
-                data-toggle="modal" data-target="#form-add-employee">Thêm</button>     
+                data-toggle="modal" data-target="#form-add-employee" {{isHidden Repair.isSuccess}} >Thêm</button>     
             </div> 	
             <table class="table table--default table-employee">
                 <colgroup>
@@ -178,7 +186,7 @@
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Hợp đồng</th>
-                    <th scope="col"></th>
+                    <th scope="col" {{isHidden Repair.isSuccess}}></th>
                 </tr>
             </thead>
             <tbody>
@@ -190,7 +198,7 @@
                     <td class="td-contain-check-icon" scope="row" >
                         <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
                     </td> 
-                    <td scope="row" class="td-contain-btn">
+                    <td scope="row" class="td-contain-btn" {{isHidden ../Repair.isSuccess}}>
                         <button  {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#form-edit-employee" data-id="{{this._id}}">Sửa</button>
                         <button  {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-employee" data-id="{{this._id}}">Xóa</button>
                     </td>
@@ -542,6 +550,27 @@
         </div>
     </div>
 </div>
+<form method="POST" action="" name="form-accept-success"></form>
+<div class="modal fade" id="modal-success" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận hoàn thành sửa chữa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắc đồng ý xác nhận hoàn thành sửa chữa xe này!!!!
+                    Sau khi xác nhận mọi thông tin trong phiếu sửa chữa này đều không thể sửa đổi!!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn--close-dialog" data-dismiss="modal">Đóng</button>
+                <button id="btn-accept-success" type="button" class="btn--send-dialog">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
 <form method="POST" action="" name="form-quote">
     <div class="modal fade " id="modal-quote" tabindex="-1" role="dialog">
         <div class="modal-dialog repair-modal-quote-dialog" role="document">
@@ -649,10 +678,19 @@
 <form method="GET" name="form-contract"></form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        var btnAcceptSuccess = document.querySelector('#btn-accept-success')
+        var formAcceptSuccess = document.forms['form-accept-success']
+
+        btnAcceptSuccess.onclick = function() {
+            formAcceptSuccess.action = '/repairs/' + repairId + '/accept-success-repair?_method=PUT'
+            formAcceptSuccess.submit()
+        }
+
         var repairStatus = document.querySelector('#repair-status')
         var btnQuote = $('#btn-quote')
         var btnContract = $('#btn-contract')
         var btnOrdered = $('#btn-ordered')
+        var btnSuccess = $('#btn-success')
         console.log(btnQuote)
         console.log(btnContract)
         console.log(btnOrdered)
@@ -660,6 +698,7 @@
         var isContracted = repairStatus.getAttribute('data-contracted')
         var isOrdered = repairStatus.getAttribute('data-ordered')
         var isEdited = repairStatus.getAttribute('data-edited')
+        var isSuccess = repairStatus.getAttribute('data-success')
 
         if (isContracted == 'true') 
         {
@@ -672,6 +711,16 @@
         }
         if (isOrdered == 'true'){
             btnOrdered.attr('disabled', true)
+            btnSuccess.attr('disabled', false)
+        }
+        else {
+            btnSuccess.attr('disabled', true)
+        }
+        if (isSuccess == 'true') {
+            btnSuccess.attr('hidden', true)
+            btnOrdered.attr('hidden', true)
+            btnContract.attr('hidden', true)
+            btnQuote.attr('hidden', true)
         }
         if (isEdited == 'true') {
             btnOrdered.attr('disabled', true)
@@ -688,6 +737,9 @@
             btnOrdered.attr('disabled', true)
             btnContract.attr('disabled', true)
             btnQuote.attr('disabled', true)
+        }
+        if (isEdited == 'true' && isOrdered == 'true'){
+            btnSuccess.attr('disabled', false)
         }
         console.log(isQuoted)
         console.log(isContracted)
