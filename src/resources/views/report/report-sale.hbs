@@ -1,0 +1,313 @@
+<link rel="stylesheet" href="/css/report-sale.css">
+<div class="container__report-sale">
+    <div class="header__report-sale">
+        <div class="header__report-sale__title">Báo cáo doanh thu</div>
+    </div>
+    <div class="ctner__report-sale">
+        <div class="toolbar">
+            <div class="toolbar__report-sale-date">
+                <p class="toolbar__report-sale-date__title">Ngày lập báo cáo:</p>
+                <input type="date" class="toolbar__report-sale-date__input" id="report-sale-date-input" readonly
+                    value="{{report_sale_date}}">
+            </div>
+            <div class="toolbar__active">
+                <div class="toolbar__search">
+                    <div class="toolbar__search-month">
+                        <p class="toolbar__search-month__title">Tháng: </p>
+                        <select name="" id="search-select--month" class="toolbar__search-month__select">
+                            <option hidden>{{month}}</option>
+                        </select>
+                    </div>
+                    <div class="toolbar__search-year">
+                        <p class="toolbar__search-year__title">Năm: </p>
+                        <select name="" id="search-select--year" class="toolbar__search-year__select">
+                            <option hidden>{{year}}</option>
+                        </select>
+                    </div>
+
+                    {{!-- <span class="ti-search toolbar__search-icon"></span> --}}
+                    <button class="toolbar__search-btn btn btn--primary" id="search-btn" data-check="{{check}}">Tìm kiếm</button>
+                </div>
+                <div class="toolbar__btn">
+                    <button class="toolbar__btn-add btn btn--primary" data-toggle="modal"
+                        data-target="#form-add-report-sale" id="toobar-btn-add">Lập báo
+                        cáo</button>
+                    {{!-- <button class="toolbar__btn-edit btn btn--edit-item" data-toggle="modal"
+                        data-target="#form-edit-report-sale">Sửa báo cáo</button> --}}
+                    <button class="toolbar__btn-export btn btn-success" id="toolbar-btn-export"
+                        onclick="printDiv('printtableArea')">Xuất bản in</button>
+                </div>
+            </div>
+        </div>
+        <div class="list-report-sale" id="printtableArea">
+            <table class="table table--default">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#Stt</th>
+                        <th scope="col">Biển số xe</th>
+                        <th scope="col">Hiệu xe</th>
+                        <th scope="col">Tên khách hàng</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Ngày tiếp nhận</th>
+                        <th scope="col">Số tiền nợ</th>
+                        <th scope="col">Thanh toán</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col" colspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each list}}
+                    <tr data-id="{{this._id}}">
+                        <th scope="row">{{@index}}</th>
+                        <td>{{this.license}}</td>
+                        <td>{{this.brand}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.phone}}</td>
+                        <td>{{this.receptionDate}}</td>
+                        <td>{{this.debt}}</td>
+                        <td>{{this.paied}}</td>
+                        <td>{{this.status}}</td>
+                        <td></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="footer__report-sale">
+        <div class="total-money">
+            <div class="total-money__title">Tổng tiền:</div>
+            <p class="total-money__value" id="total-money__p">{{total_money}}</p>
+        </div>
+    </div>
+</div>
+
+<!-- POP UP FORM -->
+<!-- FORM Lập báo cáo-->
+<form method="POST" action="/reportsale/create">
+    <div class="modal fade" id="form-add-report-sale" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Báo cáo doanh thu</h5>
+                    <button type="button report-sale__form-btn-close" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="report-sale-add-month" class="col-form-label">Tháng:</label>
+                            <input type="text" class="form-control" id="report-sale-add-month" name="month">
+                        </div>
+                        <div class="form-group">
+                            <label for="report-sale-add-year" class="col-form-label">Năm:</label>
+                            <input type="text" class="form-control" id="report-sale-add-year" name="year" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="report-sale-add-date" class="col-form-label">Ngày lập:</label>
+                            <input type="date" class="form-control" id="report-sale-add-date" name="report_sale_date"
+                                required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-sale-add-total-money" class="col-form-label">Tổng tiền:</label>
+                            <input type="text" class="form-control" id="report-sale-add-total-money" name="total_money"
+                                required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+                    <button id="btn-add-report-sale" type="submit" class="btn btn--send-dialog">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- FORM SỬA báo cáo-->
+<form method="POST" name="form-submit">
+    <div class="modal fade" id="form-edit-report-sale" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+                    <button type="button report-sale__form-btn-close" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="report-sale-edit-month" class="col-form-label">Tháng:</label>
+                            <input type="text" class="form-control" id="report-sale-edit-month" name="month">
+                        </div>
+                        <div class="form-group">
+                            <label for="report-sale-edit-year" class="col-form-label">Năm:</label>
+                            <input type="text" class="form-control" id="report-sale-edit-year" name="year" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="report-sale-edit-date" class="col-form-label">Ngày lập:</label>
+                            <input type="date" class="form-control" id="report-sale-edit-date" name="report_sale_date"
+                                required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-sale-edit-total-money" class="col-form-label">Tổng tiền:</label>
+                            <input type="text" class="form-control" id="report-sale-edit-total-money" name="total_money"
+                                required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+                    <button id="btn-edit-form" type="button" class="btn btn--send-dialog">Sửa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="POST" name="form-search"></form>
+<!-- scrip -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="./jquery.table2excel.min.js"></script>
+{{!--Load Tháng Hiện Tại --}}
+<script>
+    var month_min = 1,
+        month_max = 12,
+        select_month = document.getElementById('search-select--month');
+
+
+    for (var i = month_min; i <= month_max; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = i;
+        select_month.appendChild(opt);
+    }
+</script>
+{{!--Load Năm Hiện Tại --}}
+<script>
+    var year_min = 1000,
+        year_max = 3000,
+        select_year = document.getElementById('search-select--year');
+
+    for (var i = year_min - 999; i <= year_max - 999; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = i + 999;
+        select_year.appendChild(opt);
+    }
+
+
+</script>
+{{!--Xuất bản in dữ liệu --}}
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+
+        var a = window.open();
+
+        var originalContents = document.body.innerHTML;
+
+        var report_date = document.getElementById("report-sale-date-input").value
+
+        var select_month = document.getElementById('search-select--month');
+        var option_month = select_month.options[select_month.selectedIndex].text;
+
+        var select_year = document.getElementById('search-select--year');
+        var option_year = select_year.options[select_year.selectedIndex].text
+
+        var total_money = document.getElementById("total-money__p").innerText
+
+        a.document.body.innerHTML = "Báo cáo doanh thu <br> Ngày lập: " + report_date + "<br>Tháng: "+option_month+" Năm: "+option_year+"<body>" + printContents + "</body> Tổng tiền: " +total_money ;
+
+        a.print()
+
+        a.document.body.innerHTML = originalContents;
+       
+        a.document.close()
+
+        a.window.close()
+
+        
+    }
+    
+</script>
+
+{{!-- --}}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var formSearch = document.forms['form-search']
+        var btnSearch = $('.toolbar__search-btn')
+        var check=btnSearch.data('check')
+        var report_sale_date = document.getElementById('report-sale-date-input').value
+
+        if (check==1 || report_sale_date != '' ) {
+            document.getElementById('toobar-btn-add').disabled = true;
+        }
+        else{
+            document.getElementById('toobar-btn-add').disabled = false;
+        }
+
+        $('#form-add-report-sale').on('show.bs.modal', function (event) {
+
+            var select_month = document.getElementById('search-select--month');
+            var option_month = select_month.options[select_month.selectedIndex].text;
+            document.getElementById('report-sale-add-month').value = option_month
+
+            var select_year = document.getElementById('search-select--year');
+            var option_year = select_year.options[select_year.selectedIndex].text
+            document.getElementById('report-sale-add-year').value = option_year;
+
+            var total_money = document.getElementById('total-money__p')
+            document.getElementById('report-sale-add-total-money').value = total_money.innerText;
+
+            var today = new Date();
+            document.getElementById('report-sale-add-date').value = today.toISOString().substring(0, 10);
+
+            var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            var month_report = new Number(option_month)
+            var year_report = new Number(option_year)
+            if (today == lastDay || today.getFullYear() > year_report) {
+                document.getElementById('btn-add-report-sale').disabled = false;
+            }
+            else if (today.getFullYear() == year_report && today.getMonth() + 1 > month_report) {
+                document.getElementById('btn-add-report-sale').disabled = false;
+            }
+            else {
+                document.getElementById('btn-add-report-sale').disabled = true;
+            }
+        })
+
+        btnSearch.click(function () {
+            var select_month = document.getElementById('search-select--month');
+            var month = select_month.options[select_month.selectedIndex].text;
+
+            //window.alert(option_month)
+
+            var select_year = document.getElementById('search-select--year');
+            var year = select_year.options[select_year.selectedIndex].text
+
+            var time = month + "-" + year
+
+            formSearch.action = '/reportsale/' + time + '/?_method=GET'
+            formSearch.submit()
+
+        })
+
+    })
+</script>

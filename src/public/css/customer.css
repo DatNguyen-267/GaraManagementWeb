@@ -7,22 +7,22 @@
   font-size: 16px; }
 
 /* HEADER */
-.header--customer {
+.header__customer {
   display: flex;
   text-align: center;
   justify-content: space-between; }
 
-.header--customer__title {
+.header__customer__title {
   font-size: 20px;
   font-weight: 700;
   color: var(--text-color); }
 
-.header--customer__btn-add {
+.header__customer__btn-add {
   width: 180px;
   box-shadow: 0 2px 10px var(--blue-color-rgba); }
 
 /* BODY */
-.ctner {
+.ctner__customer {
   height: 75vh; }
 
 /* THANH TIỆN ÍCH */
@@ -69,7 +69,7 @@
 .toolbar__filter-item {
   font-size: 14px; }
 
-/* DANH SÁCH PHIẾU TIẾP NHẬN */
+/* DANH SÁCH KHÁCH HÀNG */
 .list-customer {
   background-color: var(--white-color);
   margin-top: 16px;

@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="./css/customer-debt.css">
-<div class="container__customer-debt">
-  <div class="header__customer-debt">
-    <div class="header__customer-debt__title">Quản Lý Công Nợ</div>
+<link rel="stylesheet" href="/css/customer-history.css">
+<div class="container__customer-history">
+  <div class="header__customer-history">
+    <div class="header__customer-history__title">Quản Lý Lịch Sử</div>
   </div>
-  <div class="ctner__customer-debt">
+  <div class="ctner__customer-history">
     <div class="toolbar">
       <div class="toolbar__search">
         <input type="text" class="toolbar__search-input" id="search-input"
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="list-customer-debt">
+    <div class="list-customer-history">
       <table class="table table--default">
         <thead class="thead-dark">
           <tr>
@@ -33,11 +33,12 @@
             <th scope="col">Email</th>
             <th scope="col">Số điện thoại</th>
             <th scope="col">Nợ</th>
+            <th scope="col">Lần giao dịch</th>
             <th scope="col" colspan="2"></th>
           </tr>
         </thead>
         <tbody id="table-body">
-          {{#each listdebt}}
+          {{#each listhistory}}
           <tr data-id="{{this._id}}">
             <th scope="row">{{@index}}</th>
             <td>{{this.name}}</td>
@@ -45,6 +46,7 @@
             <td>{{this.email}}</td>
             <td>{{this.phone}}</td>
             <td>{{this.debt}}</td>
+            <td>{{this.number_of_reception}}</td>
             <td></td>
             <td>
               <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
@@ -85,7 +87,7 @@
     var formView = document.forms['form-view']
    
     btnView.click(function(){
-      formView.action = 'customerdebt/' + $(this).data('id') + '/customerdebtdetail'
+      formView.action = 'customerhistory/' + $(this).data('id') + '/customerhistorydetail'
       formView.submit()
     })
   })
