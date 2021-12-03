@@ -9,9 +9,9 @@ const Repair_Detail_Material = new Schema({
     material: {type:Schema.Types.ObjectId , ref: "Material" },
     of_repair: { type: Schema.Types.ObjectId, ref: "Repair" },
     material_name: String,
-    amount: Number,
-    sell_price: Number,
-    total_money: Number,
+    amount: {type:Number, default: 0},
+    sell_price: {type:Number, default: 0},
+    total_money: {type:Number, default: 0},
     exported: { type:Boolean,  default: false },
     contracted: { type: Boolean,  default: false},
 }, {

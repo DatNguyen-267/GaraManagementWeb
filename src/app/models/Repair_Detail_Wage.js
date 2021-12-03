@@ -8,8 +8,8 @@ const Repair_Detail_Wage = new Schema({
     wage: {type:Schema.Types.ObjectId , ref: "Wage" },
     of_repair: {type:Schema.Types.ObjectId , ref: "Repair" },
     wage_name: String,
-    wage_money: String,
-    contracted: Boolean,
+    wage_money:{type:Number, default: 0},
+    contracted: { type: Boolean, default: false },
 }, {
     timestamps: true,
 })

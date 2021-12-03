@@ -1,0 +1,203 @@
+<link rel="stylesheet" href="/css/repair.css">
+<link rel="stylesheet" href="/css/contract.css">
+<div class="grid__item">
+    <div class="repair-detail__title">
+        <div>Quản lý sửa chữa</div>
+        <div>></div>
+        <div>Danh sách hợp đồng</div>
+    </div>
+    <div class="back">
+
+    </div>
+    <div class="repair-detail__navbar">
+        <div class="repair-detail__nav">
+            <form method="GET" action="/repairs/{{Repair._id}}/repair-detail">
+                <button class="repair-detail__nav-item">Thông tin sửa chữa</button>
+            </form>
+            
+            <form method="GET" action="/repairs/{{Repair._id}}/contract-detail">
+                <button style="submit" class="repair-detail__nav-item">Thông tin hợp đồng</button>
+            </form>
+        </div>
+    </div>
+    <div class="repair-detail-info">
+        {{!-- THONG TIN CHUNG --}}
+        <div class="repair-detail-info__general">
+            <div class="repair-detail-info__general-item">
+                <div class="repair-detail-info__general-item-customer">
+                    <div class="info-group">
+                        <label for="">Mã phiếu sửa chữa:</label>
+                        <label id="label-repair-id">{{Repair._id}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Tên khách hàng:</label>
+                        <label >{{Repair.of_reception.name}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Biển số xe:</label>
+                        <label >{{Repair.of_reception.license}}</label>
+                    </div>
+                </div>
+                <div class="repair-detail-info__general-item-status">
+                    <div class="info-group">
+                        <label for="">Trạng thái:</label>
+                        <label id="repair-status" data-id="{{Repair._id}}"
+                            data-contracted="{{Repair.contracted}}"
+                            data-quoted="{{Repair.quoted}}"
+                            data-edited="{{Repair.edited}}"
+                            data-ordered="{{Repair.ordered}}">{{Repair.status}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for="">Tổng tiền:</label>
+                        <label >{{Repair.debt}}</label>
+                    </div>
+                    <div class="info-group">
+                        <label for=""></label>
+                        <label ></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- DANH SACH HOP DONG --}}
+        <div class="table__header">
+            <div class="table__header-name">Danh sách hợp đồng đã ký kết</div> 
+        </div>
+            
+        <div class="table-contract">
+            <table class="table" style="overflow-y:scroll">
+                <colgroup>
+                </colgroup>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Mã hợp đồng</th>
+                        <th scope="col">Ngày lập</th>
+                        <th scope="col">Tổng tiền</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Contracts}}
+                    <tr>
+                        <td scope="row">{{this._id}}</td>
+                        <td scope="row">{{this.createdAtConvert}}</td>
+                        <td scope="row">{{this.total_money}}</td>
+                        <td class="td-contain-btn" scope="row"> 
+                            <button class="btn--view-item" data-toggle="modal" data-target="#modal-contract-detail-{{this._id}}" data-id="{{this._id}}">Xem</button>
+                            <button class="btn--edit-item" data-toggle="modal" data-target="#modal-contract-detail-{{this._id}}" data-id="{{this._id}}">In</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+        </table>
+        </div>
+
+    </div>  
+{{#each Contracts}}
+<div class="modal fade " id="modal-contract-detail-{{this._id}}" tabindex="-1" role="dialog">
+    <div class="modal-dialog repair-modal-quote-dialog" role="document">
+        <div id="content-quote" class="modal-content repair-modal-quote-content">
+            {{!-- <div class="modal-header">
+                <h5 class="modal-title">Hợp đồng</h5>
+                <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> --}}
+            <div class="modal-body">
+                <form>
+                    <div class="contract__day">Hôm nay ngày: </div>
+                    <div class="contract__info-A">
+                        <div class="contract__info-A__header">Bên sửa xe (Bên A)</div>
+                        <div class="contract__info-item">
+                            <label for="">Tên khách hàng:</label>
+                            <label>{{Repair.customer_name}}</label>
+                        </div>
+                        <div class="contract__info-item">
+                            <label for="">Biển số xe:</label>
+                            <label >{{Repair.license}}</label>
+                        </div>
+                        <div class="contract__info-item">
+                            <label for="">Số điện thoại:</label>
+                            <label >{{Repair.of_reception.phone}}</label>
+                        </div>
+                    </div>
+                    <div class="contract__info-B">
+                        <div class="contract__info-B__header">Bên nhận sửa xe (Bên B)</div>
+                        <div class="contract__info-item">
+                            <label for="">Địa chỉ:</label>
+                            <label ></label>
+                        </div>
+                        <div class="contract__info-item">
+                            <label for="">Đại diện:</label>
+                            <label >098JKL</label>
+                        </div>
+                        
+                        <div class="contract__info-item">
+                            <label for="">Số điện thoại:</label>
+                            <label >095822782</label>
+                        </div>
+                    </div>  
+                    <div class="contract__rule">
+                        <div class="contract__rule-header">Điều khoản</div>
+                        <div class="contract__rule-item">Điều 1: Nội dung sửa chữa</div>
+                        <div>- Bên B tiến hành bảo trì và sửa chữa cho xe của bên A theo những thông tin tiền công và vật tư bến dưới</div>
+                        <div class="contract__rule-item">Điều 2: Giá trị hợp đồng và phương thức thanh toán</div>
+                        <div class="contract__rule-item">1. Giá trị hợp đồng</div>
+                        <div>- Giá trị hợp đồng là: </div>
+                        <div>- Chưa bao gồm 10% GTGT</div>
+                        <div class="contract__rule-item">2. Phương thức thanh toán</div>
+                        <div>- Khách hàng trả 100% số tiền sau khi ký kết hợp đồng này và Bên B hoàn thành sửa chữa xe cho Bên A</div>
+                        <div>- Khách hàng chỉ được lấy xe ra khỏi Gara khi hoàn thành thanh toán hoặc ghi nợ</div>
+                        <div class="contract__rule-item">3. Trách nhiệm do vi phạm hợp đồng</div>
+                        <div>- Bên nào vi phạm hợp đồng một mặt phải trả cho bên bị vi phạm hợp đồng, mặt khác nếu có thiệt hại xảy ra do lỗi vi phạm hợp đồng dẫn đến như: mất mát, hư hỏng tài sản, phải chi phí để ngăn chặn, hạn chế thiệt hại do vi phạm gây ra, tiền phạt do vi phạm hợp đồng khác và tiền bồi thường thiệt hại mà bên bị vi phạm phải trả cho bên thứ ba là hậu quả trực tiếp của sự vi phạm này gây ra</div>
+                        <div>- Khi công việc không đúng với yêu cầu kỹ thuật đã thỏa thuận trong hợp đồng thì bên A có quyền không nhận. Nếu nhận có quyền yêu cầu phải giảm giá hoặc sửa chữa sai sót trước khi nhận. Trong trường hợp do phải sửa chữa sai sót mà hợp đồng không được thực hiện đúng thời hạn thì bên B bị phạt vi phạm hợp đồng như trường hợp vi phạm thời hạn thực hiện hợp đồng.</div>
+                    </div>
+                    <div class="table-material">
+                        <table class="table table--default table--min" style="overflow-y:scroll">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nội dung</th>
+                                    <th scope="col">Tên vật tư</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{{loadMaterial this.detailMaterial}}}
+                            </tbody>
+                    </table>
+                    </div>
+                    <div class="table-wage">
+                        <table class="table table--default table--min">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên tiền công</th>
+                                    <th scope="col">Tiền công</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{{loadWage this.detailWage}}}
+                            </tbody>
+                            </table>
+                    </div>
+                    <div class="sign-side">
+                        <div class="sign-side-A">
+                            <div class="sign-side-header">Đại diện bên A</div>
+                            <div>Chức vụ, ký tên, đóng dấu</div>
+                        </div>
+                        <div class="sign-side-B">
+                            <div class="sign-side-header">Đại diện bên B</div>
+                            <div>ký tên, đóng dấu</div>
+                        </div>
+                    </div>
+                
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

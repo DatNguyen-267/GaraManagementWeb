@@ -33,6 +33,7 @@
 
 * {
   box-sizing: inherit;
+  
 }
 
 html {
@@ -40,7 +41,12 @@ html {
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 }
-
+button[disabled] {
+  cursor: default;
+  background: #c3c3c3;
+  color: #94949494;
+  border: 1px solid #94949494;
+}
 .grid__row {
   display: flex;
   flex-wrap: wrap;
@@ -259,8 +265,7 @@ html {
   font-size: 14px;
 }
 .icon-check--on {
-  text-align: center;
-  margin-left: -4px;
+  text-align: left;
   font-size: 18px;
   color: #218838;
 }
@@ -269,7 +274,7 @@ html {
   width: 200px;
 }
 .td-contain-check-icon {
-  text-align: center;
+  text-align: left;
   
 }
 .table th {
