@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/pay.css">
+
+<div class="header">
+    <div class="header__link">Tiếp nhận xe > Thanh toán</div>
+</div>
+<div class="container">
+    <div class="bill">
+        <div class="bill__header">
+            <div class="bill__header-name">Hóa đơn thanh toán</div>
+            <div class="bill__header-company-name">Nhà xe: DGara</div>
+            <div class="bill__header-phone">Địa chỉ: Khu phố 6, Thủ Đức, Thành phố Hồ Chí Minh</div>
+            <div class="bill__header-phone">SDT: 096964451</div>
+        </div>
+        <div class="bill__customer-info">
+            <div class="info-group">
+                <label for="">Tên khách hàng:</label>
+                <label >Nguyễn Thành Đạt</label>
+            </div>
+            <div class="info-group">
+                <label for="">Biển số xe:</label>
+                <label >098JKL</label>
+            </div>
+            <div class="info-group">
+                <label for="">Phone:</label>
+                <label >095822782</label>
+            </div>
+            <div class="info-group">
+                <label for="">Ngày lập phiếu:</label>
+                <label >05/06/2021</label>
+            </div>
+        </div>
+        <div class="bill__repair-info">
+            <div class="bill__repair-info__table-material">
+                <table class="table" style="overflow-y:scroll">
+                <thead>
+                    <tr>
+                        <th scope="col">Nội dung</th>
+                        <th scope="col">Tên vật tư</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Detail_Materials}}
+                    <tr>
+                        <td scope="row">{{this.content}}</td>
+                        <td scope="row">{{this.material_name}}</td>
+                        <td scope="row">{{this.amount}}</td>
+                        <td scope="row">{{this.sell_price}}</td>
+                        <td scope="row">{{this.total_money}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+        </table>
+            </div>
+
+            <div class="bill__repair-info__table-wage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tên tiền công</th>
+                            <th scope="col">Tiền công</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each Detail_Wages}}
+                        <tr>
+                            <td scope="row">{{this.wage_name}}</td>
+                            <td scope="row">{{this.wage_money}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bill__money-info">
+            <div class="bill__money-info-detail">
+                <div class="info-group">
+                    <label for="">Tổng tiền:</label>
+                    <label >8.700.600</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Thuế GTGT:</label>
+                    <label >5%</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Số tiền đã trả:</label>
+                    <label >0</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Tổng tiền thanh toán:</label>
+                    <label >8.700.600</label>
+                </div>
+            </div>
+        </div>
+        <div class="bill__footer">
+            <button class="btn-print btn btn-success">In hóa đơn</button>
+            <button class="btn-pay btn btn-primary">Thanh toán</button>
+        </div>
+    </div>
+</div>

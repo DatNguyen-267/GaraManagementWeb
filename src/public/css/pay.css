@@ -1,0 +1,46 @@
+.html {
+  font-size: 14px; }
+
+.bill {
+  width: 60vw;
+  margin: 10px auto;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0px 16px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden; }
+
+.bill__header {
+  margin: 0 -20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  background-color: royalblue;
+  color: var(--white-color); }
+
+.bill__header-name {
+  font-size: 20px;
+  font-weight: 600; }
+
+.bill__header-company-name {
+  font-size: 13px; }
+
+.bill__header-phone {
+  font-size: 13px; }
+
+.bill__header-phone {
+  font-size: 13px; }
+
+.bill__customer-info {
+  font-size: 14px; }
+
+.bill__money-info {
+  font-size: 14px; }
+
+.bill__footer {
+  display: flex;
+  align-items: center;
+  justify-content: right; }
+
+.bill__footer .btn {
+  margin-left: 16px; }

@@ -25,17 +25,28 @@
     </div>
     <div class="list-reception">
       <table class="table table--default">
+        <colgroup>
+            <col style="width: 70px;">
+            <col >
+            <col >
+            <col >
+            <col > 
+            <col > 
+            {{!-- <col >  --}}
+            <col > 
+            <col style="width: 230px;"> 
+        </colgroup>
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#Stt</th>
+            <th scope="col">#STT</th>
             <th scope="col">Biển số xe</th>
             <th scope="col">Hiệu xe</th>
             <th scope="col">Tên khách hàng</th>
-            <th scope="col">Số điện thoại</th>
+            {{!-- <th scope="col">Số điện thoại</th> --}}
             <th scope="col">Ngày tiếp nhận</th>
             <th scope="col">Số tiền nợ</th>
             <th scope="col">Trạng thái</th>
-            <th scope="col" colspan="2"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -45,18 +56,17 @@
             <td>{{this.license}}</td>
             <td>{{this.brand}}</td>
             <td>{{this.name}}</td>
-            <td>{{this.phone}}</td>
+            {{!-- <td>{{this.phone}}</td> --}}
             <td>{{this.receptionDate}}</td>
             <td>{{this.debt}}</td>
             <td>{{this.status}}</td>
-            <td></td>
-            <td>
-              <button class="btn--view-item" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#form-view-reception" data-id="">Xem</button>
+            <td class="row-btn">
               <button class="btn--edit-item" data-id="{{this._id}}" data-toggle="modal"
                 data-target="#form-edit-reception" data-id="">Sửa</button>
               <button class="btn--delete-item" data-id="{{this._id}}" data-toggle="modal"
                 data-target="#form-delete-reception" data-id="">Xóa</button>
+              <button class="btn btn-success btn-pay" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#" data-id="">Thanh toán</button>
             </td>
           </tr>
           {{/each}}

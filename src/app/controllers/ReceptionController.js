@@ -33,5 +33,8 @@ class ReceptionController {
             })
             .catch(next)
     }
+    showPay(req, res, next) {
+        res.render('receptions/pay')
+    }
 }
 module.exports = new ReceptionController;

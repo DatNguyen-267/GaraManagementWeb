@@ -89,3 +89,18 @@
     font-size: 14px;
     cursor: default;
 }
+.btn-pay {
+    height: 30px;
+    font-size: 12px !important;
+    text-align: center;
+    font-weight: 600;
+    padding: 0 !important;
+    margin: 0 4px;
+    width: 80px;
+    border: none !important;
+}
+.row-btn {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}

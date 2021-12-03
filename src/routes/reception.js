@@ -3,6 +3,7 @@ const router = express.Router()
 
 const receptionController = require('../app/controllers/ReceptionController')
 
+router.get('/pay', receptionController.showPay)
 router.post('/create', receptionController.create)
 router.put('/:id',receptionController.edit)
 router.delete('/:id',receptionController.delete)
