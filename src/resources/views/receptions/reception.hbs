@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/reception.css">
-<div class="grid__item">
+<div class="grid__item {{active}}">
   <div class="header">
     <div class="header__title">Tiếp nhận xe</div>
     <button class="header__btn-add btn btn--primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
@@ -33,7 +33,7 @@
             <col > 
             <col > 
             {{!-- <col >  --}}
-            <col > 
+            <col style="width: 135px;"> 
             <col style="width: 230px;"> 
         </colgroup>
         <thead class="thead-dark">
@@ -46,7 +46,7 @@
             <th scope="col">Ngày tiếp nhận</th>
             <th scope="col">Số tiền nợ</th>
             <th scope="col">Trạng thái</th>
-            <th scope="col"></th>
+            <th scope="col" ></th>
           </tr>
         </thead>
         <tbody>
@@ -54,19 +54,32 @@
           <tr data-id="{{this._id}}">
             <th scope="row"> {{sum @index 1}} </th>
             <td>{{this.license}}</td>
-            <td>{{this.brand}}</td>
-            <td>{{this.name}}</td>
+            <td>{{this.brand.name}}</td>
+            <td>{{this.of_customer.name}}</td>
             {{!-- <td>{{this.phone}}</td> --}}
             <td>{{this.receptionDate}}</td>
             <td>{{this.debt}}</td>
-            <td>{{this.status}}</td>
-            <td class="row-btn">
+            <td>
+              <div class="{{loadStatus this.status}}">
+                {{this.status}}
+              </div>
+              </td>
+            <td class="row-btn" >
               <button class="btn--edit-item" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#form-edit-reception" data-id="">Sửa</button>
+                data-target="#form-edit-reception" data-id="" 
+                {{isDisable this.of_repair.contracted}} 
+                {{isHidden this.isSuccess}} 
+                >Sửa</button>
               <button class="btn--delete-item" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#form-delete-reception" data-id="">Xóa</button>
+                data-target="#form-delete-reception" data-id="" 
+                {{isDisable this.of_repair.contracted}} 
+                {{isHidden this.isSuccess}} 
+                >Xóa</button>
               <button class="btn btn-success btn-pay" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#" data-id="">Thanh toán</button>
+                data-target="#modal-pay" data-id="" 
+                {{isEnable this.of_repair.isSuccess}} 
+                {{isHidden this.isSuccess}} 
+                >Thanh toán</button>
             </td>
           </tr>
           {{/each}}
@@ -91,21 +104,61 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="form-group">
+            <div class="form-group" id="form-old-customer">
               <label for="reception-add-name" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" class="form-control" id="reception-add-name" name="name">
+              <select class="form-control" name="oldCustomer"> 
+                    <option>--- Chọn khách hàng ---</option>
+                    {{#each Customers}}   
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+              </select>
+            </div>
+            <p>
+            <div class="customer-check">
+              <input type="checkbox" class="" id="customer-check-input" name="isNewCustomer">
+              <label class="customer-check-label">Khách hàng mới</label>
+              <div class="side-new-customer">
+                <div class="form-group">
+                  <label for="reception-add-name" class="col-form-label">Tên khách hàng:</label>
+                  <input type="text" class="form-control" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="reception-add-receptionDate" class="col-form-label">Ngày sinh:</label>
+                  <input type="date" class="form-control"  name="birthday">
+                </div>
+                <div class="form-group">
+                  <label for="reception-add-name" class="col-form-label">Địa chỉ:</label>
+                  <input type="text" class="form-control" name="address">
+                </div>
+                <div class="form-group">
+                  <label for="reception-add-name" class="col-form-label">CMND:</label>
+                  <input type="text" class="form-control" name="cardIdentify">
+                </div>
+                <div class="form-group">
+                  <label for="reception-add-name" class="col-form-label">Email:</label>
+                  <input type="text" class="form-control" name="email">
+                </div>
+              </div>
             </div>
             <div class="form-group">
-              <label for="reception-add-lincense" class="col-form-label">Biển số xe:</label>
-              <input type="text" class="form-control" id="reception-add-lincense" name="license">
+                <label for="reception-add-phone" class="col-form-label">Số điện thoại:</label>
+                <input type="text" class="form-control" id="reception-add-phone" name="phone" >
             </div>
-            <div class="form-group">
-              <label for="reception-add-phone" class="col-form-label">Số điện thoại:</label>
-              <input type="text" class="form-control" id="reception-add-phone" name="phone">
+            <div class="double-input">
+              <div class="form-group">
+                <label for="reception-add-lincense" class="col-form-label">Biển số xe:</label>
+                <input type="text" class="form-control" id="reception-add-lincense" name="license" >
+              </div>
             </div>
+            
             <div class="form-group">
               <label for="reception-add-brand" class="col-form-label">Hiệu xe:</label>
-              <input type="text" class="form-control" id="reception-add-brand" name="brand">
+              <select class="form-control" name="brand">    
+                    <option>--- Chọn hiệu xe ---</option>
+                    {{#each Brands}}   
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+              </select>
             </div>
             <div class="form-group">
               <label for="reception-add-receptionDate" class="col-form-label">Ngày tiếp nhận:</label>
@@ -228,19 +281,29 @@
     </div>
   </div>
 </div>
-
+<!-- FORM THANH TOÁN-->
+<div class="modal fade" id="modal-pay" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Thanh toán</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body modal-body-descreption">
+        Bạn có chắc chắn muốn thanh toán phiếu này!!!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        <button id="btn-accept-pay" type="button" class="btn btn--send-dialog">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+</div>
 {{!-- FORM --}}
 <form name="form-delete" method="POST"></form>
-
-
-<!-- scrip -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-{{!-- --}}
+<form name="form-pay" method="GET"></form>
 
 
 
@@ -297,5 +360,27 @@
       }
 
     })
+
+    const checkboxNewCustomer = document.getElementById('customer-check-input')
+    const formOldCustomer = document.querySelector('#form-old-customer')
+    console.log(formOldCustomer)
+    checkboxNewCustomer.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+          $("#form-old-customer").attr('disabled','disabled');
+      } else {
+          $("#form-old-customer").attr('disabled',false);
+      }
+    })
+
+    $('#modal-pay').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      receptionId = button.data('id')
+    })
+    const formPay = document.forms['form-pay']
+    const btnAccceptPay = document.querySelector('#btn-accept-pay')
+    btnAccceptPay.onclick = function() {
+      formPay.action = '/reception/' + receptionId + '/pay'
+      formPay.submit()
+    }
   })
 </script>

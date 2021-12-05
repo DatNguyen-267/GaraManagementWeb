@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/pay.css">
 
-<div class="header">
+<div class="grid__item">
+    <div class="header">
     <div class="header__link">Tiếp nhận xe > Thanh toán</div>
 </div>
 <div class="container">
@@ -15,19 +16,19 @@
         <div class="bill__customer-info">
             <div class="info-group">
                 <label for="">Tên khách hàng:</label>
-                <label >Nguyễn Thành Đạt</label>
+                <label >{{Reception.of_customer.name}}</label>
             </div>
             <div class="info-group">
                 <label for="">Biển số xe:</label>
-                <label >098JKL</label>
+                <label >{{Reception.license}}</label>
             </div>
             <div class="info-group">
                 <label for="">Phone:</label>
-                <label >095822782</label>
+                <label >{{Reception.of_customer.phone}}</label>
             </div>
             <div class="info-group">
                 <label for="">Ngày lập phiếu:</label>
-                <label >05/06/2021</label>
+                <label >{{Now}}</label>
             </div>
         </div>
         <div class="bill__repair-info">
@@ -43,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each Detail_Materials}}
+                    {{#each DetailMaterial}}
                     <tr>
                         <td scope="row">{{this.content}}</td>
                         <td scope="row">{{this.material_name}}</td>
@@ -65,7 +66,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each Detail_Wages}}
+                        {{#each DetailWage}}
                         <tr>
                             <td scope="row">{{this.wage_name}}</td>
                             <td scope="row">{{this.wage_money}}</td>
@@ -96,8 +97,52 @@
             </div>
         </div>
         <div class="bill__footer">
+            <button class="btn-debt btn btn-danger" data-id="{{Reception._id}}">Ghi nợ</button>
             <button class="btn-print btn btn-success">In hóa đơn</button>
-            <button class="btn-pay btn btn-primary">Thanh toán</button>
+            <button class="btn-pay btn btn-primary" data-id="{{Reception._id}}" 
+                data-toggle="modal" 
+                data-target="#form-accept-pay">Thanh toán</button>
         </div>
     </div>
 </div>
+</div>
+<form method="POST" name="modal-accept-pay" action="">
+    <div class="modal fade" id="form-accept-pay" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLabel">Thanh toán</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body modal-body-descreption">
+            Bạn có chắc chắn muốn thanh toán!!!
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+            <button id="btn-accept-pay" type="button" class="btn btn--send-dialog">Đồng ý</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var btnAcceptPay = document.querySelector('#btn-accept-pay')
+        var btnPrint = document.querySelector('#btn-print')
+        var btnDebt = document.querySelector('#btn-debt')
+        var formAccepPay = document.forms['modal-accept-pay']
+        var receptionId
+        $('#form-accept-pay').on('show.bs.modal' , function(event) {
+            var button = $(event.relatedTarget)
+            receptionId = button.data('id')
+            console.log(receptionId)
+        })
+        
+        btnAcceptPay.onclick = function() {
+            formAccepPay.action = '/reception/' + receptionId + '/create-bill'
+            formAccepPay.submit()
+        }
+    })
+</script>

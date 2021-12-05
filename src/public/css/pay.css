@@ -35,7 +35,11 @@
   font-size: 14px; }
 
 .bill__money-info {
-  font-size: 14px; }
+  font-size: 16px;
+  display: flex;
+  justify-content: right;
+  margin-right: 76px;
+  margin-bottom: 16px; }
 
 .bill__footer {
   display: flex;
@@ -43,4 +47,8 @@
   justify-content: right; }
 
 .bill__footer .btn {
-  margin-left: 16px; }
+  margin-left: 16px;
+  margin-bottom: 16px; }
+
+.bill__repair-info table {
+  font-size: 14px !important; }

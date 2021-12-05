@@ -19,7 +19,7 @@
                 <th scope="col">Mã phiếu tiếp nhận</th>
                 <th scope="col">Biển số xe</th>
                 <th scope="col">Tên khách hàng</th>
-                <th scope="col">Ngày sửa chữa</th>
+                {{!-- <th scope="col">Ngày tạo</th> --}}
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Tổng chi phí</th>
                 <th scope="col"></th>
@@ -32,7 +32,7 @@
                 <td>{{this.of_reception._id}}</td>
                 <td>{{this.license}}</td>
                 <td>{{this.customer_name}}</td>
-                <td>{{this.repairDate}}</td>
+                {{!-- <td>{{this.createdAt}}</td> --}}
                 <td>{{this.status}}</td>
                 <td>{{this.debt}}</td>
                 <td>
@@ -70,15 +70,15 @@
                 <label for="input-add-name">Tên khách hàng:</label>
                 <select class="form-control" id="input-add-name" name="customer_name">
                     {{#each waitReceptions}}
-                    <option>{{this.name}}</option>
+                    <option>{{this.of_customer.name}}</option>
                     
                     {{/each}}
                 </select>
             </div>
-            <div class="form-group">
+            {{!-- <div class="form-group">
               <label for="input-add-repairDate" class="col-form-label">Ngày tạo phiếu:</label>
               <input type="date" class="form-control" id="input-add-repairDate" name="repairDate">
-            </div>
+            </div> --}}
           </form>
         </div>
         <div class="modal-footer">

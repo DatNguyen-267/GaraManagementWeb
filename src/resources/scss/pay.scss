@@ -3,8 +3,7 @@
     
 }
 .container {
-    
-}
+}  
 .bill {
     width: 60vw;
     margin: 10px auto;
@@ -48,7 +47,11 @@
 
 }
 .bill__money-info {
-    font-size: 14px;
+    font-size: 16px;
+    display: flex;
+    justify-content: right;
+    margin-right: 76px;
+    margin-bottom: 16px;
 }
 .bill__money-info-detail {
 
@@ -60,4 +63,8 @@
 }
 .bill__footer .btn {
     margin-left: 16px;
+    margin-bottom: 16px;
+}
+.bill__repair-info table {
+    font-size: 14px !important;
 }

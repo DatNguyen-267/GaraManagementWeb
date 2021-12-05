@@ -574,106 +574,199 @@
 <form method="POST" action="" name="form-quote">
     <div class="modal fade " id="modal-quote" tabindex="-1" role="dialog">
         <div class="modal-dialog repair-modal-quote-dialog" role="document">
-            <div id="content-quote" class="modal-content repair-modal-quote-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Phiếu báo giá</h5>
-                <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-content repair-modal-quote-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Phiếu báo giá</h5>
+                    <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-quote-info" style="font-size: 14px;">
+                            <div class="info-group">
+                                <label for="">Mã phiếu sửa chữa:</label>
+                                <label id="label-repair-id">{{Repair._id}}</label>
+                            </div>
+                            <div class="info-group">
+                                <label for="">Tên khách hàng:</label>
+                                <label >{{Repair.of_reception.name}}</label>
+                            </div>
+                            <div class="info-group">
+                                <label for="">Biển số xe:</label>
+                                <label >{{Repair.of_reception.license}}</label>
+                            </div>
+                            <div class="info-group">
+                                <label for="">Tổng tiền:</label>
+                                <label >{{Repair.debt}}</label>
+                            </div>
+                            <div class="info-group">
+                                <label for="">Ngày báo giá:</label>
+                                <label >28/11/2021</label>
+                            </div>
+                        </div>
+                        <label >Danh sách vật tư</label>
+                        <table class="table table--default" style="overflow-y:scroll">
+                            <colgroup>
+                                <col style="width: 70px;">
+                                <col style="width: 300px;">
+                                <col style="width: 270px;">
+                                <col style="width: 100px;">
+                                <col style="width: 100px;"> 
+                                <col style="width: 100px;"> 
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Nội dung</th>
+                                    <th scope="col">Tên vật tư</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each Detail_Materials}}
+                                <tr>
+                                    <td scope="row">{{sum @index 1}}</td>
+                                    <td scope="row">{{this.content}}</td>
+                                    <td scope="row">{{this.material_name}}</td>
+                                    <td scope="row">{{this.amount}}</td>
+                                    <td scope="row">{{this.sell_price}}</td>
+                                    <td scope="row">{{this.total_money}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <label >Danh sách tiền công</label>
+                        <table class="table table--default table-wage">
+                            <colgroup>
+                                <col style="width: 70px;">
+                                <col style="width: 300px;">
+                                <col style="width: 300px;">
+                                <col>	
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Tên tiền công</th>
+                                    <th scope="col">Tiền công</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each Detail_Wages}}
+                                <tr>
+                                    <td scope="row">{{sum @index 1}}</td>
+                                    <td scope="row" >{{this.wage_name}}</td>
+                                    <td scope="row">{{this.wage_money}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+                    <button id="btn-print-quote" type="button" class="btn btn--send-dialog">In báo giá</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-quote-info" style="font-size: 14px;">
-                        <div class="info-group">
-                            <label for="">Mã phiếu sửa chữa:</label>
-                            <label id="label-repair-id">{{Repair._id}}</label>
-                        </div>
-                        <div class="info-group">
-                            <label for="">Tên khách hàng:</label>
-                            <label >{{Repair.of_reception.name}}</label>
-                        </div>
-                        <div class="info-group">
-                            <label for="">Biển số xe:</label>
-                            <label >{{Repair.of_reception.license}}</label>
-                        </div>
-                        <div class="info-group">
-                            <label for="">Tổng tiền:</label>
-                            <label >{{Repair.debt}}</label>
-                        </div>
-                        <div class="info-group">
-                            <label for="">Ngày báo giá:</label>
-                            <label >28/11/2021</label>
-                        </div>
-                    </div>
-                    <label >Danh sách vật tư</label>
-                    <table class="table table--default" style="overflow-y:scroll">
-                        <colgroup>
-                            <col style="width: 70px;">
-                            <col style="width: 300px;">
-                            <col style="width: 270px;">
-                            <col style="width: 100px;">
-                            <col style="width: 100px;"> 
-                            <col style="width: 100px;"> 
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Nội dung</th>
-                                <th scope="col">Tên vật tư</th>
-                                <th scope="col">Số lượng</th>
-                                <th scope="col">Đơn giá</th>
-                                <th scope="col">Thành tiền</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each Detail_Materials}}
-                            <tr>
-                                <td scope="row">{{sum @index 1}}</td>
-                                <td scope="row">{{this.content}}</td>
-                                <td scope="row">{{this.material_name}}</td>
-                                <td scope="row">{{this.amount}}</td>
-                                <td scope="row">{{this.sell_price}}</td>
-                                <td scope="row">{{this.total_money}}</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                    <label >Danh sách tiền công</label>
-                    <table class="table table--default table-wage">
-                        <colgroup>
-                            <col style="width: 70px;">
-                            <col style="width: 300px;">
-                            <col style="width: 300px;">
-                            <col>	
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên tiền công</th>
-                                <th scope="col">Tiền công</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each Detail_Wages}}
-                            <tr>
-                                <td scope="row">{{sum @index 1}}</td>
-                                <td scope="row" >{{this.wage_name}}</td>
-                                <td scope="row">{{this.wage_money}}</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-                <button id="btn-print-quote" type="button" class="btn btn--send-dialog">In báo giá</button>
-            </div>
-        </div>
         </div>
     </div>
 
 </form>
+
+<div hidden>
+    <div id="content-quote" class="modal-content repair-modal-quote-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Phiếu báo giá</h5>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-quote-info" style="font-size: 14px;">
+                <div class="info-group">
+                    <label for="">Mã phiếu sửa chữa:</label>
+                    <label id="label-repair-id">{{Repair._id}}</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Tên khách hàng:</label>
+                    <label >{{Repair.of_reception.name}}</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Biển số xe:</label>
+                    <label >{{Repair.of_reception.license}}</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Tổng tiền:</label>
+                    <label >{{Repair.debt}}</label>
+                </div>
+                <div class="info-group">
+                    <label for="">Ngày báo giá:</label>
+                    <label >28/11/2021</label>
+                </div>
+            </div>
+            <label >Danh sách vật tư</label>
+            <table class="table table--default" style="overflow-y:scroll">
+                <colgroup>
+                    <col style="width: 70px;">
+                    <col style="width: 300px;">
+                    <col style="width: 270px;">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;"> 
+                    <col style="width: 100px;"> 
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Nội dung</th>
+                        <th scope="col">Tên vật tư</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Detail_Materials}}
+                    <tr>
+                        <td scope="row">{{sum @index 1}}</td>
+                        <td scope="row">{{this.content}}</td>
+                        <td scope="row">{{this.material_name}}</td>
+                        <td scope="row">{{this.amount}}</td>
+                        <td scope="row">{{this.sell_price}}</td>
+                        <td scope="row">{{this.total_money}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <label >Danh sách tiền công</label>
+            <table class="table table--default table-wage">
+                <colgroup>
+                    <col style="width: 70px;">
+                    <col style="width: 300px;">
+                    <col style="width: 300px;">
+                    <col>	
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên tiền công</th>
+                        <th scope="col">Tiền công</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Detail_Wages}}
+                    <tr>
+                        <td scope="row">{{sum @index 1}}</td>
+                        <td scope="row" >{{this.wage_name}}</td>
+                        <td scope="row">{{this.wage_money}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+</div>
+
 {{!-- Contract --}}
 <form method="GET" name="form-contract"></form>
 <script>
@@ -757,8 +850,17 @@
         btnPrintQuote.onclick = function() {
             var divContents = document.getElementById("content-quote").innerHTML;
             var a = window.open('', '', 'height=500, width=500');
-            a.document.write('<html>');
-            a.document.write('<body > <h1>Div contents are <br>');
+            a.document.write(`<html> 
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                    <link rel="stylesheet" href="/vendor/open-iconic-master/font/css/open-iconic-bootstrap.css">
+                    <link rel="stylesheet" href="/css/base.css">
+                    <link rel="stylesheet" href="/css/repair.css">
+                </head>`);
             a.document.write(divContents);
             a.document.write('</body></html>');
             a.print();

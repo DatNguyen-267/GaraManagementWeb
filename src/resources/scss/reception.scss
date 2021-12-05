@@ -104,3 +104,37 @@
     justify-content: right;
     align-items: center;
 }
+.double-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.double-input .form-group {
+    width: 100%;
+}
+.double-input .form-group:first-child {
+    margin-right: 10px;
+}
+.double-input .form-group:last-child {
+    margin-left: 10px;
+}
+.customer-check {
+    position: relative;
+}
+
+.side-new-customer {
+    display: none;
+}
+#customer-check-input:checked ~ .side-new-customer{
+    display: block !important;
+    animation:  growth2  ease-in 0.2s;
+} 
+@keyframes growth2 {
+    from{
+
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -40,6 +40,10 @@ app.engine('hbs', handlebars({
       if (a == false) return ""
       else return "disabled"
     },
+    isEnable: (a) => {
+      if (a == true) return ""
+      else return "disabled"
+    },
     loadMaterial: (detailMaterial) => {
       var html =``
       for (const item of detailMaterial) {
@@ -63,7 +67,26 @@ app.engine('hbs', handlebars({
             </tr>`
       }
       return html
-    }
+    },
+    loadStatus(status) {
+      if (status == "Đang sửa chữa" || status == "Chờ lệnh sửa" || status == "Khám xe")
+        return "status--pending"
+      if (status == "Chờ thanh toán")
+        return "status--waiting"
+      if (status == "Hoàn thành")
+        return "status--success"
+      if (status == "Mới")
+        return "status--success"
+    },
+    activeMainMenu(active) {
+      if (active) return "menu__body-mainlist--active"
+    },
+    expandSubMenu(active) {
+      if (active) return "show"
+    },
+    activeItemMenu(active) {
+      if (active) return "menu__body-sublist-item--active"
+    },
   }
 
 }));
