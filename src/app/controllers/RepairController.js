@@ -6,54 +6,60 @@ const Contract = require('../models/Contract')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 
-const { render } = require('node-sass');
-const Reception = require('../models/Reception');
-const Repair_Detail_Material = require('../models/Repair_Detail_Material');
-const Repair_Detail_Wage = require('../models/Repair_Detail_Wage');
-const Repair_Detail_Employee = require('../models/Repair_Detail_Employee');
+const { render } = require('node-sass')
+const Reception = require('../models/Reception')
+const Repair_Detail_Material = require('../models/Repair_Detail_Material')
+const Repair_Detail_Wage = require('../models/Repair_Detail_Wage')
+const Repair_Detail_Employee = require('../models/Repair_Detail_Employee')
 var listReception
 class RepairController {
     show(req, res, next) {
         Repair.find({}).populate('of_reception')
             .then((repairs) => {
-                Reception.find({})
+                Reception.find({}).populate('of_customer')
                     .then((receptions) => {
-                        var waitReceptions = receptions.map((reception, index) => {
-                            if (!(reception.repair != null)) {
-                                return reception
+                        var waitReceptions = []
+                        for (var reception of receptions) {
+                            var check = true
+                            for (var repair of repairs) {
+                                if (repair.of_reception._id.toString() == reception._id.toString()) {
+                                    check = false
+                                    break
+                                }
                             }
-                        })
-                        var check
-                        if (waitReceptions.some(el => el == null)) check = true
-                        else check = false
-                        // res.send(check)
+                            if (check == true) waitReceptions.push(reception)
+                        }
                         res.render('repairs/repair', {
                             repairs: mutipleMongooseToObject(repairs),
-                            waitReceptions: function () {
-                                if (check) return waitReceptions
-                                else return mutipleMongooseToObject(waitReceptions)
-                            }
-                        })
+                            waitReceptions: mutipleMongooseToObject(waitReceptions),
+                            activeManagementCar: true,
+                            activeRepair: true,
+                            })
                     })
                     .catch(next)
             })
             .catch(next)
-
     }
     create(req, res, next) {
         console.log(req.body)
         var repair = new Repair(req.body)
-        Reception.findOne({ license: req.body.license })
+        Reception.findOne({ _id: req.body.id })
             .then((reception) => {
                 repair.of_reception = reception;
                 repair.quoted = false;
                 repair.contracted = false;
                 repair.exported = false;
                 repair.debt = 0;
-                repair.status = 'Mới'
+                repair.status = 'Khám xe'
                 repair.save()
                     .then(() => {
-                        res.redirect('/repairs')
+                        Reception.updateOne({ _id: reception._id }, {
+                            of_repair: repair._id,
+                            status: "Khám xe",
+                        }).then(() => {
+                            res.redirect('/repairs')
+                        })
+                        .catch(next)
                     })
                     .catch(next)
             })
@@ -338,13 +344,14 @@ class RepairController {
                             contracted: true,
                             edited: false,
                             ordered: false,
-                            status: "Đã lập hợp đồng"
+                            status: "Chờ lệnh sửa"
                         }).then(() => {
                             Repair.findOne({ _id: req.params.id })
                                 .then((repair) => {
                                     Reception.updateOne({ _id: repair.of_reception }, {
                                         total_money: data.sum,
                                         debt: data.sum,
+                                        status: "Chờ lệnh sửa"
                                     }).then(() => {
                                         Repair_Detail_Material.updateMany({ _id: { $in: data.idMaterial } }, {
                                         contracted: true})
@@ -539,7 +546,12 @@ class RepairController {
             status: "Đang sửa chữa"
         })
             .then(() => {
-            res.redirect('back')
+                Reception.updateOne({ of_repair: req.params.id }, {
+                status: "Đang sửa chữa",
+                })
+                    .then(() => {
+                    res.redirect('back')
+                })
         })
     }
 
@@ -552,15 +564,19 @@ class RepairController {
             quoted: true,
             status:"Hoàn thành"
         }).then(() => {
-            Promise.all([
-                Repair_Detail_Material.deleteMany({ of_repair: req.params.id, contracted: false }),
-                Repair_Detail_Wage.deleteMany({ of_repair: req.params.id, contracted: false }),
-                Repair_Detail_Employee.deleteMany({ of_repair: req.params.id, contracted: false }),
-            ]).then(() => {
-                res.redirect('back')
-            })
-            .catch(next)
-            
+            Reception.updateOne({ of_repair: req.params.id }, {
+                status: "Chờ thanh toán",
+            }).then(() => {
+                    Promise.all([
+                        Repair_Detail_Material.deleteMany({ of_repair: req.params.id, contracted: false }),
+                        Repair_Detail_Wage.deleteMany({ of_repair: req.params.id, contracted: false }),
+                        Repair_Detail_Employee.deleteMany({ of_repair: req.params.id, contracted: false }),
+                    ]).then(() => {
+                        res.redirect('back')
+                    })
+                    .catch(next)
+                })
+            .catch(next)  
         }).catch(next)
     }
 }

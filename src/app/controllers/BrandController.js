@@ -10,6 +10,8 @@ class BrandController {
             .then((brands)=> {
                 res.render('brand/brand', {
                     brands: mutipleMongooseToObject(brands),
+                    activeManagementCar: true,
+                    activeBrand:true,
                 })
             })
             .catch(next)

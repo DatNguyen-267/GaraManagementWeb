@@ -1,4 +1,6 @@
-<div class="repair__title">
+<link rel="stylesheet" href="./css/repair.css">
+<div class="grid__content">
+  <div class="template__title">
     Quản lý sửa chữa
 </div>
 <div class="toolbar">
@@ -8,7 +10,7 @@
     </div>
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
-        <button class="toolbar__btn-add" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
     </div>
 </div>
 <div class="list-repair">
@@ -19,7 +21,7 @@
                 <th scope="col">Mã phiếu tiếp nhận</th>
                 <th scope="col">Biển số xe</th>
                 <th scope="col">Tên khách hàng</th>
-                <th scope="col">Ngày sửa chữa</th>
+                {{!-- <th scope="col">Ngày tạo</th> --}}
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Tổng chi phí</th>
                 <th scope="col"></th>
@@ -32,7 +34,7 @@
                 <td>{{this.of_reception._id}}</td>
                 <td>{{this.license}}</td>
                 <td>{{this.customer_name}}</td>
-                <td>{{this.repairDate}}</td>
+                {{!-- <td>{{this.createdAt}}</td> --}}
                 <td>{{this.status}}</td>
                 <td>{{this.debt}}</td>
                 <td>
@@ -43,6 +45,7 @@
             {{/each}}
         </tbody>
     </table>
+</div>
 </div>
 <!-- MODAL -->
 
@@ -60,9 +63,9 @@
           <form>
             <div class="form-group">
                 <label for="input-add-license">Biển số:</label>
-                <select class="form-control" id="input-add-license" name="license">
+                <select class="form-control" id="input-add-license" name="id">
                     {{#each waitReceptions}}
-                    <option>{{this.license}}</option>
+                    <option value="{{this._id}}">{{this.license}}</option>
                     {{/each}}
                 </select>
             </div>
@@ -70,15 +73,15 @@
                 <label for="input-add-name">Tên khách hàng:</label>
                 <select class="form-control" id="input-add-name" name="customer_name">
                     {{#each waitReceptions}}
-                    <option>{{this.name}}</option>
+                    <option>{{this.of_customer.name}}</option>
                     
                     {{/each}}
                 </select>
             </div>
-            <div class="form-group">
+            {{!-- <div class="form-group">
               <label for="input-add-repairDate" class="col-form-label">Ngày tạo phiếu:</label>
               <input type="date" class="form-control" id="input-add-repairDate" name="repairDate">
-            </div>
+            </div> --}}
           </form>
         </div>
         <div class="modal-footer">
