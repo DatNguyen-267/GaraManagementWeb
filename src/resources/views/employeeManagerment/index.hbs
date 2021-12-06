@@ -23,11 +23,10 @@ crossorigin="anonymous"></script>
     </header>
     <body class = "employeeManagerment__body">
         <div class = "table-responsive" style="margin-left:2em; margin-right:2em;">
-          <table class="table employeeManagerment__body__table" >
+          <table class="table employeeManagerment__body__table" id = "managerTable">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">ID</th>
                   <th scope="col">Họ và Tên</th>
                   <th scope="col">Chức vụ</th>
                   <th scope="col">Số lần vi phạm</th>
@@ -35,54 +34,15 @@ crossorigin="anonymous"></script>
                 </tr>
               </thead>
               <tbody>
-                <tr data-toggle="modal" data-target="#infoModal">
-                  <th scope="row">1</th>
-                  <td>nv001</td>
-                  <td>Tran Quang Tuan</td>
-                  <td>Quản lý</td>
+                {{#each employee}}
+                <tr employeeID = "{{this._id}}" employeeNumber = "{{this.phoneNumber}}">
+                  <th scope="row">{{sum @index 1}}</th>
+                  <td id = "employeeName">{{this.name}}</td>
+                  <td>{{this.Tag}}</td>
                   <td>0</td>
-                  <td>2</td>  
+                  <td>0</td>  
                 </tr>
-                <tr data-toggle="modal" data-target="#infoModal">
-                  <th scope="row">2</th>
-                  <td>nv002</td>
-                  <td>Tran Gia Huy</td>
-                  <td>Nhân viên</td>
-                  <td>0</td>
-                  <td>2</td>
-                </tr>
-                <tr data-toggle="modal" data-target="#infoModal">
-                  <th scope="row">3</th>
-                  <td>nv003</td>
-                  <td>Ho Phuoc Thinh</td>
-                  <td>Nhân viên</td>
-                  <td>0</td>
-                  <td>2</td>   
-                </tr>
-                <tr data-toggle="modal" data-target="#infoModal">
-                  <th scope="row">4</th>
-                  <td>nv001</td>
-                  <td>Tran Quang Tuan</td>
-                  <td>Quản lý</td>
-                  <td>0</td>
-                  <td>2</td>
-                </tr>
-                <tr data-toggle="modal" data-target="#infoModal">
-                  <th scope="row">5</th>
-                  <td>nv002</td>
-                  <td>Tran Quang Tuan</td>
-                  <td>Quản lý</td>
-                  <td>0</td>
-                  <td>2</td>
-                </tr>
-                <tr data-toggle="modal" data-target="#infoModal">
-                  <th scope="row">6</th>
-                  <td>nv003</td>
-                  <td>Tran Quang Tuan</td>
-                  <td>Quản lý</td>
-                  <td>0</td>
-                  <td>2</td>                   
-                </tr>
+                {{/each}}
             </table> 
       </div>
           
@@ -91,7 +51,7 @@ crossorigin="anonymous"></script>
             <div class="modal-dialog modal-dialog-centered infoModal modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">Thông tin chi tiết</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -100,9 +60,9 @@ crossorigin="anonymous"></script>
                   <div class="row">
                     <div class = "infoDiv">
                       <h5>Thông tin nhân viên</h5>
-                      <label class = "id">ID: nv001</label>
-                      <label class = "name">Tên: Tran Quang Tuan</label>
-                      <label class = "limitOffDate">Số ngày nghỉ có phép còn lại: 2</label>
+                      <label class = "name" id = "info_employeeName">Tên: Tran Quang Tuan</label>
+                      <label class = "phoneNumber" id = "info_phoneNumber"></label>
+                      <label class = "limitOffDate" id = "info_employeeName">Số ngày nghỉ có phép còn lại: 2</label>
                     </div>
                     <div class = "tagDiv">
                       <ul class="nav nav-tabs">
@@ -116,57 +76,26 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class = "contentDiv">
                       <h6>Ngày nghỉ gần đây</h6>
-                      <div class="card">
-                        <div class = "textDiv">
-                          <div style="float:left">
-                            <p class = "title">Thông tin</p>
-                            <p class="card-text">Ngày: 11/9/2021</p>
-                            <p class="card-text">Lý do: Cách ly</p>
-                            <p class="card-text">Có phép</p>
+                      {{#each dateoff}}
+                        <div class="card">
+                          <div class="card-body">
+                            <div class = "textDiv" style="float:left">
+                              <p class = "title" >Người tạo</p>
+                              <p class="card-text">Tên: {{this.creator}}</p>
+                              <p class="card-text">SĐT: {{this.creatorPhoneNumber}}</p>
+                            </div>
+                            <div class = "card__info">
+                              <p class = "title">Thông tin</p>
+                              <p class="card-text">Từ {{this.startDate}} <i class="fas fa-arrow-right"></i> {{this.endDate}}</p>
+                              <p class="card-text">Lý do: {{this.reson}}</p>
+                              <p class="card-text permission" id = "test1">{{permission this.havePermission}}</p>
+                            </div>
+                            <button class="btn"><i class="fas fa-trash"></i></button>
+                            <button class="btn"><i class="fas fa-pen"></i></button>
+                            
                           </div>
-                          <div class = "textDiv">
-                            <p class = "title" >Người tạo</p>
-                            <p class="card-text">ID: nv002</p>
-                            <p class="card-text">Tên: Huy</p>
-                          </div>
-                          <button class="btn"><i class="fas fa-trash"></i></button>
-                          <button class="btn"><i class="fas fa-pen"></i></button>
                         </div>
-                      </div>
-                      <div class="card">
-                        <div class="card-body">
-                          <div style="float:left">
-                            <p class = "title">Thông tin</p>
-                            <p class="card-text">Ngày: 11/9/2021</p>
-                            <p class="card-text">Lý do: Cách ly</p>
-                            <p class="card-text">Có phép</p>
-                          </div>
-                          <div class = "textDiv">
-                            <p class = "title" >Người tạo</p>
-                            <p class="card-text">ID: nv002</p>
-                            <p class="card-text">Tên: Huy</p>
-                          </div>
-                          <button class="btn"><i class="fas fa-trash"></i></button>
-                          <button class="btn"><i class="fas fa-pen"></i></button>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="card-body">
-                          <div style="float:left">
-                            <p class = "title">Thông tin</p>
-                            <p class="card-text">Ngày: 11/9/2021</p>
-                            <p class="card-text">Lý do: Cách ly</p>
-                            <p class="card-text">Có phép</p>
-                          </div>
-                          <div class = "textDiv">
-                            <p class = "title" >Người tạo</p>
-                            <p class="card-text">ID: nv002</p>
-                            <p class="card-text">Tên: Huy</p>
-                          </div>
-                          <button class="btn"><i class="fas fa-trash"></i></button>
-                          <button class="btn"><i class="fas fa-pen"></i></button>
-                        </div>
-                      </div>
+                      {{/each}}
                     </div>
                     <div class = "btnDiv">
                       <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
@@ -183,24 +112,75 @@ crossorigin="anonymous"></script>
               </div>
             </div>
           </div>  
+
+          <!--Add modal-->
+            <form method="POST" action="/employeeList/create">
+            <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Thêm nhân viên</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id =  "test">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
+                      <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
+                      <input type="text" class="form-control" name="address">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
+                      <input type="text" class="form-control" name="phoneNumber">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
+                      <input type="text" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
+                      <input type="text" class="form-control" name="CMND">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
+                      <select class = "form-control" name="Tag" placeholder="">
+                            <option value= "" disabled selected>Chọn loại nhân viên</option>
+                            {{#each tag}}
+                              <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="summit" class="btn btn-primary" onclick="add()">Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+          <form method = "GET" name = "info-form"></form>
     </body>
 
 
     <script>
       var employeeID;
-      const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
-      $('#employeeTable tbody tr').click(function () {
-        employeeID = $(this).children('#id').text();
-        $('#m_ID').val($(this).children('#id').text());
-        $('#m_name').val($(this).children('#name').text());
-        $('#m_address').val($(this).children('#address').text());
-        $('#m_phone').val($(this).children('#phoneNumber').text());
-        $('#m_CMND').val($(this).children('#CMND').text());
-        $('#m_email').val($(this).children('#email').text());
-        $('#m_tag').val($(this).children('#tag').text());
-        $('#form-edit').val($(this).children('#id').text());
-        $("#modifiedModal").modal();
+      var id;
+      var infoForm = document.forms['info-form'];
+      $('#managerTable tbody tr').click(function () {
+        id = $(this).attr('employeeID')
+        $('#info_employeeName').text("Tên nhân viên: " + $(this).children('#employeeName').text());
+        $('#info_phoneNumber').text("SĐT: " + $(this).attr('employeeNumber'));
+        //$("#infoModal").modal();
         //your code
+        infoForm.action = '/employeeManagerment/' + id + '/info'
+        infoForm.submit();
       });
       function modified(){
         

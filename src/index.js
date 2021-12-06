@@ -9,6 +9,7 @@ const app = express()
 const port = 8080
 const route = require('./routes')
 const db = require('./config/db')
+const { $where } = require('./app/models/EmployeeManagerment')
 
 // Connect DB
 db.connect();
@@ -29,6 +30,12 @@ app.engine('hbs', handlebars({
   extname:'.hbs',
   helpers: {
     sum: (a,b) => a + b,
+    permission: (check) => {
+      if (check == "true"){
+        return "Có phép"
+      }
+      return "Không phép"
+    }
   }
 
 }));

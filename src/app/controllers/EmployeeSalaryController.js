@@ -1,14 +1,19 @@
 const SalaryInfo = require('../models/EmployeeSalary')
+const Employee = require('../models/EmployeeList')
+const Error = require('../models/ManagermentError')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { render } = require('node-sass')
-
+const { mongooseToOject } = require('../../util/mongoose')
 class EmployeeSalaryController {
     show(req,res,next) {// request , respond , next
-        SalaryInfo.find({})
+        Employee.find({})
             .then((employee)=> {
-                res.render('employeeSalary/index', {
-                    employee: mutipleMongooseToObject(employee),
-                })
+                Error.find()
+                    .then((errorCount) =>{
+                        res.render('employeeSalary/index', {
+                            employee: mutipleMongooseToObject(employee),
+                        })
+                    })
             })
             .catch(next)
     };

@@ -1,14 +1,12 @@
 * {
   padding: 0;
   margin: 0;
-  -webkit-box-sizing: inherit;
   box-sizing: inherit; }
 
 body {
   background-color: #f5f5f5; }
 
 html {
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif; }
 
@@ -17,28 +15,16 @@ a, a:hover, a {
   color: #626262; }
 
 .flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex; }
-
-.flex-jc-sb {
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between; }
-
-.flex-jc-c {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center; }
-
-.flex-ac-c {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center; }
+  .flex-jc-sb {
+    justify-content: space-between; }
+  .flex-jc-c {
+    justify-content: center; }
+  .flex-ac-c {
+    align-items: center; }
 
 .shadow {
   border-radius: .5em;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
 
 hr.solid {
@@ -47,18 +33,12 @@ hr.solid {
 
 .employeeList__header {
   padding: 2em; }
-
-.employeeList__header__title {
-  color: #ec1f55; }
-
-.employeeList__header .navbar {
-  padding-left: 0; }
+  .employeeList__header__title {
+    color: #ec1f55; }
+  .employeeList__header .navbar {
+    padding-left: 0; }
 
 .employeeList__body__table tbody > tr:hover {
-  color: #ec1f55; }
-
-.employeeList__body__table tbody > tr:hover button {
-  opacity: 1;
   color: #ec1f55; }
 
 .employeeList__body__btnContainer {
@@ -66,9 +46,8 @@ hr.solid {
   padding: 0;
   padding-right: 2em;
   height: 50px; }
-
-.employeeList__body__btnContainer button {
-  margin-left: 2%; }
+  .employeeList__body__btnContainer button {
+    margin-left: 2%; }
 
 .employeeList__body .modifiedButton {
   border: none;
@@ -82,12 +61,11 @@ hr.solid {
   font-size: 18px;
   text-align: center;
   margin: 20px 0 20px; }
-
-.employeeList__body h3 small {
-  display: block;
-  font-size: 13px;
-  padding-top: 4px;
-  color: #626262; }
+  .employeeList__body h3 small {
+    display: block;
+    font-size: 13px;
+    padding-top: 4px;
+    color: #626262; }
 
 .employeeList__body__tag {
   font-size: 13px;
@@ -111,13 +89,11 @@ hr.solid {
 .employeeList__body .modifiedTable {
   margin: 1em;
   width: 100%; }
-
-.employeeList__body .modifiedTable input {
-  float: right;
-  width: 100%; }
-
-.employeeList__body .modifiedTable tr {
-  margin-top: 1em; }
+  .employeeList__body .modifiedTable input {
+    float: right;
+    width: 100%; }
+  .employeeList__body .modifiedTable tr {
+    margin-top: 1em; }
 
 .employeeList__footer {
   position: fixed;
@@ -127,5 +103,3 @@ hr.solid {
   /* Height of the footer */
   background: #6cf;
   z-index: 1; }
-
-/*# sourceMappingURL=employeeList.css.map */

@@ -17,23 +17,23 @@ class EmployeeTagController {
         const newTag = new Tag(req.body)
         newTag.save()
             .then(() => {
-                res.redirect('/employeeList')
+                res.redirect('/employeeTag')
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
 
     edit(req,res,next){
-        Tag.updateOne({ID: req.params.id} , req.body)
+        Tag.updateOne({_id: req.params.id} , req.body)
             .then(()=> {
-                res.redirect('/employeeList')
+                res.redirect('/employeeTag')
             })
             .catch(next)
     }
     delete(req,res,next){
         const idDelete = req.params.id
-        Tag.delete({ID:idDelete})
+        Tag.delete({_id:idDelete})
             .then(()=> {
-                res.redirect('/employeeList')
+                res.redirect('/employeeTag')
             }) 
             .catch(next)
     } 

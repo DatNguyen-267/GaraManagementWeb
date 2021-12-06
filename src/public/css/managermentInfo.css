@@ -1,0 +1,52 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit; }
+
+body {
+  background-color: #f5f5f5; }
+
+html {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; }
+
+a, a:hover, a {
+  text-decoration: none;
+  color: #626262; }
+
+.flex {
+  display: flex; }
+  .flex-jc-sb {
+    justify-content: space-between; }
+  .flex-jc-c {
+    justify-content: center; }
+  .flex-ac-c {
+    align-items: center; }
+
+.shadow {
+  border-radius: .5em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+
+hr.solid {
+  border-top: 1px solid #bbb;
+  margin: 0 40px; }
+
+.employeeManagerment_info__body .item {
+  background-color: white;
+  margin: .2rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row; }
+  .employeeManagerment_info__body .item p {
+    margin: .5rem; }
+  .employeeManagerment_info__body .item .info {
+    width: 45%; }
+  .employeeManagerment_info__body .item .creator {
+    width: 45%; }
+  .employeeManagerment_info__body .item .btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+
+.employeeManagerment_info__body .data {
+  visibility: hidden; }

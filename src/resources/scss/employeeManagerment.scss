@@ -75,14 +75,14 @@ hr.solid {
         .infoDiv{
             width: 100%;
             margin: 0 2em;
-            .id{
-                float: left;
-            }
             .name{
-                margin-left: 3em;
+                display: block;
             }
             .limitOffDate{
-                margin-left: 3em;
+                display: block;
+            }
+            .phoneNumber{
+                display: block;
             }
             
         }
@@ -95,12 +95,7 @@ hr.solid {
             width: 100%;
             margin: 0 2em;
             margin-top: 1em;
-            .textDiv{
-                float: left;
-                margin-left: 2em;
-                margin-top: .2em;
-                margin-bottom: .2em;
-            }
+            
             .card{
                 margin-top: 1em;
                 .card-text{
@@ -112,6 +107,25 @@ hr.solid {
                 .title{
                     font-weight: bold;
                     margin-bottom: .3em;
+                }
+                .card__info{
+                    margin-top: .2em;
+                    margin-bottom: .2em;
+                    display: block;
+                    width: 50%;
+                    float: left;
+                    .permission{
+                        font-weight: bold;
+                        color: green;
+                    }
+                }
+                .textDiv{
+                    margin-top: .2em;
+                    margin-bottom: .2em;
+                    display: block;
+                    width: 30%;
+                    height: 100%;
+                    
                 }
             }
             

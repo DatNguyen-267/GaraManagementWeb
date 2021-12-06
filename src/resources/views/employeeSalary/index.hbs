@@ -32,7 +32,6 @@ crossorigin="anonymous"></script>
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ID</th>
                     <th scope="col">Họ và Tên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Số lần vi phạm</th>
@@ -41,76 +40,23 @@ crossorigin="anonymous"></script>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-toggle="modal" data-target="#infoModal">
-                    <th scope="row">1</th>
-                    <td>nv001</td>
-                    <td>Tran Quang Tuan</td>
-                    <td>Quản lý</td>
-                    <td>0</td>
+                  {{#each employee}}
+                    <tr data-toggle="modal" data-target="#infoModal">
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.Tag}}</td>
+                    <td>{{errorCount}}</td>
                     <td>2</td>  
                     <td class = "salary">5.000.000</td>             
-                  </tr>
-                  <tr data-toggle="modal" data-target="#infoModal">
-                    <th scope="row">2</th>
-                    <td>nv002</td>
-                    <td>Tran Gia Huy</td>
-                    <td>Nhân viên</td>
-                    <td>0</td>
-                    <td>2</td>  
-                    <td class = "salary">5.000.000</td>   
-                  </tr>
-                  <tr data-toggle="modal" data-target="#infoModal">
-                    <th scope="row">3</th>
-                    <td>nv003</td>
-                    <td>Ho Phuoc Thinh</td>
-                    <td>Nhân viên</td>
-                    <td>0</td>
-                    <td>2</td>  
-                    <td class = "salary">5.000.000</td>   
-                  </tr>
-                  <tr data-toggle="modal" data-target="#infoModal">
-                    <th scope="row">4</th>
-                    <td>nv001</td>
-                    <td>Tran Quang Tuan</td>
-                    <td>Quản lý</td>
-                    <td>0</td>
-                    <td>2</td>  
-                    <td class = "salary">5.000.000</td>   
-                  </tr>
-                  <tr data-toggle="modal" data-target="#infoModal">
-                    <th scope="row">5</th>
-                    <td>nv002</td>
-                    <td>Tran Quang Tuan</td>
-                    <td>Quản lý</td>
-                    <td>0</td>
-                    <td>2</td>  
-                    <td class = "salary">5.000.000</td>   
-                  </tr>
-                  <tr data-toggle="modal" data-target="#infoModal">
-                    <th scope="row">6</th>
-                    <td>nv003</td>
-                    <td>Tran Quang Tuan</td>
-                    <td>Quản lý</td>
-                    <td>0</td>
-                    <td>2</td>  
-                    <td class = "salary">5.000.000</td>   
-                  </tr>
-                  <tr style="border-top: 1px black solid;">
-                    <th scope="row">#</th>
-                    <td></td>
-                    <td><Strong>Tổng</Strong></td>
-                    <td></td>
-                    <td>0</td>
-                    <td>10</td>  
-                    <td class = "salary" style="font-weight: bolder;">30.000.000</td>   
-                  </tr>
+                  </tr>  
+                  {{/each}}
               </table> 
         </div>
           
           <!--Info Modal -->
           <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered " role="document">
-              <div class="modal-content body__infoModal">
+              <div class="modal-content employeeSalary__body__infoModal">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLongTitle">Tiền công chi tiết (1/11/2021 - 30/11/2021)</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">

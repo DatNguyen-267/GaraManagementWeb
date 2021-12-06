@@ -1,0 +1,416 @@
+
+<link rel="stylesheet" href="/css/managermentInfo.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<title>Nghỉ phép và vi phạm</title>
+    <body class = "employeeManagerment_info__body">
+        <div class = "container-fluid">
+          <p><strong>Thông tin nhân viên</strong></p>
+          <p>Tên: {{employee.name}}</p>
+          <p>SĐT: {{employee.phoneNumber}}</p>
+          <p>Số ngày nghỉ có phép còn lại: 2</p>
+        </div>
+        <div class = "container-fluid">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="#dayoff" role="tab" data-toggle = "tab">Nghỉ phép</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#error" role="tab" data-toggle = "tab">Vi phạm</a>
+            </li>
+          </ul>
+        </div>
+        <div class = "tab-content">
+          <div role = "tabpanel" class  = "container-fluid content__container tab-pane active" id = "dayoff">
+              <div style="width: 100%; display:flex; justify-content: flex-end;">
+                <button type="button" class="btn btn-primary" style="margin: .4rem" data-toggle="modal" data-target="#dateoffAddModal"><i class="fas fa-plus"></i></i></button>
+              </div>
+              {{#each dateoff}}
+              <div class = "item shadow">
+                <div class = "info">
+                  <p><strong><i class="fab fa-wpforms"></i> Phiếu nghỉ phép</strong></p>
+                  <p>Từ {{this.startDate}} <i class="fas fa-arrow-right"></i> {{this.endDate}}</p>
+                  <p>Lý do: {{this.reson}}</p>
+                  <p>Trạng thái: {{permission this.havePermission}}</p>
+                </div>
+                <div class = "creator">
+                  <p><strong><i class="fas fa-user-alt"></i> Người tạo</strong></p>
+                  <p>Tên: {{this.creator}}</p>
+                  <p>SĐT: {{this.creatorPhoneNumber}}</p>
+                </div>
+                <div class = "btn-container">
+                  <button class="btn btn-edit-dateoff" startDate = "{{this.startDate}}" endDate = "{{this.endDate}}" reson = "{{this.reson}}" check = "{{this.havePermission}}" dateoffID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+                  <button class="btn btn-delete-dateoff" dateoffID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+                </div>
+              </div>
+              {{/each}}
+        </div>
+        <div role = "tabpanel" class  = "container-fluid content__container tab-pane" id = "error">
+          <div style="width: 100%; display:flex; justify-content: flex-end;">
+                <button type="button" class="btn btn-primary" style="margin: .4rem" data-toggle="modal" data-target="#errorAddModal"><i class="fas fa-plus"></i></i></button>
+          </div>
+          {{#each error}}
+           <div class = "item shadow">
+            <div class = "info">
+              <p><strong><i class="fab fa-wpforms"></i> Phiếu vi phạm</strong></p>
+              <p>Lỗi vi phạm: {{this.content}}</p>
+              <p>Tiền phạt: {{this.fine}} VND</p>
+              <p>Ngày: {{this.date}}</p>
+            </div>
+            <div class = "creator">
+              <p><strong><i class="fas fa-user-alt"></i> Người tạo</strong></p>
+              <p>Tên: {{this.creator}}</p>
+              <p>SĐT: {{this.creatorPhoneNumber}}</p>
+            </div>
+            <div class = "btn-container">
+              <button class="btn btn-edit-error" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+              <button class="btn btn-delete-error" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        </div>
+        <!-- date off add modal -->
+        <form method="POST" action="/employeeManagerment/dateoff/create" name = "form-add-dateoff">
+            <div class="modal fade " id="dateoffAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Thêm phiếu nghỉ làm</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu:</label>
+                      <input type="date" class="form-control dataStr" name="startDate">
+                      <!--data -->
+                      <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
+                      <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
+                      <input type="hidden" class="form-control data" name="creator" value="Trần Ngọc Dung">
+                      <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="0986123123">
+                      <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Ngày kết thúc:</label>
+                      <input type="date" class="form-control" name="endDate">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-brand" class="col-form-label">Lý do</label>
+                      <input type="text" class="form-control" name="reson">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Trạng thái:</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="havePermission" id="flexRadioDefault" value="true">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Có phép
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="havePermission" id="flexRadioDefault1" value="false">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Không phép
+                        </label>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="summit" class="btn btn-primary" onclick="addDateoff()">Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+        <!-- date off edit modal -->
+        <form method="POST" name = "form-edit-d" action = "">
+            <div class="modal fade " id="modifiedDateOffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu:</label>
+                      <input type="date" class="form-control dataStr" name="startDate" id = "mStartDate">
+                      <!--data -->
+                      <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
+                      <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
+                      <input type="hidden" class="form-control data" name="creator" value="Trần Ngọc Dung">
+                      <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="0986123123">
+                      <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Ngày kết thúc:</label>
+                      <input type="date" class="form-control" name="endDate" id = "mEndDate">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-brand" class="col-form-label">Lý do</label>
+                      <input type="text" class="form-control" name="reson" id = "mReson">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Trạng thái:</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="havePermission" value="true" id = "CP">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Có phép
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="havePermission" value="false" id = "KP">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Không phép
+                        </label>
+                      </div>
+                    </div>
+
+                  </form>
+                  </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="button" class="btn btn-primary" id = "btn-accept-edit-d">Lưu</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!--date off delete modal -->
+        <form name="form-delete-d" method="POST" action="">
+            <div class="modal fade" id="deleteDateOffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Xóa phiếu vi phạm</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                   <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
+                  <label id = "informLabel">Bạn có chắc chắn muốn xóa phiếu nghỉ phép?</label>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="button" class="btn btn-danger" id="btn-delete-d">Xóa</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- error add modal -->
+        <form method="POST" action="/employeeManagerment/error/create" name = "form-add-error">
+            <div class="modal fade " id="errorAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Thêm phiếu vi phạm</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày:</label>
+                      <input type="date" class="form-control dataStr" name="date">
+                      <!--data -->
+                      <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
+                      <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
+                      <input type="hidden" class="form-control data" name="creator" value="Trần Ngọc Dung">
+                      <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="0986123123">
+                      <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Lỗi vi phạm:</label>
+                      <select class = "form-control content" name="content" placeholder="">
+                            <option value= "" disabled selected>Chọn lỗi vi phạm</option>
+                            {{#each rule}}
+                              <option value="{{this.content}}" fine= "{{this.fine}}">{{this.content}}</option>
+                            {{/each}}
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Tiền phạt:</label>
+                      <input type="number" class="form-control fine" name="fine">
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="summit" class="btn btn-primary" onclick="addDateoff()">Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+        <!-- error edit modal -->
+        <form method="POST" name = "form-edit-e" action = "">
+            <div class="modal fade " id="modifiedErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày:</label>
+                      <input type="date" class="form-control dataStr" name="date" id = "mDate">
+                      <!--data -->
+                      <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Lỗi vi phạm:</label>
+                      <select class = "form-control content" name="content" placeholder="" id = "mContent">
+                            <option value= "" disabled selected>Chọn lỗi vi phạm</option>
+                            {{#each rule}}
+                              <option value="{{this.content}}" fine= "{{this.fine}}">{{this.content}}</option>
+                            {{/each}}
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Tiền phạt:</label>
+                      <input type="number" class="form-control fine" name="fine" id = "mFine">
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="button" class="btn btn-primary" id = "btn-accept-edit-e">Lưu</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+        <!--error delete modal -->
+        <form name="form-delete-e" method="POST" action="">
+            <div class="modal fade" id="deleteErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Xóa nhân viên</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                   <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
+                  <label id = "informLabel">Bạn có chắc chắn muốn xóa phiếu nghỉ phép?</label>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="button" class="btn btn-danger" id="btn-delete-e">Xóa</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+    </body>
+
+
+    <script>
+      var id;
+      //dateoff
+      
+      $(".btn-edit-dateoff").click(function() {
+          id = $(this).attr('dateoffID');
+          $("#mStartDate").val($(this).attr('startDate'));
+          $("#mEndDate").val($(this).attr('endDate'));
+          $("#mReson").val($(this).attr('reson'));
+          if ($(this).attr('havePermission') == "true"){
+            $("#CP").prop("checked","true");
+          }
+          else{
+            $("#KP").prop("checked","true");
+          }
+          $("#modifiedDateOffModal").modal();
+      });
+      $(".btn-delete-dateoff").click(function() {
+          id = $(this).attr('dateoffID');
+          $("#deleteDateOffModal").modal();
+      });
+      //error
+      $('.content').change(function(){
+            $('.fine').val("");
+             $('.fine').attr("placeholder",$('option:selected', this).attr('fine'))
+      });
+      $(".btn-edit-error").click(function() {
+          id = $(this).attr('errorID');
+          $("#mDate").val($(this).attr('date'));
+          $("#mContent").val($(this).attr('content'));
+          $("#mFine").val($(this).attr('fine'));
+          $("#modifiedErrorModal").modal();
+      });
+      $(".btn-delete-error").click(function() {
+          id = $(this).attr('errorID');
+          $("#deleteErrorModal").modal();
+      });
+      //
+      document.addEventListener('DOMContentLoaded', function () {
+      
+      var tdActive;
+      var btnDeleteDateOff = $('#btn-delete-d')
+      var btnAcceptEditDateOff = $('#btn-accept-edit-d')
+      var btnDeleteError = $('#btn-delete-e')
+      var btnAcceptEditError = $('#btn-accept-edit-e')
+      var formEdit = document.forms['form-edit']
+      var formDelete = document.forms['form-delete']
+
+      //date off
+      btnDeleteDateOff.click(function() {
+          var formDelete = document.forms['form-delete-d']
+          formDelete.action ='/employeeManagerment/dateoff/' + id + '/delete?_method=DELETE'
+          formDelete.submit();
+      })
+      btnAcceptEditDateOff.click(function() {
+        var formEdit = document.forms['form-edit-d']
+        formEdit.action = '/employeeManagerment/dateoff/' + id + '/edit?_method=PUT'
+        formEdit.submit()
+      })
+      //error
+      btnDeleteError.click(function() {
+          var formDelete = document.forms['form-delete-e']
+          formDelete.action ='/employeeManagerment/error/' + id + '/delete?_method=DELETE'
+          formDelete.submit();
+      })
+      btnAcceptEditError.click(function() {
+        var formEdit = document.forms['form-edit-e']
+        formEdit.action = '/employeeManagerment/error/' + id + '/edit?_method=PUT'
+        formEdit.submit()
+      })
+
+
+    }
+
+    );
+    
+    </script>

@@ -63,10 +63,6 @@ hr.solid {
     &__table{
         tbody > tr:hover{
             color: $primary-color;
-            button{
-                opacity: 1;
-                color: $primary-color;
-            }
         }
         
     }

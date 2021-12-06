@@ -16,7 +16,7 @@ crossorigin="anonymous"></script>
         <h1 class = "employeeTag__header__title">Quản lý chức vụ</h1>
         <nav class="navbar">
           <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search" onkeyup="search()" id = "searchKey">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
         </nav>
@@ -26,31 +26,33 @@ crossorigin="anonymous"></script>
             <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
         </div>
         <div class = "table-responsive">
-            <table class="table employeeTag__body__table" >
+            <table class="table employeeTag__body__table" id = "tagTable">
                 <thead>
                   <tr>
-                    <th scope="col" >ID</th>
+                    <th scope="col" >#</th>
                     <th scope="col" >Chức vụ</th>
-                    <th scope="col">Số tài khoản</th>
+                    <th scope="col">Lương</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {{#each tag}}
-                  <tr permission-data = "{{this.permissions}}">
-                    <td id = "id">{{this.ID}}</td>
-                    <td id = "tag">{{this.name}}</td>
-                    <td>{{this.count}}</td>  
+                  
+                  <tr permission-data = "{{this.permissions}}" id-tag = "{{this._id}}" >
+                    <td class = "count">{{sum @index 1}}</td>
+                    <td class = "tag">{{this.name}}</td>
+                    <td class = "salary">{{this.salary}}</td>  
                     <td>
                       <button class = "btn--edit-item" >Sửa</i></button>
                       <button class = "btn--delete-item">Xóa</i></button>
                     </td>            
                   </tr>
                   {{/each}}
+                  
               </table> 
         </div>
         <!-- add -->
-        <form>
+        <form method="POST" action="/employeeTag/create">
             <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content body__infoModal">
@@ -63,49 +65,50 @@ crossorigin="anonymous"></script>
                 <div class="modal-body">
                   <form>
                       <div class="form-group">
-                        <label for="reception-add-name" class="col-form-label">ID: tag001</label>
+                        <label for="reception-add-lincense" class="col-form-label">Tên chức vụ:</label>
+                        <input type="text" class="form-control" name="name" >
                       </div>
                       <div class="form-group">
-                        <label for="reception-add-lincense" class="col-form-label">Tên chức vụ:</label>
-                        <input type="text" class="form-control" name="name"  id = "m_name">
+                        <label for="reception-add-lincense" class="col-form-label">Lương:</label>
+                        <input type="text" class="form-control" name="salary" >
                       </div>
-                      <div style="float:left; width: 30%">
+                      <div style="float:left; width: 32%">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <input class="form-check-input" type="checkbox" value="1" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
                             Quản lý quy định
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                          <input class="form-check-input" type="checkbox" value="2" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
                             Quản lý nhân viên
                           </label>
                         </div>
                       </div>
-                      <div style="float:left; width: 30%">
+                      <div style="float:left; width: 33%">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <input class="form-check-input" type="checkbox" value="3" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
                             Quản lý dịch vụ
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                          <input class="form-check-input" type="checkbox" value="4" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
                             Quản lý khách hàng
                           </label>
                         </div>
                       </div>
-                      <div style="float:left;width: 30%">
+                      <div style="float:left;width: 32%">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <input class="form-check-input" type="checkbox" value="5" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
                             Quản lý kho
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                          <input class="form-check-input" type="checkbox" value="6" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
                             Báo cáo
                           </label>
@@ -115,14 +118,14 @@ crossorigin="anonymous"></script>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="button" class="btn btn-primary">Thêm</button>
+                  <button type="summit" class="btn btn-primary">Thêm</button>
                 </div>
               </div>
             </div>
           </div>
         </form>
         <!-- Modified -->
-        <form>
+        <form method="POST" name = "form-edit" action = "">
             <div class="modal fade " id="modifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content body__infoModal">
@@ -135,21 +138,22 @@ crossorigin="anonymous"></script>
                 <div class="modal-body">
                   <form>
                       <div class="form-group">
-                        <label for="reception-add-name" class="col-form-label" id = "m_ID">ID: tag001</label>
-                      </div>
-                      <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label">Tên chức vụ:</label>
                         <input type="text" class="form-control" name="name"  id = "m_tag">
                       </div>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label">Lương:</label>
+                        <input type="text" class="form-control" name="salary"  id = "m_salary">
+                      </div>
                       <div style="float:left; width: 32%">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <input class="form-check-input" type="checkbox" value="1" id="check_1" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
                             Quản lý quy định
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                          <input class="form-check-input" type="checkbox" value="2" id="check_2" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
                             Quản lý nhân viên
                           </label>
@@ -157,13 +161,13 @@ crossorigin="anonymous"></script>
                       </div>
                       <div style="float:left; width: 33%">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <input class="form-check-input" type="checkbox" value="3" id="check_3" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
                             Quản lý dịch vụ
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                          <input class="form-check-input" type="checkbox" value="4" id="check_4" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
                             Quản lý khách hàng
                           </label>
@@ -171,13 +175,13 @@ crossorigin="anonymous"></script>
                       </div>
                       <div style="float:left;width: 32%">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <input class="form-check-input" type="checkbox" value="5" id="check_5" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
                             Quản lý kho
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                          <input class="form-check-input" type="checkbox" value="6" id="check_6" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
                             Báo cáo
                           </label>
@@ -187,7 +191,7 @@ crossorigin="anonymous"></script>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="button" class="btn btn-primary">Lưu</button>
+                  <button type="button" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
                 </div>
               </div>
             </div>
@@ -205,7 +209,7 @@ crossorigin="anonymous"></script>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <label id = "informLabel">Bạn có chắc chắn muốn xóa nhân viên x?</label>
+                    <label id = "informLabel">Bạn có chắc chắn muốn xóa chức vụ này không?</label>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -218,20 +222,28 @@ crossorigin="anonymous"></script>
     </body>
 
     <script>
-      var employeeID;
+      var tagID;
+      var tdActive;
+      var btnDelete = $('#btn-delete')
+      var btnAcceptEdit = $('#btn-accept-edit')
+      var formEdit = document.forms['form-edit']
+      var formDelete = document.forms['form-delete']
+      var btnEdit = $('.btn-edit')
+      var count = 0;
       
-
-      
+      function increase(){
+        count++;
+        $('#count').html(count.toString);
+      }
       
       function search(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
-        table = document.getElementById("employeeTable");
+        table = document.getElementById("tagTable");
         tr = $("tbody tr");
         for (i = 0; i < tr.length; i++) {
           var td1 = tr[i].getElementsByTagName("td")[1];
-          var td2 = tr[i].getElementsByTagName("td")[2];
           if (td1) {
             txtValue = td1.textContent || td1.innerText;
             if (txtValue.includes(filter)) {
@@ -244,6 +256,7 @@ crossorigin="anonymous"></script>
         }
       }
       $(".btn--edit-item").click(function() {
+
           var data = $(this).closest("tr").attr('permission-data');
           var permission = [];
           var start = 0;
@@ -255,50 +268,56 @@ crossorigin="anonymous"></script>
             pos = data.indexOf(',' ,start);
           }
           permission.push(data.substr(start,data.length-start));
-          //employeeID = $(this).closest("tr").find("#id").text();
-          var temp = "ID: "+ $(this).closest("tr").find("#id").text();
-          $('#m_ID').text(temp);
-          temp = $(this).closest("tr").find("#tag").text();
-          $('#m_tag').val($(this).closest("tr").find("#tag").text());
-          $("#modifiedModal").modal();                               
+          tagID = $(this).closest("tr").attr('id-tag');
+          temp = $(this).closest("tr").find(".tag").text();
+          $('#m_tag').val($(this).closest("tr").find(".tag").text());
+          $('#m_salary').val($(this).closest("tr").find(".salary").text());
+          permission.forEach(element => {
+             var x = "#check_" + (element);
+            $(x).attr('checked', 'checked');
+          });
+          $("#modifiedModal").modal(); 
+
+
       });
       
-      $(".btn--delete-item").click(function() {
-          var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
-          $("#informLabel").text(temp);
-          employeeID = $(this).closest("tr").find("#id").text();
-          
-
-
-
-
-          $("#deleteModal").modal();
-      });
+      
+      btnAcceptEdit.click(function() {
+        
+        formEdit.action = '/employeeTag/' + tagID + '/edit?_method=PUT'
+        formEdit.submit()
+      })
+      
 
       document.addEventListener('DOMContentLoaded', function () {
       
-      var tdActive;
-      var btnDelete = $('#btn-delete')
-      var btnAcceptEdit = $('#btn-accept-edit')
-      var formEdit = document.forms['form-edit']
-      var formDelete = document.forms['form-delete']
-      var btnEdit = $('.btn-edit')
-      btnDelete.click(function() {
-          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
-          formDelete.submit();
-      })
+      
+      
 
       $('#form-edit').on('shown.bs.modal', function (event) {
           var button = $(event.relatedTarget)
           employeeID = button.data('id')
       })
-      btnAcceptEdit.click(function() {
-        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
-        formEdit.submit()
-      })
+      
       btnEdit.click(function(){
         var row = $(this).parents('tr')[0]
         $('#form-edit-name').val(row.cells[1].textContent)
       })
     });
+
+
+    //delete
+
+    $(".btn--delete-item").click(function() {
+          tagID = $(this).closest("tr").attr('id-tag');
+          $("#deleteModal").modal();
+      });
+      btnDelete.click(function() {
+          formDelete.action ='/employeeTag/' + tagID + '/delete?_method=DELETE'
+          formDelete.submit();
+      })
+
+
     </script>
+
+    

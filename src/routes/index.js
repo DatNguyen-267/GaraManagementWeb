@@ -3,7 +3,6 @@ const siteRouter = require('./site')
 const coursesRouter = require('./courses')
 const meRouter = require('./me')
 const receptionRouter = require('./reception')
-const brandRouter = require('./brand')
 const repairRouter = require('./repairs')
 const employeeListRouter = require('./employeeList')
 const employeeTagRouter = require('./employeeTag')
@@ -29,8 +28,6 @@ function route(app) {
       app.use('/employeeSalary', employeeSalaryRouter)
 
       app.use('/employeeManagerment', employeeManagermentRouter)
-
-      app.use('/brand', brandRouter)
       
       app.use('/', siteRouter)
 

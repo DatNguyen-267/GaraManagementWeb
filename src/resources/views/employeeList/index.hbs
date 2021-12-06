@@ -29,7 +29,6 @@ crossorigin="anonymous"></script>
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ID</th>
                     <th scope="col">Họ và Tên</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Số điện thoại</th>
@@ -43,9 +42,8 @@ crossorigin="anonymous"></script>
                 <tbody>
                   
                   {{#each employee}}
-                  <tr>
-                    <th scope="row">{{@key}}</th>
-                    <td id = "id" class = "nr">{{this.ID}}</td>
+                  <tr employeeID = "{{this._id}}">
+                    <th scope="row">{{sum @index 1}}</th>
                     <td id = "name">{{this.name}}</td>
                     <td id = "address">{{this.address}}</td>
                     <td id = "phoneNumber">{{this.phoneNumber}}</td>
@@ -76,10 +74,6 @@ crossorigin="anonymous"></script>
                 <div class="modal-body">
                   <form>
                     <div class="form-group">
-                      <label for="reception-add-name" class="col-form-label">ID:</label>
-                      <input type="text" class="form-control" name="ID"  id = "m_ID">
-                    </div>
-                    <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
                       <input type="text" class="form-control" name="name"  id = "m_name">
                     </div>
@@ -89,7 +83,7 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
-                      <input type="text" class="form-control" name="phoneNumber"  id = "m_phone">
+                      <input type="text" class="form-control" name="phoneNumber"  id = "m_phoneNumber">
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
@@ -103,8 +97,9 @@ crossorigin="anonymous"></script>
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="" id = "m_tag">
                             <option value= "" disabled selected>Chọn loại nhân viên</option>
-                            <option value="Nhân viên">Nhân viên</option>
-                            <option value="Quản lý">Quản lý</option>
+                            {{#each tag}}
+                            <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
                       </select>
                     </div>
                   </form>
@@ -131,10 +126,6 @@ crossorigin="anonymous"></script>
                 <div class="modal-body" id =  "test">
                   <form>
                     <div class="form-group">
-                      <label for="reception-add-name" class="col-form-label">ID:</label>
-                      <input type="text" class="form-control" name="ID">
-                    </div>
-                    <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
                       <input type="text" class="form-control" name="name">
                     </div>
@@ -158,8 +149,9 @@ crossorigin="anonymous"></script>
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="">
                             <option value= "" disabled selected>Chọn loại nhân viên</option>
-                            <option value="Nhân viên">Nhân viên</option>
-                            <option value="Quản lý">Quản lý</option>
+                            {{#each tag}}
+                              <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
                       </select>
                     </div>
                   </form>
@@ -202,8 +194,6 @@ crossorigin="anonymous"></script>
 
     <script>
       var employeeID;
-      const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
-      
       function search(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
@@ -211,8 +201,7 @@ crossorigin="anonymous"></script>
         table = document.getElementById("employeeTable");
         tr = $("tbody tr");
         for (i = 0; i < tr.length; i++) {
-          var td1 = tr[i].getElementsByTagName("td")[1];
-          var td2 = tr[i].getElementsByTagName("td")[2];
+          var td1 = tr[i].getElementsByTagName("td")[0];
           if (td1) {
             txtValue = td1.textContent || td1.innerText;
             if (txtValue.includes(filter)) {
@@ -225,17 +214,20 @@ crossorigin="anonymous"></script>
   }
       }
       $(".btn--edit-item").click(function() {
-          employeeID = $(this).closest("tr").find("#id").text();
-          $('#m_ID').val($(this).closest("tr").find("#id").text());
+          employeeID = $(this).closest("tr").attr('employeeID');
           $('#m_name').val($(this).closest("tr").find("#name").text());
-          
+          $('#m_address').val($(this).closest("tr").find("#address").text());
+          $('#m_phoneNumber').val($(this).closest("tr").find("#phoneNumber").text());
+          $('#m_email').val($(this).closest("tr").find("#email").text());
+          $('#m_CMND').val($(this).closest("tr").find("#CMND").text());
+          $('#m_tag').val($(this).closest("tr").find("#tag").text());
           $("#modifiedModal").modal();
       });
       
       $(".btn--delete-item").click(function() {
           var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
           $("#informLabel").text(temp);
-          employeeID = $(this).closest("tr").find("#id").text();
+          employeeID = $(this).closest("tr").attr('employeeID');
           $("#deleteModal").modal();
       });
 
@@ -252,10 +244,7 @@ crossorigin="anonymous"></script>
           formDelete.submit();
       })
 
-      $('#form-edit').on('shown.bs.modal', function (event) {
-          var button = $(event.relatedTarget)
-          employeeID = button.data('id')
-      })
+      
       btnAcceptEdit.click(function() {
         formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
         formEdit.submit()
