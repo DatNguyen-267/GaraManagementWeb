@@ -1,14 +1,14 @@
-<link rel="stylesheet" href="/css/report-sale.css">
-<div class="container__report-sale">
-    <div class="header__report-sale">
-        <div class="header__report-sale__title">Báo cáo doanh thu</div>
+<link rel="stylesheet" href="/css/report-inventory.css">
+<div class="container__report-inventory">
+    <div class="header__report-inventory">
+        <div class="header__report-inventory__title">Báo cáo tồn</div>
     </div>
-    <div class="ctner__report-sale">
+    <div class="ctner__report-inventory">
         <div class="toolbar">
-            <div class="toolbar__report-sale-date">
-                <p class="toolbar__report-sale-date__title">Ngày lập báo cáo:</p>
-                <input type="date" class="toolbar__report-sale-date__input" id="report-sale-date-input" readonly
-                    value="{{report_sale_date}}">
+            <div class="toolbar__report-inventory-date">
+                <p class="toolbar__report-inventory-date__title">Ngày lập báo cáo:</p>
+                <input type="date" class="toolbar__report-inventory-date__input" id="report-inventory-date-input" readonly
+                    value="{{report_inventory_date}}">
             </div>
             <div class="toolbar__active">
                 <div class="toolbar__search">
@@ -30,28 +30,24 @@
                 </div>
                 <div class="toolbar__btn">
                     <button class="toolbar__btn-add btn btn--primary" data-toggle="modal"
-                        data-target="#form-add-report-sale" id="toobar-btn-add">Lập báo
+                        data-target="#form-add-report-inventory" id="toobar-btn-add">Lập báo
                         cáo</button>
                     {{!-- <button class="toolbar__btn-edit btn btn--edit-item" data-toggle="modal"
-                        data-target="#form-edit-report-sale">Sửa báo cáo</button> --}}
+                        data-target="#form-edit-report-inventory">Sửa báo cáo</button> --}}
                     <button class="toolbar__btn-export btn btn-success" id="toolbar-btn-export"
                         onclick="printDiv('printtableArea')">Xuất bản in</button>
                 </div>
             </div>
         </div>
-        <div class="list-report-sale" id="printtableArea">
+        <div class="list-report-inventory" id="printtableArea">
             <table class="table table--default">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#Stt</th>
-                        <th scope="col">Biển số xe</th>
-                        <th scope="col">Hiệu xe</th>
-                        <th scope="col">Tên khách hàng</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">Ngày tiếp nhận</th>
-                        <th scope="col">Số tiền nợ</th>
-                        <th scope="col">Thanh toán</th>
-                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Tên vật tư</th>
+                        <th scope="col">Tồn đầu</th>
+                        <th scope="col">Phát sinh</th>
+                        <th scope="col">Tồn cuối</th>
                         <th scope="col" colspan="2"></th>
                     </tr>
                 </thead>
@@ -59,14 +55,10 @@
                     {{#each list}}
                     <tr data-id="{{this._id}}">
                         <th scope="row">{{@index}}</th>
-                        <td>{{this.license}}</td>
-                        <td>{{this.brand}}</td>
-                        <td>{{this.name}}</td>
-                        <td>{{this.phone}}</td>
-                        <td>{{this.receptionDate}}</td>
-                        <td>{{this.debt}}</td>
-                        <td>{{this.total_money}}</td>
-                        <td>{{this.status}}</td>
+                        <td>{{this.of_material.name}}</td>
+                        <td>{{this.first_inventory}}</td>
+                        <td>{{this.incurred}}</td>
+                        <td>{{this.last_inventory}}</td>
                         <td></td>
                     </tr>
                     {{/each}}
@@ -74,23 +66,23 @@
             </table>
         </div>
     </div>
-    <div class="footer__report-sale">
+    {{!-- <div class="footer__report-inventory">
         <div class="total-money">
             <div class="total-money__title">Tổng tiền:</div>
             <p class="total-money__value" id="total-money__p">{{total_money}}</p>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <!-- POP UP FORM -->
 <!-- FORM Lập báo cáo-->
-<form method="POST" action="/reportsale/create">
-    <div class="modal fade" id="form-add-report-sale" tabindex="-1" role="dialog">
+<form method="POST" action="/reportinventory/create">
+    <div class="modal fade" id="form-add-report-inventory" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Báo cáo doanh thu</h5>
-                    <button type="button report-sale__form-btn-close" class="close" data-dismiss="modal"
+                    <button type="button report-inventory__form-btn-close" class="close" data-dismiss="modal"
                         aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -98,29 +90,29 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="report-sale-add-month" class="col-form-label">Tháng:</label>
-                            <input type="text" class="form-control" id="report-sale-add-month" name="month">
+                            <label for="report-inventory-add-month" class="col-form-label">Tháng:</label>
+                            <input type="text" class="form-control" id="report-inventory-add-month" name="month">
                         </div>
                         <div class="form-group">
-                            <label for="report-sale-add-year" class="col-form-label">Năm:</label>
-                            <input type="text" class="form-control" id="report-sale-add-year" name="year" required>
+                            <label for="report-inventory-add-year" class="col-form-label">Năm:</label>
+                            <input type="text" class="form-control" id="report-inventory-add-year" name="year" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="report-sale-add-date" class="col-form-label">Ngày lập:</label>
-                            <input type="date" class="form-control" id="report-sale-add-date" name="report_sale_date"
+                            <label for="report-inventory-add-date" class="col-form-label">Ngày lập:</label>
+                            <input type="date" class="form-control" id="report-inventory-add-date" name="report_inventory_date"
                                 required readonly>
                         </div>
                         <div class="form-group">
-                            <label for="report-sale-add-total-money" class="col-form-label">Tổng tiền:</label>
-                            <input type="text" class="form-control" id="report-sale-add-total-money" name="total_money"
+                            <label for="report-inventory-add-total-money" class="col-form-label">Tổng tiền:</label>
+                            <input type="text" class="form-control" id="report-inventory-add-total-money" name="total_money"
                                 required>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-                    <button id="btn-add-report-sale" type="submit" class="btn btn--send-dialog">Thêm</button>
+                    <button id="btn-add-report-inventory" type="submit" class="btn btn--send-dialog">Thêm</button>
                 </div>
             </div>
         </div>
@@ -129,12 +121,12 @@
 
 <!-- FORM SỬA báo cáo-->
 <form method="POST" name="form-submit">
-    <div class="modal fade" id="form-edit-report-sale" tabindex="-1" role="dialog">
+    <div class="modal fade" id="form-edit-report-inventory" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
-                    <button type="button report-sale__form-btn-close" class="close" data-dismiss="modal"
+                    <button type="button report-inventory__form-btn-close" class="close" data-dismiss="modal"
                         aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -142,22 +134,22 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="report-sale-edit-month" class="col-form-label">Tháng:</label>
-                            <input type="text" class="form-control" id="report-sale-edit-month" name="month">
+                            <label for="report-inventory-edit-month" class="col-form-label">Tháng:</label>
+                            <input type="text" class="form-control" id="report-inventory-edit-month" name="month">
                         </div>
                         <div class="form-group">
-                            <label for="report-sale-edit-year" class="col-form-label">Năm:</label>
-                            <input type="text" class="form-control" id="report-sale-edit-year" name="year" required>
+                            <label for="report-inventory-edit-year" class="col-form-label">Năm:</label>
+                            <input type="text" class="form-control" id="report-inventory-edit-year" name="year" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="report-sale-edit-date" class="col-form-label">Ngày lập:</label>
-                            <input type="date" class="form-control" id="report-sale-edit-date" name="report_sale_date"
+                            <label for="report-inventory-edit-date" class="col-form-label">Ngày lập:</label>
+                            <input type="date" class="form-control" id="report-inventory-edit-date" name="report_inventory_date"
                                 required readonly>
                         </div>
                         <div class="form-group">
-                            <label for="report-sale-edit-total-money" class="col-form-label">Tổng tiền:</label>
-                            <input type="text" class="form-control" id="report-sale-edit-total-money" name="total_money"
+                            <label for="report-inventory-edit-total-money" class="col-form-label">Tổng tiền:</label>
+                            <input type="text" class="form-control" id="report-inventory-edit-total-money" name="total_money"
                                 required>
                         </div>
                     </form>
@@ -218,7 +210,7 @@
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;
         var a = window.open();
-        var report_date = document.getElementById("report-sale-date-input").value
+        var report_date = document.getElementById("report-inventory-date-input").value
         var select_month = document.getElementById('search-select--month');
         var option_month = select_month.options[select_month.selectedIndex].value;
         var select_year = document.getElementById('search-select--year');
@@ -234,7 +226,7 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
                 <link rel="stylesheet" href="/vendor/open-iconic-master/font/css/open-iconic-bootstrap.css">
                 <link rel="stylesheet" href="/css/base.css">
-                <link rel="stylesheet" href="/css/report-sale.css">
+                <link rel="stylesheet" href="/css/report-inventory.css">
             </head>`);
         a.document.write('<body> <h3>Báo cáo doanh thu</h3>')
         a.document.write('<p>Ngày lập: '+ report_date+ '<p>')
@@ -255,42 +247,42 @@
         var formSearch = document.forms['form-search']
         var btnSearch = $('.toolbar__search-btn')
         var check=btnSearch.data('check')
-        var report_sale_date = document.getElementById('report-sale-date-input').value
+        var report_inventory_date = document.getElementById('report-inventory-date-input').value
 
-        if (check==1 || report_sale_date != '' ) {
+        if (check==1 || report_inventory_date != '' ) {
             document.getElementById('toobar-btn-add').disabled = true;
         }
         else{
             document.getElementById('toobar-btn-add').disabled = false;
         }
 
-        $('#form-add-report-sale').on('show.bs.modal', function (event) {
+        $('#form-add-report-inventory').on('show.bs.modal', function (event) {
 
             var select_month = document.getElementById('search-select--month');
             var option_month = select_month.options[select_month.selectedIndex].text;
-            document.getElementById('report-sale-add-month').value = option_month
+            document.getElementById('report-inventory-add-month').value = option_month
 
             var select_year = document.getElementById('search-select--year');
             var option_year = select_year.options[select_year.selectedIndex].text
-            document.getElementById('report-sale-add-year').value = option_year;
+            document.getElementById('report-inventory-add-year').value = option_year;
 
             var total_money = document.getElementById('total-money__p')
-            document.getElementById('report-sale-add-total-money').value = total_money.innerText;
+            document.getElementById('report-inventory-add-total-money').value = total_money.innerText;
 
             var today = new Date();
-            document.getElementById('report-sale-add-date').value = today.toISOString().substring(0, 10);
+            document.getElementById('report-inventory-add-date').value = today.toISOString().substring(0, 10);
 
             var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
             var month_report = new Number(option_month)
             var year_report = new Number(option_year)
             if (today == lastDay || today.getFullYear() > year_report) {
-                document.getElementById('btn-add-report-sale').disabled = false;
+                document.getElementById('btn-add-report-inventory').disabled = false;
             }
             else if (today.getFullYear() == year_report && today.getMonth() + 1 > month_report) {
-                document.getElementById('btn-add-report-sale').disabled = false;
+                document.getElementById('btn-add-report-inventory').disabled = false;
             }
             else {
-                document.getElementById('btn-add-report-sale').disabled = true;
+                document.getElementById('btn-add-report-inventory').disabled = true;
             }
         })
 
@@ -305,7 +297,7 @@
 
             var time = month + "-" + year
 
-            formSearch.action = '/reportsale/' + time + '/?_method=GET'
+            formSearch.action = '/reportinventory/' + time + '/?_method=GET'
             formSearch.submit()
 
         })

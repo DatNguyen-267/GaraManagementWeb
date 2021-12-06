@@ -45,7 +45,7 @@ class ReportsaleController {
                             var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().substring(0, 10);
                             for (const reception of Receptions) {
                                 if (reception.receptionDate >= firstDay && reception.receptionDate <= lastDay) {
-                                    total_money = total_money + reception.paied
+                                    total_money = total_money + reception.total_money
                                     list.push(reception)
                                 }
                             }
@@ -70,7 +70,7 @@ class ReportsaleController {
                             report_sale_date = report_sale.report_sale_date
 
                             for (const iteam of report_sale_details) {
-                                total_money = total_money + iteam.of_reception.paied
+                                total_money = total_money + iteam.of_reception.total_money
                                 list.push(iteam.of_reception)
                             }
                             //res.send(list)
@@ -172,7 +172,7 @@ class ReportsaleController {
 
                             for (const reception of Receptions) {
                                 if (reception.receptionDate >= firstDay && reception.receptionDate <= lastDay) {
-                                    total_money = total_money + reception.paied
+                                    total_money = total_money + reception.total_money
                                     list.push(reception)
                                 }
                             }
@@ -195,7 +195,7 @@ class ReportsaleController {
                         .then(report_sale_details => {
                             report_sale_date = report_sale.report_sale_date
                             for (const iteam of report_sale_details) {
-                                total_money = total_money + iteam.of_reception.paied
+                                total_money = total_money + iteam.of_reception.total_money
                                 list.push(iteam.of_reception)
                             }
                             res.render('report/report-sale', {
