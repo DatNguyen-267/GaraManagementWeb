@@ -1,9 +1,8 @@
 <link rel="stylesheet" href="/css/reception.css">
-<div class="grid__item {{active}}">
+<div class="grid__content {{active}}">
   <div class="header">
-    <div class="header__title">Tiếp nhận xe</div>
-    <button class="header__btn-add btn btn--primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
-      tiếp nhận</button>
+    <div class="template__title">Tiếp nhận xe</div>
+    
   </div>
   <div class="ctner">
     <div class="toolbar">
@@ -22,6 +21,10 @@
           <a class="toolbar__filter-item dropdown-item" href="#">Đã hoàn thành</a>
         </div>
       </div>
+      <div class="toolbar__btn">
+          <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
+              tiếp nhận</button>
+        </div>
     </div>
     <div class="list-reception">
       <table class="table table--default">
@@ -44,8 +47,8 @@
             <th scope="col">Tên khách hàng</th>
             {{!-- <th scope="col">Số điện thoại</th> --}}
             <th scope="col">Ngày tiếp nhận</th>
-            <th scope="col">Số tiền nợ</th>
             <th scope="col">Trạng thái</th>
+            <th scope="col">Số tiền nợ</th>
             <th scope="col" ></th>
           </tr>
         </thead>
@@ -58,25 +61,34 @@
             <td>{{this.of_customer.name}}</td>
             {{!-- <td>{{this.phone}}</td> --}}
             <td>{{this.receptionDate}}</td>
-            <td>{{this.debt}}</td>
             <td>
               <div class="{{loadStatus this.status}}">
                 {{this.status}}
               </div>
               </td>
+            <td>{{this.debt}}</td>
             <td class="row-btn" >
-              <button class="btn--edit-item" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#form-edit-reception" data-id="" 
+              <button class="btn btn-info btn--item btn--item-min-width " data-id="{{this._id}}" data-toggle="modal"
+                data-target="#form-edit-reception" 
                 {{isDisable this.of_repair.contracted}} 
                 {{isHidden this.isSuccess}} 
                 >Sửa</button>
-              <button class="btn--delete-item" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#form-delete-reception" data-id="" 
+              <button class="btn btn-danger btn--item btn--item-min-width" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#form-delete-reception" 
                 {{isDisable this.of_repair.contracted}} 
                 {{isHidden this.isSuccess}} 
                 >Xóa</button>
-              <button class="btn btn-success btn-pay" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#modal-pay" data-id="" 
+              <button class="btn btn-danger btn-debt btn--item" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#modal-debt" 
+                {{#if this.isDebt}}
+                  {{isDisable this.isDebt}} 
+                {{else}}
+                  {{isEnable this.of_repair.contracted}} 
+                {{/if}}
+                {{isHidden this.isSuccess}} 
+                >Ghi nợ</button>
+              <button class="btn btn-success btn-pay btn--item" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#modal-pay" 
                 {{isEnable this.of_repair.isSuccess}} 
                 {{isHidden this.isSuccess}} 
                 >Thanh toán</button>
@@ -301,9 +313,29 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="modal-debt" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Ghi nợ</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body modal-body-descreption">
+        Bạn có chắc chắn muốn ghi nợ cho phiếu tiếp nhận này!!!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        <button id="btn-accept-debt" type="button" class="btn btn--send-dialog">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+</div>
 {{!-- FORM --}}
 <form name="form-delete" method="POST"></form>
 <form name="form-pay" method="GET"></form>
+<form name="form-debt" method="GET"></form>
 
 
 
@@ -381,6 +413,17 @@
     btnAccceptPay.onclick = function() {
       formPay.action = '/reception/' + receptionId + '/pay'
       formPay.submit()
+    }
+
+    $('#modal-debt').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      receptionId = button.data('id')
+    })
+    const formDebt = document.forms['form-debt']
+    const btnAccceptDebt = document.querySelector('#btn-accept-debt')
+    btnAccceptDebt.onclick = function() {
+      formDebt.action = '/reception/' + receptionId + '/debt'
+      formDebt.submit()
     }
   })
 </script>

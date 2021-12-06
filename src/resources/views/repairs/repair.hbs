@@ -1,4 +1,6 @@
-<div class="repair__title">
+<link rel="stylesheet" href="./css/repair.css">
+<div class="grid__content">
+  <div class="template__title">
     Quản lý sửa chữa
 </div>
 <div class="toolbar">
@@ -8,7 +10,7 @@
     </div>
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
-        <button class="toolbar__btn-add" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
     </div>
 </div>
 <div class="list-repair">
@@ -44,6 +46,7 @@
         </tbody>
     </table>
 </div>
+</div>
 <!-- MODAL -->
 
 <form method="POST" action="/repairs/create">
@@ -60,9 +63,9 @@
           <form>
             <div class="form-group">
                 <label for="input-add-license">Biển số:</label>
-                <select class="form-control" id="input-add-license" name="license">
+                <select class="form-control" id="input-add-license" name="id">
                     {{#each waitReceptions}}
-                    <option>{{this.license}}</option>
+                    <option value="{{this._id}}">{{this.license}}</option>
                     {{/each}}
                 </select>
             </div>

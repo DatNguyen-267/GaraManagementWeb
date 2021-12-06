@@ -77,6 +77,8 @@ app.engine('hbs', handlebars({
         return "status--success"
       if (status == "Mới")
         return "status--success"
+      if (status == "Nợ")
+        return "status--danger"
     },
     activeMainMenu(active) {
       if (active) return "menu__body-mainlist--active"

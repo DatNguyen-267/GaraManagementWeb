@@ -2,6 +2,7 @@ const Reception = require('../models/Reception')
 const Customer =require('../models/Customer')
 const Brand = require('../models/Brand')
 const Bill = require('../models/Bill')
+const Debt = require('../models/Debt')
 const Repair = require('../models/Repair')
 const Repair_Detail_Material = require('../models/Repair_Detail_Material')
 const Repair_Detail_Wage = require('../models/Repair_Detail_Wage')
@@ -141,6 +142,55 @@ class ReceptionController {
                             isSuccess: true,
                             status: "Hoàn thành",
                             debt: 0,
+                        })
+                        .then(() => {
+                            res.redirect('/reception')
+                        })
+                        .catch(next)
+                    })
+                    .catch(next)
+            })
+            .catch(next)
+    }
+    showDebt(req, res, next) {
+        var now = new Date()
+        now = now.toLocaleString()
+        Promise.all([
+            Reception.findOne({ _id: req.params.id }).populate('of_customer'),
+            Repair.findOne({of_reception: req.params.id})
+        ])
+            .then(([reception, repair]) => {
+                Promise.all([
+                    Repair_Detail_Material.find({of_repair: repair._id}),
+                    Repair_Detail_Wage.find({of_repair: repair._id})
+                ])
+                    .then(([detailMaterial, detailWage]) => {
+                        res.render('receptions/debt', {
+                            Reception: mongooseToOject(reception),
+                            DetailMaterial: mutipleMongooseToObject(detailMaterial),
+                            DetailWage: mutipleMongooseToObject(detailWage),
+                            Now: now,
+                            activeManagementCar: true,
+                            activeReception: true,
+                        })
+                    })
+                    .catch(next)
+            })
+            .catch(next)
+    }
+    createDebt(req, res, next) {
+        var newDebt = new Debt(req.body)
+        Reception.findOne({ _id: req.params.id })
+            .then((reception) => {
+                newDebt.of_reception = req.params.id
+                newDebt.money_pay = Number.parseInt(req.body.money_pay)
+                newDebt.save()
+                    .then(() => {
+                        var debt = reception.total_money - Number.parseInt(req.body.money_pay)
+                        Reception.updateOne({ _id: req.params.id }, {
+                            isDebt: true,
+                            status: "Nợ",
+                            debt: debt,
                         })
                         .then(() => {
                             res.redirect('/reception')

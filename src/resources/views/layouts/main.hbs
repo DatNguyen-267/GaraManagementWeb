@@ -17,41 +17,44 @@
         <div class="menu">
             <div class="menu__body" >
                 <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCar}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe"
-                        >
-                        <span class="menu__body-mainlist-icon ti-car"></span>
-                        <div class="menu__body-mainlist-name">Quản lý xe</div>
-                        <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
+
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCar}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
+                            <span class="menu__body-mainlist-icon ti-car"></span>
+                            <div class="menu__body-mainlist-name">Quản lý xe</div>
+                            <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
                     </button>
                     <div class="menu__body-sublist collapse {{expandSubMenu activeManagementCar}}" id="menu__body-sublist-quanlyxe">
-                        <div class="menu__body-sublist-item {{activeItemMenu activeReception}}">Tiếp nhận xe</div>
-                        <div class="menu__body-sublist-item {{activeItemMenu activeRepair}}">Theo dõi sửa chữa</div>
-                        <div class="menu__body-sublist-item {{activeItemMenu activeBrand}}">Quản lý hiệu xe</div>
+                        <div data-transfer="/reception" class="menu__body-sublist-item {{activeItemMenu activeReception}}">Tiếp nhận xe</div>
+                        <div data-transfer="/repairs" class="menu__body-sublist-item {{activeItemMenu activeRepair}}">Theo dõi sửa chữa</div>
+                        <div data-transfer="/brand" class="menu__body-sublist-item {{activeItemMenu activeBrand}}">Quản lý hiệu xe</div>
                     </div>
                 </div>
+
+
                 <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}}" type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlysuachua"
-                        >
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}}" type="button" data-toggle="collapse" 
+                                data-target="#menu__body-sublist-management-customer" >
                         <span class="menu__body-mainlist-icon ti-car"></span>
                         <div class="menu__body-mainlist-name">Quản lý khách hàng</div>
                         <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
                     </button>
-                    <div class="menu__body-sublist collapse" id="menu__body-sublist-quanlysuachua">
-                        <div class="menu__body-sublist-item">Danh sách khách hàng</div>
-                        <div class="menu__body-sublist-item">Theo dõi công nợ</div>
-                        <div class="menu__body-sublist-item">Lịch sử dịch vụ</div>
+                    <div class="menu__body-sublist collapse" id="menu__body-sublist-management-customer">
+                        <div data-transfer="/" class="menu__body-sublist-item">Danh sách khách hàng</div>
+                        <div data-transfer="/" class="menu__body-sublist-item">Theo dõi công nợ</div>
+                        <div data-transfer="/" class="menu__body-sublist-item">Lịch sử dịch vụ</div>
                     </div>
                 </div>
                 <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementWarehouse}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlykho"
-                        aria-expanded="true" aria-controls="menu__body-sublist-quanlykho">
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementWarehouse}} " type="button" data-toggle="collapse" 
+                            data-target="#menu__body-sublist-management-warehouse">
                         <span class="menu__body-mainlist-icon ti-package"></span>
                         <div class="menu__body-mainlist-name">Quản lý kho</div>
                         <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
                     </button>
-                    <div class="menu__body-sublist collapse" id="menu__body-sublist-quanlykho">
-                        <div class="menu__body-sublist-item">Theo dõi sửa chữa</div>
-                        <div class="menu__body-sublist-item">Danh sách bệnh án</div>
+                    <div class="menu__body-sublist collapse" id="menu__body-sublist-management-warehouse">
+                        <div data-transfer="/" class="menu__body-sublist-item">Danh sách vật tư</div>
+                        <div data-transfer="/" class="menu__body-sublist-item">Nhập kho</div>
+                        <div data-transfer="/" class="menu__body-sublist-item">Xuất kho</div>
                     </div>
                 </div>
             </div>
@@ -60,28 +63,38 @@
             {{{body}}}
         </div>  
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<form method="GET" name="form-transfer"></form>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // LOAD DỮ LIỆU LÚC ĐẦU
+    
         var btnMainMenu = $('.menu__body-item')
-
         for (var item of btnMainMenu)
         {
             if (item.querySelector('.menu__body-sublist').classList.contains('show'))
             item.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(-90deg)"
             else  item.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(0deg)"
         }
-        
-
         btnMainMenu.click(function(){
             if (this.querySelector('.menu__body-sublist').classList.contains('show'))
             this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(0deg)"
             else  this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(-90deg)"
         })
         
+        // CHUYỂN TRANG
+        var btnItem = $('.menu__body-sublist-item')
+        var formTransfer = document.forms['form-transfer']
+        console.log(btnItem)
+        btnItem.click(function() {
+            formTransfer.action = this.getAttribute('data-transfer')
+            formTransfer.submit()
+        })
     })
 </script>
 

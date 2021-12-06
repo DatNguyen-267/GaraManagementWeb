@@ -14,7 +14,8 @@ const Reception = new Schema({
     total_money: { type: Number ,default: 0},
     receptionDate: {type: String},
     status: { type: String },
-    isSuccess: {type: Boolean, default: false}
+    isSuccess: { type: Boolean, default: false },
+    isDebt: { type: Boolean, default: false },
 }, {
     timestamps: true,
 })

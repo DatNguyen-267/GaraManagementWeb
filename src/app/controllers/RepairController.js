@@ -43,7 +43,7 @@ class RepairController {
     create(req, res, next) {
         console.log(req.body)
         var repair = new Repair(req.body)
-        Reception.findOne({ license: req.body.license })
+        Reception.findOne({ _id: req.body.id })
             .then((reception) => {
                 repair.of_reception = reception;
                 repair.quoted = false;
