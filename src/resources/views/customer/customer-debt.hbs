@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="./css/customer-debt.css">
+<div class="container__customer-debt">
+  <div class="header__customer-debt">
+    <div class="header__customer-debt__title">Quản Lý Công Nợ</div>
+  </div>
+  <div class="ctner__customer-debt">
+    <div class="toolbar">
+      <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" id="search-input"
+          placeholder="Tìm kiếm thông tin khách hàng...">
+        <span class="ti-search toolbar__search-icon"></span>
+
+      </div>
+      <div class="dropdown toolbar__filter">
+        <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        </button>
+        <div class="toolbar__filter-menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+        </div>
+      </div>
+    </div>
+    <div class="list-customer-debt">
+      <table class="table table--default">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#Stt</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">CMND</th>
+            <th scope="col">Email</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Nợ</th>
+            <th scope="col" colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          {{#each listdebt}}
+          <tr data-id="{{this._id}}">
+            <th scope="row">{{@index}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.cardIdentify}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td>{{this.debt}}</td>
+            <td></td>
+            <td>
+              <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<form method="GET" name="form-view"></form>
+<!-- scrip -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{{!--Search--}}
+<script>
+  $(document).ready(function () {
+    $('#search-input').on('keyup', function (event) {
+      event.preventDefault();
+      /* Act on the event */
+      var keyword = $(this).val().toLowerCase();
+      $('#table-body tr').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+      });
+    });
+  });
+</script>
+{{!-- --}}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var btnView = $('.btn--view-item')
+    var formView = document.forms['form-view']
+   
+    btnView.click(function(){
+      formView.action = 'customerdebt/' + $(this).data('id') + '/customerdebtdetail'
+      formView.submit()
+    })
+  })
+</script>

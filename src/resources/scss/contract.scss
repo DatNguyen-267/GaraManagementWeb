@@ -1,0 +1,83 @@
+html {
+    font-size: 16px;
+}
+.main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 60vw;
+}
+.header {
+
+}
+.header__title {
+    font-weight: 700;
+}
+.header__sub-title {
+    text-align: center;
+}
+.header__separate {
+    text-align: center;
+}
+.header__form-name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.contract_body {
+    
+}
+.contract__day {
+
+}
+.contract__info-A {
+
+}
+.contract__info-A__header,
+.contract__info-B__header {
+    font-weight: 600;
+}
+.contract__info-B {
+
+}
+.contract__info-item{
+
+}
+.contract__rule {
+
+}
+.contract__rule-header {
+    font-weight: 700;
+    
+}
+.contract__rule-item {
+    font-weight: 700;
+}
+.sign-side {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 150px;
+}
+.sign-side-A {
+    text-align: center;
+
+}
+.sign-side-B {
+    text-align: center;
+}
+.sign-side-header {
+    font-weight: 700;
+}
+.contract__footer {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-bottom: 100px;
+}
+.contract__footer-btn {
+    margin-left: 16px;
+    padding: 6px 16px;
+}

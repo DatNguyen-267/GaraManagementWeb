@@ -1,3 +1,9 @@
+html {
+  font-size: 16px; }
+
+.repair-detail__title {
+  display: flex; }
+
 .repair-detail__navbar {
   display: flex;
   align-items: center;
@@ -24,3 +30,111 @@
 
 .repair-detail-info__general-item-customer {
   margin-right: 200px; }
+
+.repair-detail-info__table-supplies {
+  margin-bottom: 50px;
+  min-height: 55vh; }
+
+.repair-detail-info__table-wage {
+  margin-bottom: 50px;
+  min-height: 55vh; }
+
+.repair-detail-info__table-employee {
+  margin-bottom: 50px;
+  min-height: 55vh; }
+
+.table__header .table__header-btn-add {
+  margin-right: 20px;
+  height: 35px;
+  width: 99px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 30px;
+  padding: 0 6px;
+  margin-left: auto; }
+
+.quote__body {
+  margin: 5px auto;
+  width: 800px;
+  border-radius: 3px;
+  border: 1px solid var(--border-color);
+  padding: 0 16px 16px 16px; }
+
+.quote__header {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 -16px; }
+
+.quote__title {
+  font-size: 20px;
+  font-weight: 700; }
+
+.quote__info-gara {
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+
+.quote__info-gara__name {
+  font-size: 16px;
+  font-weight: 700; }
+
+.quote__info-gara__address {
+  font-size: 11px;
+  font-weight: 500; }
+
+.quote__info-gara__phone {
+  font-size: 11px;
+  font-weight: 500; }
+
+.quote__info-general {
+  display: flex; }
+
+.quote__info-general-customer {
+  margin-right: 60px;
+  font-size: 14px; }
+
+.quote__info-general-status {
+  font-size: 14px; }
+
+.table-name {
+  color: var(--blue-color);
+  font-weight: 700; }
+
+.quote__btn {
+  display: flex;
+  margin-top: 16px; }
+
+.quote__btn-back,
+.quote__btn-accept {
+  cursor: pointer; }
+
+.quote__btn-back {
+  margin-left: auto; }
+
+.quote__btn-accept {
+  width: 200px; }
+
+.table-total-money {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700; }
+
+.table__header {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black-color);
+  margin: 8px 0; }
+
+.repair-modal-quote-dialog {
+  max-width: 50vw !important;
+  margin: 50px auto !important;
+  display: flex !important; }
+
+.repair-modal-quote-content {
+  display: block;
+  width: 70vw !important; }

@@ -35,7 +35,67 @@ app.engine('hbs', handlebars({
         return "Có phép"
       }
       return "Không phép"
-    }
+    },
+    isShow: (a) => {
+      if (a == false) return "hidden"
+      else return "xxx"
+    },
+    isHidden: (a) => {
+        if (a) return "hidden"
+    },
+    isDisable: (a) => {
+      if (a == false) return ""
+      else return "disabled"
+    },
+    isEnable: (a) => {
+      if (a == true) return ""
+      else return "disabled"
+    },
+    loadMaterial: (detailMaterial) => {
+      var html =``
+      for (const item of detailMaterial) {
+        html+= `<tr>
+                <td scope="row">${item.content}</td>
+                <td scope="row">${item.material_name}</td>
+                <td scope="row">${item.amount}</td>
+                <td scope="row">${item.sell_price}</td>
+                <td scope="row">${item.total_money}</td>
+            </tr>`
+      }
+      return html
+    },
+    loadWage: (detailWage) => {
+      var html = ``
+      for (const item of detailWage) {
+        html+= `
+            <tr>
+                <td scope="row">${item.wage_name}</td>
+                <td scope="row">${item.wage_money}</td>
+            </tr>`
+      }
+      return html
+    },
+    loadStatus(status) {
+      if (status == "Đang sửa chữa" || status == "Chờ lệnh sửa" || status == "Khám xe")
+        return "status--pending"
+      if (status == "Chờ thanh toán")
+        return "status--waiting"
+      if (status == "Hoàn thành")
+        return "status--success"
+      if (status == "Mới")
+        return "status--success"
+      if (status == "Nợ")
+        return "status--danger"
+    },
+    activeMainMenu(active) {
+      if (active) return "menu__body-mainlist--active"
+    },
+    expandSubMenu(active) {
+      if (active) return "show"
+    },
+    activeItemMenu(active) {
+      if (active) return "menu__body-sublist-item--active"
+    },
   }
 
 }));

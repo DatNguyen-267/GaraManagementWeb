@@ -1,4 +1,6 @@
-<div class="repair__title">
+<link rel="stylesheet" href="./css/repair.css">
+<div class="grid__content">
+  <div class="template__title">
     Quản lý sửa chữa
 </div>
 <div class="toolbar">
@@ -8,7 +10,7 @@
     </div>
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
-        <button class="toolbar__btn-add" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
     </div>
 </div>
 <div class="list-repair">
@@ -19,7 +21,7 @@
                 <th scope="col">Mã phiếu tiếp nhận</th>
                 <th scope="col">Biển số xe</th>
                 <th scope="col">Tên khách hàng</th>
-                <th scope="col">Ngày sửa chữa</th>
+                {{!-- <th scope="col">Ngày tạo</th> --}}
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Tổng chi phí</th>
                 <th scope="col"></th>
@@ -29,14 +31,13 @@
             {{#each repairs}}
             <tr>
                 <td scope="row">{{this._id}}</th>
-                <td>{{this.matiepnhan}}</td>
-                <td>{{this.bienso}}</td>
-                <td>{{this.tenkhachhang}}</td>
-                <td>{{this.ngaysuachua}}</td>
-                <td>{{this.trangthai}}</td>
-                <td>{{this.tienno}}</td>
+                <td>{{this.of_reception._id}}</td>
+                <td>{{this.license}}</td>
+                <td>{{this.customer_name}}</td>
+                {{!-- <td>{{this.createdAt}}</td> --}}
+                <td>{{this.status}}</td>
+                <td>{{this.debt}}</td>
                 <td>
-                    <button class="btn--view-item" data-toggle="modal" data-target="#form-view" data-id="{{this._id}}">Xem</button>
                     <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
                     <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
                 </td>
@@ -45,7 +46,9 @@
         </tbody>
     </table>
 </div>
+</div>
 <!-- MODAL -->
+
 <form method="POST" action="/repairs/create">
   <div class="modal fade" id="form-add" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -60,24 +63,25 @@
           <form>
             <div class="form-group">
                 <label for="input-add-license">Biển số:</label>
-                <select class="form-control" id="input-add-license" name="bienso">
+                <select class="form-control" id="input-add-license" name="id">
                     {{#each waitReceptions}}
-                    <option>{{this.license}}</option>
+                    <option value="{{this._id}}">{{this.license}}</option>
                     {{/each}}
                 </select>
             </div>
             <div class="form-group">
                 <label for="input-add-name">Tên khách hàng:</label>
-                <select class="form-control" id="input-add-name" name="tenkhachhang">
+                <select class="form-control" id="input-add-name" name="customer_name">
                     {{#each waitReceptions}}
-                    <option>{{this.name}}</option>
+                    <option>{{this.of_customer.name}}</option>
+                    
                     {{/each}}
                 </select>
             </div>
-            <div class="form-group">
+            {{!-- <div class="form-group">
               <label for="input-add-repairDate" class="col-form-label">Ngày tạo phiếu:</label>
-              <input type="date" class="form-control" id="input-add-repairDate" name="ngaysuachua">
-            </div>
+              <input type="date" class="form-control" id="input-add-repairDate" name="repairDate">
+            </div> --}}
           </form>
         </div>
         <div class="modal-footer">
@@ -89,57 +93,7 @@
   </div>
 </form>
 
-<form method="POST" action="">
-  <div class="modal fade" id="form-view" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Xem phiếu sửa chữa</h5>
-          <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="input-view-id" class="col-form-label">Mã phiếu:</label>
-              <input type="text" disabled class="form-control" id="input-view-id" name="id">
-            </div>
-            <div class="form-group">
-              <label for="input-view-matiepnhan" class="col-form-label">Mã tiếp nhận:</label>
-              <input type="text" disabled class="form-control" id="input-view-matiepnhan" name="matiepnhan">
-            </div>
-            <div class="form-group">
-              <label for="input-view-bienso" class="col-form-label">Biển số:</label>
-              <input type="text" disabled class="form-control" id="input-view-bienso" name="bienso">
-            </div>
-            <div class="form-group">
-              <label for="input-view-tenkhachhang" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" disabled class="form-control" id="input-view-tenkhachhang" name="tenkhachhang">
-            </div>
-            <div class="form-group">
-              <label for="input-view-ngaysuachua" class="col-form-label">Ngày sửa chữa:</label>
-              <input type="text" disabled class="form-control" id="input-view-ngaysuachua" name="ngaysuachua">
-            </div>
-            <div class="form-group">
-              <label for="input-view-trangthai" class="col-form-label">Trạng thái:</label>
-              <input type="text" disabled class="form-control" id="input-view-trangthai" name="trangthai">
-            </div>
-            <div class="form-group">
-              <label for="input-view-tienno" class="col-form-label">Tổng chi phí:</label>
-              <input type="text" disabled class="form-control" id="input-view-tienno" name="tienno">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-
-<form method="POST" action="" name="form-edit">
+{{!-- <form method="POST" action="" name="form-edit">
   <div class="modal fade" id="form-edit" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -155,30 +109,14 @@
               <label for="input-edit-id" class="col-form-label">Mã phiếu:</label>
               <input type="text" disabled class="form-control" id="input-edit-id" name="id">
             </div>
-            {{!-- <div class="form-group">
-              <label for="input-edit-matiepnhan" class="col-form-label">Mã tiếp nhận:</label>
-              <input type="text" disabled class="form-control" id="input-edit-matiepnhan" name="matiepnhan">
-            </div> --}}
             <div class="form-group">
               <label for="input-edit-bienso" class="col-form-label">Biển số:</label>
               <input type="text" disabled class="form-control" id="input-edit-bienso" name="bienso">
             </div>
-            {{!-- <div class="form-group">
-              <label for="input-edit-tenkhachhang" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" disabled class="form-control" id="input-edit-tenkhachhang" name="tenkhachhang">
-            </div> --}}
             <div class="form-group">
               <label for="input-edit-ngaysuachua" class="col-form-label">Ngày sửa chữa:</label>
               <input type="text" class="form-control" id="input-edit-ngaysuachua" name="ngaysuachua">
             </div>
-            {{!-- <div class="form-group">
-              <label for="input-edit-trangthai" class="col-form-label">Trạng thái:</label>
-              <input type="text" disabled class="form-control" id="input-edit-trangthai" name="trangthai">
-            </div>
-            <div class="form-group">
-              <label for="input-edit-tienno" class="col-form-label">Tổng chi phí:</label>
-              <input type="text" disabled class="form-control" id="input-edit-tienno" name="tienno">
-            </div> --}}
           </form>
         </div>
         <div class="modal-footer">
@@ -188,7 +126,7 @@
       </div>
     </div>
   </div>
-</form>
+</form> --}}
 
 <form method="POST" name="form-delete" action="">
   <div class="modal fade" id="form-delete" tabindex="-1" role="dialog">
@@ -212,16 +150,15 @@
   </div>
 </form>
 
-
+<form method="GET" name="form-edit"></form>
 
 <script>
-  
   document.addEventListener('DOMContentLoaded', function () {
     var repairId;
     var btnAcceptDelete = $('#btn-accept-delete')
     var btnAcceptEdit = $('#btn-accept-edit')
     var btnView = $('.btn--view-item')
-    
+    var btnEdit = $('.btn--edit-item')
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
     
@@ -229,33 +166,8 @@
       var button = $(event.relatedTarget)
       repairId = button.data('id')
     })
-    $('#form-view').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      repairId = button.data('id')
-      var rowData =  button.parents('tr')[0]
-      $('#input-view-id').val(rowData.cells[0].textContent)
-      $('#input-view-matiepnhan').val(rowData.cells[1].textContent)
-      $('#input-view-bienso').val(rowData.cells[2].textContent)
-      $('#input-view-tenkhachhang').val(rowData.cells[3].textContent)
-      $('#input-view-ngaysuachua').val(rowData.cells[4].textContent)
-      $('#input-view-trangthai').val(rowData.cells[5].textContent)
-      $('#input-view-tienno').val(rowData.cells[6].textContent)
-    })
-    $('#form-edit').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      repairId = button.data('id')
-      var rowData =  button.parents('tr')[0]
-      $('#input-edit-id').val(rowData.cells[0].textContent)
-      //$('#input-edit-matiepnhan').val(rowData.cells[1].textContent)
-      //$('#input-edit-bienso').val(rowData.cells[2].textContent)
-      //$('#input-edit-tenkhachhang').val(rowData.cells[3].textContent)
-      $('#input-edit-ngaysuachua').val(rowData.cells[4].textContent)
-      //$('#input-edit-trangthai').val(rowData.cells[5].textContent)
-      //$('#input-edit-tienno').val(rowData.cells[6].textContent)
-    })
-
-    btnAcceptEdit.click(function(){
-      formEdit.action = 'repairs/' + repairId + '/edit?_method=PUT'
+    btnEdit.click(function(){
+      formEdit.action = 'repairs/' + $(this).data('id') + '/repair-detail'
       formEdit.submit()
     })
     btnAcceptDelete.click(function() {

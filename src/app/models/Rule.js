@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
-const Scheme = mongoose.Schema
+const Schema = mongoose.Schema
 
 const Rule = new Scheme({
     content: {type: String, required: true},

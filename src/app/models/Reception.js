@@ -1,23 +1,24 @@
 const mongoose = require('mongoose')
-const slug = require('mongoose-slug-generator')
 const mongooseDelete = require('mongoose-delete')
 
-const Scheme = mongoose.Schema
+const Schema = mongoose.Schema
 
-const Reception = new Scheme({
-    name: {type: String, required: true},
+const Reception = new Schema({
+    of_customer: { type: Schema.Types.ObjectId, ref: "Customer" },
+    of_repair: {type: Schema.Types.ObjectId, ref: "Repair"},
+    brand: {type: Schema.Types.ObjectId, ref: "Brand"},
+    name: {type: String},
     license: {type: String},
-    brand: {type: String},
     phone: {type: String},
-    debt: {type: Number},
+    debt: { type: Number, default: 0},
+    total_money: { type: Number ,default: 0},
     receptionDate: {type: String},
-    status: {type: String},
-    slug: { type: String, slug: "license", unique:true },
+    status: { type: String },
+    isSuccess: { type: Boolean, default: false },
+    isDebt: { type: Boolean, default: false },
 }, {
     timestamps: true,
 })
-
-mongoose.plugin(slug)
 Reception.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 
