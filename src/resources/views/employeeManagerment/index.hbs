@@ -34,13 +34,13 @@ crossorigin="anonymous"></script>
                 </tr>
               </thead>
               <tbody>
-                {{#each employee}}
-                <tr employeeID = "{{this._id}}" employeeNumber = "{{this.phoneNumber}}">
+                {{#each data}}
+                <tr employeeID = "{{this.employee._id}}" employeeNumber = "{{this.employee.phoneNumber}}">
                   <th scope="row">{{sum @index 1}}</th>
-                  <td id = "employeeName">{{this.name}}</td>
-                  <td>{{this.Tag}}</td>
-                  <td>0</td>
-                  <td>0</td>  
+                  <td id = "employeeName">{{this.employee.name}}</td>
+                  <td>{{this.employee.Tag}}</td>
+                  <td>{{this.errorCount}}</td>
+                  <td>{{this.dateoffCount}}</td>  
                 </tr>
                 {{/each}}
             </table> 

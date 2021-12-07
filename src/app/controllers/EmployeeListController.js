@@ -13,6 +13,8 @@ class EmployeeListController {
                     res.render('employeeList/index', {
                         employee: mutipleMongooseToObject(employee),
                         tag: mutipleMongooseToObject(tag),
+                        activeEmployee: true,
+                        activeList:true
                 }
                 )
                 })

@@ -32,6 +32,7 @@ crossorigin="anonymous"></script>
                     <th scope="col" >#</th>
                     <th scope="col" >Chức vụ</th>
                     <th scope="col">Lương</th>
+                    <th scope="col">Hệ số tăng lương</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -41,11 +42,13 @@ crossorigin="anonymous"></script>
                   <tr permission-data = "{{this.permissions}}" id-tag = "{{this._id}}" >
                     <td class = "count">{{sum @index 1}}</td>
                     <td class = "tag">{{this.name}}</td>
-                    <td class = "salary">{{this.salary}}</td>  
+                    <td class = "salary">{{this.salary}}</td>
+                    <td class = "percent">{{this.percent}}</td>
                     <td>
                       <button class = "btn--edit-item" >Sửa</i></button>
                       <button class = "btn--delete-item">Xóa</i></button>
-                    </td>            
+                    </td>
+
                   </tr>
                   {{/each}}
                   
@@ -70,7 +73,11 @@ crossorigin="anonymous"></script>
                       </div>
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label">Lương:</label>
-                        <input type="text" class="form-control" name="salary" >
+                        <input type="text" class="form-control" name="salary" id = "n_salary">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label" >Hệ số tăng lương:</label>
+                        <input type="text" class="form-control" name="percent" id = "n_percent" placeholder="%/năm">
                       </div>
                       <div style="float:left; width: 32%">
                         <div class="form-check">
@@ -143,7 +150,11 @@ crossorigin="anonymous"></script>
                       </div>
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label">Lương:</label>
-                        <input type="text" class="form-control" name="salary"  id = "m_salary">
+                        <input type="text" class="form-control" name="salary"  id = "m_salary" class = "salaryIp">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label" aria-placeholder="%/năm">Hệ số tăng lương:</label>
+                        <input type="text" class="form-control" name="percent" id = "m_percent">
                       </div>
                       <div style="float:left; width: 32%">
                         <div class="form-check">
@@ -222,6 +233,10 @@ crossorigin="anonymous"></script>
     </body>
 
     <script>
+       var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
       var tagID;
       var tdActive;
       var btnDelete = $('#btn-delete')
@@ -235,7 +250,35 @@ crossorigin="anonymous"></script>
         count++;
         $('#count').html(count.toString);
       }
-      
+
+      $('#m_percent').change(function() {
+        var temp = $('#m_percent').val();
+        temp = temp.replace('%','')
+        temp = temp+ "%";
+        $('#m_percent').val(temp);
+      });
+
+      $('#n_percent').change(function() {
+        var temp = $('#n_percent').val();
+        temp = temp.replace('%','')
+        temp = temp+ "%";
+        $('#n_percent').val(temp);
+      });
+      $('#m_salary').change(function() {
+        var temp = $('#m_salary').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#m_salary').val(temp);
+      });
+
+      $('#n_salary').change(function() {
+        var temp = $('#n_salary').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#n_salary').val(temp);
+      });
       function search(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
@@ -272,6 +315,7 @@ crossorigin="anonymous"></script>
           temp = $(this).closest("tr").find(".tag").text();
           $('#m_tag').val($(this).closest("tr").find(".tag").text());
           $('#m_salary').val($(this).closest("tr").find(".salary").text());
+          $('#m_percent').val($(this).closest("tr").find(".percent").text());
           permission.forEach(element => {
              var x = "#check_" + (element);
             $(x).attr('checked', 'checked');

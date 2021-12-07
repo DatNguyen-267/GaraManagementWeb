@@ -7,6 +7,7 @@ const Scheme = mongoose.Schema
 const tag = new Scheme({
     name: {type: String, required: true,},
     salary: {type: String, required: true,default: '0'},
+    percent: {type: String, required: true},
     permissions: {type: Array, required: true,default: []},
 }, {
     timestamps: true,

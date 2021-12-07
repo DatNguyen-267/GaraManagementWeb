@@ -35,6 +35,7 @@ crossorigin="anonymous"></script>
                     <th scope="col">Email</th>
                     <th scope="col">CMND</th>
                     <th scope="col">Chức vụ</th>
+                    <th scope="col">Ngày bắt đầu làm</th>
                     <th scope="col"></th>
                     <td></td>   
                   </tr>
@@ -49,7 +50,8 @@ crossorigin="anonymous"></script>
                     <td id = "phoneNumber">{{this.phoneNumber}}</td>
                     <td id = "email">{{this.email}}</td>
                     <td id = "CMND">{{this.CMND}}</td>  
-                    <td id = "tag">{{this.Tag}}</td>  
+                    <td id = "tag">{{this.Tag}}</td>
+                    <td id = "startDate">{{this.startDate}}</td>
                     <td>
                       <button class = "btn--edit-item" onclick="">Sửa</i></button>
                       <button class = "btn--delete-item" onclick="deleted()">Xóa</i></button>
@@ -98,9 +100,17 @@ crossorigin="anonymous"></script>
                       <select class = "form-control" name="Tag" placeholder="" id = "m_tag">
                             <option value= "" disabled selected>Chọn loại nhân viên</option>
                             {{#each tag}}
-                            <option value="{{this.name}}">{{this.name}}</option>
+                            <option value="{{this.name}}" salary = "{{this.salary}}" class= "mOps">{{this.name}}</option>
                             {{/each}}
                       </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
+                      <input type="text" class="form-control" name="salary" readonly id = "m_salary">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
+                      <input type="date" class="form-control dataStr" name="startDate" id = "m_startDate">
                     </div>
                   </form>
                 </div>
@@ -147,12 +157,20 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
-                      <select class = "form-control" name="Tag" placeholder="">
+                      <select class = "form-control" name="Tag" placeholder="" id = "n_tag">
                             <option value= "" disabled selected>Chọn loại nhân viên</option>
                             {{#each tag}}
-                              <option value="{{this.name}}">{{this.name}}</option>
+                              <option value="{{this.name}}" salary = "{{this.salary}}" class= "nOps">{{this.name}}</option>
                             {{/each}}
                       </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
+                      <input type="text" class="form-control" name="salary" style="" readonly id = "n_salary">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
+                      <input type="date" class="form-control dataStr" name="startDate">
                     </div>
                   </form>
                 </div>
@@ -193,6 +211,10 @@ crossorigin="anonymous"></script>
 
 
     <script>
+      var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          });
       var employeeID;
       function search(){
         var input, filter, table, tr, td, i, txtValue;
@@ -221,9 +243,18 @@ crossorigin="anonymous"></script>
           $('#m_email').val($(this).closest("tr").find("#email").text());
           $('#m_CMND').val($(this).closest("tr").find("#CMND").text());
           $('#m_tag').val($(this).closest("tr").find("#tag").text());
+          $('#m_salary').val($('option:selected').attr('salary'));
+          $('#m_startDate').val($(this).closest("tr").find("#startDate").text());
           $("#modifiedModal").modal();
       });
       
+      $('#m_tag').change(function(){
+          $('#m_salary').val($('.mOps:selected').attr('salary'));
+      });
+       $('#n_tag').change(function(){
+          $('#n_salary').val($('.nOps:selected').attr('salary'));
+      });
+
       $(".btn--delete-item").click(function() {
           var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
           $("#informLabel").text(temp);

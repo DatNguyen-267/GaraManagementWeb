@@ -45,6 +45,20 @@
                     </div>
                 </div>
                 <div class="menu__body-item">
+
+                    <button class="menu__body-mainlist {{activeMainMenu activeEmployee}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
+                            <span class="menu__body-mainlist-icon ti-car"></span>
+                            <div class="menu__body-mainlist-name">Quản nhân viên</div>
+                            <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
+                    </button>
+                    <div class="menu__body-sublist collapse {{expandSubMenu activeEmployee}}" id="menu__body-sublist-quanlyxe">
+                        <div data-transfer="/employeeList" class="menu__body-sublist-item {{activeItemMenu activeList}}">Danh sách nhân viên</div>
+                        <div data-transfer="/employeeManagerment" class="menu__body-sublist-item {{activeItemMenu activeManager}}">Nghỉ và vi phạm</div>
+                        <div data-transfer="/employeeSalary" class="menu__body-sublist-item {{activeItemMenu activeSalary}}">Lương</div>
+                        <div data-transfer="/employeeTag" class="menu__body-sublist-item {{activeItemMenu activeTag}}">Quản lý chức vụ</div>
+                    </div>
+                </div>
+                <div class="menu__body-item">
                     <button class="menu__body-mainlist {{activeMainMenu activeManagementWarehouse}} " type="button" data-toggle="collapse" 
                             data-target="#menu__body-sublist-management-warehouse">
                         <span class="menu__body-mainlist-icon ti-package"></span>

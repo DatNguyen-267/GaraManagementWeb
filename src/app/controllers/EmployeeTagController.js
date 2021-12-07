@@ -8,6 +8,8 @@ class EmployeeTagController {
             .then((tag)=> {
                 res.render('employeeTag/index', {
                     tag: mutipleMongooseToObject(tag),
+                    activeEmployee: true,
+                    activeTag:true
                 })
             })
             .catch(next)

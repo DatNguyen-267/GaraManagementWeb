@@ -28,26 +28,26 @@ crossorigin="anonymous"></script>
             <button type="button" class="btn btn-primary" style="float: right;"><i class="fas fa-file-export"></i></button>
         </div>
         <div class = "table-responsive" style="margin-left:2em; margin-right:2em;">
-            <table class="table employeeSalary__body__table" >
+            <table class="table employeeSalary__body__table" id ="employeeTable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Họ và Tên</th>
                     <th scope="col">Chức vụ</th>
-                    <th scope="col">Số lần vi phạm</th>
-                    <th scope="col">Số ngày nghỉ</th>
+                    <th scope="col">Số tiền phạt</th>
+                    <th scope="col">Số thưởng</th>
                     <th scope="col">Lương</th>   
                   </tr>
                 </thead>
                 <tbody>
-                  {{#each employee}}
-                    <tr data-toggle="modal" data-target="#infoModal">
+                  {{#each data}}
+                    <tr>
                     <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.name}}</td>
-                    <td>{{this.Tag}}</td>
-                    <td>{{errorCount}}</td>
+                    <td>{{this.item.name}}</td>
+                    <td>{{this.item.Tag}}</td>
+                    <td>{{this.sum}}</td>
                     <td>2</td>  
-                    <td class = "salary">5.000.000</td>             
+                    <td class = "salary">{{this.item.salary}}</td>             
                   </tr>  
                   {{/each}}
               </table> 
@@ -98,9 +98,9 @@ crossorigin="anonymous"></script>
                       </tr>
                       <tr style="border-bottom: 1px black solid;">
                         <td>
-                          <label >Số tiền thưởng</label></td>
+                          <label>Số tiền thưởng</label></td>
                         <td>
-                          <p class = "tag">+ 200.000</p>
+                          <input type="text" class="form-control dataStr" style="margin-bottom:.2rem;width:40%; height:50%;font-size:.7rem;padding:.2rem" name="startDate"><label style="float: right; margin-right:.4rem">+</label>
                         </td>
                       </tr>
                       <!--So tien thuong-->
@@ -160,16 +160,7 @@ crossorigin="anonymous"></script>
       var employeeID;
       const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
       $('#employeeTable tbody tr').click(function () {
-        employeeID = $(this).children('#id').text();
-        $('#m_ID').val($(this).children('#id').text());
-        $('#m_name').val($(this).children('#name').text());
-        $('#m_address').val($(this).children('#address').text());
-        $('#m_phone').val($(this).children('#phoneNumber').text());
-        $('#m_CMND').val($(this).children('#CMND').text());
-        $('#m_email').val($(this).children('#email').text());
-        $('#m_tag').val($(this).children('#tag').text());
-        $('#form-edit').val($(this).children('#id').text());
-        $("#modifiedModal").modal();
+        $("#infoModal").modal();
         //your code
       });
       function modified(){

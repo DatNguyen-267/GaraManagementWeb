@@ -12,12 +12,12 @@ const employee = new Scheme({
     address: {type: String, required: true},
     phoneNumber: {type: String, required: true},
     Tag: {type: String, required: true},
-    slug: { type: String, slug: "name", unique:true },
+    salary: {type: String, required: true},
+    startDate: {type: String, required: true},
 }, {
     timestamps: true,
 })
 
-mongoose.plugin(slug)
 employee.plugin(mongooseDelete, { 
         deletedAt: true,
         overrideMethods: 'all' 

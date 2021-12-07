@@ -9,9 +9,33 @@ class EmployeeSalaryController {
         Employee.find({})
             .then((employee)=> {
                 Error.find()
-                    .then((errorCount) =>{
+                    .then((error) =>{
+                        var data = []
+                        for (var item of employee){
+                            var sum = 0;
+                            for(var temp of error){
+                                
+                                if (item._id == temp.employeeID){
+                                    var n = temp.fine;
+                                    n = n.replaceAll('.','')
+                                    n = n.replace('₫','')
+                                    sum += parseInt(n);
+
+                                }
+                            }
+                            var formatter = new Intl.NumberFormat('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                            });
+                            sum = formatter.format(sum.toString());
+                            data.push({item:mongooseToOject(item),sum})
+                        }
+                        //res.send(data)
                         res.render('employeeSalary/index', {
                             employee: mutipleMongooseToObject(employee),
+                            data,
+                            activeEmployee: true,
+                            activeSalary:true
                         })
                     })
             })

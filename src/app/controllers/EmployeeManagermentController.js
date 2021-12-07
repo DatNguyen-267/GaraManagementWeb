@@ -8,11 +8,35 @@ const { mongooseToOject } = require('../../util/mongoose')
 class EmployeeManagermentController {
     show(req,res,next) {// request , respond , next
         Employee.find({})
-            .then((employee)=> {
+            .then((employees)=> {
+                Error.find({})
+                    .then((errors) =>{
+                        DateOff.find({})
+                            .then((dateoffs) =>{
+                                var data = [];
+                                for (var employee of employees){
+                                    var errorCount =0
+                                    var dateoffCount = 0;
+                                    for (var error of errors){
+                                        if (employee._id == error.employeeID){
+                                            errorCount++;
+                                        }
+                                    }
+                                    for (var date of dateoffs){
+                                        if (employee._id == date.employeeID){
+                                            dateoffCount++;
+                                        }
+                                    }
+                                    data.push({employee: mongooseToOject(employee),errorCount,dateoffCount})
+                                }
                                 res.render('employeeManagerment/index', {
-                                    employee: mutipleMongooseToObject(employee),
-                                    
-                            })
+                                    data,
+                                    activeEmployee: true,
+                                    activeManager:true
+                        })
+                    })
+                
+                })
             })
             .catch(next)
     };
@@ -33,6 +57,8 @@ class EmployeeManagermentController {
                                     dateoff: mutipleMongooseToObject(dateoff),
                                     error: mutipleMongooseToObject(error),
                                     rule: mutipleMongooseToObject(rule),
+                                    activeEmployee: true,
+                                    activeManager:true
                             }
                             )
                         })

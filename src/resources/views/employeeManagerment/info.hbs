@@ -63,7 +63,7 @@ crossorigin="anonymous"></script>
             <div class = "info">
               <p><strong><i class="fab fa-wpforms"></i> Phiếu vi phạm</strong></p>
               <p>Lỗi vi phạm: {{this.content}}</p>
-              <p>Tiền phạt: {{this.fine}} VND</p>
+              <p>Tiền phạt: {{this.fine}}</p>
               <p>Ngày: {{this.date}}</p>
             </div>
             <div class = "creator">
@@ -109,7 +109,7 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Lý do</label>
-                      <input type="text" class="form-control" name="reson">
+                      <input type="text" class="form-control" name="reson" autocomplete="off">
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Trạng thái:</label>
@@ -152,7 +152,7 @@ crossorigin="anonymous"></script>
                   <form>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu:</label>
-                      <input type="date" class="form-control dataStr" name="startDate" id = "mStartDate">
+                      <input type="date" class="form-control dataStr" name="startDate" id = "m_StartDate">
                       <!--data -->
                       <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
                       <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
@@ -163,11 +163,11 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Ngày kết thúc:</label>
-                      <input type="date" class="form-control" name="endDate" id = "mEndDate">
+                      <input type="date" class="form-control" name="endDate" id = "m_EndDate">
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Lý do</label>
-                      <input type="text" class="form-control" name="reson" id = "mReson">
+                      <input type="text" class="form-control" name="reson" id = "m_Reson" autocomplete="off">
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Trạng thái:</label>
@@ -254,7 +254,7 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Tiền phạt:</label>
-                      <input type="number" class="form-control fine" name="fine">
+                      <input type="text" class="form-control fine" name="fine" autocomplete="off" id = "m_fine">
                     </div>
 
                   </form>
@@ -282,14 +282,14 @@ crossorigin="anonymous"></script>
                   <form>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Ngày:</label>
-                      <input type="date" class="form-control dataStr" name="date" id = "mDate">
+                      <input type="date" class="form-control dataStr" name="date" id = "m_Date">
                       <!--data -->
                       <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
 
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Lỗi vi phạm:</label>
-                      <select class = "form-control content" name="content" placeholder="" id = "mContent">
+                      <select class = "form-control content" name="content" placeholder="" id = "m_Content">
                             <option value= "" disabled selected>Chọn lỗi vi phạm</option>
                             {{#each rule}}
                               <option value="{{this.content}}" fine= "{{this.fine}}">{{this.content}}</option>
@@ -298,7 +298,7 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Tiền phạt:</label>
-                      <input type="number" class="form-control fine" name="fine" id = "mFine">
+                      <input type="text" class="form-control fine" name="fine" id = "m_fine" autocomplete="off">
                     </div>
 
                   </form>
@@ -339,13 +339,31 @@ crossorigin="anonymous"></script>
 
     <script>
       var id;
+      var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+      $('#m_fine').change(function() {
+        var temp = $('#m_fine').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#m_fine').val(temp);
+      });
+      $('#n_fine').change(function() {
+        var temp = $('#n_fine').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#n_fine').val(temp);
+      });
       //dateoff
       
       $(".btn-edit-dateoff").click(function() {
           id = $(this).attr('dateoffID');
-          $("#mStartDate").val($(this).attr('startDate'));
-          $("#mEndDate").val($(this).attr('endDate'));
-          $("#mReson").val($(this).attr('reson'));
+          $("#m_StartDate").val($(this).attr('startDate'));
+          $("#m_EndDate").val($(this).attr('endDate'));
+          $("#m_Reson").val($(this).attr('reson'));
           if ($(this).attr('havePermission') == "true"){
             $("#CP").prop("checked","true");
           }
@@ -365,9 +383,9 @@ crossorigin="anonymous"></script>
       });
       $(".btn-edit-error").click(function() {
           id = $(this).attr('errorID');
-          $("#mDate").val($(this).attr('date'));
-          $("#mContent").val($(this).attr('content'));
-          $("#mFine").val($(this).attr('fine'));
+          $("#m_Date").val($(this).attr('date'));
+          $("#m_Content").val($(this).attr('content'));
+          $("#m_fine").val($(this).attr('fine'));
           $("#modifiedErrorModal").modal();
       });
       $(".btn-delete-error").click(function() {
