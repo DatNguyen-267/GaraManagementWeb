@@ -1,0 +1,367 @@
+
+<link rel="stylesheet" href="/css/employeeTag.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<title>Danh sách nhân viên</title>
+    <header class = "employeeTag__header">
+        <h1 class = "employeeTag__header__title">Quản lý chức vụ</h1>
+        <nav class="navbar">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search" onkeyup="search()" id = "searchKey">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+    </header>
+    <body class = "employeeTag__body">
+      <div class = "employeeTag__body__btnContainer">
+            <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
+        </div>
+        <div class = "table-responsive">
+            <table class="table employeeTag__body__table" id = "tagTable">
+                <thead>
+                  <tr>
+                    <th scope="col" >#</th>
+                    <th scope="col" >Chức vụ</th>
+                    <th scope="col">Lương</th>
+                    <th scope="col">Hệ số tăng lương</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each tag}}
+                  
+                  <tr permission-data = "{{this.permissions}}" id-tag = "{{this._id}}" >
+                    <td class = "count">{{sum @index 1}}</td>
+                    <td class = "tag">{{this.name}}</td>
+                    <td class = "salary">{{this.salary}}</td>
+                    <td class = "percent">{{this.percent}}</td>
+                    <td>
+                      <button class = "btn--edit-item" >Sửa</i></button>
+                      <button class = "btn--delete-item">Xóa</i></button>
+                    </td>
+
+                  </tr>
+                  {{/each}}
+                  
+              </table> 
+        </div>
+        <!-- add -->
+        <form method="POST" action="/employeeTag/create">
+            <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content body__infoModal">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Chi tiết chức vụ</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label">Tên chức vụ:</label>
+                        <input type="text" class="form-control" name="name" >
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label">Lương:</label>
+                        <input type="text" class="form-control" name="salary" id = "n_salary">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label" >Hệ số tăng lương:</label>
+                        <input type="text" class="form-control" name="percent" id = "n_percent" placeholder="%/năm">
+                      </div>
+                      <div style="float:left; width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="1" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý quy định
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="2" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Quản lý nhân viên
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left; width: 33%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="3" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý dịch vụ
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="4" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Quản lý khách hàng
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left;width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="5" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý kho
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="6" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Báo cáo
+                          </label>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="summit" class="btn btn-primary">Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- Modified -->
+        <form method="POST" name = "form-edit" action = "">
+            <div class="modal fade " id="modifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content body__infoModal">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Chi tiết chức vụ</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label">Tên chức vụ:</label>
+                        <input type="text" class="form-control" name="name"  id = "m_tag">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label">Lương:</label>
+                        <input type="text" class="form-control" name="salary"  id = "m_salary" class = "salaryIp">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label" aria-placeholder="%/năm">Hệ số tăng lương:</label>
+                        <input type="text" class="form-control" name="percent" id = "m_percent">
+                      </div>
+                      <div style="float:left; width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="1" id="check_1" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý quy định
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="2" id="check_2" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Quản lý nhân viên
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left; width: 33%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="3" id="check_3" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý dịch vụ
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="4" id="check_4" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Quản lý khách hàng
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left;width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="5" id="check_5" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý kho
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="6" id="check_6" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Báo cáo
+                          </label>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="button" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- Delete -->
+        <form name="form-delete" method="POST" action="">
+              <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <label id = "informLabel">Bạn có chắc chắn muốn xóa chức vụ này không?</label>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete">Xóa</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+    </body>
+
+    <script>
+       var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+      var tagID;
+      var tdActive;
+      var btnDelete = $('#btn-delete')
+      var btnAcceptEdit = $('#btn-accept-edit')
+      var formEdit = document.forms['form-edit']
+      var formDelete = document.forms['form-delete']
+      var btnEdit = $('.btn-edit')
+      var count = 0;
+      
+      function increase(){
+        count++;
+        $('#count').html(count.toString);
+      }
+
+      $('#m_percent').change(function() {
+        var temp = $('#m_percent').val();
+        temp = temp.replace('%','')
+        temp = temp+ "%";
+        $('#m_percent').val(temp);
+      });
+
+      $('#n_percent').change(function() {
+        var temp = $('#n_percent').val();
+        temp = temp.replace('%','')
+        temp = temp+ "%";
+        $('#n_percent').val(temp);
+      });
+      $('#m_salary').change(function() {
+        var temp = $('#m_salary').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#m_salary').val(temp);
+      });
+
+      $('#n_salary').change(function() {
+        var temp = $('#n_salary').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#n_salary').val(temp);
+      });
+      function search(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchKey");
+        filter = input.value;
+        table = document.getElementById("tagTable");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[1];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+                 
+        }
+      }
+      $(".btn--edit-item").click(function() {
+
+          var data = $(this).closest("tr").attr('permission-data');
+          var permission = [];
+          var start = 0;
+          var pos = pos = data.indexOf(',' ,start);
+          while (pos != -1){
+            pos = data.indexOf(',' ,start);
+            permission.push(data.substr(start,pos-start));
+            start = pos +1;
+            pos = data.indexOf(',' ,start);
+          }
+          permission.push(data.substr(start,data.length-start));
+          tagID = $(this).closest("tr").attr('id-tag');
+          temp = $(this).closest("tr").find(".tag").text();
+          $('#m_tag').val($(this).closest("tr").find(".tag").text());
+          $('#m_salary').val($(this).closest("tr").find(".salary").text());
+          $('#m_percent').val($(this).closest("tr").find(".percent").text());
+          permission.forEach(element => {
+             var x = "#check_" + (element);
+            $(x).attr('checked', 'checked');
+          });
+          $("#modifiedModal").modal(); 
+
+
+      });
+      
+      
+      btnAcceptEdit.click(function() {
+        
+        formEdit.action = '/employeeTag/' + tagID + '/edit?_method=PUT'
+        formEdit.submit()
+      })
+      
+
+      document.addEventListener('DOMContentLoaded', function () {
+      
+      
+      
+
+      $('#form-edit').on('shown.bs.modal', function (event) {
+          var button = $(event.relatedTarget)
+          employeeID = button.data('id')
+      })
+      
+      btnEdit.click(function(){
+        var row = $(this).parents('tr')[0]
+        $('#form-edit-name').val(row.cells[1].textContent)
+      })
+    });
+
+
+    //delete
+
+    $(".btn--delete-item").click(function() {
+          tagID = $(this).closest("tr").attr('id-tag');
+          $("#deleteModal").modal();
+      });
+      btnDelete.click(function() {
+          formDelete.action ='/employeeTag/' + tagID + '/delete?_method=DELETE'
+          formDelete.submit();
+      })
+
+
+    </script>
+
+    
