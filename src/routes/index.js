@@ -58,6 +58,8 @@ function route(app) {
 
       app.use('/export', exportRouter)
 
+      app.use('/brand', brandRouter)
+
       app.use('/', siteRouter)
 
       
