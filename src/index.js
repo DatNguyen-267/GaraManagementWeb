@@ -45,11 +45,11 @@ app.engine('hbs', handlebars({
     },
     isDisable: (a) => {
       if (a == false) return ""
-      else if (a==true) return "hidden"
+      else if (a==true) return "disabled"
     },
     isEnable: (a) => {
       if (a == true) return ""
-      else if (a== false) return "hidden"
+      else if (a== false) return "disabled"
     },
     loadMaterial: (detailMaterial) => {
       var html =``
