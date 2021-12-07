@@ -2,7 +2,6 @@
 <div class="grid__content {{active}}">
   <div class="header">
     <div class="template__title">Tiếp nhận xe</div>
-    
   </div>
   <div class="ctner">
     <div class="toolbar">
@@ -10,6 +9,7 @@
         <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin xe...">
         <span class="ti-search toolbar__search-icon"> </span>
       </div>
+
       <div class="dropdown toolbar__filter">
         <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,10 +21,11 @@
           <a class="toolbar__filter-item dropdown-item" href="#">Đã hoàn thành</a>
         </div>
       </div>
+
       <div class="toolbar__btn">
-          <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
+        <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
               tiếp nhận</button>
-        </div>
+      </div>
     </div>
     <div class="list-reception">
       <table class="table table--default">
@@ -132,34 +133,40 @@
               <div class="side-new-customer">
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Tên khách hàng:</label>
-                  <input type="text" class="form-control" name="name">
+                  <input type="text" placeholder="Vd: Nguyễn Thành Đạt" class="form-control" id="add-new-name" name="name">
+                  
                 </div>
                 <div class="form-group">
                   <label for="reception-add-receptionDate" class="col-form-label">Ngày sinh:</label>
-                  <input type="date" class="form-control"  name="birthday">
+                  <input type="date" class="form-control"  id="add-birth" name="birthday">
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Địa chỉ:</label>
-                  <input type="text" class="form-control" name="address">
+                  <input type="text" placeholder="Vd: Tiền Giang" class="form-control" id="add-address" name="address">
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">CMND:</label>
-                  <input type="text" class="form-control" name="cardIdentify">
+                  <input type="text" placeholder="Vd: 312329366" class="form-control" id="add-cardIdentify" name="cardIdentify">
+                  <span class="form-message"></span> 
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Email:</label>
-                  <input type="text" class="form-control" name="email">
+                  <input type="text" placeholder="Vd: example@gmail.com" class="form-control" id="add-email" name="email">
+                  <span class="form-message"></span> 
+                  {{!-- form-message --}}
                 </div>
               </div>
             </div>
             <div class="form-group">
                 <label for="reception-add-phone" class="col-form-label">Số điện thoại:</label>
-                <input type="text" class="form-control" id="reception-add-phone" name="phone" >
+                <input type="text" placeholder="Vd: 099999989" class="form-control" id="reception-add-phone" name="phone" >
+                <span class="form-message"></span>
             </div>
             <div class="double-input">
               <div class="form-group">
-                <label for="reception-add-lincense" class="col-form-label">Biển số xe:</label>
-                <input type="text" class="form-control" id="reception-add-lincense" name="license" >
+                <label for="reception-add-license" class="col-form-label">Biển số xe:</label>
+                <input type="text" placeholder="Vd: 37BB8095" class="form-control" id="reception-add-license" name="license" >
+                <span class="form-message"></span>
               </div>
             </div>
             
@@ -186,48 +193,6 @@
     </div>
   </div>
 </form>
-
-<!-- FORM XEM PHIẾU TIẾP NHẬN-->
-<div class="modal fade" id="form-view-reception" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
-        <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="reception-view-name" class="col-form-label">Tên khách hàng:</label>
-            <input readonly type="text" class="form-control" id="reception-view-name" name="reception-view-name">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-lincense" class="col-form-label">Biển số xe:</label>
-            <input readonly type="text" class="form-control" id="reception-view-license" name="reception-view-lincense">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-phone" class="col-form-label">Số điện thoại:</label>
-            <input readonly type="text" class="form-control" id="reception-view-phone" name="reception-view-phone">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-address" class="col-form-label">Hiệu xe:</label>
-            <input readonly type="text" class="form-control" id="reception-view-brand" name="reception-view-address">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-address" class="col-form-label">Ngày tiếp nhận:</label>
-            <input readonly type="date" class="form-control" id="reception-view-receptionDate"
-              name="reception-view-address">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- FORM SỬA PHIẾU TIẾP NHẬN-->
 <form method="POST" name="form-submit">
@@ -337,11 +302,24 @@
 <form name="form-pay" method="GET"></form>
 <form name="form-debt" method="GET"></form>
 
-
-
 <!-- MAIN CSS -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // VALIDATE
+    Validator({
+      form: '#form-add-reception', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#add-cardIdentify', 'Vui lòng nhập CMND'),
+        Validator.isRequire('#reception-add-phone', 'Vui lòng nhập số điện thoại'),
+        Validator.isRequire('#reception-add-license', 'Vui lòng nhập biển số xe'),
+        Validator.isEmail('#add-email'),
+        // Không được là chữ
+        // Tối đa nhiêu số
+      ]
+      })
+
+  //
     var formSubmit = document.forms['form-submit']
     var formDelete = document.forms['form-delete']
     var btnSubmitEdit = $('#btn-edit-form')
@@ -380,9 +358,6 @@
       $('#reception-edit-name').val(rowData.cells[3].textContent)
       $('#reception-edit-phone').val(rowData.cells[4].textContent)
       var mydate = new Date(rowData.cells[5].textContent);
-      console.log(mydate.toDateString());
-      console.log(rowData.cells[5].textContent)
-
       $('#reception-edit-receptionDate').val(mydate.toDateString())
     })
     btnAcceptDelete.click(function () {
@@ -392,10 +367,8 @@
       }
 
     })
-
     const checkboxNewCustomer = document.getElementById('customer-check-input')
     const formOldCustomer = document.querySelector('#form-old-customer')
-    console.log(formOldCustomer)
     checkboxNewCustomer.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
           $("#form-old-customer").attr('disabled','disabled');
