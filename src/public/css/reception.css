@@ -33,7 +33,6 @@
 /* DANH SÁCH PHIẾU TIẾP NHẬN */
 .list-reception {
   background-color: var(--white-color);
-  margin-top: 16px;
   height: 100%;
   border-radius: 5px;
   overflow: hidden; }

@@ -1,53 +1,110 @@
+<link rel="stylesheet" href="./css/base.css">
 <link rel="stylesheet" href="./css/brand.css">
 
-{{!-- THÊM --}}
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col" colspan="2"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each brands}}
-    <tr>
-      {{!-- 1 hiệu xe --}}
-      <th scope="row">{{this._id}}</th>
-      <td>{{this.name}}</td>
-      <td>
-        <button class="btn-delete" data-id="{{this._id}}" >Xoa</button>
-        <button class="btn-edit" data-id="{{this._id}}" data-toggle="modal" data-target="#form-edit">Sua</button>
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+
+<div class="grid__content">
+  <div class="template__header">
+    <div class="template__title">Quản lý hiệu xe</div>
+  </div>
+
+  <div class="toolbar">
+      <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin xe...">
+        <span class="ti-search toolbar__search-icon"> </span>
+      </div>
+      <div class="toolbar__btn">
+          <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Thêm hiệu xe</button>
+      </div>
+  </div>
+  {{!-- THÊM --}}
+  <table class="table">
+    <colgroup>
+      <col>
+      <col>
+      <col>
+    </colgroup>
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Mã hiệu xe</th>
+        <th scope="col">Tên hiệu xe</th>
+        <th scope="col" colspan="2"></th>
+      </tr>
+    </thead>
+      <tbody>
+        {{#each brands}}
+        <tr>
+          {{!-- 1 hiệu xe --}}
+          <td>{{this._id}}</td>
+          <td>{{this.name}}</td>
+          <td class="row-btn">
+            <button class="btn btn--edit-item btn-edit" data-id="{{this._id}}" data-name="{{this.name}}" data-toggle="modal" data-target="#form-edit">Sửa</button>
+            <button class="btn btn--delete-item btn-delete" data-id="{{this._id}}" 
+            data-target="#modal-delete" data-toggle="modal">Xóa</button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+  </table>
+</div>
 
 <form method="POST" action="/brand/create">
-  <div class="form-group">
-    <label for="input-name">Tên hiệu xe</label>
-    <input type="text" class="form-control" 
-        id="input-name" 
-        placeholder="name"
-        name="name">
+  <div class="modal fade" id="form-add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm phiếu sửa chữa</h5>
+          <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="input-name">Tên hiệu xe</label>
+              <input type="text" class="form-control" 
+                  id="input-name" 
+                  placeholder="Tên hiệu xe..."
+                  name="name">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn--send-dialog">Thêm</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+</form>
+{{!-- FORM DELETE --}}
+<form name="form-delete" method="POST">
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Xóa hiệu xe</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-body-descreption">
+          Bạn có chắc chắn muốn xóa hiệu xe này!!!
+        </div>
+        <div class="modal-footer">
+          <button id="btn-accept-delete" type="button" class="btn btn--delete-dialog">Xóa</button>
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {{!-- FORM SUA --}}
-
-
-<form name="form-delete" method="POST" action=""></form>
 <form name="form-edit" method="POST" action="">
   <div class="modal fade" id="form-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Thêm vật tư</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -77,9 +134,9 @@
     var btnAcceptEdit = $('#btn-accept-edit')
     var formEdit = document.forms['form-edit']
     var btnEdit = $('.btn-edit')
-    btnDelete.click(function() {
-        var brandId = $(this).attr('data-id')
-    })
+    var inputEditName = document.querySelector('#form-edit-name')
+    const btnAcceptDelete = document.querySelector('#btn-accept-delete')
+    const formDelete = document.forms['form-delete']
 
     $('#form-edit').on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget)
@@ -93,5 +150,15 @@
       var row = $(this).parents('tr')[0]
       $('#form-edit-name').val(row.cells[1].textContent)
     })
+
+    $('#modal-delete').on('shown.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        brandId = button.data('id')
+    })
+
+    btnAcceptDelete.onclick = function() {
+      formDelete.action = '/brand/' + brandId + '/delete?_method=DELETE'
+      formDelete.submit()
+    }
   })
 </script>

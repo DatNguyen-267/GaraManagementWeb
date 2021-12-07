@@ -45,11 +45,11 @@ app.engine('hbs', handlebars({
     },
     isDisable: (a) => {
       if (a == false) return ""
-      else return "disabled"
+      else if (a==true) return "hidden"
     },
     isEnable: (a) => {
       if (a == true) return ""
-      else return "disabled"
+      else if (a== false) return "hidden"
     },
     loadMaterial: (detailMaterial) => {
       var html =``
@@ -83,7 +83,7 @@ app.engine('hbs', handlebars({
       if (status == "Hoàn thành")
         return "status--success"
       if (status == "Mới")
-        return "status--success"
+        return "status--new"
       if (status == "Nợ")
         return "status--danger"
     },
