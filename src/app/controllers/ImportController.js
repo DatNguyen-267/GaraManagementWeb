@@ -15,7 +15,7 @@ class ImportController {
                     for (var detail of details) {
                         total += detail.import_price * detail.amount
                     }
-                    ImportVoucher.updateOne({ _id: voucher._id }, { total_price: total }).then(() => {})
+                    ImportVoucher.updateOne({ _id: voucher._id }, { total_price: total }).then(() => { })
                 })
             }
         }).then(() => {
@@ -99,9 +99,12 @@ class ImportController {
         ImportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
             for (var detail of details) {
                 Material.findOne({ _id: detail.material }).then((material) => {
-                    material.amount += detail.amount
-                    material.import_price = detail.import_price
-                    Material.updateOne({ _id: detail.material }, material)
+                    Material.updateOne({ _id: detail.material },
+                        {
+                            amount: material.amount + detail.amount,
+                            import_price: detail.import_price
+                        })
+                        .then(() => { })
                 })
             }
         }).then(() => {

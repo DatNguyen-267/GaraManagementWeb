@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 const mongooseDelete = require('mongoose-delete')
 
-const Scheme = mongoose.Schema
+const Schema = mongoose.Schema
 
-const ExportVoucher = new Scheme({
+const ExportVoucher = new Schema({
     of_repair: { type: Schema.Types.ObjectId, ref: 'Repair' },
-    detail: { type: Schema.Types.ObjectId, ref: 'ExportDetail' },
-    exported: { type: Scheme.Types.Boolean, default: false }
+    exported: { type: Schema.Types.Boolean, default: false },
+    date: { type: Schema.Types.Date }
 }, {
     timestamps: true,
 })

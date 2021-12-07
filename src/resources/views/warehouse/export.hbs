@@ -1,4 +1,46 @@
 
+{{!-- Modal thêm phiếu xuất kho --}}
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="/export/create" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm phiếu xuất kho</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Phiếu sửa chữa</label>
+            <div class="col-9 form-group">
+              <select class="form-control" name="of_repair" aria-label="Default select example">
+                <option value="null">Phiếu sửa chữa</option>
+                {{#each repairs}}
+                <option value="{{this._id}}">{{this.license}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Thêm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
 {{!-- Modal xuất kho --}}
 <div class="modal fade" id="exportModal" tabindex="-1" aria-hidden="true">
 <div class="modal-dialog">
@@ -28,24 +70,33 @@
 </div>
 
 
-{{!-- Danh sách phiếu nhập kho --}}
+{{!-- Danh sách phiếu xuất kho --}}
+<div class="row">
+  <div class="d-grid gap-2 d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#addModal"
+    >
+      Thêm
+    </button>
+  </div>
+</div>
+
 <table class="table table--default">
   <thead class="thead-dark"> 
     <tr>
-      <th scope="col">Mã tiếp nhận</th>  
-      <th scope="col">Tên khách hàng</th>
-      <th scope="col">Biển số xe</th>
-      <th scope="col">Ngày sửa</th>
+      <th scope="col">Mã sửa chữa</th>  
+      <th scope="col">Ngày tạo phiếu</th>
       <th scope="col">Thao tác</th>
     </tr>
   </thead>
   <tbody>
     {{#each vouchers}}
       <tr>
-        <td>{{this.of_reception}}</td>
-        <td>{{this.customer_name}}</td>
-        <td>{{this.license}}</td>
-        <td>{{this.repairDate}}</td>
+        <td>{{this.of_repair}}</td>
+        <td>{{this.createdAt}}</td>
         <td>
           <button class="btn--export-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#exportModal">Xuất</button>
           <button class="btn--view-item" data-id="{{this._id}}">Xem</button>

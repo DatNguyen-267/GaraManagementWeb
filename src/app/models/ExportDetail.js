@@ -5,14 +5,18 @@ const Schema = mongoose.Schema
 
 const ExportDetail = new Schema({
     of_voucher: { type: Schema.Types.ObjectId, ref: 'Export_Voucher' },
+    of_repair_material: {type: Schema.Types.ObjectId, ref: 'Repair_Detail_Material'},
     material: { type: Schema.Types.ObjectId, ref: 'Material' },
-    amount: {type: Schema.Types.Number}
+    material_name: { type: String },
+    amount: { type: Schema.Types.Number },
+    sell_price: { type: Schema.Types.Number },
+    total_price: { type: Schema.Types.Number }
 }, {
     timestamps: true,
 })
 
 
-ImportDetail.plugin(mongooseDelete, {
+ExportDetail.plugin(mongooseDelete, {
     deletedAt: true,
     overrideMethods: 'all'
 })
