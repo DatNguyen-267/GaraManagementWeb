@@ -6,18 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    {{!-- <link rel="stylesheet" href="/vendor/open-iconic-master/font/css/open-iconic-bootstrap.css"> --}}
+    {{!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <link rel="stylesheet" href="/font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/app.css">
+    
 </head>
 <body>
     <div class="app">   
         <div class="menu">
             <div class="menu__body" >
                 <div class="menu__body-item">
-
                     <button class="menu__body-mainlist {{activeMainMenu activeManagementCar}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
                             <span class="menu__body-mainlist-icon ti-car"></span>
                             <div class="menu__body-mainlist-name">Quản lý xe</div>
@@ -29,7 +28,6 @@
                         <div data-transfer="/brand" class="menu__body-sublist-item {{activeItemMenu activeBrand}}">Quản lý hiệu xe</div>
                     </div>
                 </div>
-
 
                 <div class="menu__body-item">
                     <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}}" type="button" data-toggle="collapse" 
@@ -57,6 +55,19 @@
                         <div data-transfer="/" class="menu__body-sublist-item">Xuất kho</div>
                     </div>
                 </div>
+
+                <div class="menu__body-item">
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementEmployee}}" type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
+                            <span class="menu__body-mainlist-icon ti-car"></span>
+                            <div class="menu__body-mainlist-name">Quản nhân viên</div>
+                            <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
+                    </button>
+                    <div class="menu__body-sublist collapse {{expandSubMenu activeManagementCar}}" id="menu__body-sublist-quanlyxe">
+                        <div data-transfer="/reception" class="menu__body-sublist-item {{activeItemMenu activeListEmployee}}">Danh sách nhân viên</div>
+                        <div data-transfer="/repairs" class="menu__body-sublist-item {{activeItemMenu activeRepair}}">Theo dõi sửa chữa</div>
+                        <div data-transfer="/brand" class="menu__body-sublist-item {{activeItemMenu activeBrand}}">Quản lý hiệu xe</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="contain">
@@ -65,15 +76,17 @@
     </div>
 <form method="GET" name="form-transfer"></form>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+    
+    <script src="/validator/validator.js"></script>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // LOAD DỮ LIỆU LÚC ĐẦU
-    
+        
         var btnMainMenu = $('.menu__body-item')
         for (var item of btnMainMenu)
         {
@@ -90,7 +103,6 @@
         // CHUYỂN TRANG
         var btnItem = $('.menu__body-sublist-item')
         var formTransfer = document.forms['form-transfer']
-        console.log(btnItem)
         btnItem.click(function() {
             formTransfer.action = this.getAttribute('data-transfer')
             formTransfer.submit()
