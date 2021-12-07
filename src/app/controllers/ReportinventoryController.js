@@ -65,7 +65,6 @@ class ReportInventoryController {
                     report_inventory.save()
                     Material.find({})
                         .then(materials => {
-
                             for (const material of materials) {
                                 var report_Inventory_detail = new Report_Inventory_Detail()
                                 report_Inventory_detail.of_report_inventory = report_inventory
@@ -82,9 +81,10 @@ class ReportInventoryController {
                                 report_Inventory_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportInventory: true,
                             })
-
                         })
                         .catch(next)
                 }
@@ -100,15 +100,15 @@ class ReportInventoryController {
                                 for (const iteam of report_inventory_details) {
                                     list.push(iteam.of_material)
                                 }
-
-
                                 res.render('report/report-inventory', {
                                     list: mutipleMongooseToObject(list),
                                     report_inventories: mutipleMongooseToObject(report_inventories),
                                     report_Inventory_date,
                                     month,
                                     year,
-                                    check
+                                    check,
+                                    activeManagementReport: true,
+                                    activeReportInventory: true,
                                 })
 
                             })
@@ -121,7 +121,6 @@ class ReportInventoryController {
                             .catch(next)
                         Material.find({})
                             .then(materials => {
-
                                 for (const material of materials) {
                                     var report_Inventory_detail = new Report_Inventory_Detail()
                                     report_Inventory_detail.of_report_inventory = report_Inventory
@@ -135,7 +134,9 @@ class ReportInventoryController {
                                     report_Inventory_date,
                                     month,
                                     year,
-                                    check
+                                    check,
+                                    activeManagementReport: true,
+                                    activeReportInventory: true,
                                 })
 
                             })
@@ -230,7 +231,9 @@ class ReportInventoryController {
                                 report_Inventory_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportInventory: true,
                             })
 
                         })
@@ -250,7 +253,9 @@ class ReportInventoryController {
                                 report_Inventory_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportInventory: true,
                             })
 
                         })

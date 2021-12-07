@@ -38,7 +38,7 @@ class ReportsaleController {
                     }
                 }
                 if (report_sale == null) {
-                    Reception.find({ status: "Paied" })
+                    Reception.find({ isSuccess: true }).populate('of_customer').populate('brand')
                         .then(Receptions => {
 
                             var firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().substring(0, 10);
@@ -56,7 +56,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
@@ -81,7 +83,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
@@ -111,7 +115,7 @@ class ReportsaleController {
                             var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
                             var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
                             
-                            Reception.find({ status: "Paied" })
+                            Reception.find({ isSuccess: true })
                                 .then(Receptions => {
 
                                     for (const reception of Receptions) {
@@ -163,7 +167,7 @@ class ReportsaleController {
                     }
                 }
                 if (report_sale == null) {
-                    Reception.find({ status: "Paied" })
+                    Reception.find({ isSuccess: true }).populate('of_customer').populate('brand')
                         .then(Receptions => {
                             var datestring = "2/" + month + "/" + year
                             var date = stringToDate(datestring, "dd/MM/yyyy", "/");
@@ -183,7 +187,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
@@ -205,7 +211,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
