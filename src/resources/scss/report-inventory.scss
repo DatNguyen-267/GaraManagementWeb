@@ -1,24 +1,24 @@
 /* Form POP UP */
-.container__report-sale {
+.container__report-inventory {
     margin: 16px 36px;
 }
-.report-sale__form-btn-close {
+.report-inventory__form-btn-close {
     font-size: 16px;
 }
 /* HEADER */
-.header__report-sale {
+.header__report-inventory {
     display: flex;
     //text-align: center;
     justify-content: space-between;
 }
-.header__report-sale__title {
+.header__report-inventory__title {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-color);
 }
 
 /* BODY */
-.ctner__report-sale{
+.ctner__report-inventory{
     height: 75vh;
     
 }
@@ -28,16 +28,16 @@
     display: block;
     margin: 0 0 20px 0;
 }
-.toolbar__report-sale-date{
+.toolbar__report-inventory-date{
     display: flex;
     align-items: center;
 }
 
-.toolbar__report-sale-date__title{
+.toolbar__report-inventory-date__title{
     margin-top: 15px;
     color: var(--text-color);
 }
-.toolbar__report-sale-date__input{
+.toolbar__report-inventory-date__input{
     border: none;
     outline: none;
     font-size: 14px;
@@ -119,7 +119,7 @@
 
 /* DANH SÁCH KHÁCH HÀNG */
 
-.list-report-sale {
+.list-report-inventory {
     background-color: var(--white-color);
     margin-top: 16px;
     height: 100%;
@@ -129,7 +129,7 @@
     border-collapse: collapse;
     width: 100%;
 }
-.list-report-sale__table{
+.list-report-inventory__table{
     font-size: 14px;
     cursor: default;
     text-align: center;

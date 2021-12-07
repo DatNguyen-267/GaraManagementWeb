@@ -32,14 +32,14 @@
                 <div class="menu__body-item">
                     <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}}" type="button" data-toggle="collapse" 
                                 data-target="#menu__body-sublist-management-customer" >
-                        <span class="menu__body-mainlist-icon ti-car"></span>
+                        <span class="menu__body-mainlist-icon ti-user"></span>
                         <div class="menu__body-mainlist-name">Quản lý khách hàng</div>
                         <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
                     </button>
-                    <div class="menu__body-sublist collapse" id="menu__body-sublist-management-customer">
-                        <div data-transfer="/" class="menu__body-sublist-item">Danh sách khách hàng</div>
-                        <div data-transfer="/" class="menu__body-sublist-item">Theo dõi công nợ</div>
-                        <div data-transfer="/" class="menu__body-sublist-item">Lịch sử dịch vụ</div>
+                    <div class="menu__body-sublist collapse {{expandSubMenu activeManagementCustomer}}" id="menu__body-sublist-management-customer">
+                        <div data-transfer="/customer" class="menu__body-sublist-item {{activeItemMenu activeCustomer}}">Danh sách khách hàng</div>
+                        <div data-transfer="/customerdebt" class="menu__body-sublist-item {{activeItemMenu activeCustomerDebt}}">Theo dõi công nợ</div>
+                        <div data-transfer="/customerhistory" class="menu__body-sublist-item {{activeItemMenu activeCustomerHistory}}">Lịch sử dịch vụ</div>
                     </div>
                 </div>
                 <div class="menu__body-item">
@@ -80,6 +80,18 @@
                         <div data-transfer="/reception" class="menu__body-sublist-item {{activeItemMenu activeListEmployee}}">Danh sách nhân viên</div>
                         <div data-transfer="/repairs" class="menu__body-sublist-item {{activeItemMenu activeRepair}}">Theo dõi sửa chữa</div>
                         <div data-transfer="/brand" class="menu__body-sublist-item {{activeItemMenu activeBrand}}">Quản lý hiệu xe</div>
+                    </div>
+                </div>
+                <div class="menu__body-item">
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementReport}} " type="button" data-toggle="collapse" 
+                            data-target="#menu__body-sublist-management-report">
+                        <span class="menu__body-mainlist-icon ti-bar-chart"></span>
+                        <div class="menu__body-mainlist-name">Báo cáo thống kê</div>
+                        <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
+                    </button>
+                    <div class="menu__body-sublist collapse {{expandSubMenu activeManagementReport}}" id="menu__body-sublist-management-report">
+                        <div data-transfer="/reportsale" class="menu__body-sublist-item {{activeItemMenu activeReportSale}}">Báo cáo doanh thu</div>
+                        <div data-transfer="/reportinventory" class="menu__body-sublist-item {{activeItemMenu activeReportInventory}}">Báo cáo tồn</div>
                     </div>
                 </div>
             </div>
