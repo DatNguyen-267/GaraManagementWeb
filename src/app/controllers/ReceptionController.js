@@ -122,6 +122,8 @@ class ReceptionController {
                             DetailMaterial: mutipleMongooseToObject(detailMaterial),
                             DetailWage: mutipleMongooseToObject(detailWage),
                             Now: now,
+                            activeManagementCar: true,
+                            activeReception: true,
                         })
                     })
                     .catch(next)

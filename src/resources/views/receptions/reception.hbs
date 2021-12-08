@@ -81,12 +81,12 @@
                 >Xóa</button>
               <button class="btn btn-danger btn-debt btn--item" data-id="{{this._id}}" data-toggle="modal"
                 data-target="#modal-debt" 
-                {{checkDebt this.isDebt this.of_repair.isSuccess}}
+                {{checkDebt this.isDebt this.isSuccessRepair}}
                 {{isHidden this.isSuccess}} 
                 >Ghi nợ</button>
               <button class="btn btn-success btn-pay btn--item" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#modal-pay" 
-                {{isEnable this.of_repair.isSuccess}} 
+                data-target="#modal-pay"
+                {{isEnable this.isSuccessRepair}} 
                 {{isHidden this.isSuccess}} 
                 >Thanh toán</button>
             </td>
@@ -130,7 +130,7 @@
               <div class="side-new-customer">
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Tên khách hàng:</label>
-                  <input type="text" placeholder="Vd: Nguyễn Thành Đạt" class="form-control" id="add-new-name" name="name">
+                  <input type="text" placeholder="" class="form-control" id="add-new-name" name="name">
                   <span class="form-message"></span>
                 </div>
                 <div class="form-group">
@@ -140,17 +140,17 @@
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Địa chỉ:</label>
-                  <input type="text" placeholder="Vd: Tiền Giang" class="form-control" id="add-address" name="address">
+                  <input type="text" placeholder="" class="form-control" id="add-address" name="address">
                   <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">CMND:</label>
-                  <input type="text" placeholder="Vd: 312329366" class="form-control" id="add-cardIdentify" name="cardIdentify">
+                  <input type="text" placeholder="" class="form-control" id="add-cardIdentify" name="cardIdentify">
                   <span class="form-message"></span> 
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Email:</label>
-                  <input type="text" placeholder="Vd: example@gmail.com" class="form-control" id="add-email" name="email">
+                  <input type="text" placeholder="" class="form-control" id="add-email" name="email">
                   <span class="form-message"></span> 
                   {{!-- form-message --}}
                 </div>
@@ -158,13 +158,13 @@
             </div>
             <div class="form-group">
                 <label for="reception-add-phone" class="col-form-label">Số điện thoại:</label>
-                <input type="text" placeholder="Vd: 099999989" class="form-control" id="reception-add-phone" name="phone" >
+                <input type="text" placeholder="" class="form-control" id="reception-add-phone" name="phone" >
                 <span class="form-message"></span>
             </div>
             <div class="double-input">
               <div class="form-group">
                 <label for="reception-add-license" class="col-form-label">Biển số xe:</label>
-                <input type="text" placeholder="Vd: 37BB8095" class="form-control" id="reception-add-license" name="license" >
+                <input type="text" placeholder="" class="form-control" id="reception-add-license" name="license" >
                 <span class="form-message"></span>
               </div>
             </div>
@@ -321,10 +321,10 @@
       form: '#form-add-reception', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
-        Validator.isRequireSelectBox('#add-old-customer','--- Chọn khách hàng ---', 'Vui chọn khách hàng'),
-        Validator.isRequire('#add-new-name', 'Vui chọn nhập tên khách hàng'),
-        Validator.isRequire('#add-birth', 'Vui chọn chọn ngày sinh'),
-        Validator.isRequire('#add-address', 'Vui chọn nhập địa chỉ'),
+        Validator.isRequireSelectBox('#add-old-customer','--- Chọn khách hàng ---', 'Vui lòng chọn khách hàng'),
+        Validator.isRequire('#add-new-name', 'Vui lòng chọn nhập tên khách hàng'),
+        Validator.isRequire('#add-birth', 'Vui lòng chọn chọn ngày sinh'),
+        Validator.isRequire('#add-address', 'Vui lòng chọn nhập địa chỉ'),
         Validator.isRequire('#add-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isEmail('#add-email'),
         Validator.isRequire('#reception-add-phone', 'Vui lòng nhập số điện thoại'),

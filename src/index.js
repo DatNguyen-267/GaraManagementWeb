@@ -44,11 +44,12 @@ app.engine('hbs', handlebars({
         if (a) return "hidden"
     },
     isDisable: (a) => {
-        if (a == true) return "disabled"
+      if (a == true) return "disabled"
+      else return ""
     },
     isEnable: (a) => {
-        if (!a) return "disabled"
-        if (a == false) return "disabled"
+      if (a == false) return "disabled"
+      else return ""
     },
     loadMaterial: (detailMaterial) => {
       var html =``
@@ -99,6 +100,10 @@ app.engine('hbs', handlebars({
       if (!isSuccessRepair) return "disabled"
       if (isDebt == true) return "disabled"
       if (isSuccessRepair == false) return "disabled"
+    },
+    checkPay(isSuccessRepair) {
+      if (!isSuccessRepair) return "disabled"
+
     }
   }
 
