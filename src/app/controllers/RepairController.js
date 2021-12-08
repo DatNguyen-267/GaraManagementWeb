@@ -22,6 +22,8 @@ class RepairController {
                         for (var reception of receptions) {
                             var check = true
                             for (var repair of repairs) {
+                                if (!repair.of_reception._id) continue
+                                if (!reception._id) continue
                                 if (repair.of_reception._id.toString() == reception._id.toString()) {
                                     check = false
                                     break

@@ -332,12 +332,16 @@
         Validator.isRequire('#reception-add-license', 'Vui lòng nhập biển số xe'),
         Validator.isRequireSelectBox('#add-brand','--- Chọn hiệu xe ---','Vui lòng chọn hiệu xe'),
         Validator.isRequire('#reception-add-receptionDate','Vui lòng chọn ngày tiếp nhận'),
+        //Validator.minLength('#reception-add-receptionDate',6),
       ],
       onSubmit: function() {
           formAddReception.action = '/reception/create' 
           formAddReception.submit()
         }
       })
+    // ISREQUIRE trống là báo lỗi
+    // 
+    
     Validator({
           form: '#form-edit', 
           errorSelector: '.form-message',
