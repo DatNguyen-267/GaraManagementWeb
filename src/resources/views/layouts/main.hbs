@@ -44,12 +44,12 @@
                 </div>
                 <div class="menu__body-item">
 
-                    <button class="menu__body-mainlist {{activeMainMenu activeEmployee}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
+                    <button class="menu__body-mainlist {{activeMainMenu activeEmployee}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-employee">
                             <span class="menu__body-mainlist-icon ti-car"></span>
                             <div class="menu__body-mainlist-name">Quản nhân viên</div>
                             <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
                     </button>
-                    <div class="menu__body-sublist collapse {{expandSubMenu activeEmployee}}" id="menu__body-sublist-quanlyxe">
+                    <div class="menu__body-sublist collapse {{expandSubMenu activeEmployee}}" id="menu__body-sublist-employee">
                         <div data-transfer="/employeeList" class="menu__body-sublist-item {{activeItemMenu activeList}}">Danh sách nhân viên</div>
                         <div data-transfer="/employeeManagerment" class="menu__body-sublist-item {{activeItemMenu activeManager}}">Nghỉ và vi phạm</div>
                         <div data-transfer="/employeeSalary" class="menu__body-sublist-item {{activeItemMenu activeSalary}}">Lương</div>
@@ -67,19 +67,6 @@
                         <div data-transfer="/" class="menu__body-sublist-item">Danh sách vật tư</div>
                         <div data-transfer="/" class="menu__body-sublist-item">Nhập kho</div>
                         <div data-transfer="/" class="menu__body-sublist-item">Xuất kho</div>
-                    </div>
-                </div>
-
-                <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementEmployee}}" type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
-                            <span class="menu__body-mainlist-icon ti-car"></span>
-                            <div class="menu__body-mainlist-name">Quản nhân viên</div>
-                            <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
-                    </button>
-                    <div class="menu__body-sublist collapse {{expandSubMenu activeManagementCar}}" id="menu__body-sublist-quanlyxe">
-                        <div data-transfer="/reception" class="menu__body-sublist-item {{activeItemMenu activeListEmployee}}">Danh sách nhân viên</div>
-                        <div data-transfer="/repairs" class="menu__body-sublist-item {{activeItemMenu activeRepair}}">Theo dõi sửa chữa</div>
-                        <div data-transfer="/brand" class="menu__body-sublist-item {{activeItemMenu activeBrand}}">Quản lý hiệu xe</div>
                     </div>
                 </div>
             </div>

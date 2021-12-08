@@ -12,24 +12,25 @@ crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <title>Quản lý tiền công</title>
-    <header class = "employeeSalary__header">
-        <h1 class = "employeeSalary__header__title">Quản lý tiền công</h1>
-        <h5>1/11/2021 - 30/11/2021</h5>
-        <nav class="navbar">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </nav>
+
+<div class = "grid__content">
+  <header class = "employeeSalary__header">
+        <h1 class = "template__title">Quản lý tiền công</h1>
+        <h7>1/11/2021 - 30/11/2021</h7>
+        <div class="toolbar">
+          <div class="toolbar__search">
+            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
+            <span class="ti-search toolbar__search-icon"> </span>
+          </div>
+          <div class="toolbar__btn">
+            <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Xuất bảng lương</button>
+          </div>
+        </div>
     </header>
     <body class = "employeeSalary__body">
-        <div class = "body__btnContainer">
-            
-            <button type="button" class="btn btn-primary" style="float: right;"><i class="fas fa-file-export"></i></button>
-        </div>
-        <div class = "table-responsive" style="margin-left:2em; margin-right:2em;">
-            <table class="table employeeSalary__body__table" id ="employeeTable">
-                <thead>
+        <div class = "table-responsive">
+            <table class="table table--default employeeSalary__body__table" id ="employeeTable">
+                <thead  class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Họ và Tên</th>
@@ -154,18 +155,36 @@ crossorigin="anonymous"></script>
             </div>
           </div>
     </body>
+</div>
 
 
-    <script>
+<script>
       var employeeID;
       const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
       $('#employeeTable tbody tr').click(function () {
         $("#infoModal").modal();
         //your code
       });
-      function modified(){
-        
-      };
+      function search(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchKey");
+        filter = input.value;
+        table = document.getElementById("employeeTable");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+        }
+      }
 
       document.addEventListener('DOMContentLoaded', function () {
       
@@ -179,7 +198,6 @@ crossorigin="anonymous"></script>
           formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
           formDelete.submit();
       })
-
       $('#form-edit').on('shown.bs.modal', function (event) {
           var button = $(event.relatedTarget)
           employeeID = button.data('id')

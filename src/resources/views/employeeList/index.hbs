@@ -11,22 +11,24 @@ crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <title>Danh sách nhân viên</title>
-    <header class = "employeeList__header">
-        <h1 class = "employeeList__header__title">Danh sách nhân viên</h1>
-        <nav class="navbar">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search " id = "searchKey" placeholder="Search here" aria-label="Search" onkeyup="search()">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </nav>
+    <div class = "grid__content">
+        <header class = "employeeList__header">
+        <h1 class = "template__title">Danh sách nhân viên</h1>
+        <div class="toolbar">
+          <div class="toolbar__search">
+            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
+            <span class="ti-search toolbar__search-icon"> </span>
+          </div>
+
+          <div class="toolbar__btn">
+            <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm phiếu tiếp nhận</button>
+          </div>
+        </div>
     </header>
     <body class = "employeeList__body">
-        <div class = "employeeList__body__btnContainer">
-            <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
-        </div>
-        <div class = "table-responsive"  style="margin-left:2em; margin-right:2em;">
-            <table class="table employeeList__body__table" id = "employeeTable" >
-                <thead>
+        <div class = "table-responsive">
+            <table class="table table--default employeeList__body__table" id = "employeeTable" >
+                <thead class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Họ và Tên</th>
@@ -36,8 +38,7 @@ crossorigin="anonymous"></script>
                     <th scope="col">CMND</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Ngày bắt đầu làm</th>
-                    <th scope="col"></th>
-                    <td></td>   
+                    <th scope="col"></th> 
                   </tr>
                 </thead>
                 <tbody>
@@ -208,6 +209,7 @@ crossorigin="anonymous"></script>
 
           
     </body>
+    </div>
 
 
     <script>
@@ -226,14 +228,15 @@ crossorigin="anonymous"></script>
           var td1 = tr[i].getElementsByTagName("td")[0];
           if (td1) {
             txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
             if (txtValue.includes(filter)) {
               tr[i].style.display = "";
             } else {
               tr[i].style.display = "none";
             }
           }   
-                 
-  }
+        }
       }
       $(".btn--edit-item").click(function() {
           employeeID = $(this).closest("tr").attr('employeeID');
