@@ -12,7 +12,7 @@ const ExportDetail = new Schema({
 })
 
 
-ImportDetail.plugin(mongooseDelete, {
+ExportDetail.plugin(mongooseDelete, {
     deletedAt: true,
     overrideMethods: 'all'
 })

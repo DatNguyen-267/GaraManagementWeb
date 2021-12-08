@@ -17,6 +17,7 @@ const importRouter = require('./import')
 const exportRouter = require('./export')
 const customerhistoryRouter =require('./customerhistory')
 const reportsaleRouter =require('./reportsale')
+const reportinventoryRouter =require('./reportinventory')
 
 
 
@@ -47,6 +48,8 @@ function route(app) {
 
       app.use('/reportsale', reportsaleRouter)
 
+      app.use('/reportinventory', reportinventoryRouter)
+
       app.use('/material', materialRouter)
 
       app.use('/supplier', supplierRouter)
@@ -54,6 +57,8 @@ function route(app) {
       app.use('/import', importRouter)
 
       app.use('/export', exportRouter)
+
+      app.use('/brand', brandRouter)
 
       app.use('/', siteRouter)
 

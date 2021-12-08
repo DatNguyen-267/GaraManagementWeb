@@ -73,6 +73,7 @@ input[disabled] {
 }
 
 .invalid input,
+.invalid select,
 .invalid .form-control:focus{
   color: #495057;
   background-color: #fff;

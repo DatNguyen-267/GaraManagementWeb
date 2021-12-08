@@ -38,14 +38,14 @@ class ReportsaleController {
                     }
                 }
                 if (report_sale == null) {
-                    Reception.find({ status: "Paied" })
+                    Reception.find({ isSuccess: true }).populate('of_customer').populate('brand')
                         .then(Receptions => {
 
                             var firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().substring(0, 10);
                             var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().substring(0, 10);
                             for (const reception of Receptions) {
                                 if (reception.receptionDate >= firstDay && reception.receptionDate <= lastDay) {
-                                    total_money = total_money + reception.paied
+                                    total_money = total_money + reception.total_money
                                     list.push(reception)
                                 }
                             }
@@ -56,7 +56,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
@@ -70,7 +72,7 @@ class ReportsaleController {
                             report_sale_date = report_sale.report_sale_date
 
                             for (const iteam of report_sale_details) {
-                                total_money = total_money + iteam.of_reception.paied
+                                total_money = total_money + iteam.of_reception.total_money
                                 list.push(iteam.of_reception)
                             }
                             //res.send(list)
@@ -81,7 +83,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
@@ -111,7 +115,7 @@ class ReportsaleController {
                             var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
                             var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
                             
-                            Reception.find({ status: "Paied" })
+                            Reception.find({ isSuccess: true })
                                 .then(Receptions => {
 
                                     for (const reception of Receptions) {
@@ -163,7 +167,7 @@ class ReportsaleController {
                     }
                 }
                 if (report_sale == null) {
-                    Reception.find({ status: "Paied" })
+                    Reception.find({ isSuccess: true }).populate('of_customer').populate('brand')
                         .then(Receptions => {
                             var datestring = "2/" + month + "/" + year
                             var date = stringToDate(datestring, "dd/MM/yyyy", "/");
@@ -172,7 +176,7 @@ class ReportsaleController {
 
                             for (const reception of Receptions) {
                                 if (reception.receptionDate >= firstDay && reception.receptionDate <= lastDay) {
-                                    total_money = total_money + reception.paied
+                                    total_money = total_money + reception.total_money
                                     list.push(reception)
                                 }
                             }
@@ -183,7 +187,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
@@ -195,7 +201,7 @@ class ReportsaleController {
                         .then(report_sale_details => {
                             report_sale_date = report_sale.report_sale_date
                             for (const iteam of report_sale_details) {
-                                total_money = total_money + iteam.of_reception.paied
+                                total_money = total_money + iteam.of_reception.total_money
                                 list.push(iteam.of_reception)
                             }
                             res.render('report/report-sale', {
@@ -205,7 +211,9 @@ class ReportsaleController {
                                 report_sale_date,
                                 month,
                                 year,
-                                check
+                                check,
+                                activeManagementReport: true,
+                                activeReportSale: true,
                             })
 
                         })
