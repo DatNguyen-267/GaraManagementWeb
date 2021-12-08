@@ -7,7 +7,9 @@ class CustomerController {
         Customer.find({})
             .then(customers => {
                 res.render('customer/customer', {
-                    customers: mutipleMongooseToObject(customers)
+                    customers: mutipleMongooseToObject(customers),
+                    activeManagementCustomer: true,
+                    activeCustomer: true,
                 })
             })
             .catch(next)
@@ -53,7 +55,9 @@ class CustomerController {
                     }
                 }
                 res.render('customer/customer-debt', {
-                    listdebt: mutipleMongooseToObject(listdebt)
+                    listdebt: mutipleMongooseToObject(listdebt),
+                    activeManagementCustomer: true,
+                    activeCustomerDebt: true,
                 })
             })
             .catch(next)
@@ -71,7 +75,9 @@ class CustomerController {
                     }
                 }
                 res.render('customer/customer-debt-detail', {
-                    listreception: mutipleMongooseToObject(listreception)
+                    listreception: mutipleMongooseToObject(listreception),
+                    activeManagementCustomer: true,
+                    activeCustomerDebt: true,
                 })
             })
             .catch(next)
@@ -99,7 +105,9 @@ class CustomerController {
                 }
                 
                 res.render('customer/customer-history', {
-                    listhistory: mutipleMongooseToObject(listhistory)
+                    listhistory: mutipleMongooseToObject(listhistory),
+                    activeManagementCustomer: true,
+                    activeCustomerHistory: true,
                 })
             })
             .catch(next)
@@ -115,7 +123,9 @@ class CustomerController {
                     }
                 }
                 res.render('customer/customer-history-detail', {
-                    listreception: mutipleMongooseToObject(listreception)
+                    listreception: mutipleMongooseToObject(listreception),
+                    activeManagementCustomer: true,
+                    activeCustomerHistory: true,
                 })
             })
             .catch(next)

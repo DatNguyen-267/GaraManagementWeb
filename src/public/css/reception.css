@@ -8,8 +8,12 @@
 
 /* HEADER */
 .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   text-align: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between; }
 
 .header__title {
@@ -19,6 +23,7 @@
 
 .header__btn-add {
   width: 180px;
+  -webkit-box-shadow: 0 2px 10px var(--blue-color-rgba);
   box-shadow: 0 2px 10px var(--blue-color-rgba); }
 
 /* BODY */
@@ -28,7 +33,6 @@
 /* DANH SÁCH PHIẾU TIẾP NHẬN */
 .list-reception {
   background-color: var(--white-color);
-  margin-top: 16px;
   height: 100%;
   border-radius: 5px;
   overflow: hidden; }

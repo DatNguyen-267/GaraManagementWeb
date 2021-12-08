@@ -82,19 +82,23 @@
                 <div class="bill__money-info-detail">
                     <div class="info-group">
                         <label for="">Tổng tiền:</label>
-                        <label >8.700.600</label>
+                        <label id="label-total-money">{{Reception.total_money}}</label>
                     </div>
                     <div class="info-group">
                         <label for="">Thuế GTGT:</label>
                         <label >5%</label>
                     </div>
                     <div class="info-group">
+                        <label for="">Tổng:</label>
+                        <input disabled id="input-total" type="text" class="form-control input-money" name="money_pay">
+                    </div>
+                    <div class="info-group">
                         <label for="">Số tiền thanh toán:</label>
-                        <input type="text" class="form-control input-money" name="money_pay">
+                        <input id="input-money-pay" type="text" class="form-control input-money" name="money_pay">
                     </div>
                     <div class="info-group">
                         <label for="">Còn nợ:</label>
-                        <input disabled type="text" class="form-control input-debt" name="debt">
+                        <input id="input-debt" disabled type="text" class="form-control input-debt" name="debt">
                     </div>
                 </div>
             </div>
@@ -145,6 +149,16 @@
             formDebt.submit()
         }
         
-
+        var inputMoneyPay = document.querySelector('#input-money-pay')
+        var labelTotalMoney = document.querySelector('#label-total-money')
+        var inputTotal = document.querySelector('#input-total')
+        var inputDebt = document.querySelector('#input-debt')
+        var totalMoney = labelTotalMoney.textContent
+        inputTotal.value = (Number.parseInt(labelTotalMoney.textContent) - Number.parseInt(labelTotalMoney.textContent) * 0.05)
+        
+        inputMoneyPay.onkeyup = function() {
+            console.log(Number.parseInt(inputTotal.value))
+            inputDebt.value = (Number.parseInt(inputTotal.value) - Number.parseInt(inputMoneyPay.value))
+        }
     })
 </script>

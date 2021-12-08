@@ -2,50 +2,50 @@
 <div class="grid__content">
   <div class="template__title">
     Quản lý sửa chữa
-</div>
-<div class="toolbar">
-    <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
-        <span class="toolbar__search-icon ti-search"> </span>
-    </div>
-    <div class="toolbar__filter"></div>
-    <div class="toolbar__btn">
-        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
-    </div>
-</div>
-<div class="list-repair">
-    <table class="table table--default">
-        <thead>
-            <tr>
-                <th scope="col">Mã phiếu sửa chữa</th>
-                <th scope="col">Mã phiếu tiếp nhận</th>
-                <th scope="col">Biển số xe</th>
-                <th scope="col">Tên khách hàng</th>
-                {{!-- <th scope="col">Ngày tạo</th> --}}
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Tổng chi phí</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each repairs}}
-            <tr>
-                <td scope="row">{{this._id}}</th>
-                <td>{{this.of_reception._id}}</td>
-                <td>{{this.license}}</td>
-                <td>{{this.customer_name}}</td>
-                {{!-- <td>{{this.createdAt}}</td> --}}
-                <td>{{this.status}}</td>
-                <td>{{this.debt}}</td>
-                <td>
-                    <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
-                    <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</div>
+  </div>
+  <div class="toolbar">
+      <div class="toolbar__search">
+          <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
+          <span class="toolbar__search-icon ti-search"> </span>
+      </div>
+      <div class="toolbar__filter"></div>
+      <div class="toolbar__btn">
+          <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
+      </div>
+  </div>
+
+      <table class="table">
+          <thead class="thead-dark">
+              <tr>
+                  <th scope="col">Mã phiếu sửa chữa</th>
+                  <th scope="col">Mã phiếu tiếp nhận</th>
+                  <th scope="col">Biển số xe</th>
+                  <th scope="col">Tên khách hàng</th>
+                  {{!-- <th scope="col">Ngày tạo</th> --}}
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col">Tổng chi phí</th>
+                  <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              {{#each repairs}}
+              <tr>
+                  <td scope="row">{{this._id}}</th>
+                  <td>{{this.of_reception._id}}</td>
+                  <td>{{this.license}}</td>
+                  <td>{{this.customer_name}}</td>
+                  {{!-- <td>{{this.createdAt}}</td> --}}
+                  <td>{{this.status}}</td>
+                  <td>{{this.debt}}</td>
+                  <td class="row-btn">
+                      <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
+                      <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                  </td>
+              </tr>
+              {{/each}}
+          </tbody>
+      </table>
+
 </div>
 <!-- MODAL -->
 
@@ -64,6 +64,7 @@
             <div class="form-group">
                 <label for="input-add-license">Biển số:</label>
                 <select class="form-control" id="input-add-license" name="id">
+                    <option>--- Chọn biển số ---</option>
                     {{#each waitReceptions}}
                     <option value="{{this._id}}">{{this.license}}</option>
                     {{/each}}
@@ -72,9 +73,9 @@
             <div class="form-group">
                 <label for="input-add-name">Tên khách hàng:</label>
                 <select class="form-control" id="input-add-name" name="customer_name">
+                    <option>--- Chọn tên khách hàng ---</option>
                     {{#each waitReceptions}}
-                    <option>{{this.of_customer.name}}</option>
-                    
+                    <option data-id="{{this._id}}">{{this.of_customer.name}}</option>
                     {{/each}}
                 </select>
             </div>
@@ -175,5 +176,26 @@
       formDelete.submit()
     })
 
+    var inputAddLicense = document.querySelector('#input-add-license')
+    var inputAddName = document.querySelector('#input-add-name')
+    inputAddLicense.onchange = function() {
+      var id = this.item(this.options.selectedIndex).value
+      for (var i = 1 ; i < inputAddName.options.length ; i++) {
+        if (inputAddName.options[i].getAttribute('data-id') == id) {
+            inputAddName.options.item(i).selected= 'selected'
+        }
+      }
+    }
+    inputAddName.onchange = function() {
+      var id = this.item(this.options.selectedIndex).getAttribute('data-id')
+      for (var i = 1 ; i < inputAddLicense.options.length ; i++) {
+        if (inputAddLicense.options[i].value == id) {
+          inputAddLicense.options.item(i).selected= 'selected'
+          break;
+            
+        }
+        
+      }
+    }
   })
 </script>

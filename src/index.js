@@ -9,13 +9,14 @@ const app = express()
 const port = 8080
 const route = require('./routes')
 const db = require('./config/db')
+const { $where } = require('./app/models/EmployeeManagerment')
 
 // Connect DB
 db.connect();
 
 app.use(methodOverride('_method'))
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '/public')))
 // HTTP logger
 app.use(express.urlencoded({
     extended:true
@@ -28,7 +29,13 @@ app.use(morgan('combined'))
 app.engine('hbs', handlebars({
   extname:'.hbs',
   helpers: {
-    sum: (a, b) => a + b,
+    sum: (a,b) => a + b,
+    permission: (check) => {
+      if (check == "true"){
+        return "Có phép"
+      }
+      return "Không phép"
+    },
     isShow: (a) => {
       if (a == false) return "hidden"
       else return "xxx"
@@ -37,12 +44,11 @@ app.engine('hbs', handlebars({
         if (a) return "hidden"
     },
     isDisable: (a) => {
-      if (a == false) return ""
-      else return "disabled"
+        if (a == true) return "disabled"
     },
     isEnable: (a) => {
-      if (a == true) return ""
-      else return "disabled"
+        if (!a) return "disabled"
+        if (a == false) return "disabled"
     },
     loadMaterial: (detailMaterial) => {
       var html =``
@@ -76,7 +82,7 @@ app.engine('hbs', handlebars({
       if (status == "Hoàn thành")
         return "status--success"
       if (status == "Mới")
-        return "status--success"
+        return "status--new"
       if (status == "Nợ")
         return "status--danger"
     },
@@ -89,6 +95,11 @@ app.engine('hbs', handlebars({
     activeItemMenu(active) {
       if (active) return "menu__body-sublist-item--active"
     },
+    checkDebt(isDebt, isSuccessRepair) {
+      if (!isSuccessRepair) return "disabled"
+      if (isDebt == true) return "disabled"
+      if (isSuccessRepair == false) return "disabled"
+    }
   }
 
 }));

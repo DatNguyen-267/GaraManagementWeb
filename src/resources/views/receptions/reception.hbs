@@ -2,7 +2,6 @@
 <div class="grid__content {{active}}">
   <div class="header">
     <div class="template__title">Tiếp nhận xe</div>
-    
   </div>
   <div class="ctner">
     <div class="toolbar">
@@ -10,6 +9,7 @@
         <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin xe...">
         <span class="ti-search toolbar__search-icon"> </span>
       </div>
+
       <div class="dropdown toolbar__filter">
         <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,10 +21,11 @@
           <a class="toolbar__filter-item dropdown-item" href="#">Đã hoàn thành</a>
         </div>
       </div>
+
       <div class="toolbar__btn">
-          <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
+        <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#modal-add-reception">Thêm phiếu
               tiếp nhận</button>
-        </div>
+      </div>
     </div>
     <div class="list-reception">
       <table class="table table--default">
@@ -59,7 +60,7 @@
             <td>{{this.license}}</td>
             <td>{{this.brand.name}}</td>
             <td>{{this.of_customer.name}}</td>
-            {{!-- <td>{{this.phone}}</td> --}}
+            <td hidden>{{this.phone}}</td>
             <td>{{this.receptionDate}}</td>
             <td>
               <div class="{{loadStatus this.status}}">
@@ -68,23 +69,19 @@
               </td>
             <td>{{this.debt}}</td>
             <td class="row-btn" >
-              <button class="btn btn-info btn--item btn--item-min-width " data-id="{{this._id}}" data-toggle="modal"
+              <button class=" btn-edit-item btn btn-info btn--item btn--item-min-width " data-id="{{this._id}}" data-toggle="modal"
                 data-target="#form-edit-reception" 
                 {{isDisable this.of_repair.contracted}} 
                 {{isHidden this.isSuccess}} 
                 >Sửa</button>
-              <button class="btn btn-danger btn--item btn--item-min-width" data-id="{{this._id}}" data-toggle="modal"
+              <button class="btn-delete-item btn btn-danger btn--item btn--item-min-width" data-id="{{this._id}}" data-toggle="modal"
                 data-target="#form-delete-reception" 
                 {{isDisable this.of_repair.contracted}} 
                 {{isHidden this.isSuccess}} 
                 >Xóa</button>
               <button class="btn btn-danger btn-debt btn--item" data-id="{{this._id}}" data-toggle="modal"
                 data-target="#modal-debt" 
-                {{#if this.isDebt}}
-                  {{isDisable this.isDebt}} 
-                {{else}}
-                  {{isEnable this.of_repair.contracted}} 
-                {{/if}}
+                {{checkDebt this.isDebt this.of_repair.isSuccess}}
                 {{isHidden this.isSuccess}} 
                 >Ghi nợ</button>
               <button class="btn btn-success btn-pay btn--item" data-id="{{this._id}}" data-toggle="modal"
@@ -104,8 +101,8 @@
 
 <!-- POP UP FORM -->
 <!-- FORM THÊM PHIẾU TIẾP NHẬN-->
-<form method="POST" action="/reception/create">
-  <div class="modal fade" id="form-add-reception" tabindex="-1" role="dialog">
+<form method="POST" action="/reception/create" id="form-add-reception" name="form-add-reception">
+  <div class="modal fade" id="modal-add-reception" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -118,12 +115,13 @@
           <form>
             <div class="form-group" id="form-old-customer">
               <label for="reception-add-name" class="col-form-label">Tên khách hàng:</label>
-              <select class="form-control" name="oldCustomer"> 
+              <select class="form-control" name="oldCustomer" id="add-old-customer"> 
                     <option>--- Chọn khách hàng ---</option>
                     {{#each Customers}}   
                     <option value="{{this._id}}">{{this.name}}</option>
                     {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
             <p>
             <div class="customer-check">
@@ -132,49 +130,59 @@
               <div class="side-new-customer">
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Tên khách hàng:</label>
-                  <input type="text" class="form-control" name="name">
+                  <input type="text" placeholder="Vd: Nguyễn Thành Đạt" class="form-control" id="add-new-name" name="name">
+                  <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                   <label for="reception-add-receptionDate" class="col-form-label">Ngày sinh:</label>
-                  <input type="date" class="form-control"  name="birthday">
+                  <input type="date" class="form-control"  id="add-birth" name="birthday">
+                  <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Địa chỉ:</label>
-                  <input type="text" class="form-control" name="address">
+                  <input type="text" placeholder="Vd: Tiền Giang" class="form-control" id="add-address" name="address">
+                  <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">CMND:</label>
-                  <input type="text" class="form-control" name="cardIdentify">
+                  <input type="text" placeholder="Vd: 312329366" class="form-control" id="add-cardIdentify" name="cardIdentify">
+                  <span class="form-message"></span> 
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Email:</label>
-                  <input type="text" class="form-control" name="email">
+                  <input type="text" placeholder="Vd: example@gmail.com" class="form-control" id="add-email" name="email">
+                  <span class="form-message"></span> 
+                  {{!-- form-message --}}
                 </div>
               </div>
             </div>
             <div class="form-group">
                 <label for="reception-add-phone" class="col-form-label">Số điện thoại:</label>
-                <input type="text" class="form-control" id="reception-add-phone" name="phone" >
+                <input type="text" placeholder="Vd: 099999989" class="form-control" id="reception-add-phone" name="phone" >
+                <span class="form-message"></span>
             </div>
             <div class="double-input">
               <div class="form-group">
-                <label for="reception-add-lincense" class="col-form-label">Biển số xe:</label>
-                <input type="text" class="form-control" id="reception-add-lincense" name="license" >
+                <label for="reception-add-license" class="col-form-label">Biển số xe:</label>
+                <input type="text" placeholder="Vd: 37BB8095" class="form-control" id="reception-add-license" name="license" >
+                <span class="form-message"></span>
               </div>
             </div>
             
             <div class="form-group">
               <label for="reception-add-brand" class="col-form-label">Hiệu xe:</label>
-              <select class="form-control" name="brand">    
+              <select class="form-control" name="brand" id="add-brand">    
                     <option>--- Chọn hiệu xe ---</option>
                     {{#each Brands}}   
                     <option value="{{this._id}}">{{this.name}}</option>
                     {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="reception-add-receptionDate" class="col-form-label">Ngày tiếp nhận:</label>
               <input type="date" class="form-control" id="reception-add-receptionDate" name="receptionDate">
+              <span class="form-message"></span>
             </div>
           </form>
         </div>
@@ -187,50 +195,8 @@
   </div>
 </form>
 
-<!-- FORM XEM PHIẾU TIẾP NHẬN-->
-<div class="modal fade" id="form-view-reception" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
-        <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="reception-view-name" class="col-form-label">Tên khách hàng:</label>
-            <input readonly type="text" class="form-control" id="reception-view-name" name="reception-view-name">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-lincense" class="col-form-label">Biển số xe:</label>
-            <input readonly type="text" class="form-control" id="reception-view-license" name="reception-view-lincense">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-phone" class="col-form-label">Số điện thoại:</label>
-            <input readonly type="text" class="form-control" id="reception-view-phone" name="reception-view-phone">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-address" class="col-form-label">Hiệu xe:</label>
-            <input readonly type="text" class="form-control" id="reception-view-brand" name="reception-view-address">
-          </div>
-          <div class="form-group">
-            <label for="reception-view-address" class="col-form-label">Ngày tiếp nhận:</label>
-            <input readonly type="date" class="form-control" id="reception-view-receptionDate"
-              name="reception-view-address">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- FORM SỬA PHIẾU TIẾP NHẬN-->
-<form method="POST" name="form-submit">
+<form method="POST" name="form-submit" id="form-edit">
   <div class="modal fade" id="form-edit-reception" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -245,28 +211,38 @@
             <div class="form-group">
               <label for="reception-edit-name" class="col-form-label">Tên khách hàng:</label>
               <input type="text" class="form-control" id="reception-edit-name" name="name">
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="reception-edit-lincense" class="col-form-label">Biển số xe:</label>
               <input type="text" class="form-control" id="reception-edit-license" name="license">
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="reception-edit-phone" class="col-form-label">Số điện thoại:</label>
               <input type="text" class="form-control" id="reception-edit-phone" name="phone">
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
-              <label for="reception-edit-address" class="col-form-label">Hiệu Xe:</label>
-              <input type="text" class="form-control" id="reception-edit-brand" name="brand">
+              <label for="reception-edit-brand" class="col-form-label">Hiệu xe:</label>
+              <select class="form-control" name="brand" i id="reception-edit-brand">    
+                    <option>--- Chọn hiệu xe ---</option>
+                    {{#each Brands}}   
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+              </select>
+              <span class="form-message"></span>
             </div>
-            <div class="form-group">
+            {{!-- <div class="form-group">
               <label for="reception-edit-address" class="col-form-label">Ngày tiếp nhận:</label>
               <input type="date" class="form-control" id="reception-edit-receptionDate" name="receptionDate">
-            </div>
+              <span class="form-message"></span>
+            </div> --}}
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-          <button id="btn-edit-form" type="button" class="btn btn--send-dialog">Sửa</button>
+          <button id="btn-edit-form" type="submit" class="btn btn--send-dialog">Sửa</button>
         </div>
       </div>
     </div>
@@ -337,16 +313,52 @@
 <form name="form-pay" method="GET"></form>
 <form name="form-debt" method="GET"></form>
 
-
-
 <!-- MAIN CSS -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // VALIDATE
+    Validator({
+      form: '#form-add-reception', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequireSelectBox('#add-old-customer','--- Chọn khách hàng ---', 'Vui chọn khách hàng'),
+        Validator.isRequire('#add-new-name', 'Vui chọn nhập tên khách hàng'),
+        Validator.isRequire('#add-birth', 'Vui chọn chọn ngày sinh'),
+        Validator.isRequire('#add-address', 'Vui chọn nhập địa chỉ'),
+        Validator.isRequire('#add-cardIdentify', 'Vui lòng nhập CMND'),
+        Validator.isEmail('#add-email'),
+        Validator.isRequire('#reception-add-phone', 'Vui lòng nhập số điện thoại'),
+        Validator.isNumber('#reception-add-phone'),
+        Validator.isRequire('#reception-add-license', 'Vui lòng nhập biển số xe'),
+        Validator.isRequireSelectBox('#add-brand','--- Chọn hiệu xe ---','Vui lòng chọn hiệu xe'),
+        Validator.isRequire('#reception-add-receptionDate','Vui lòng chọn ngày tiếp nhận'),
+      ],
+      onSubmit: function() {
+          formAddReception.action = '/reception/create' 
+          formAddReception.submit()
+        }
+      })
+    Validator({
+          form: '#form-edit', 
+          errorSelector: '.form-message',
+          rules: [
+            Validator.isRequire('#reception-edit-name', 'Vui lòng nhập số điện thoại'),
+            Validator.isRequire('#reception-edit-license', 'Vui lòng nhập biển số xe'),
+            Validator.isRequire('#reception-edit-phone', 'Vui lòng nhập số điện thoại'),
+            Validator.isNumber('#reception-edit-phone',),
+            Validator.isRequire('#reception-edit-brand', 'Vui lòng chọn hiệu xe'),
+            //Validator.isRequire('#reception-edit-receptionDate', 'Vui lòng chọn ngày tiếp nhận'),
+          ],
+          onSubmit: function() {
+            formSubmit.action = '/reception/' + receptionId + '/?_method=PUT' 
+            formSubmit.submit()
+          }
+    })
+    const formAddReception= document.forms['form-add-reception']
     var formSubmit = document.forms['form-submit']
     var formDelete = document.forms['form-delete']
     var btnSubmitEdit = $('#btn-edit-form')
-    var btnView = $('.btn--view-item')
-    var btnEdit = $('.btn--edit-item')
+    var btnEdit = $('.btn-edit-item')
     var btnAcceptDelete = $('#btn-accept-delete')
 
     var receptionId;
@@ -355,35 +367,24 @@
       var button = $(event.relatedTarget)
       receptionId = button.data('id')
     })
-    btnSubmitEdit.click(function () {
-      formSubmit.action = '/reception/' + receptionId + '/?_method=PUT'
-      formSubmit.submit()
-    })
     $('#form-delete-reception').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
       receptionId = button.data('id')
-    })
-    btnView.click(function () {
-      var id = $(this).data('id')
-      var rowData = $(this).parents('tr')[0]
-      $('#reception-view-license').val(rowData.cells[1].textContent)
-      $('#reception-view-brand').val(rowData.cells[2].textContent)
-      $('#reception-view-name').val(rowData.cells[3].textContent)
-      $('#reception-view-phone').val(rowData.cells[4].textContent)
-      $('#reception-view-receptionDate').val(rowData.cells[5].textContent)
     })
     btnEdit.click(function () {
       var id = $(this).data('id')
       var rowData = $(this).parents('tr')[0]
       $('#reception-edit-license').val(rowData.cells[1].textContent)
-      $('#reception-edit-brand').val(rowData.cells[2].textContent)
       $('#reception-edit-name').val(rowData.cells[3].textContent)
       $('#reception-edit-phone').val(rowData.cells[4].textContent)
-      var mydate = new Date(rowData.cells[5].textContent);
-      console.log(mydate.toDateString());
-      console.log(rowData.cells[5].textContent)
+      //var mydate = new Date(rowData.cells[5].textContent);
+      //$('#reception-edit-receptionDate').val(new Date(mydate).toDateString())
 
-      $('#reception-edit-receptionDate').val(mydate.toDateString())
+      var selecteBrand = document.querySelector('#reception-edit-brand')
+      for (var i = 0 ; i < selecteBrand.options.length ; i++) {
+        if (selecteBrand.options[i].textContent == rowData.cells[2].textContent)
+          selecteBrand.options.item(i).selected = 'selected'
+      }
     })
     btnAcceptDelete.click(function () {
       if (receptionId != null) {
@@ -392,15 +393,29 @@
       }
 
     })
-
+    $("#form-old-customer").attr('disabled',false);
+    $("#add-new-name").attr('disabled','disabled');
+    $("#add-birth").attr('disabled','disabled');
+    $("#add-address").attr('disabled','disabled');
+    $("#add-cardIdentify").attr('disabled','disabled');
+    $("#add-email").attr('disabled','disabled');
     const checkboxNewCustomer = document.getElementById('customer-check-input')
     const formOldCustomer = document.querySelector('#form-old-customer')
-    console.log(formOldCustomer)
     checkboxNewCustomer.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
           $("#form-old-customer").attr('disabled','disabled');
+          $("#add-new-name").attr('disabled',false);
+          $("#add-birth").attr('disabled',false);
+          $("#add-address").attr('disabled',false);
+          $("#add-cardIdentify").attr('disabled',false);
+          $("#add-email").attr('disabled',false);
       } else {
           $("#form-old-customer").attr('disabled',false);
+          $("#add-new-name").attr('disabled','disabled');
+          $("#add-birth").attr('disabled','disabled');
+          $("#add-address").attr('disabled','disabled');
+          $("#add-cardIdentify").attr('disabled','disabled');
+          $("#add-email").attr('disabled','disabled');
       }
     })
 

@@ -60,12 +60,12 @@
                     <tr data-id="{{this._id}}">
                         <th scope="row">{{@index}}</th>
                         <td>{{this.license}}</td>
-                        <td>{{this.brand}}</td>
-                        <td>{{this.name}}</td>
+                        <td>{{this.brand.name}}</td>
+                        <td>{{this.of_customer.name}}</td>
                         <td>{{this.phone}}</td>
                         <td>{{this.receptionDate}}</td>
                         <td>{{this.debt}}</td>
-                        <td>{{this.paied}}</td>
+                        <td>{{this.total_money}}</td>
                         <td>{{this.status}}</td>
                         <td></td>
                     </tr>
@@ -173,7 +173,7 @@
 
 <form method="POST" name="form-search"></form>
 <!-- scrip -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+{{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -183,7 +183,7 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="./jquery.table2excel.min.js"></script>
+<script src="./jquery.table2excel.min.js"></script> --}}
 {{!--Load Tháng Hiện Tại --}}
 <script>
     var month_min = 1,
@@ -217,32 +217,33 @@
 <script>
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;
-
         var a = window.open();
-
-        var originalContents = document.body.innerHTML;
-
         var report_date = document.getElementById("report-sale-date-input").value
-
         var select_month = document.getElementById('search-select--month');
-        var option_month = select_month.options[select_month.selectedIndex].text;
-
+        var option_month = select_month.options[select_month.selectedIndex].value;
         var select_year = document.getElementById('search-select--year');
-        var option_year = select_year.options[select_year.selectedIndex].text
+        var option_year = select_year.options[select_year.selectedIndex].value;
+        var total_money = document.getElementById("total-money__p").innerHTML
 
-        var total_money = document.getElementById("total-money__p").innerText
-
-        a.document.body.innerHTML = "Báo cáo doanh thu <br> Ngày lập: " + report_date + "<br>Tháng: "+option_month+" Năm: "+option_year+"<body>" + printContents + "</body> Tổng tiền: " +total_money ;
-
-        a.print()
-
-        a.document.body.innerHTML = originalContents;
-       
-        a.document.close()
-
+        a.document.write(`<html>
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                <link rel="stylesheet" href="/vendor/open-iconic-master/font/css/open-iconic-bootstrap.css">
+                <link rel="stylesheet" href="/css/base.css">
+                <link rel="stylesheet" href="/css/report-sale.css">
+            </head>`);
+        a.document.write('<body> <h3>Báo cáo doanh thu</h3>')
+        a.document.write('<p>Ngày lập: '+ report_date+ '<p>')
+        a.document.write('<p>Tháng: '+ option_month+'  Năm: '+option_year+'<p>')
+        a.document.write(printContents) ;
+        a.document.write('<p>Tổng tiền: '+ total_money+'<p>')
+        a.print();
+        a.document.close();
         a.window.close()
-
-        
     }
     
 </script>

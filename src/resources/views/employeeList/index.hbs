@@ -1,0 +1,290 @@
+
+<link rel="stylesheet" href="/css/employeeList.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<title>Danh sách nhân viên</title>
+    <header class = "employeeList__header">
+        <h1 class = "employeeList__header__title">Danh sách nhân viên</h1>
+        <nav class="navbar">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search " id = "searchKey" placeholder="Search here" aria-label="Search" onkeyup="search()">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+    </header>
+    <body class = "employeeList__body">
+        <div class = "employeeList__body__btnContainer">
+            <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
+        </div>
+        <div class = "table-responsive"  style="margin-left:2em; margin-right:2em;">
+            <table class="table employeeList__body__table" id = "employeeTable" >
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Họ và Tên</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">CMND</th>
+                    <th scope="col">Chức vụ</th>
+                    <th scope="col">Ngày bắt đầu làm</th>
+                    <th scope="col"></th>
+                    <td></td>   
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  {{#each employee}}
+                  <tr employeeID = "{{this._id}}">
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td id = "name">{{this.name}}</td>
+                    <td id = "address">{{this.address}}</td>
+                    <td id = "phoneNumber">{{this.phoneNumber}}</td>
+                    <td id = "email">{{this.email}}</td>
+                    <td id = "CMND">{{this.CMND}}</td>  
+                    <td id = "tag">{{this.Tag}}</td>
+                    <td id = "startDate">{{this.startDate}}</td>
+                    <td>
+                      <button class = "btn--edit-item" onclick="">Sửa</i></button>
+                      <button class = "btn--delete-item" onclick="deleted()">Xóa</i></button>
+                    </td>           
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table> 
+        </div>
+          
+          <!--Modified Modal -->
+          <form method="POST" name = "form-edit" action = "">
+            <div class="modal fade " id="modifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
+                      <input type="text" class="form-control" name="name"  id = "m_name">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
+                      <input type="text" class="form-control" name="address"  id = "m_address">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
+                      <input type="text" class="form-control" name="phoneNumber"  id = "m_phoneNumber">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
+                      <input type="text" class="form-control" name="email"  id = "m_email">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
+                      <input type="text" class="form-control" name="CMND"  id = "m_CMND">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
+                      <select class = "form-control" name="Tag" placeholder="" id = "m_tag">
+                            <option value= "" disabled selected>Chọn loại nhân viên</option>
+                            {{#each tag}}
+                            <option value="{{this.name}}" salary = "{{this.salary}}" class= "mOps">{{this.name}}</option>
+                            {{/each}}
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
+                      <input type="text" class="form-control" name="salary" readonly id = "m_salary">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
+                      <input type="date" class="form-control dataStr" name="startDate" id = "m_startDate">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="button" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+          <!--Add Modal -->
+          <form method="POST" action="/employeeList/create">
+            <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Thêm nhân viên</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id =  "test">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
+                      <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
+                      <input type="text" class="form-control" name="address">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
+                      <input type="text" class="form-control" name="phoneNumber">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
+                      <input type="text" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
+                      <input type="text" class="form-control" name="CMND">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
+                      <select class = "form-control" name="Tag" placeholder="" id = "n_tag">
+                            <option value= "" disabled selected>Chọn loại nhân viên</option>
+                            {{#each tag}}
+                              <option value="{{this.name}}" salary = "{{this.salary}}" class= "nOps">{{this.name}}</option>
+                            {{/each}}
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
+                      <input type="text" class="form-control" name="salary" style="" readonly id = "n_salary">
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
+                      <input type="date" class="form-control dataStr" name="startDate">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="summit" class="btn btn-primary" onclick="add()">Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+          <!--Delete Modal -->
+          <form name="form-delete" method="POST" action="">
+              <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <label id = "informLabel">Bạn có chắc chắn muốn xóa nhân viên x?</label>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete">Xóa</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+         
+
+          
+    </body>
+
+
+    <script>
+      var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          });
+      var employeeID;
+      function search(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchKey");
+        filter = input.value;
+        table = document.getElementById("employeeTable");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+                 
+  }
+      }
+      $(".btn--edit-item").click(function() {
+          employeeID = $(this).closest("tr").attr('employeeID');
+          $('#m_name').val($(this).closest("tr").find("#name").text());
+          $('#m_address').val($(this).closest("tr").find("#address").text());
+          $('#m_phoneNumber').val($(this).closest("tr").find("#phoneNumber").text());
+          $('#m_email').val($(this).closest("tr").find("#email").text());
+          $('#m_CMND').val($(this).closest("tr").find("#CMND").text());
+          $('#m_tag').val($(this).closest("tr").find("#tag").text());
+          $('#m_salary').val($('option:selected').attr('salary'));
+          $('#m_startDate').val($(this).closest("tr").find("#startDate").text());
+          $("#modifiedModal").modal();
+      });
+      
+      $('#m_tag').change(function(){
+          $('#m_salary').val($('.mOps:selected').attr('salary'));
+      });
+       $('#n_tag').change(function(){
+          $('#n_salary').val($('.nOps:selected').attr('salary'));
+      });
+
+      $(".btn--delete-item").click(function() {
+          var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
+          $("#informLabel").text(temp);
+          employeeID = $(this).closest("tr").attr('employeeID');
+          $("#deleteModal").modal();
+      });
+
+      document.addEventListener('DOMContentLoaded', function () {
+      
+      var tdActive;
+      var btnDelete = $('#btn-delete')
+      var btnAcceptEdit = $('#btn-accept-edit')
+      var formEdit = document.forms['form-edit']
+      var formDelete = document.forms['form-delete']
+      var btnEdit = $('.btn-edit')
+      btnDelete.click(function() {
+          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
+          formDelete.submit();
+      })
+
+      
+      btnAcceptEdit.click(function() {
+        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
+        formEdit.submit()
+      })
+      btnEdit.click(function(){
+        var row = $(this).parents('tr')[0]
+        $('#form-edit-name').val(row.cells[1].textContent)
+      })
+    });
+
+      
+    </script>
