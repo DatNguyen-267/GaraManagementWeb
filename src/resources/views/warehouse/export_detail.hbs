@@ -1,10 +1,24 @@
+<div class="grid__content">
+  <div class="template__title">
+    Danh sách vật tư
+</div>
+<div class="toolbar">
+    <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
+        <span class="toolbar__search-icon ti-search"> </span>
+    </div>
+    <div class="toolbar__filter"></div>
+    <div class="toolbar__btn">
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="">Xuất kho</button>
+    </div>
+</div>
+
 <table class="table table--default">
-  <thead class="thead-dark">
+  <thead>
     <tr>
       <th scope="col">Tên vật tư</th>
       <th scope="col">Số lượng</th>
       <th scope="col">Giá bán</th>
-      <th scope="col" colspan="2">Thao tác</th>
     </tr>
   </thead>
   <tbody>
@@ -13,8 +27,6 @@
         <td>{{this.material_name}}</td>
         <td>{{this.amount}}</td>
         <td>{{this.sell_price}}</td>
-        <td>
-        </td>
       </tr>
     {{/each}}
   </tbody>

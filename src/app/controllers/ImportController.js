@@ -25,6 +25,8 @@ class ImportController {
                         res.render('warehouse/import', {
                             vouchers: mutipleMongooseToObject(vouchers),
                             suppliers: mutipleMongooseToObject(suppliers),
+                            activeManagementWarehouse: true,
+                            activeImport: true,
                         })
                     })
             }).catch(next)

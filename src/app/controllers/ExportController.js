@@ -8,10 +8,21 @@ const Repair_Detail_Material = require('../models/Repair_Detail_Material')
 class ExportController {
     show(req, res, next) {
         Repair.find({}).then((repairs) => {
+            let list = []
+            for (var repair of repairs) {
+                Repair_Detail_Material.find({ of_repair: repair._id }).then((materials) => {
+                    if (materials.length) {
+                        list.push(repair)
+                    }
+                }).then(() => { })
+            }
+
             ExportVoucher.find({ exported: false }).then((vouchers) => {
                 res.render('warehouse/export', {
                     vouchers: mutipleMongooseToObject(vouchers),
-                    repairs: mutipleMongooseToObject(repairs)
+                    repairs: mutipleMongooseToObject(list),
+                    activeManagementWarehouse: true,
+                    activeExport: true
                 })
             })
         })

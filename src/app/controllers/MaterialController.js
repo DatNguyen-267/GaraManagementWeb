@@ -11,6 +11,8 @@ class MaterialController {
                     res.render('warehouse/material', {
                         materials: mutipleMongooseToObject(materials),
                         suppliers: mutipleMongooseToObject(suppliers),
+                        activeManagementWarehouse: true,
+                        activeMaterial: true,
                     })
                 })
                 .catch(next)
