@@ -44,12 +44,11 @@ app.engine('hbs', handlebars({
         if (a) return "hidden"
     },
     isDisable: (a) => {
-      if (a == false) return ""
-      else if (a==true) return "disabled"
+        if (a == true) return "disabled"
     },
     isEnable: (a) => {
-      if (a == true) return ""
-      else if (a== false) return "disabled"
+        if (!a) return "disabled"
+        if (a == false) return "disabled"
     },
     loadMaterial: (detailMaterial) => {
       var html =``
@@ -96,6 +95,11 @@ app.engine('hbs', handlebars({
     activeItemMenu(active) {
       if (active) return "menu__body-sublist-item--active"
     },
+    checkDebt(isDebt, isSuccessRepair) {
+      if (!isSuccessRepair) return "disabled"
+      if (isDebt == true) return "disabled"
+      if (isSuccessRepair == false) return "disabled"
+    }
   }
 
 }));

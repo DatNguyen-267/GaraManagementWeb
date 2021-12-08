@@ -26,13 +26,11 @@
   --blue-color-rgba: rgba(0, 123, 255, 0.1); }
 
 * {
-  -webkit-box-sizing: inherit;
   box-sizing: inherit; }
 
 html {
   /* Hack font size 1rem = 10px */
   font-family: "Roboto", sans-serif;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
 button[disabled] {
@@ -47,6 +45,7 @@ input[disabled] {
   pointer-events: none; }
 
 .invalid input,
+.invalid select,
 .invalid .form-control:focus {
   color: #495057;
   background-color: #fff;
@@ -85,10 +84,7 @@ input[disabled] {
   align-items: center; }
 
 .grid__row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap; }
 
 .gird__full-width {
@@ -103,32 +99,16 @@ input[disabled] {
   flex-direction: column; }
 
 /* ANIMATION */
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-
 @keyframes fadein {
   from {
     opacity: 0; }
   to {
     opacity: 1; } }
 
-@-webkit-keyframes growth {
-  from {
-    -webkit-transform: scale(var(--growth-from));
-    transform: scale(var(--growth-from)); }
-  to {
-    -webkit-transform: scale(var(--growth-to));
-    transform: scale(var(--growth-to)); } }
-
 @keyframes growth {
   from {
-    -webkit-transform: scale(var(--growth-from));
     transform: scale(var(--growth-from)); }
   to {
-    -webkit-transform: scale(var(--growth-to));
     transform: scale(var(--growth-to)); } }
 
 /* MODAL */
@@ -138,10 +118,7 @@ input[disabled] {
   left: 0;
   right: 0;
   bottom: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-animation: fadein linear 0.1s;
   animation: fadein linear 0.1s;
   z-index: 1;
   /* display: none; */ }
@@ -159,7 +136,6 @@ input[disabled] {
   margin-top: 5vh;
   position: relative;
   z-index: 1;
-  -webkit-animation: growth linear 0.1s;
   animation: growth linear 0.1s; }
 
 /* BUTTON */
@@ -174,14 +150,8 @@ input[disabled] {
   outline: none;
   cursor: pointer;
   color: var(--text-color);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   line-height: 16px;
   position: relative; }
@@ -256,8 +226,6 @@ input[disabled] {
   font-weight: 500;
   margin: 0 8px;
   border: none;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center; }
 
 .btn--send-dialog {

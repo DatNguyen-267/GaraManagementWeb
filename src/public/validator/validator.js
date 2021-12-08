@@ -2,7 +2,9 @@
 function Validator(options) {
     var selectorRules = []
     // Hàm thực hiện validate
+    function getParent(element) {
 
+    }
     function validate(inputElement, rule) {
         var errorElement = inputElement.parentElement.querySelector(options.errorSelector)
         var errorMessage
@@ -22,16 +24,35 @@ function Validator(options) {
             errorElement.innerText = ''
             inputElement.parentElement.classList.remove('invalid')
         }
+
+        return !errorMessage
     }
     var formElement = document.querySelector(options.form)
     if (formElement) {
-        formElement.onsubmit = function(e) {
+        formElement.onsubmit = function (e) {
             e.preventDefault()
+
+            var isFormValid = true
+
             // Lặp qua từng rule và validate
             options.rules.forEach(function (rule) {
                 var inputElement = formElement.querySelector(rule.selector)
-                validate(inputElement, rule)
+                if (!inputElement.getAttribute('disabled')) {
+ 
+                    var isValid = validate(inputElement, rule)
+                    if (!isValid ) {
+                        isFormValid = false
+                    }
+                }
             })
+            
+            if (isFormValid) {
+                // console.log( options.action)
+
+                // formElement.action = options.action
+                // formElement.submit()
+                options.onSubmit()
+            }
         }
         options.rules.forEach(function (rule) {
             // Lưu lại các rule cho mỗi inputElement
@@ -57,7 +78,6 @@ function Validator(options) {
                     inputElement.parentElement.classList.remove('invalid')
                 }
             }
-            console.log(rule)
         })
     }
 }
@@ -76,6 +96,34 @@ Validator.isEmail = function (selector) {
         test: function(value) {
             var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             return regex.test(value) ? undefined : 'Trường này phải là email'
+        },
+    }
+}
+Validator.minLength = function (selector, min , errorMessage) {
+    return {
+        selector: selector,
+        test: function (value) {
+            return value.length >= min ? undefined: `Vui lòng nhập tối thiểu ${min} ký tự`
+        }
+    }
+}
+Validator.isRequireSelectBox = function (selector, textException,errorMessage) {
+    return {
+        selector: selector,
+        test: function (value) {
+            if (value == textException) return errorMessage || 'Vui lòng nhập trường này'
+            if (value) return undefined
+            return errorMessage || 'Vui lòng nhập trường này'
+        },
+    }
+}
+Validator.isNumber = function (selector, errorMessage) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var regex = /^[0-9]+$/;
+            
+            return regex.test(value) ? undefined : 'Trường này chỉ nhập số từ 0 - 9'
         },
     }
 }
