@@ -1,9 +1,19 @@
 
 function Validator(options) {
-    var formElement = document.querySelector(options.form);
+    var selectorRules = []
+    // Hàm thực hiện validate
+
     function validate(inputElement, rule) {
-        var errorMessage = rule.test(inputElement.value)
         var errorElement = inputElement.parentElement.querySelector(options.errorSelector)
+        var errorMessage
+        //  Lấy ra các rules của selector
+        var rules = selectorRules[rule.selector]
+        // Lặp qua tững rules và kiểm tra
+        // nếu có lỗi thì dừng việc kiểm tra
+        for (var i = 0; i < rules.length; ++i) {
+            errorMessage = rules[i](inputElement.value)
+            if (errorMessage) break;
+        }
         if (errorMessage) {
             errorElement.innerText = errorMessage
             inputElement.parentElement.classList.add('invalid')
@@ -13,8 +23,26 @@ function Validator(options) {
             inputElement.parentElement.classList.remove('invalid')
         }
     }
+    var formElement = document.querySelector(options.form)
     if (formElement) {
+        formElement.onsubmit = function(e) {
+            e.preventDefault()
+            // Lặp qua từng rule và validate
+            options.rules.forEach(function (rule) {
+                var inputElement = formElement.querySelector(rule.selector)
+                validate(inputElement, rule)
+            })
+        }
         options.rules.forEach(function (rule) {
+            // Lưu lại các rule cho mỗi inputElement
+            if (formElement)
+            if (Array.isArray(selectorRules[rule.selector])) {
+                selectorRules[rule.selector].push(rule.test)
+            }
+            else {
+                selectorRules[rule.selector] = [rule.test]
+            }
+
             var inputElement = formElement.querySelector(rule.selector)
 
             if (inputElement) {
@@ -22,7 +50,6 @@ function Validator(options) {
                 inputElement.onblur = function () {
                     validate(inputElement,rule)
                 }
-
                 // khi người dùng nhập vào inputElement
                 inputElement.oninput = function () {
                     var errorElement = inputElement.parentElement.querySelector(options.errorSelector)

@@ -23,7 +23,7 @@
       </div>
 
       <div class="toolbar__btn">
-        <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add-reception">Thêm phiếu
+        <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#modal-add-reception">Thêm phiếu
               tiếp nhận</button>
       </div>
     </div>
@@ -105,8 +105,8 @@
 
 <!-- POP UP FORM -->
 <!-- FORM THÊM PHIẾU TIẾP NHẬN-->
-<form method="POST" action="/reception/create">
-  <div class="modal fade" id="form-add-reception" tabindex="-1" role="dialog">
+<form method="POST" action="/reception/create" id="form-add-reception">
+  <div class="modal fade" id="modal-add-reception" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
