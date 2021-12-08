@@ -6,7 +6,10 @@ const Schema = mongoose.Schema
 const ExportVoucher = new Schema({
     of_repair: { type: Schema.Types.ObjectId, ref: 'Repair' },
     exported: { type: Schema.Types.Boolean, default: false },
-    date: { type: Schema.Types.Date }
+    date: { type: Schema.Types.Date },
+    detail: { type: Schema.Types.ObjectId, ref: 'ExportDetail' },
+    export_date: { type: Date },
+    
 }, {
     timestamps: true,
 })
