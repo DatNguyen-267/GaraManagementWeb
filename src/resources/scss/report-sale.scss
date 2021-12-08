@@ -24,9 +24,11 @@
 }
 
 /* THANH TIỆN ÍCH */
-.toolbar {
-    display: block;
-    margin: 0 0 20px 0;
+.toolbar__report-sale {
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 0;
+    height: 93px;
 }
 .toolbar__report-sale-date{
     display: flex;
@@ -102,11 +104,13 @@
     outline: none;
 }
 .toolbar__btn-add {
+    margin-top: 10px;
     margin-right: 10px;
     width: 120px;
     box-shadow: 0 2px 10px var(--blue-color-rgba);
 }
 .toolbar__btn-edit {
+    margin-top: 10px;
     margin-right: 10px;
     width: 120px;
     height: 40px;
@@ -114,6 +118,7 @@
     
 }
 .toolbar__btn-export {
+    margin-top: 10px;
     width: 120px;
 }
 
