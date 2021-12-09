@@ -4,8 +4,11 @@ const mongooseDelete = require('mongoose-delete')
 const Scheme = mongoose.Schema
 
 const SalaryInfo = new Scheme({
-    ID: {type: String, required: true},
-    Salary: {type: String, required: true},
+    month: {type: String, required: true},
+    eIDs: {type: Array, required: true},
+    bonusInfos: {type: Array, required: true},
+    errorInfos: {type: Array, required: true},
+    finalSalarys: {type: Array, required: true},
 }, {
     timestamps: true,
 })
@@ -15,4 +18,4 @@ SalaryInfo.plugin(mongooseDelete, {
         overrideMethods: 'all' 
     })
 
-module.exports = mongoose.model('salary', SalaryInfo)
+module.exports = mongoose.model('salaryInfos', SalaryInfo)

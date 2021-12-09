@@ -12,14 +12,14 @@ class EmployeeSalaryController {
                     .then((error) =>{
                         var data = []
                         for (var item of employee){
-                            var sum = 0;
+                            var fineSum = 0;
                             for(var temp of error){
                                 
                                 if (item._id == temp.employeeID){
                                     var n = temp.fine;
                                     n = n.replaceAll('.','')
                                     n = n.replace('₫','')
-                                    sum += parseInt(n);
+                                    fineSum += parseInt(n);
 
                                 }
                             }
@@ -27,8 +27,8 @@ class EmployeeSalaryController {
                                 style: 'currency',
                                 currency: 'VND',
                             });
-                            sum = formatter.format(sum.toString());
-                            data.push({item:mongooseToOject(item),sum})
+                            fineSum = formatter.format(fineSum.toString());
+                            data.push({item:mongooseToOject(item),fineSum})
                         }
                         //res.send(data)
                         res.render('employeeSalary/index', {
@@ -43,7 +43,7 @@ class EmployeeSalaryController {
     };
 
     create(req,res,next){
-        const newSalaryInfo = new Employee(req.body)
+        const newSalaryInfo = new SalaryInfo(req.body)
         newSalaryInfo.save()
             .then(() => {
                 res.redirect('/employeeSalary')
@@ -52,11 +52,12 @@ class EmployeeSalaryController {
     }
 
     edit(req,res,next){
-        SalaryInfo.updateOne({ID: req.params.id} , req.body)
+        res.send(req.body)
+        /*SalaryInfo.updateOne({ID: req.params.id} , req.body)
             .then(()=> {
                 res.redirect('/employeeSalary')
             })
-            .catch(next)
+            .catch(next)*/
     }
     delete(req,res,next){
         const idDelete = req.params.id

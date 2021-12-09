@@ -58,5 +58,5 @@ hr.solid {
       width: 100%; }
     .employeeSalary__body__infoModal .infoTable tr {
       margin-top: 1em; }
-    .employeeSalary__body__infoModal .infoTable .id, .employeeSalary__body__infoModal .infoTable .name, .employeeSalary__body__infoModal .infoTable .tag {
+    .employeeSalary__body__infoModal .infoTable .id, .employeeSalary__body__infoModal .infoTable .name, .employeeSalary__body__infoModal .infoTable .tag, .employeeSalary__body__infoModal .infoTable .salary {
       text-align: right; }

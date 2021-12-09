@@ -19,9 +19,8 @@ crossorigin="anonymous"></script>
             <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
             <span class="ti-search toolbar__search-icon"> </span>
           </div>
-
           <div class="toolbar__btn">
-            <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm phiếu tiếp nhận</button>
+            <button class="header__btn-add btn btn-primary" id = "btn--add-item">Thêm nhân viên mới</button>
           </div>
         </div>
     </header>
@@ -64,7 +63,7 @@ crossorigin="anonymous"></script>
         </div>
           
           <!--Modified Modal -->
-          <form method="POST" name = "form-edit" action = "">
+          <form method="POST" name = "form-edit" action = "" id = "form-edit-employeeList">
             <div class="modal fade " id="modifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -79,40 +78,54 @@ crossorigin="anonymous"></script>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
                       <input type="text" class="form-control" name="name"  id = "m_name">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
                       <input type="text" class="form-control" name="address"  id = "m_address">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
                       <input type="text" class="form-control" name="phoneNumber"  id = "m_phoneNumber">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
                       <input type="text" class="form-control" name="email"  id = "m_email">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
                       <input type="text" class="form-control" name="CMND"  id = "m_CMND">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="" id = "m_tag">
                             <option value= "" disabled selected>Chọn loại nhân viên</option>
                             {{#each tag}}
-                            <option value="{{this.name}}" salary = "{{this.salary}}" class= "mOps">{{this.name}}</option>
+                            <option value="{{this.name}}" salary = "{{this.salary}}" percent ="{{this.percent}}" class= "mOps">{{this.name}}</option>
                             {{/each}}
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
-                      <input type="text" class="form-control" name="salary" readonly id = "m_salary">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
                       <input type="date" class="form-control dataStr" name="startDate" id = "m_startDate">
+                      <span class="form-message"></span>
                     </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
+                      <input type="text" class="form-control" name="salary" readonly id = "m_salary">
+                      <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Hệ số tăng lương:</label>
+                      <input type="text" class="form-control" name="percent" readonly id = "m_percent" placeholder="%/năm">
+                      <span class="form-message"></span>
+                    </div>
+                    
                   </form>
                 </div>
                 <div class="modal-footer">
@@ -124,7 +137,7 @@ crossorigin="anonymous"></script>
           </div>
           </form>
           <!--Add Modal -->
-          <form method="POST" action="/employeeList/create">
+          <form method="POST" action="/employeeList/create" id = "form-add-employeeList" name = "form-add">
             <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -138,46 +151,59 @@ crossorigin="anonymous"></script>
                   <form>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
-                      <input type="text" class="form-control" name="name">
+                      <input type="text" class="form-control" name="name" id = 'n_name'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
-                      <input type="text" class="form-control" name="address">
+                      <input type="text" class="form-control" name="address" id = 'n_address'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
-                      <input type="text" class="form-control" name="phoneNumber">
+                      <input type="text" class="form-control" name="phoneNumber" id = 'n_phoneNumber'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
-                      <input type="text" class="form-control" name="email">
+                      <input type="text" class="form-control" name="email" id = 'n_email'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
-                      <input type="text" class="form-control" name="CMND">
+                      <input type="text" class="form-control" name="CMND" id = 'n_cmnd'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="" id = "n_tag">
-                            <option value= "" disabled selected>Chọn loại nhân viên</option>
+                            <option value= "" disabled selected>--- Chọn loại nhân viên ---</option>
                             {{#each tag}}
-                              <option value="{{this.name}}" salary = "{{this.salary}}" class= "nOps">{{this.name}}</option>
+                              <option value="{{this.name}}" salary = "{{this.salary}}" percent="{{this.percent}}" class= "nOps">{{this.name}}</option>
                             {{/each}}
                       </select>
+                      <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
+                      <input type="date" class="form-control dataStr" name="startDate" id = "n_startDate">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
                       <input type="text" class="form-control" name="salary" style="" readonly id = "n_salary">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
-                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
-                      <input type="date" class="form-control dataStr" name="startDate">
+                      <label for="reception-add-receptionDate" class="col-form-label">Hệ số tăng lương:</label>
+                      <input type="text" class="form-control" name="percent" readonly id = "n_percent" placeholder="%/năm">
+                      <span class="form-message"></span>
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="summit" class="btn btn-primary" onclick="add()">Thêm</button>
+                  <button type="summit" class="btn btn-primary"                            >Thêm</button>
                 </div>
               </div>
             </div>
@@ -218,6 +244,21 @@ crossorigin="anonymous"></script>
             currency: 'VND',
           });
       var employeeID;
+      function salaryCal(percent,salary){
+          percent = percent.replace('%','');
+          var startDate = new Date($('#m_startDate').val());
+          var ageDifMs = Date.now() - startDate;
+          var ageDate = new Date(ageDifMs); // miliseconds from epoch
+          var workYears = Math.abs(ageDate.getUTCFullYear() - 1970);
+          salary = salary.replaceAll('.','')
+          salary = salary.replace('₫','')
+          var temp = parseInt(salary) * 1.0;
+          for(var i = 0; i < workYears; i++){
+            temp += temp * parseInt(percent) / 100.0
+          }
+          temp = Math.round(temp/1000)*1000
+          return temp;
+      }
       function search(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
@@ -238,6 +279,11 @@ crossorigin="anonymous"></script>
           }   
         }
       }
+      Date.prototype.toDateInputValue = (function() {
+          var local = new Date(this);
+          local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+          return local.toJSON().slice(0,10);
+      });
       $(".btn--edit-item").click(function() {
           employeeID = $(this).closest("tr").attr('employeeID');
           $('#m_name').val($(this).closest("tr").find("#name").text());
@@ -246,16 +292,35 @@ crossorigin="anonymous"></script>
           $('#m_email').val($(this).closest("tr").find("#email").text());
           $('#m_CMND').val($(this).closest("tr").find("#CMND").text());
           $('#m_tag').val($(this).closest("tr").find("#tag").text());
-          $('#m_salary').val($('option:selected').attr('salary'));
+          $('#m_percent').val($('option:selected').attr('percent'));
           $('#m_startDate').val($(this).closest("tr").find("#startDate").text());
           $("#modifiedModal").modal();
+          $('#m_salary').val(formatter.format(salaryCal($('option:selected').attr('percent'),$('option:selected').attr('salary') )));
+      });
+      
+      $("#btn--add-item").click(function() {
+          $('#n_startDate').val(new Date().toDateInputValue());
+          $("#addModal").modal();
       });
       
       $('#m_tag').change(function(){
-          $('#m_salary').val($('.mOps:selected').attr('salary'));
+          $('#m_percent').val($('option:selected').attr('percent'));
+          $('#m_salary').val(formatter.format(salaryCal($('.mOps:selected').attr('percent'),$('.mOps:selected').attr('salary') )));
       });
        $('#n_tag').change(function(){
-          $('#n_salary').val($('.nOps:selected').attr('salary'));
+          $('#n_percent').val($('.nOps:selected').attr('percent'));
+          $('#n_salary').val(formatter.format(salaryCal($('.nOps:selected').attr('percent'),$('.nOps:selected').attr('salary') )));
+      });
+      $('#n_startDate').change(function(){
+          if ($('#n_tag').val() == "") return;
+          $('#n_percent').val($('.nOps:selected').attr('percent'));
+          $('#n_salary').val(formatter.format(salaryCal($('.nOps:selected').attr('percent'),$('.nOps:selected').attr('salary') )));
+      });
+
+      $('#m_startDate').change(function(){
+          if ($('#m_tag').val() == "") return;
+          $('#m_percent').val($('option:selected').attr('percent'));
+          $('#m_salary').val(formatter.format(salaryCal($('.mOps:selected').attr('percent'),$('.mOps:selected').attr('salary') )));
       });
 
       $(".btn--delete-item").click(function() {
@@ -266,12 +331,51 @@ crossorigin="anonymous"></script>
       });
 
       document.addEventListener('DOMContentLoaded', function () {
-      
+      Validator({
+      form: '#form-add-employeeList', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequireSelectBox('#n_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
+        Validator.isRequire('#n_name', 'Vui nhập tên nhân viên'),
+        Validator.isRequire('#n_address', 'Vui nhập địa chỉ'),
+        Validator.isRequire('#n_email', 'Vui nhập email'),
+        Validator.isRequire('#n_phoneNumber', 'Vui lòng nhập số điện thoại'),
+        Validator.isEmail('#n_email'),
+        Validator.isRequire('#n_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
+        Validator.isNumber('#n_cmnd'),
+        Validator.isNumber('#n_phoneNumber'),
+      ],
+      onSubmit: function() {
+          formAddEmployee.action = '/employeeList/create' 
+          formAddEmployee.submit()
+        }
+      })
+      Validator({
+      form: '#form-edit-employeeList', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequireSelectBox('#m_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
+        Validator.isRequire('#m_name', 'Vui nhập tên nhân viên'),
+        Validator.isRequire('#m_address', 'Vui nhập địa chỉ'),
+        Validator.isRequire('#m_email', 'Vui nhập email'),
+        Validator.isRequire('#m_phoneNumber', 'Vui lòng nhập số điện thoại'),
+        Validator.isEmail('#m_email'),
+        Validator.isRequire('#m_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
+        Validator.isNumber('#m_cmnd'),
+        Validator.isNumber('#m_phoneNumber'),
+      ],
+      onSubmit: function() {
+          formEdit.action = '/employeeList/create' 
+          formEdit.submit()
+        }
+      })
+
       var tdActive;
       var btnDelete = $('#btn-delete')
       var btnAcceptEdit = $('#btn-accept-edit')
       var formEdit = document.forms['form-edit']
       var formDelete = document.forms['form-delete']
+      var formAddEmployee = document.forms['form-add']
       var btnEdit = $('.btn-edit')
       btnDelete.click(function() {
           formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
