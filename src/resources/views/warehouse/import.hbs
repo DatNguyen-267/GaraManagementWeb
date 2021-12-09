@@ -6,15 +6,12 @@
       <form action="/import/create" method="POST">
       <div class="modal-header">
         <h5 class="modal-title">Thêm phiếu nhập kho</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
-        <div class="container-fluid">
+        <div class="container-fluid"> 
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
             <div class="col-9">
@@ -41,10 +38,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-success">Thêm</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
+        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn--send-dialog">Thêm</button>
       </div>
       </form>
     </div>
@@ -59,12 +54,9 @@
       <form method="POST" name="form-edit">
       <div class="modal-header">
         <h5 class="modal-title">Sửa thông tin phiếu nhập kho</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -94,10 +86,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-success" id="btnModalEdit">Sửa</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
+        <button type="button" class="btn btn--close-dialog" data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn--send-dialog" id="btnModalEdit">Sửa</button>
       </div>
       </form>
     </div>
@@ -110,23 +100,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Xóa phiếu nhập kho</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">Bạn có chắc chắn muốn xóa?</div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="btnModalDelete">Xóa</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Đóng
-            </button>
+            <button type="button" class="btn btn--delete-dialog" id="btnModalDelete">Xóa</button>
+            <button type="button" class="btn btn--close-dialog" data-bs-dismiss="modal">Đóng</button>
           </div>
         </div>
       </div>
@@ -134,17 +115,20 @@
 
 
 {{!-- Danh sách phiếu nhập kho --}}
-<div class="row">
-  <div class="d-grid gap-2 d-flex justify-content-end">
-    <button
-      type="button"
-      class="btn btn-success"
-      data-bs-toggle="modal"
-      data-bs-target="#addModal"
-    >
-      Thêm
-    </button>
-  </div>
+
+<div class="grid__content">
+  <div class="template__title">
+    Danh sách phiếu nhập kho
+</div>
+<div class="toolbar">
+    <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
+        <span class="toolbar__search-icon ti-search"> </span>
+    </div>
+    <div class="toolbar__filter"></div>
+    <div class="toolbar__btn">
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm phiếu nhập kho</button>
+    </div>
 </div>
 
 <table class="table table--default">

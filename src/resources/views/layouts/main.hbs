@@ -63,10 +63,10 @@
                         <div class="menu__body-mainlist-name">Quản lý kho</div>
                         <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
                     </button>
-                    <div class="menu__body-sublist collapse" id="menu__body-sublist-management-warehouse">
-                        <div data-transfer="/" class="menu__body-sublist-item">Danh sách vật tư</div>
-                        <div data-transfer="/" class="menu__body-sublist-item">Nhập kho</div>
-                        <div data-transfer="/" class="menu__body-sublist-item">Xuất kho</div>
+                    <div class="menu__body-sublist collapse {{expandSubMenu activeManagementWarehouse}} " id="menu__body-sublist-management-warehouse">
+                        <div data-transfer="/material" class="menu__body-sublist-item {{activeItemMenu activeMaterial}}">Danh sách vật tư</div>
+                        <div data-transfer="/import" class="menu__body-sublist-item {{activeItemMenu activeImport}}">Nhập kho</div>
+                        <div data-transfer="/export" class="menu__body-sublist-item {{activeItemMenu activeExport}}">Xuất kho</div>
                     </div>
                 </div>
                 <div class="menu__body-item">

@@ -3,8 +3,9 @@ const exportController = require('../app/controllers/ExportController')
 const router = express.Router()
 
 router.get('/', exportController.show)
-router.put('/:idRepair/export', exportController.export)
+router.post('/create', exportController.create)
+router.put('/:idVoucher/export', exportController.export)
 
-router.get('/detail/:idRepair', exportController.showDetail)
+router.get('/detail/:idVoucher', exportController.showDetail)
 
 module.exports = router;

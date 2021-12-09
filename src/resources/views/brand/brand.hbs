@@ -13,7 +13,7 @@
         <span class="ti-search toolbar__search-icon"> </span>
       </div>
       <div class="toolbar__btn">
-          <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Thêm hiệu xe</button>
+          <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#modal-add">Thêm hiệu xe</button>
       </div>
   </div>
   {{!-- THÊM --}}
@@ -37,7 +37,8 @@
           <td>{{this._id}}</td>
           <td>{{this.name}}</td>
           <td class="row-btn">
-            <button class="btn btn--edit-item btn-edit" data-id="{{this._id}}" data-name="{{this.name}}" data-toggle="modal" data-target="#form-edit">Sửa</button>
+            <button class="btn btn--edit-item btn-edit" data-id="{{this._id}}" 
+            data-name="{{this.name}}" data-toggle="modal" data-target="#modal-edit">Sửa</button>
             <button class="btn btn--delete-item btn-delete" data-id="{{this._id}}" 
             data-target="#modal-delete" data-toggle="modal">Xóa</button>
           </td>
@@ -47,8 +48,8 @@
   </table>
 </div>
 
-<form method="POST" action="/brand/create">
-  <div class="modal fade" id="form-add" tabindex="-1" role="dialog">
+<form method="POST" action="/brand/create" id="form-add" name="form-add">
+  <div class="modal fade" id="modal-add" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -61,11 +62,9 @@
           <form>
             <div class="form-group">
               <label for="input-name">Tên hiệu xe</label>
-              <input type="text" class="form-control" 
-                  id="input-name" 
-                  placeholder="Tên hiệu xe..."
-                  name="name">
-            </div>
+              <input type="text" class="form-control" id="input-name" placeholder="" name="name">
+              <span class="form-message"></span>
+            </div>  
           </form>
         </div>
         <div class="modal-footer">
@@ -99,8 +98,8 @@
   </div>
 </form>
 {{!-- FORM SUA --}}
-<form name="form-edit" method="POST" action="">
-  <div class="modal fade" id="form-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<form name="form-edit" method="POST" action="" id="form-edit">
+  <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -114,12 +113,13 @@
             <div class="form-group">
               <label for="form-edit-name" class="col-form-label">Hiệu xe:</label>
               <input type="text" class="form-control" id="form-edit-name" name="name">
+              <span class="form-message"></span>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn--close-dialog" data-dismiss="modal">Đóng</button>
-          <button id="btn-accept-edit" type="button" class="btn--send-dialog">Sửa</button>
+          <button id="btn-accept-edit" type="submit" class="btn--send-dialog">Sửa</button>
         </div>
       </div>
     </div>
@@ -128,11 +128,35 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const formAdd = document.forms['form-add']
+    Validator({
+      form: '#form-add', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#input-name', 'Vui lòng nhập tên hiệu xe'),
+      ],
+      onSubmit: function() {
+          formAdd.action = '/brand/create' 
+          formAdd.submit()
+        }
+      })
+      const formEdit = document.forms['form-edit']
+      Validator({
+        form: '#form-edit', // id của cái form cần validate
+        errorSelector: '.form-message', // tên class để hiện cái lỗi
+        rules: [
+          Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
+        ],
+        onSubmit: function() {
+            formEdit.action = '/brand/' + brandId + '/edit?_method=PUT'
+            formEdit.submit()
+          }
+        })
+
     var brandId;
     var tdActive;
     var btnDelete = $('.btn-delete')
     var btnAcceptEdit = $('#btn-accept-edit')
-    var formEdit = document.forms['form-edit']
     var btnEdit = $('.btn-edit')
     var inputEditName = document.querySelector('#form-edit-name')
     const btnAcceptDelete = document.querySelector('#btn-accept-delete')
@@ -141,10 +165,6 @@
     $('#form-edit').on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         brandId = button.data('id')
-    })
-    btnAcceptEdit.click(function() {
-      formEdit.action = '/brand/' + brandId + '/edit?_method=PUT'
-      formEdit.submit()
     })
     btnEdit.click(function(){
       var row = $(this).parents('tr')[0]

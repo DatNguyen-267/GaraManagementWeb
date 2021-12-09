@@ -22,6 +22,8 @@ class RepairController {
                         for (var reception of receptions) {
                             var check = true
                             for (var repair of repairs) {
+                                if (!repair.of_reception._id) continue
+                                if (!reception._id) continue
                                 if (repair.of_reception._id.toString() == reception._id.toString()) {
                                     check = false
                                     break
@@ -128,6 +130,8 @@ class RepairController {
                     Materials: mutipleMongooseToObject(data.materials),
                     Employees: mutipleMongooseToObject(data.employees),
                     Wages: mutipleMongooseToObject(data.wages),
+                    activeManagementCar: true,
+                    activeRepair: true,
                 })
             })
             .catch(next)
@@ -293,6 +297,8 @@ class RepairController {
                     Repair: mongooseToOject(data.repair),
                     Detail_Materials: mutipleMongooseToObject(data.materials),
                     Detail_Wages: mutipleMongooseToObject(data.wages),
+                    activeManagementCar: true,
+                    activeRepair: true,
                 })
             })
             .catch(next)
@@ -420,6 +426,8 @@ class RepairController {
                                         res.render('repairs/contract-detail', {
                                             Repair: mongooseToOject(repair),
                                             Contracts: newContracts,
+                                            activeManagementCar: true,
+                                            activeRepair: true,
                                         })
                                     })
                             })
@@ -566,6 +574,7 @@ class RepairController {
         }).then(() => {
             Reception.updateOne({ of_repair: req.params.id }, {
                 status: "Chờ thanh toán",
+                isSuccessRepair: true,
             }).then(() => {
                     Promise.all([
                         Repair_Detail_Material.deleteMany({ of_repair: req.params.id, contracted: false }),

@@ -1,4 +1,41 @@
 
+{{!-- Modal thêm phiếu xuất kho --}}
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="/export/create" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm phiếu xuất kho</h5>
+        <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Phiếu sửa chữa</label>
+            <div class="col-9 form-group">
+              <select class="form-control" name="of_repair" aria-label="Default select example">
+                <option value="null">Phiếu sửa chữa</option>
+                {{#each repairs}}
+                <option value="{{this._id}}">{{this.license}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn--send-dialog">Thêm</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
 {{!-- Modal xuất kho --}}
 <div class="modal fade" id="exportModal" tabindex="-1" aria-hidden="true">
 <div class="modal-dialog">
@@ -14,40 +51,47 @@
           </div>
           <div class="modal-body">Xác nhận xuất kho</div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" id="btnModalExport">Xác nhận</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Đóng
-            </button>
+            <button type="button" class="btn btn--delete-dialog" id="btnModalExport">Xác nhận</button>
+            <button type="button" class="btn btn--close-dialog" data-bs-dismiss="modal">Đóng</button>
           </div>
         </div>
       </div>
 </div>
 
 
-{{!-- Danh sách phiếu nhập kho --}}
+{{!-- Danh sách phiếu xuất kho --}}
+
+
+<div class="grid__content">
+  <div class="template__title">
+    Danh sách phiếu xuất kho
+</div>
+<div class="toolbar">
+    <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
+        <span class="toolbar__search-icon ti-search"> </span>
+    </div>
+    <div class="toolbar__filter"></div>
+    <div class="toolbar__btn">
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Tạo phiếu xuất kho</button>
+    </div>
+</div>
+
 <table class="table table--default">
   <thead class="thead-dark"> 
     <tr>
-      <th scope="col">Mã tiếp nhận</th>  
-      <th scope="col">Tên khách hàng</th>
-      <th scope="col">Biển số xe</th>
-      <th scope="col">Ngày sửa</th>
-      <th scope="col">Thao tác</th>
+      <th scope="col">Mã sửa chữa</th>  
+      <th scope="col">Ngày tạo phiếu</th>
+      <th scope="col" colspan="2">Thao tác</th>
     </tr>
   </thead>
   <tbody>
     {{#each vouchers}}
       <tr>
-        <td>{{this.of_reception}}</td>
-        <td>{{this.customer_name}}</td>
-        <td>{{this.license}}</td>
-        <td>{{this.repairDate}}</td>
+        <td>{{this.of_repair}}</td>
+        <td>{{this.createdAt}}</td>
         <td>
-          <button class="btn--export-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#exportModal">Xuất</button>
+          <button class="btn--export-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#exportModal">Xuất kho</button>
           <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
         </td>
       </tr>

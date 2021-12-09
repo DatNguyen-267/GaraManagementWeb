@@ -10,7 +10,7 @@
       </div>
       <div class="toolbar__filter"></div>
       <div class="toolbar__btn">
-          <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#form-add">Tạo phiếu sửa chữa</button>
+          <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#modal-add">Tạo phiếu sửa chữa</button>
       </div>
   </div>
 
@@ -49,8 +49,8 @@
 </div>
 <!-- MODAL -->
 
-<form method="POST" action="/repairs/create">
-  <div class="modal fade" id="form-add" tabindex="-1" role="dialog">
+<form method="POST" action="/repairs/create" id="form-add" name="form-add">
+  <div class="modal fade" id="modal-add" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -69,15 +69,17 @@
                     <option value="{{this._id}}">{{this.license}}</option>
                     {{/each}}
                 </select>
+                <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="input-add-name">Tên khách hàng:</label>
                 <select class="form-control" id="input-add-name" name="customer_name">
-                    <option>--- Chọn tên khách hàng ---</option>
+                    <option>--- Chọn khách hàng ---</option>
                     {{#each waitReceptions}}
                     <option data-id="{{this._id}}">{{this.of_customer.name}}</option>
                     {{/each}}
                 </select>
+                <span class="form-message"></span>
             </div>
             {{!-- <div class="form-group">
               <label for="input-add-repairDate" class="col-form-label">Ngày tạo phiếu:</label>
@@ -93,41 +95,6 @@
     </div>
   </div>
 </form>
-
-{{!-- <form method="POST" action="" name="form-edit">
-  <div class="modal fade" id="form-edit" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Sửa phiếu sửa chữa</h5>
-          <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="input-edit-id" class="col-form-label">Mã phiếu:</label>
-              <input type="text" disabled class="form-control" id="input-edit-id" name="id">
-            </div>
-            <div class="form-group">
-              <label for="input-edit-bienso" class="col-form-label">Biển số:</label>
-              <input type="text" disabled class="form-control" id="input-edit-bienso" name="bienso">
-            </div>
-            <div class="form-group">
-              <label for="input-edit-ngaysuachua" class="col-form-label">Ngày sửa chữa:</label>
-              <input type="text" class="form-control" id="input-edit-ngaysuachua" name="ngaysuachua">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-          <button id="btn-accept-edit" type="button" class="btn btn--send-dialog" data-dismiss="modal">Sửa</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</form> --}}
 
 <form method="POST" name="form-delete" action="">
   <div class="modal fade" id="form-delete" tabindex="-1" role="dialog">
@@ -155,6 +122,20 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const formAdd = document.forms['form-add']
+    Validator({
+      form: '#form-add', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequireSelectBox('#input-add-license','--- Chọn biển số ---', 'Vui lòng chọn biển số'),
+        Validator.isRequireSelectBox('#input-add-name','--- Chọn khách hàng ---', 'Vui lòng chọn khách hàng'),
+      ],
+      onSubmit: function() {
+          formAdd.action = '/repairs/create' 
+          formAdd.submit()
+        }
+      })
+
     var repairId;
     var btnAcceptDelete = $('#btn-accept-delete')
     var btnAcceptEdit = $('#btn-accept-edit')
