@@ -1,4 +1,4 @@
-const { mutipleMongooseToObject } = require('../../util/mongoose')
+const { mutipleMongooseToObject, mongooseToObject } = require('../../util/mongoose')
 const { render } = require('node-sass')
 const ExportVoucher = require('../models/ExportVoucher')
 const ExportDetail = require('../models/ExportDetail')
@@ -17,7 +17,7 @@ class ExportController {
                 }).then(() => { })
             }
 
-            ExportVoucher.find({ exported: false }).then((vouchers) => {
+            ExportVoucher.find({}).then((vouchers) => {
                 res.render('warehouse/export', {
                     vouchers: mutipleMongooseToObject(vouchers),
                     repairs: mutipleMongooseToObject(list),
@@ -69,8 +69,11 @@ class ExportController {
 
     showDetail(req, res, next) {
         ExportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
-            res.render('warehouse/export_detail', {
-                details: mutipleMongooseToObject(details)
+            ExportVoucher.findById(req.params.idVoucher).populate('of_repair').then((voucher) => {
+                res.render('warehouse/export_detail', {
+                    details: mutipleMongooseToObject(details),
+                    voucher: mongooseToObject(voucher)
+                })
             })
         })
     }

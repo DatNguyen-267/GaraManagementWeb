@@ -8,7 +8,7 @@ const ImportVoucher = require('../models/ImportVoucher')
 
 class ImportController {
     show(req, res, next) {
-        ImportVoucher.find({ imported: false }).then((vouchers) => {
+        ImportVoucher.find().then((vouchers) => {
             for (var voucher of vouchers) {
                 ImportDetail.find({ of_voucher: voucher._id }).then((details) => {
                     let total = 0
@@ -20,7 +20,7 @@ class ImportController {
             }
         }).then(() => {
             Supplier.find({}).then((suppliers) => {
-                Voucher.find({ imported: false }).populate('of_supplier', 'name')
+                Voucher.find().populate('of_supplier', 'name')
                     .then((vouchers) => {
                         res.render('warehouse/import', {
                             vouchers: mutipleMongooseToObject(vouchers),

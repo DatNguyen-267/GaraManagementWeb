@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="./css/material.css" />
 
 {{!-- Modal thêm vật tư --}}
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addMaterialLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/material/create" method="POST">
+      <form action="/material/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm vật tư</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -16,30 +16,34 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="name"/>
+              <input type="text" class="form-control" id="add-name" name="name"/>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" aria-label="Default select example">
-                <option value="null">Nhà cung cấp</option>
+              <select class="form-control" name="of_supplier" id="add-supplier">
+                <option>-- Nhà cung cấp --</option>
                 {{#each suppliers}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="import_price" />
+              <input type="text" class="form-control" id="add-import-price" name="import_price" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá bán</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="sell_price" />
+              <input type="text" class="form-control" id="add-sell-price" name="sell_price" />
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
@@ -55,7 +59,7 @@
 
 
 {{!-- Modal sửa vật tư --}}
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editMaterialLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form method="POST" name="form-edit">
@@ -70,30 +74,34 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên vật tư</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="material-edit-name" name="name"/>
+              <input type="text" class="form-control" id="edit-name" name="name" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" id="material-edit-supplier" aria-label="Default select example">
-                <option value="null">Nhà cung cấp</option>
+              <select class="form-control" name="of_supplier" id="edit-supplier" aria-label="Default select example">
+                <option>-- Nhà cung cấp --</option>
                 {{#each suppliers}}
                 <option value="{{this.supplier_id}}">{{this.name}}</option>
                 {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="material-edit-importPrice" name="import_price" />
+              <input type="text" class="form-control" id="edit-import-price" name="import_price" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá bán</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="material-edit-sellPrice" name="sell_price" />
+              <input type="text" class="form-control" id="edit-sell-price" name="sell_price" />
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
@@ -206,9 +214,9 @@
 
       var rowData = item.parentElement.parentElement
 
-      document.getElementById('material-edit-name').value = rowData.cells[1].textContent
-      document.getElementById('material-edit-importPrice').value = rowData.cells[3].textContent
-      document.getElementById('material-edit-sellPrice').value = rowData.cells[4].textContent
+      document.getElementById('edit-name').value = rowData.cells[0].textContent
+      document.getElementById('edit-import-price').value = rowData.cells[3].textContent
+      document.getElementById('edit-sell-price').value = rowData.cells[4].textContent
     }
 
     btnModalDelete.onclick = function () {

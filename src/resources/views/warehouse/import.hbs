@@ -3,7 +3,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/import/create" method="POST">
+      <form action="/import/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm phiếu nhập kho</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,24 +15,27 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="import_id"/>
+              <input type="text" class="form-control" id="add-id" name="import_id"/>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" aria-label="Default select example">
-                <option value="null">Nhà cung cấp</option>
+              <select class="form-control" name="of_supplier" id="add-supplier">
+                <option>-- Nhà cung cấp --</option>
                 {{#each suppliers}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Ngày nhập kho</label>
             <div class="col-9">
-              <input type="date" class="form-control" id="voucher-edit-date" name="import_date"/>
+              <input type="date" class="form-control" id="add-date" name="import_date"/>
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
@@ -51,7 +54,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form method="POST" name="form-edit">
+      <form method="POST" name="form-edit" id="form-edit">
       <div class="modal-header">
         <h5 class="modal-title">Sửa thông tin phiếu nhập kho</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -63,24 +66,27 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="voucher-edit-id" name="import_id"/>
+              <input type="text" class="form-control" id="edit-id" name="import_id"/>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" aria-label="Default select example">
-                <option value="null">Nhà cung cấp</option>
+              <select class="form-control" name="of_supplier" id="edit-supplier">
+                <option>-- Nhà cung cấp --</option>
                 {{#each suppliers}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Ngày nhập kho</label>
             <div class="col-9">
-              <input type="date" class="form-control" id="voucher-edit-date" name="import_date"/>
+              <input type="date" class="form-control" id="edit-date" name="import_date"/>
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
@@ -127,7 +133,7 @@
     </div>
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
-        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm phiếu nhập kho</button>
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Tạo phiếu nhập kho</button>
     </div>
 </div>
 
@@ -170,14 +176,46 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // Validate
+    Validator({
+      form: '#form-add',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#add-id', 'Vui lòng nhập mã nhập kho'),
+        Validator.isRequireSelectBox('#add-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
+        Validator.isRequire('#add-date', 'Vui lòng chọn ngày tạo phiếu nhập kho')
+      ],
+      onSubmit: function () {
+        formAdd.action = '/import/create'
+        formAdd.submit()
+      }
+    })
+
+    Validator({
+      form: '#form-edit',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#edit-id', 'Vui lòng nhập mã nhập kho'),
+        Validator.isRequireSelectBox('#edit-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
+        Validator.isRequire('#edit-date', 'Vui lòng chọn ngày tạo phiếu nhập kho')
+      ],
+      onSubmit: function () {
+        formEdit.action = '/import/' + voucherID + '/?_method=PUT'
+        formEdit.submit()
+      }
+    })
+
     var btnView = document.querySelectorAll('.btn--view-item')
     var btnEdit = document.querySelectorAll('.btn--edit-item')
     var btnDelete = document.querySelectorAll('.btn--delete-item')
     var btnModalDelete = document.getElementById('btnModalDelete')
     var btnModalEdit = document.getElementById('btnModalEdit')
+    var formAdd = document.forms['form-add']
     var formView = document.forms['form-view']
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
+
+    var voucherID
 
     for(var item of btnView) {
       item.onclick = function () {
@@ -189,14 +227,14 @@
     
     for(var item of btnDelete) {
       item.onclick = function() {
-        var voucherID = this.getAttribute('data-id')
+        voucherID = this.getAttribute('data-id')
         btnModalDelete.setAttribute('data-id', voucherID)
       }
     }
 
     for(var item of btnEdit) {
       item.onclick = function() {
-        var voucherID = this.getAttribute('data-id')
+        voucherID = this.getAttribute('data-id')
         btnModalEdit.setAttribute('data-id', voucherID)
       }
 
@@ -207,15 +245,9 @@
     }
 
     btnModalDelete.onclick = function () {
-      var voucherID = this.getAttribute('data-id')
+      voucherID = this.getAttribute('data-id')
       formDelete.action = '/import/' + voucherID + '/delete?_method=DELETE'
       formDelete.submit()
-    }
-
-    btnModalEdit.onclick = function () {
-      var voucherID = this.getAttribute('data-id')
-      formEdit.action = '/import/' + voucherID + '/?_method=PUT'
-      formEdit.submit()
     }
   })
 </script>

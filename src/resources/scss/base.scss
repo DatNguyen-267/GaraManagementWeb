@@ -34,6 +34,7 @@
   --blue-color: #007bff;
   --green-color: #17a2b8;
   --red-color: #dc3545;
+  --yellow-color: rgb(201, 201, 0);
   --blue-color-rgba: rgba(0, 123, 255, 0.1);
 }
 // -webkit-user-select: none;
@@ -227,7 +228,8 @@ input[disabled] {
 
 .btn--delete-item,
 .btn--edit-item,
-.btn--view-item {
+.btn--view-item, 
+.btn--export-item {
   width: 45px;
   height: 30px;
   font-size: 12px;
@@ -235,7 +237,6 @@ input[disabled] {
   font-weight: 600;
   color: white;
   border-radius: 3px;
-
   cursor: pointer;
   margin: 0 4px;
 }
@@ -261,6 +262,13 @@ input[disabled] {
   background-color: var(--green-color);
   border: 1px solid var(--green-color);
 }
+
+.btn--export-item {
+  background-color: var(--warning-color);
+  border: 1px solid var(--warning-color);
+  width: 75px;
+}
+
 .btn--item {
   height: 30px;
   font-size: 12px !important;

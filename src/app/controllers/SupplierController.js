@@ -8,6 +8,8 @@ class SupplierController {
             .then((suppliers)=> {
                 res.render('warehouse/supplier', {
                     suppliers: mutipleMongooseToObject(suppliers),
+                    activeManagementWarehouse: true,
+                    activeSupplier: true
                 })
             })
             .catch(next)

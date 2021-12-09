@@ -4,7 +4,7 @@ const Employee = require('../models/Employee')
 const Wage = require('../models/Wage')
 const Contract = require('../models/Contract')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
-const { mongooseToOject } = require('../../util/mongoose')
+const { mongooseToObject } = require('../../util/mongoose')
 
 const { render } = require('node-sass')
 const Reception = require('../models/Reception')
@@ -126,7 +126,7 @@ class RepairController {
                     Detail_Materials: mutipleMongooseToObject(data.detail_Materials),
                     Detail_Wages: mutipleMongooseToObject(data.detail_Wages),
                     Detail_Employees: mutipleMongooseToObject(data.detail_Employees),
-                    Repair: mongooseToOject(data.repair),
+                    Repair: mongooseToObject(data.repair),
                     Materials: mutipleMongooseToObject(data.materials),
                     Employees: mutipleMongooseToObject(data.employees),
                     Wages: mutipleMongooseToObject(data.wages),
@@ -292,7 +292,7 @@ class RepairController {
             })
             .then((data) => {
                 res.render('repairs/contract', {
-                    Repair: mongooseToOject(data.repair),
+                    Repair: mongooseToObject(data.repair),
                     Detail_Materials: mutipleMongooseToObject(data.materials),
                     Detail_Wages: mutipleMongooseToObject(data.wages),
                 })
@@ -420,7 +420,7 @@ class RepairController {
                                             }
                                         }
                                         res.render('repairs/contract-detail', {
-                                            Repair: mongooseToOject(repair),
+                                            Repair: mongooseToObject(repair),
                                             Contracts: newContracts,
                                         })
                                     })

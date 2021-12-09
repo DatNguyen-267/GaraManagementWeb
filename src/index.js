@@ -99,6 +99,14 @@ app.engine('hbs', handlebars({
       if (!isSuccessRepair) return "disabled"
       if (isDebt == true) return "disabled"
       if (isSuccessRepair == false) return "disabled"
+    },
+    isExportedStatus(check) {
+      if(check) return "Hoàn thành"
+      else return "Chờ xuất"
+    },
+    isExportedStyle(check) {
+      if(check) return "status--success"
+      else return "status--pending"
     }
   }
 

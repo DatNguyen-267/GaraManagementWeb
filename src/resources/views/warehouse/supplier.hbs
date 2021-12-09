@@ -2,46 +2,44 @@
 
 {{!-- Modal thêm nhà cung cấp --}}
 
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addSupplierLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/supplier/create" method="POST">
+      <form action="/supplier/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm nhà cung cấp</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên nhà cung cấp</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="name"/>
+              <input type="text" class="form-control" id="add-name" name="name" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Email</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="email" />
+              <input type="text" class="form-control" id="add-email" name="email" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Số điện thoại</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="telephone" />
+              <input type="text" class="form-control" id="add-telephone" name="telephone" />
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-success">Thêm</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
+        <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn--send-dialog">Thêm</button>
       </div>
       </form>
     </div>
@@ -53,43 +51,41 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editSupplierLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form method="POST" name="form-edit">
+      <form method="POST" name="form-edit" id="form-edit">
       <div class="modal-header">
         <h5 class="modal-title">Sửa nhà cung cấp</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Tên nhà cung cấp</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="supplier-edit-name" name="name"/>
+              <input type="text" class="form-control" id="edit-name" name="name" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Email</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="supplier-edit-email" name="email" />
+              <input type="text" class="form-control" id="edit-email" name="email" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Số điện thoại</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="supplier-edit-telephone" name="telephone" />
+              <input type="text" class="form-control" id="edit-telephone" name="telephone" />
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-success" id="btnModalEdit">Sửa</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
+        <button type="button" class="btn btn--close-dialog" data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn--send-dialog" id="btnModalEdit">Sửa</button>
       </div>
       </form>
     </div>
@@ -102,41 +98,35 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Xóa nhà cung cấp</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">Bạn có chắc chắn muốn xóa?</div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="btnModalDelete">Xóa</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Đóng
-            </button>
+            <button type="button" class="btn btn--delete-dialog" id="btnModalDelete">Xóa</button>
+            <button type="button" class="btn btn--close-dialog" data-bs-dismiss="modal">Đóng</button>
           </div>
         </div>
       </div>
 </div>
 
 
-{{!-- Danh sách vật tư --}}
-<div class="row">
-  <div class="d-grid gap-2 d-flex justify-content-end">
-    <button
-      type="button"
-      class="btn btn-success"
-      data-bs-toggle="modal"
-      data-bs-target="#addModal"
-    >
-      Thêm
-    </button>
-  </div>
+{{!-- Danh sách nhà cung cấp --}}
+
+<div class="grid__content">
+  <div class="template__title">
+    Danh sách nhà cung cấp
+</div>
+<div class="toolbar">
+    <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
+        <span class="toolbar__search-icon ti-search"></span>
+    </div>
+    <div class="toolbar__filter"></div>
+    <div class="toolbar__btn">
+        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm nhà cung cấp</button>
+    </div>
 </div>
 
 <table class="table table--default">
@@ -197,9 +187,9 @@
 
       var rowData = item.parentElement.parentElement
 
-      document.getElementById('supplier-edit-name').value = rowData.cells[0].textContent
-      document.getElementById('supplier-edit-email').value = rowData.cells[1].textContent
-      document.getElementById('supplier-edit-telephone').value = rowData.cells[2].textContent
+      document.getElementById('edit-name').value = rowData.cells[0].textContent
+      document.getElementById('edit-email').value = rowData.cells[1].textContent
+      document.getElementById('edit-telephone').value = rowData.cells[2].textContent
     }
 
     btnModalDelete.onclick = function () {
