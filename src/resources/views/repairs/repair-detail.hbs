@@ -11,18 +11,18 @@
     </div>
     <div class="repair-detail__navbar">
         <div class="repair-detail__nav">
-            <button class="repair-detail__nav-item">Thông tin sửa chữa</button>
+            <button class="repair-detail__nav-item  btn btn-primary">Thông tin sửa chữa</button>
             <form method="GET" action="/repairs/{{Repair._id}}/contract-detail">
-                <button style="submit" class="repair-detail__nav-item">Thông tin hợp đồng</button>
+                <button style="submit" class="repair-detail__nav-item btn btn-primary">Thông tin hợp đồng</button>
             </form>
         </div>
         <div class="repair-detail__toolbar">
-            <button id="btn-quote" class="repair-detail__toolbar-item"
+            <button id="btn-quote" class="repair-detail__toolbar-item btn btn-primary"
                 data-toggle="modal" data-target="#modal-quote">Báo giá</button>
-            <button id="btn-contract" class="repair-detail__toolbar-item">Lập hợp đồng</button>
-            <button id="btn-ordered" class="repair-detail__toolbar-item"
+            <button id="btn-contract" class="repair-detail__toolbar-item btn btn-primary">Lập hợp đồng</button>
+            <button id="btn-ordered" class="repair-detail__toolbar-item btn btn-primary"
                 data-toggle="modal" data-target="#modal-ordered">Lệnh sửa</button>
-            <button id="btn-success" class="repair-detail__toolbar-item"
+            <button id="btn-success" class="repair-detail__toolbar-item btn btn-primary"
             data-toggle="modal" data-target="#modal-success">Xác nhận hoàn thành</button>
         </div>
     </div>
@@ -71,7 +71,7 @@
             <div class="table__header">
                 <div class="table__header-name">Bảng thông tin vật tư</div> 
                 <button id="btn-add-material" class="table__header-btn-add btn btn-primary"
-                    data-toggle="modal" data-target="#form-add-material"
+                    data-toggle="modal" data-target="#modal-add-material"
                     data-id="{{repair._id}}" {{isHidden Repair.isSuccess}}>Thêm</button>
             </div>
             
@@ -117,8 +117,10 @@
                                 <span {{isShow this.exported}} class="oi oi-circle-check icon-check--on"></span>
                             </td>
                             <td {{isHidden ../Repair.isSuccess}} class="td-contain-btn" scope="row"> 
-                                <button {{isDisable this.contracted}} class="btn--edit-item btn--disable" data-toggle="modal" data-target="#form-edit-material" data-id="{{this._id}}">Sửa</button>
-                                <button {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-material" data-id="{{this._id}}">Xóa</button>
+                                <button {{isDisable this.contracted}} class="btn--edit-item btn--disable" data-toggle="modal" 
+                                data-target="#modal-edit-material" data-id="{{this._id}}">Sửa</button>
+                                <button {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" 
+                                data-target="#modal-delete-material" data-id="{{this._id}}">Xóa</button>
                             </td>
                         </tr>
                         {{/each}}
@@ -131,7 +133,7 @@
             <div class="table__header">
                 <div class="table__header-name">Bảng thông tiền công</div> 
                 <button {{isHidden Repair.isSuccess}} id="btn-add-wage" class="table__header-btn-add btn btn-primary"
-                data-toggle="modal" data-target="#form-add-wage">Thêm</button>     
+                data-toggle="modal" data-target="#modal-add-wage">Thêm</button>     
             </div> 				    
             <table class="table table--default table-wage">
                 <colgroup>
@@ -159,7 +161,7 @@
                         <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
                     </td> 
                     <td scope="row"  class="td-contain-btn" {{isHidden ../Repair.isSuccess}}>
-                        <button {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#form-edit-wage" data-id="{{this._id}}">Sửa</button>
+                        <button {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#modal-edit-wage" data-id="{{this._id}}">Sửa</button>
                         <button {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-wage" data-id="{{this._id}}">Xóa</button>
                     </td>
                 </tr>
@@ -172,7 +174,7 @@
             <div class="table__header">
                 <div class="table__header-name">Bảng thông tin nhân viên đảm nhiệm</div> 
                 <button id="btn-add-employee" class="table__header-btn-add btn btn-primary"
-                data-toggle="modal" data-target="#form-add-employee" {{isHidden Repair.isSuccess}} >Thêm</button>     
+                data-toggle="modal" data-target="#modal-add-employee" {{isHidden Repair.isSuccess}} >Thêm</button>     
             </div> 	
             <table class="table table--default table-employee">
                 <colgroup>
@@ -199,7 +201,7 @@
                         <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
                     </td> 
                     <td scope="row" class="td-contain-btn" {{isHidden ../Repair.isSuccess}}>
-                        <button  {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#form-edit-employee" data-id="{{this._id}}">Sửa</button>
+                        <button  {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#modal-edit-employee" data-id="{{this._id}}">Sửa</button>
                         <button  {{isDisable this.contracted}} class="btn--delete-item" data-toggle="modal" data-target="#modal-delete-employee" data-id="{{this._id}}">Xóa</button>
                     </td>
                 </tr>
@@ -210,9 +212,9 @@
     </div>
 </div>
 
-
-<form method="POST" action="" name="form-add-material">
-    <div class="modal fade" id="form-add-material" tabindex="-1" role="dialog">
+{{!-- THÊM VẬT TƯ --}}
+<form method="POST" action="" name="form-add-material" id="form-add-material">
+    <div class="modal fade" id="modal-add-material" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -225,19 +227,20 @@
             <form>
                 <div class="form-group">
                     <label for="" class="col-form-label">Nội dung:</label>
-                    <input type="text" class="form-control" name="content">
+                    <input type="text" class="form-control" name="content" id="add-content">
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Vật tư:</label>
                     <select type="text" class="form-control" name="material_name" id="select-material">
                         <option>-- Chọn vật tư --</option>
-
                         {{#each Materials}}
                         <option data-id="{{this._id}}" data-amount="{{this.amount}} "
                             data-sellprice="{{this.sell_price}}">{{this.name}}</option>
                         {{/each}}
 
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Số lượng:</label>
@@ -247,27 +250,29 @@
                         <option value="2" data-id="">2</option>
                         <option value="3" data-id="">3</option>
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Đơn giá:</label>
-                    <input type="text" class="form-control" name="sell_price" id="sell-price">
+                    <input type="text" class="form-control disabled" name="sell_price" id="sell-price" >
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Thành tiền:</label>
-                    <input type="text" class="form-control" name="total_money" id="total-money">
+                    <input type="text" class="form-control disabled" name="total_money" id="total-money" >
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-            <button id="btn-accept-add-material" type="button" class="btn btn--send-dialog">Thêm</button>
+            <button id="btn-accept-add-material" type="submit" class="btn btn--send-dialog">Thêm</button>
         </div>
     </div>
     </div>
     </div>
 </form>
-<form method="POST" action="" name="form-add-wage">
-    <div class="modal fade" id="form-add-wage" tabindex="-1" role="dialog">
+{{!-- THÊM TIỀN CÔNG --}}
+<form method="POST" action="" name="form-add-wage" id="form-add-wage">
+    <div class="modal fade" id="modal-add-wage" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -286,28 +291,29 @@
                         <option  data-id="{{this._id}}" data-money="{{this.money}}">{{this.name}}</option>
                         {{/each}}
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Tiền công:</label>
-                    <input type="text" class="form-control" name="wage_money" id="input-wage-money">
+                    <input type="text" class="form-control disabled" name="wage_money" id="input-wage-money">
                 </div>
-
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-            <button id="btn-accept-add-wage" type="button" class="btn btn--send-dialog">Thêm</button>
+            <button id="btn-accept-add-wage" type="submit" class="btn btn--send-dialog">Thêm</button>
         </div>
     </div>
     </div>
     </div>
 </form>
-<form method="POST" action="" name="form-add-employee">
-    <div class="modal fade" id="form-add-employee" tabindex="-1" role="dialog">
+{{!-- THÊM NHÂN VIÊN --}}
+<form method="POST" action="" name="form-add-employee" id="form-add-employee">
+    <div class="modal fade" id="modal-add-employee" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Thêm tiền công</h5>
+            <h5 class="modal-title">Thêm nhân viên đảm nhiệm sửa chữa</h5>
             <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -315,13 +321,14 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <label for="" class="col-form-label">Tên nhân viên:</label>
+                    <label for="" class="col-form-label">Tên nhân viên sửa chữa:</label>
                     <select type="text" class="form-control" name="employee_name" id="select-employee">
-                        <option>-- Chọn nhân viên --</option>
+                        <option>-- Chọn nhân viên sửa chữa --</option>
                         {{#each Employees}}
                         <option  data-id="{{this._id}}" data-phone="{{this.phone}}">{{this.name}}</option>
                         {{/each}}
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Số điện thoại:</label>
@@ -332,16 +339,16 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-            <button id="btn-accept-add-employee" type="button" class="btn btn--send-dialog">Thêm</button>
+            <button id="btn-accept-add-employee" type="submit" class="btn btn--send-dialog">Thêm</button>
         </div>
     </div>
     </div>
     </div>
 </form>
 
-{{!-- EDIT FORM --}}
-<form method="POST" action="" name="form-edit-material">
-    <div class="modal fade" id="form-edit-material" tabindex="-1" role="dialog">
+{{!-- SỬA VẬT TƯ --}}
+<form method="POST" action="" name="form-edit-material" id="form-edit-material">
+    <div class="modal fade" id="modal-edit-material" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -355,6 +362,7 @@
                 <div class="form-group">
                     <label for="" class="col-form-label">Nội dung:</label>
                     <input type="text" class="form-control" name="content" id="input-edit-content">
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Vật tư:</label>
@@ -366,6 +374,7 @@
                             data-sellprice="{{this.sell_price}}">{{this.name}}</option>
                         {{/each}}
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Số lượng:</label>
@@ -376,27 +385,29 @@
                         <option value="2" data-id="">2</option>
                         <option value="3" data-id="">3</option>
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Đơn giá:</label>
-                    <input type="text" class="form-control" name="sell_price" id="input-edit-sell-price">
+                    <input readonly type="text" class="form-control" name="sell_price" id="input-edit-sell-price">
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Thành tiền:</label>
-                    <input type="text" class="form-control" name="total_money" id="input-edit-total-money">
+                    <input readonly type="text" class="form-control" name="total_money" id="input-edit-total-money">
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-            <button id="btn-accept-edit-material" type="button" class="btn btn--send-dialog">Sửa</button>
+            <button id="btn-accept-edit-material" type="submit" class="btn btn--send-dialog">Sửa</button>
         </div>
     </div>
     </div>
     </div>
 </form>
-<form method="POST" action="" name="form-edit-wage">
-    <div class="modal fade" id="form-edit-wage" tabindex="-1" role="dialog">
+{{!-- SỬA TIỀN CÔNG --}}
+<form method="POST" action="" name="form-edit-wage" id="form-edit-wage">
+    <div class="modal fade" id="modal-edit-wage" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -411,30 +422,31 @@
                     <label for="" class="col-form-label">Tên tiền công:</label>
                     <select type="text" class="form-control" name="wage_name"
                     id="select-edit-wage">
-                        <option>-- Chọn vật tư --</option>
+                        <option>-- Chọn tiền công --</option>
                         {{#each Wages}}
                         <option data-id="{{this._id}}" data-money="{{this.money}}">{{this.name}}</option>
                         {{/each}}
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Tiền công:</label>
-                    <input type="text" class="form-control" name="wage_money" id="input-edit-wage-money">
+                    <input readonly type="text" class="form-control" name="wage_money" id="input-edit-wage-money">
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-            <button id="btn-accept-edit-wage" type="button" class="btn btn--send-dialog">Sửa</button>
+            <button id="btn-accept-edit-wage" type="submit" class="btn btn--send-dialog">Sửa</button>
         </div>
     </div>
     </div>
     </div>
 
 </form>
-
-<form method="POST" action="" name="form-edit-employee">
-    <div class="modal fade" id="form-edit-employee" tabindex="-1" role="dialog">
+{{!-- SỬA NHÂN VIÊN --}}
+<form method="POST" action="" name="form-edit-employee" id="form-edit-employee">
+    <div class="modal fade" id="modal-edit-employee" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -448,28 +460,29 @@
                 <div class="form-group">
                     <select type="text" class="form-control" name="employee_name"
                     id="select-edit-employee">
-                        <option>-- Nhân viên --</option>
+                        <option>-- Chọn nhân viên sửa chữa --</option>
                         {{#each Employees}}
                         <option data-id="{{this._id}}" data-phone="{{this.phone}}">{{this.name}}</option>
                         {{/each}}
                     </select>
+                    <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-form-label">Số điện thoại:</label>
-                    <input type="text" class="form-control" name="employee_phone" id="input-edit-employee-phone">
+                    <input readonly type="text" class="form-control" name="employee_phone" id="input-edit-employee-phone">
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-            <button id="btn-accept-edit-employee" type="button" class="btn btn--send-dialog">Sửa</button>
+            <button id="btn-accept-edit-employee" type="submit" class="btn btn--send-dialog">Sửa</button>
         </div>
     </div>
     </div>
     </div>
 
 </form>
-{{!-- DELETE --}}
+{{!-- XÓA VẬT TƯ --}}
 <form method="POST" action="" name="form-delete-material"></form>
 <div class="modal fade" id="modal-delete-material" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -490,6 +503,7 @@
         </div>
     </div>
 </div>
+{{!-- XÓA TIỀN CÔNG--}}
 <form method="POST" action="" name="form-delete-wage"></form>
 <div class="modal fade" id="modal-delete-wage" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -510,6 +524,7 @@
         </div>
     </div>
 </div>
+{{!-- XÓA NHÂN VIÊN --}}
 <form method="POST" action="" name="form-delete-employee"></form>
 <div class="modal fade" id="modal-delete-employee" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -771,6 +786,93 @@
 <form method="GET" name="form-contract"></form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        var btnAcceptAddMaterial = $('#btn-accept-add-material')
+        var btnAddWage = $('#btn-add-wage')
+        var btnAddEmployee = $('#btn-add-employee')
+        var repairId = $('#label-repair-id')[0].textContent;
+        var selectMaterial = document.querySelector('#select-material')
+        var selectAmount = document.querySelector('#select-amount')
+        var sellPrice = document.querySelector('#sell-price')
+        var totalMoney = document.querySelector('#total-money')
+        // VALIDATOR
+        const formAddMaterial = document.forms['form-add-material']
+        Validator({
+            form: '#form-add-material', // id của cái form cần validate
+            errorSelector: '.form-message', // tên class để hiện cái lỗi
+            rules: [
+                Validator.isRequire('#add-content', 'Vui lòng nhập nội dung'),
+                Validator.isRequireSelectBox('#select-material','-- Chọn vật tư --','Vui lòng chọn vật tư'),
+                Validator.isRequireSelectBox('#select-amount','-- Chọn số lượng --','Vui lòng chọn số lượng'),
+            ],
+            onSubmit: function() {
+                var optionSelected = selectMaterial.options[selectMaterial.options.selectedIndex]
+                var materialId = optionSelected.getAttribute('data-id')
+                formAddMaterial.action =  '/repairs/' + repairId +'/' + materialId + '/create-material'
+                formAddMaterial.submit()
+            }
+        })
+        const formAddWage = document.forms['form-add-wage']
+        Validator({
+            form: '#form-add-wage', // id của cái form cần validate
+            errorSelector: '.form-message', // tên class để hiện cái lỗi
+            rules: [
+                Validator.isRequireSelectBox('#select-wage','-- Chọn tiền công --','Vui lòng chọn nhân viên sữa chữa'),
+            ],
+            onSubmit: function() {
+                formAddWage.action =  '/repairs/' + repairId +'/' + wageSelectedId + '/create-wage'
+                formAddWage.submit()
+            }
+        })
+        const formAddEmployee = document.forms['form-add-employee']
+        Validator({
+            form: '#form-add-employee', // id của cái form cần validate
+            errorSelector: '.form-message', // tên class để hiện cái lỗi
+            rules: [
+                Validator.isRequireSelectBox('#select-employee','-- Chọn nhân viên sửa chữa --','Vui lòng chọn nhân viên sữa chữa'),
+            ],
+            onSubmit: function() {
+                formAddEmployee.action =  '/repairs/' + repairId +'/' + employeeSelectedId + '/create-employee'
+                formAddEmployee.submit()
+            }
+        })
+        const formEditMaterial = document.forms['form-edit-material']
+        Validator({
+            form: '#form-edit-material', // id của cái form cần validate
+            errorSelector: '.form-message', // tên class để hiện cái lỗi
+            rules: [
+                Validator.isRequire('#input-edit-content', 'Vui lòng nhập nội dung'),
+                Validator.isRequireSelectBox('#select-edit-material','-- Chọn vật tư --','Vui lòng chọn vật tư'),
+                Validator.isRequireSelectBox('#select-edit-amount','-- Chọn số lượng --','Vui lòng chọn số lượng'),
+            ],
+            onSubmit: function() {
+                formEditMaterial.action = '/repairs/' + materialItemId +'/'+ materialSelectedEdit.getAttribute('data-id') + '/edit-material?_method=PUT'
+                formEditMaterial.submit() 
+            }
+        })
+        const formEditWage = document.forms['form-edit-wage']
+        Validator({
+            form: '#form-edit-wage', // id của cái form cần validate
+            errorSelector: '.form-message', // tên class để hiện cái lỗi
+            rules: [
+                Validator.isRequireSelectBox('#select-edit-wage','-- Chọn tiền công --','Vui lòng chọn nhân viên sữa chữa'),
+            ],
+            onSubmit: function() {
+                formEditWage.action = '/repairs/' + wageItemId + '/' + wageSelectedId + '/edit-wage?_method=PUT'
+                formEditWage.submit()
+            }
+        })
+        const formEditEmployee = document.forms['form-edit-employee']
+        Validator({
+            form: '#form-edit-employee', // id của cái form cần validate
+            errorSelector: '.form-message', // tên class để hiện cái lỗi
+            rules: [
+                Validator.isRequireSelectBox('#select-edit-employee','-- Chọn nhân viên sửa chữa --','Vui lòng chọn nhân viên sữa chữa'),
+            ],
+            onSubmit: function() {
+                formEditEmployee.action = '/repairs/' + employeeItemId + '/' + employeeSelectedId + '/edit-employee?_method=PUT'
+                formEditEmployee.submit()
+            }
+        })
         var btnAcceptSuccess = document.querySelector('#btn-accept-success')
         var formAcceptSuccess = document.forms['form-accept-success']
 
@@ -833,12 +935,7 @@
         }
         if (isEdited == 'true' && isOrdered == 'true'){
             btnSuccess.attr('disabled', false)
-        }
-        console.log(isQuoted)
-        console.log(isContracted)
-        console.log(isOrdered)
-        console.log(isEdited)
-        
+        } 
         var btnAcceptOrdered = document.querySelector('#btn-accept-ordered')
         var formOrdered = document.forms['form-ordered']
         btnAcceptOrdered.onclick = function() {
@@ -868,22 +965,8 @@
             a.window.close()
         }
 
-        var btnAcceptAddMaterial = $('#btn-accept-add-material')
-        var btnAddWage = $('#btn-add-wage')
-        var btnAddEmployee = $('#btn-add-employee')
-        var repairId = $('#label-repair-id')[0].textContent;
-        //var selectMaterial = $('#select-material option:selected')
-        var selectMaterial = document.querySelector('#select-material')
-        var selectAmount = document.querySelector('#select-amount')
-        var sellPrice = document.querySelector('#sell-price')
-        var totalMoney = document.querySelector('#total-money')
-        formAdd = document.forms['form-add-material']
-        btnAcceptAddMaterial.click(function() {
-            var optionSelected = selectMaterial.options[selectMaterial.options.selectedIndex]
-            var materialId = optionSelected.getAttribute('data-id')
-            formAdd.action =  '/repairs/' + repairId +'/' + materialId + '/create-material'
-            formAdd.submit()
-        })
+        
+
         function reloadTotalPrice(sellPirce, amount) {
             if (sellPrice == null || amount == null) {
                 totalMoney.value = 0;
@@ -917,21 +1000,15 @@
         /// Tiền công
         ///
 
-        var btnAcceptAddWage = document.querySelector('#btn-accept-add-wage')
         var selectWage = document.querySelector('#select-wage')
         var inputWageMoney = document.querySelector('#input-wage-money')
         var wageSelected;
         var wageSelectedId;
         var wageSelectedMoney;
-        var formAddWage = document.forms['form-add-wage']
-        
         function loadWageMoney(money) {
             inputWageMoney.value = money
         }
-        btnAcceptAddWage.onclick = function() {
-            formAddWage.action =  '/repairs/' + repairId +'/' + wageSelectedId + '/create-wage'
-            formAddWage.submit()
-        }
+
         selectWage.onchange = function() {
             wageSelected = this.options[this.options.selectedIndex]
             wageSelectedId = wageSelected.getAttribute('data-id')
@@ -942,19 +1019,13 @@
         ///
         /// Nhân viên
         ///
-        var btnAcceptAddEmployee = document.querySelector('#btn-accept-add-employee')
         var selectEmployee = document.querySelector('#select-employee')
         var inputEmployeePhone = document.querySelector('#input-employee-phone')
         var employeeSelected;
         var employeeSelectedId;
         var employeePhone;
-        var formAddEmployee = document.forms['form-add-employee']
         function loadEmployeePhone(phone) {
             inputEmployeePhone.value = phone
-        }
-        btnAcceptAddEmployee.onclick = function() {
-            formAddEmployee.action =  '/repairs/' + repairId +'/' + employeeSelectedId + '/create-employee'
-            formAddEmployee.submit()
         }
         selectEmployee.onchange = function() {
             employeeSelected = this.options[this.options.selectedIndex]
@@ -974,7 +1045,6 @@
         var inputTotalMoneyEdit = document.querySelector('#input-edit-total-money')
         var materialSelectedEdit;
         var btnAcceptEditMaterial = document.querySelector('#btn-accept-edit-material')
-        var formEditMaterial = document.forms['form-edit-material']
 
         function loadTotalMoneyEdit(){
             console.log(inputSellPriceEdit.value )
@@ -1030,10 +1100,10 @@
                 }
             }
         })
-        btnAcceptEditMaterial.onclick = function() {
+        {{!-- btnAcceptEditMaterial.onclick = function() {
             formEditMaterial.action = '/repairs/' + materialItemId +'/'+ materialSelectedEdit.getAttribute('data-id') + '/edit-material?_method=PUT'
             formEditMaterial.submit() 
-        }
+        } --}}
         ///
         /// SỬA TIỀN công
         /// 
@@ -1044,11 +1114,9 @@
         var wageSelectedId
         var wageMoney
         var btnAcceptEditWage = document.querySelector('#btn-accept-edit-wage')
-        var formEditWage = document.forms['form-edit-wage']
         selectEditWage.onchange = function() {
             wageSelectedId = selectEditWage.options[this.options.selectedIndex].getAttribute('data-id')
             wageMoney = selectEditWage.options[this.options.selectedIndex].getAttribute('data-money')
-            console.log(selectEditWage)
             $('#input-edit-wage-money').val(wageMoney)
         }
         $('#form-edit-wage').on('show.bs.modal', function (event) {
@@ -1056,8 +1124,7 @@
             wageItemId = button.data('id')
             wageItemFocus = button.parents('tr')[0]
             $('#input-edit-wage-money').val(wageItemFocus.cells[2].textContent)
-            
-            console.log(selectEditWage.options.length)
+        
             for(var i = 1; i < selectEditWage.options.length; i++){
                 if (selectEditWage.options[i].text == wageItemFocus.cells[1].textContent) {
                     selectEditWage.options.item(i).selected = 'selected'
@@ -1065,10 +1132,7 @@
                 }
             }
         })
-        btnAcceptEditWage.onclick = function() {
-            formEditWage.action = '/repairs/' + wageItemId + '/' + wageSelectedId + '/edit-wage?_method=PUT'
-            formEditWage.submit()
-        }
+
         ///
         /// SỬA NHÂN VIÊN
         /// 
@@ -1079,7 +1143,6 @@
         var employeeSelectedId
         var employeePhone
         var btnAcceptEditEmployee = document.querySelector('#btn-accept-edit-employee')
-        var formEditEmployee = document.forms['form-edit-employee']
         selectEditEmployee.onchange = function() {
             employeeSelectedId = selectEditEmployee.options[this.options.selectedIndex].getAttribute('data-id')
             employeePhone = selectEditEmployee.options[this.options.selectedIndex].getAttribute('data-phone')
@@ -1099,10 +1162,6 @@
                 }
             }
         })
-        btnAcceptEditEmployee.onclick = function() {
-            formEditEmployee.action = '/repairs/' + employeeItemId + '/' + employeeSelectedId + '/edit-employee?_method=PUT'
-            formEditEmployee.submit()
-        }
         //btn-contract
         var btnContract = document.querySelector('#btn-contract')
         var formContract = document.forms['form-contract']

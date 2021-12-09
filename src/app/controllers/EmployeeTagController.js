@@ -1,18 +1,28 @@
-const Tag = require('../models/EmployeeTag')
+const Tag = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
+const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
 
 class EmployeeTagController {
-    show(req,res,next) {// request , respond , next
-        Tag.find({})
-            .then((tag)=> {
-                res.render('employeeTag/index', {
-                    tag: mutipleMongooseToObject(tag),
-                    activeEmployee: true,
-                    activeTag:true
-                })
+    show(req, res, next) {// request , respond , next
+        Tag.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => {
+                Tag.find({})
+                    .then((tag)=> {
+                        res.render('employeeTag/index', {
+                            tag: mutipleMongooseToObject(tag),
+                            activeEmployee: true,
+                            activeTag: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
+                        })
+                    })
+                    .catch(next)
+            })
+        
     };
 
     create(req,res,next){

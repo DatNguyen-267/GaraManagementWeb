@@ -2,9 +2,10 @@
 <link rel="stylesheet" href="/css/pay.css">
 
 <div class="grid__item">
-    <div class="header">
-    <div class="header__link">Tiếp nhận xe > Thanh toán</div>
-</div>
+    <div class="header__breadcrumb">
+        <div class="header__breadcrumb-item header__breadcrumb-item--floating" onclick="history.back()">Tiếp nhận xe</div>
+        <div class="header__breadcrumb-item">>Thanh toán</div>
+    </div>
 <div class="container">
     <div class="bill">
         <div class="bill__header">
@@ -80,24 +81,19 @@
             <div class="bill__money-info-detail">
                 <div class="info-group">
                     <label for="">Tổng tiền:</label>
-                    <label >8.700.600</label>
-                </div>
-                <div class="info-group">
-                    <label for="">Thuế GTGT:</label>
-                    <label >5%</label>
+                    <label >{{Reception.total_money}}</label>
                 </div>
                 <div class="info-group">
                     <label for="">Số tiền đã trả:</label>
-                    <label >0</label>
+                    <label >{{subtract Reception.total_money Reception.debt}}</label>
                 </div>
                 <div class="info-group">
                     <label for="">Tổng tiền thanh toán:</label>
-                    <label >8.700.600</label>
+                    <label >{{Reception.debt}}</label>
                 </div>
             </div>
         </div>
         <div class="bill__footer">
-            <button class="btn-debt btn btn-danger" data-id="{{Reception._id}}">Ghi nợ</button>
             <button class="btn-print btn btn-success">In hóa đơn</button>
             <button class="btn-pay btn btn-primary" data-id="{{Reception._id}}" 
                 data-toggle="modal" 

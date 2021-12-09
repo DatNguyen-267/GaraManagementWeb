@@ -10,11 +10,14 @@ const port = 8080
 const route = require('./routes')
 const db = require('./config/db')
 const { $where } = require('./app/models/EmployeeManagerment')
+const LoadProfileMiddleWare = require('./app/middlewares/LoadProfile')
 
 // Connect DB
 db.connect();
 
 app.use(methodOverride('_method'))
+
+app.use(LoadProfileMiddleWare)
 
 app.use(express.static(path.join(__dirname, '/public')))
 // HTTP logger
@@ -29,7 +32,15 @@ app.use(morgan('combined'))
 app.engine('hbs', handlebars({
   extname:'.hbs',
   helpers: {
-    sum: (a,b) => a + b,
+    loadRoles: (roles, tag) => {
+      if (!roles) return
+      for (var i = 0; i < roles.length; i++) {
+        if (roles[i] == tag) return "" 
+      }
+      return "disabled"
+    },
+    sum: (a, b) => a + b,
+    subtract: (a, b) => Number.parseInt(a) - Number.parseInt(b),
     permission: (check) => {
       if (check == "true"){
         return "Có phép"
