@@ -34,13 +34,6 @@
 .bill__customer-info {
   font-size: 14px; }
 
-.bill__money-info {
-  font-size: 16px;
-  display: flex;
-  justify-content: right;
-  margin-right: 46px;
-  margin-bottom: 16px; }
-
 .bill__footer {
   display: flex;
   align-items: center;
@@ -65,3 +58,14 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
+
+.bill__form {
+  width: 350px;
+  margin-bottom: 36px; }
+
+.form__debt {
+  width: 640px; }
+
+.info-group {
+  display: flex;
+  margin: 12px 0; }

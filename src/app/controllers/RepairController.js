@@ -11,36 +11,46 @@ const Reception = require('../models/Reception')
 const Repair_Detail_Material = require('../models/Repair_Detail_Material')
 const Repair_Detail_Wage = require('../models/Repair_Detail_Wage')
 const Repair_Detail_Employee = require('../models/Repair_Detail_Employee')
+const Position = require('../models/Position')
 var listReception
 class RepairController {
     show(req, res, next) {
-        Repair.find({}).populate('of_reception')
-            .then((repairs) => {
-                Reception.find({}).populate('of_customer')
-                    .then((receptions) => {
-                        var waitReceptions = []
-                        for (var reception of receptions) {
-                            var check = true
-                            for (var repair of repairs) {
-                                if (!repair.of_reception._id) continue
-                                if (!reception._id) continue
-                                if (repair.of_reception._id.toString() == reception._id.toString()) {
-                                    check = false
-                                    break
-                                }
-                            }
-                            if (check == true) waitReceptions.push(reception)
-                        }
-                        res.render('repairs/repair', {
-                            repairs: mutipleMongooseToObject(repairs),
-                            waitReceptions: mutipleMongooseToObject(waitReceptions),
-                            activeManagementCar: true,
-                            activeRepair: true,
-                            })
-                    })
-                    .catch(next)
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => {
+                Repair.find({}).populate('of_reception')
+                .then((repairs) => {
+                    Reception.find({}).populate('of_customer')
+                        .then((receptions) => {
+                            var waitReceptions = []
+                            for (var reception of receptions) {
+                                var check = true
+                                for (var repair of repairs) {
+                                    if (!repair.of_reception._id) continue
+                                    if (!reception._id) continue
+                                    if (repair.of_reception._id.toString() == reception._id.toString()) {
+                                        check = false
+                                        break
+                                    }
+                                }
+                                if (check == true) waitReceptions.push(reception)
+                            }
+                            res.render('repairs/repair', {
+                                repairs: mutipleMongooseToObject(repairs),
+                                waitReceptions: mutipleMongooseToObject(waitReceptions),
+                                activeManagementCar: true,
+                                activeRepair: true,
+                                Rules: mongooseToOject(position.rules),
+                                User: mongooseToOject( res.locals.employee)
+                                })
+                        })
+                        .catch(next)
+                })
+                .catch(next)
+        })
+        
     }
     create(req, res, next) {
         console.log(req.body)
@@ -122,17 +132,26 @@ class RepairController {
                     })
             })
             .then((data) => {
-                res.render('repairs/repair-detail', {
-                    Detail_Materials: mutipleMongooseToObject(data.detail_Materials),
-                    Detail_Wages: mutipleMongooseToObject(data.detail_Wages),
-                    Detail_Employees: mutipleMongooseToObject(data.detail_Employees),
-                    Repair: mongooseToOject(data.repair),
-                    Materials: mutipleMongooseToObject(data.materials),
-                    Employees: mutipleMongooseToObject(data.employees),
-                    Wages: mutipleMongooseToObject(data.wages),
-                    activeManagementCar: true,
-                    activeRepair: true,
+                Position.findOne({ _id: res.locals.employee.position })
+                    .then((position) => {
+                    return position
+                    })
+                    .then((position) => { 
+                        res.render('repairs/repair-detail', {
+                            Detail_Materials: mutipleMongooseToObject(data.detail_Materials),
+                            Detail_Wages: mutipleMongooseToObject(data.detail_Wages),
+                            Detail_Employees: mutipleMongooseToObject(data.detail_Employees),
+                            Repair: mongooseToOject(data.repair),
+                            Materials: mutipleMongooseToObject(data.materials),
+                            Employees: mutipleMongooseToObject(data.employees),
+                            Wages: mutipleMongooseToObject(data.wages),
+                            activeManagementCar: true,
+                            activeRepair: true,
+                            Rules: mongooseToOject(position.rules),
+                            User: mongooseToOject( res.locals.employee)
                 })
+                    })
+                
             })
             .catch(next)
 
@@ -293,13 +312,22 @@ class RepairController {
                     })
             })
             .then((data) => {
-                res.render('repairs/contract', {
-                    Repair: mongooseToOject(data.repair),
-                    Detail_Materials: mutipleMongooseToObject(data.materials),
-                    Detail_Wages: mutipleMongooseToObject(data.wages),
-                    activeManagementCar: true,
-                    activeRepair: true,
-                })
+                Position.findOne({ _id: res.locals.employee.position })
+                    .then((position) => {
+                    return position
+                    })
+                    .then((position) => {
+                        res.render('repairs/contract', {
+                            Repair: mongooseToOject(data.repair),
+                            Detail_Materials: mutipleMongooseToObject(data.materials),
+                            Detail_Wages: mutipleMongooseToObject(data.wages),
+                            activeManagementCar: true,
+                            activeRepair: true,
+                            Rules: mongooseToOject(position.rules),
+                            User: mongooseToOject( res.locals.employee)
+                        })
+                    })
+                
             })
             .catch(next)
 
@@ -381,61 +409,70 @@ class RepairController {
             .catch(next)
     }
     contractDetail(req, res, next) {
-        Repair.findOne({_id: req.params.id}).populate('of_reception')
-            .then((repair) => {
-                Contract.find({ of_repair: repair._id })
-                    .then((contracts) => {
-                        Repair_Detail_Material.find({ of_repair: repair._id })
-                            .then((detailMaterials) => {
-                                Repair_Detail_Wage.find({ of_repair: repair._id })
-                                    .then((detailWages) => {
-                                        var newContracts = []
-                                        for (const item of contracts) {
-                                            var temp = new Object()
-                                            temp._id = item._id
-                                            temp.of_repair = item.of_repair
-                                            temp.createdAtConvert = item.createdAt.toDateString()
-                                            temp.createdAt = item.createdAt
-                                            temp.total_money = item.total_money
-                                            temp.employee_create = item.employee_create
-                                            temp.detailMaterial = []
-                                            temp.detailWage = []    
-                                            newContracts.push(temp)
-                                        }
-                                        // content: String,
-                                        // material: {type:Schema.Types.ObjectId , ref: "Material" },
-                                        // of_repair: { type: Schema.Types.ObjectId, ref: "Repair" },
-                                        // material_name: String,
-                                        // amount: Number,
-                                        // sell_price: Number,
-                                        // total_money: Number,
-                                        // exported: { type:Boolean,  default: false },
-                                        
-                                        for (var contract of newContracts) {
-                                            for (var detailMaterial of detailMaterials) {
-                                                if (detailMaterial.createdAt.getTime() < contract.createdAt.getTime()) {
-                                                    contract.detailMaterial.push(detailMaterial)
-                                                }
-                                            }
-                                            for (var detailWage of detailWages) {
-                                                if (detailWage.createdAt.getTime() < contract.createdAt.getTime()) {
-                                                    contract.detailWage.push(detailWage)
-                                                }
-                                            }
-                                        }
-                                        res.render('repairs/contract-detail', {
-                                            Repair: mongooseToOject(repair),
-                                            Contracts: newContracts,
-                                            activeManagementCar: true,
-                                            activeRepair: true,
-                                        })
-                                    })
-                            })
-                        
-                })  
-                
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => { 
+                Repair.findOne({_id: req.params.id}).populate('of_reception')
+                    .then((repair) => {
+                        Contract.find({ of_repair: repair._id })
+                            .then((contracts) => {
+                                Repair_Detail_Material.find({ of_repair: repair._id })
+                                    .then((detailMaterials) => {
+                                        Repair_Detail_Wage.find({ of_repair: repair._id })
+                                            .then((detailWages) => {
+                                                var newContracts = []
+                                                for (const item of contracts) {
+                                                    var temp = new Object()
+                                                    temp._id = item._id
+                                                    temp.of_repair = item.of_repair
+                                                    temp.createdAtConvert = item.createdAt.toDateString()
+                                                    temp.createdAt = item.createdAt
+                                                    temp.total_money = item.total_money
+                                                    temp.employee_create = item.employee_create
+                                                    temp.detailMaterial = []
+                                                    temp.detailWage = []    
+                                                    newContracts.push(temp)
+                                                }
+                                                // content: String,
+                                                // material: {type:Schema.Types.ObjectId , ref: "Material" },
+                                                // of_repair: { type: Schema.Types.ObjectId, ref: "Repair" },
+                                                // material_name: String,
+                                                // amount: Number,
+                                                // sell_price: Number,
+                                                // total_money: Number,
+                                                // exported: { type:Boolean,  default: false },
+                                                
+                                                for (var contract of newContracts) {
+                                                    for (var detailMaterial of detailMaterials) {
+                                                        if (detailMaterial.createdAt.getTime() < contract.createdAt.getTime()) {
+                                                            contract.detailMaterial.push(detailMaterial)
+                                                        }
+                                                    }
+                                                    for (var detailWage of detailWages) {
+                                                        if (detailWage.createdAt.getTime() < contract.createdAt.getTime()) {
+                                                            contract.detailWage.push(detailWage)
+                                                        }
+                                                    }
+                                                }
+                                                res.render('repairs/contract-detail', {
+                                                    Repair: mongooseToOject(repair),
+                                                    Contracts: newContracts,
+                                                    activeManagementCar: true,
+                                                    activeRepair: true,
+                                                    Rules: mongooseToOject(position.rules),
+                                                    User: mongooseToOject( res.locals.employee)
+                                                })
+                                            })
+                                    })
+                                
+                        })  
+                        
+                    })
+                    .catch(next)
+            })
+        
     }
     /// CONTRACT/// 
 

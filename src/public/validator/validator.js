@@ -130,3 +130,14 @@ Validator.isNumber = function (selector, errorMessage) {
         },
     }
 }
+Validator.notGreaterThan = function(selector, selectorLimited, errorMessage) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var limitedValue = document.querySelector(selectorLimited).textContent
+            console.log(limitedValue)
+            if (Number.parseInt(value) > Number.parseInt(limitedValue)) return errorMessage
+            else return undefined
+        },
+    }
+}

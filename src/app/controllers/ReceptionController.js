@@ -15,21 +15,31 @@ const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 
 const { render } = require('node-sass')
+const Position = require('../models/Position')
 class ReceptionController {
     show(req, res, next) {
-        Promise.all([
-            Reception.find({}).populate('of_customer').populate('brand').populate('of_repair'), Customer.find({}) , Brand.find({})
-        ])
-            .then(([receptions, customers, brands]) => {
-                res.render('receptions/reception', {
-                    Receptions: mutipleMongooseToObject(receptions),
-                    Customers: mutipleMongooseToObject(customers),
-                    Brands: mutipleMongooseToObject(brands),
-                    activeManagementCar: true,
-                    activeReception: true,
-                })
+        // res.send(res.locals.test)
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => {
+                Promise.all([
+                Reception.find({}).populate('of_customer').populate('brand').populate('of_repair'), Customer.find({}) , Brand.find({})])
+                .then(([receptions, customers, brands]) => {
+                    res.render('receptions/reception', {
+                        Receptions: mutipleMongooseToObject(receptions),
+                        Customers: mutipleMongooseToObject(customers),
+                        Brands: mutipleMongooseToObject(brands),
+                        activeManagementCar: true,
+                        activeReception: true,
+                        Permissions: mongooseToOject(position.permissions),
+                        User: mongooseToOject(res.locals.employee)
+                    })  
+                })
+                .catch(next)
+        })
+        
     }
     create(req, res, next) {
         
@@ -107,28 +117,37 @@ class ReceptionController {
     showPay(req, res, next) {
         var now = new Date()
         now = now.toLocaleString()
-        Promise.all([
-            Reception.findOne({ _id: req.params.id }).populate('of_customer'),
-            Repair.findOne({of_reception: req.params.id})
-        ])
-            .then(([reception, repair]) => {
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
+            })
+            .then((position) => {
                 Promise.all([
-                    Repair_Detail_Material.find({of_repair: repair._id}),
-                    Repair_Detail_Wage.find({of_repair: repair._id})
+                    Reception.findOne({ _id: req.params.id }).populate('of_customer'),
+                    Repair.findOne({of_reception: req.params.id})
                 ])
-                    .then(([detailMaterial, detailWage]) => {
-                        res.render('receptions/pay', {
-                            Reception: mongooseToOject(reception),
-                            DetailMaterial: mutipleMongooseToObject(detailMaterial),
-                            DetailWage: mutipleMongooseToObject(detailWage),
-                            Now: now,
-                            activeManagementCar: true,
-                            activeReception: true,
-                        })
+                    .then(([reception, repair]) => {
+                        Promise.all([
+                            Repair_Detail_Material.find({of_repair: repair._id}),
+                            Repair_Detail_Wage.find({of_repair: repair._id})
+                        ])
+                            .then(([detailMaterial, detailWage]) => {
+                                res.render('receptions/pay', {
+                                    Reception: mongooseToOject(reception),
+                                    DetailMaterial: mutipleMongooseToObject(detailMaterial),
+                                    DetailWage: mutipleMongooseToObject(detailWage),
+                                    Now: now,
+                                    activeManagementCar: true,
+                                    activeReception: true,
+                                    Rules: mongooseToOject(position.rules),
+                                    User: mongooseToOject( res.locals.employee)
+                                })
+                            })
+                            .catch(next)
                     })
                     .catch(next)
             })
-            .catch(next)
+        
     }
     createBill(req, res, next) {
         
@@ -157,28 +176,37 @@ class ReceptionController {
     showDebt(req, res, next) {
         var now = new Date()
         now = now.toLocaleString()
-        Promise.all([
-            Reception.findOne({ _id: req.params.id }).populate('of_customer'),
-            Repair.findOne({of_reception: req.params.id})
-        ])
-            .then(([reception, repair]) => {
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
+            })
+            .then((position) => { 
                 Promise.all([
-                    Repair_Detail_Material.find({of_repair: repair._id}),
-                    Repair_Detail_Wage.find({of_repair: repair._id})
+                    Reception.findOne({ _id: req.params.id }).populate('of_customer'),
+                    Repair.findOne({of_reception: req.params.id})
                 ])
-                    .then(([detailMaterial, detailWage]) => {
-                        res.render('receptions/debt', {
-                            Reception: mongooseToOject(reception),
-                            DetailMaterial: mutipleMongooseToObject(detailMaterial),
-                            DetailWage: mutipleMongooseToObject(detailWage),
-                            Now: now,
-                            activeManagementCar: true,
-                            activeReception: true,
-                        })
+                    .then(([reception, repair]) => {
+                        Promise.all([
+                            Repair_Detail_Material.find({of_repair: repair._id}),
+                            Repair_Detail_Wage.find({of_repair: repair._id})
+                        ])
+                            .then(([detailMaterial, detailWage]) => {
+                                res.render('receptions/debt', {
+                                    Reception: mongooseToOject(reception),
+                                    DetailMaterial: mutipleMongooseToObject(detailMaterial),
+                                    DetailWage: mutipleMongooseToObject(detailWage),
+                                    Now: now,
+                                    activeManagementCar: true,
+                                    activeReception: true,
+                                    Rules: mongooseToOject(position.rules),
+                                    User: mongooseToOject( res.locals.employee)
+                                })
+                            })
+                            .catch(next)
                     })
                     .catch(next)
             })
-            .catch(next)
+        
     }
     createDebt(req, res, next) {
         var newDebt = new Debt(req.body)

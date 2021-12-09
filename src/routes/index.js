@@ -18,48 +18,49 @@ const exportRouter = require('./export')
 const customerhistoryRouter =require('./customerhistory')
 const reportsaleRouter =require('./reportsale')
 const reportinventoryRouter =require('./reportinventory')
+const loginRouter =require('./login')
 
 
 
 function route(app) {
-      app.use('/news', newsRouter)
+      app.use('/:profile/news', newsRouter)
 
-      app.use('/courses', coursesRouter)
+      app.use('/:profile/courses', coursesRouter)
 
-      app.use('/me', meRouter)
+      app.use('/:profile/me', meRouter)
 
-      app.use('/reception', receptionRouter)
+      app.use('/:profile/reception', receptionRouter)
       
-      app.use('/repairs', repairRouter)
+      app.use('/:profile/repairs', repairRouter)
 
-      app.use('/employeeList', employeeListRouter)
+      app.use('/:profile/employeeList', employeeListRouter)
 
-      app.use('/employeeTag', employeeTagRouter)
+      app.use('/:profile/employeeTag', employeeTagRouter)
       
-      app.use('/employeeSalary', employeeSalaryRouter)
+      app.use('/:profile/employeeSalary', employeeSalaryRouter)
 
-      app.use('/employeeManagerment', employeeManagermentRouter)
+      app.use('/:profile/employeeManagerment', employeeManagermentRouter)
       
-      app.use('/customer', customerRouter)
+      app.use('/:profile/customer', customerRouter)
 
-      app.use('/customerdebt', customerdebtRouter)
+      app.use('/:profile/customerdebt', customerdebtRouter)
 
-      app.use('/customerhistory', customerhistoryRouter)
+      app.use('/:profile/customerhistory', customerhistoryRouter)
 
-      app.use('/reportsale', reportsaleRouter)
+      app.use('/:profile/reportsale', reportsaleRouter)
 
-      app.use('/reportinventory', reportinventoryRouter)
+      app.use('/:profile/reportinventory', reportinventoryRouter)
 
-      app.use('/material', materialRouter)
+      app.use('/:profile/material', materialRouter)
 
-      app.use('/supplier', supplierRouter)
+      app.use('/:profile/supplier', supplierRouter)
 
-      app.use('/import', importRouter)
+      app.use('/:profile/import', importRouter)
 
-      app.use('/export', exportRouter)
+      app.use('/:profile/export', exportRouter)
 
-      app.use('/brand', brandRouter)
-
+      app.use('/:profile/brand', brandRouter)
+      app.use('/login', loginRouter)
       app.use('/', siteRouter)
 
       

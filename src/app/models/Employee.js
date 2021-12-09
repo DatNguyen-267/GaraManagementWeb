@@ -5,11 +5,13 @@ const mongooseDelete = require('mongoose-delete')
 const Schema = mongoose.Schema
 
 const Employee = new Schema({
-    name: String,
-    date_of_birth: String,
-    phone: String,
-    address: String,
-    cmnd: String,
+    name: {type: String},
+    CMND: {type: String},
+    email: {type: String},
+    address: {type: String},
+    phoneNumber: {type: String},
+    salary: {type: String},
+    startDate: {type: String},
     position: {type: Schema.Types.ObjectId , ref:'Position'}
 }, {
     timestamps: true,

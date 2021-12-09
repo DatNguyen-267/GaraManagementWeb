@@ -77,88 +77,91 @@
                 </table>
             </div>
         </div>
-        <form name="form-debt" method="POST">
-            <div class="bill__money-info">
-                <div class="bill__money-info-detail">
-                    <div class="info-group">
-                        <label for="">Tổng tiền:</label>
-                        <label id="label-total-money">{{Reception.total_money}}</label>
-                    </div>
-                    <div class="info-group">
-                        <label for="">Thuế GTGT:</label>
-                        <label >5%</label>
-                    </div>
-                    <div class="info-group">
-                        <label for="">Tổng:</label>
-                        <input disabled id="input-total" type="text" class="form-control input-money" name="money_pay">
-                    </div>
-                    <div class="info-group">
-                        <label for="">Số tiền thanh toán:</label>
-                        <input id="input-money-pay" type="text" class="form-control input-money" name="money_pay">
-                    </div>
-                    <div class="info-group">
-                        <label for="">Còn nợ:</label>
-                        <input id="input-debt" disabled type="text" class="form-control input-debt" name="debt">
+        <div class="bill__form">
+            <form name="form-debt" method="POST" id="form-debt">
+                <div class="bill__money-info">
+                    <div class="bill__money-info-detail">
+                        <div class="info-group">
+                            <label for="">Tổng tiền:</label>
+                            <label id="label-total-money">{{Reception.total_money}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Số tiền thanh toán trước:</label>
+                            <input id="input-money-pay" type="text" class="form-control input-money" name="money_pay">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Còn nợ:</label>
+                            <input id="input-debt" disabled type="text" class="form-control input-debt" name="debt">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+                <div class="modal fade" id="form-accept-debt" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLabel">Thanh toán</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body modal-body-descreption">
+                                    Bạn có chắc chắn xác nhận muốn ghi nợ!!!
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+                            <button id="btn-accept-debt" type="submit" class="btn btn--send-dialog">Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
         
         <div class="bill__footer">
-            <button class="btn-print btn btn-success">In hóa đơn</button>
-            <button class="btn-debt btn btn-primary" data-id="{{Reception._id}}" 
-                data-toggle="modal" 
-                data-target="#form-accept-debt">Xác nhận ghi nợ</button>
+                <button class="btn-print btn btn-success">In hóa đơn</button>
+                <button class="btn-debt btn btn-primary" data-id="{{Reception._id}}" 
+                    data-toggle="modal" 
+                    data-target="#form-accept-debt">Xác nhận ghi nợ</button>
         </div>
+        
     </div>
 </div>
 </div>
-    <div class="modal fade" id="form-accept-debt" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Thanh toán</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body modal-body-descreption">
-            Bạn có chắc chắn xác nhận muốn ghi nợ!!!
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-            <button id="btn-accept-debt" type="button" class="btn btn--send-dialog">Đồng ý</button>
-            </div>
-        </div>
-        </div>
-    </div>
+    
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var btnAcceptDebt = document.querySelector('#btn-accept-debt')
         var btnPrint = document.querySelector('#btn-print')
-        var formDebt = document.forms['form-debt']
         var receptionId
+        const formDebt = document.forms['form-debt']
+        Validator({
+            form: '#form-debt', // id của cái form cần validate
+            errorSelector: '.form-message', // tên class để hiện cái lỗi
+            rules: [
+                Validator.isRequire('#input-money-pay','Vui lòng nhập số tiền thanh toán trước'),
+                Validator.isNumber('#input-money-pay'),
+                Validator.notGreaterThan('#input-money-pay','#label-total-money','Số tiền thanh toán không được vượt quá tổng tiền'),
+            ],
+            onSubmit: function() {
+                formDebt.action = '/reception/' + receptionId + '/create-debt?_method=POST'
+                formDebt.submit()
+            }
+        })
         $('#form-accept-debt').on('show.bs.modal' , function(event) {
             var button = $(event.relatedTarget)
             receptionId = button.data('id')
             console.log(receptionId)
         })
         
-        btnAcceptDebt.onclick = function() {
-            formDebt.action = '/reception/' + receptionId + '/create-debt?_method=POST'
-            formDebt.submit()
-        }
-        
         var inputMoneyPay = document.querySelector('#input-money-pay')
         var labelTotalMoney = document.querySelector('#label-total-money')
-        var inputTotal = document.querySelector('#input-total')
         var inputDebt = document.querySelector('#input-debt')
         var totalMoney = labelTotalMoney.textContent
-        inputTotal.value = (Number.parseInt(labelTotalMoney.textContent) - Number.parseInt(labelTotalMoney.textContent) * 0.05)
-        
+
         inputMoneyPay.onkeyup = function() {
-            console.log(Number.parseInt(inputTotal.value))
-            inputDebt.value = (Number.parseInt(inputTotal.value) - Number.parseInt(inputMoneyPay.value))
+            inputDebt.value = (Number.parseInt(labelTotalMoney.textContent) - Number.parseInt(inputMoneyPay.value))
+    
         }
     })
 </script>
