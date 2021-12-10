@@ -3,8 +3,8 @@
 
 
 <div class="grid__content">
-  <div class="template__header">
-    <div class="template__title">Quản lý hiệu xe</div>
+  <div class="header__breadcrumb">
+    <div class="header__breadcrumb-main">Quản lý hiệu xe</div>
   </div>
 
   <div class="toolbar">
@@ -136,7 +136,7 @@
         Validator.isRequire('#input-name', 'Vui lòng nhập tên hiệu xe'),
       ],
       onSubmit: function() {
-          formAdd.action = '/brand/create' 
+          formAdd.action = 'brand/create' 
           formAdd.submit()
         }
       })
@@ -148,7 +148,7 @@
           Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
         ],
         onSubmit: function() {
-            formEdit.action = '/brand/' + brandId + '/edit?_method=PUT'
+            formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'
             formEdit.submit()
           }
         })
@@ -177,7 +177,7 @@
     })
 
     btnAcceptDelete.onclick = function() {
-      formDelete.action = '/brand/' + brandId + '/delete?_method=DELETE'
+      formDelete.action = 'brand/' + brandId + '/delete?_method=DELETE'
       formDelete.submit()
     }
   })

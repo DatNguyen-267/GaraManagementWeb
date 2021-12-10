@@ -42,8 +42,8 @@ class RepairController {
                                 waitReceptions: mutipleMongooseToObject(waitReceptions),
                                 activeManagementCar: true,
                                 activeRepair: true,
-                                Rules: mongooseToOject(position.rules),
-                                User: mongooseToOject( res.locals.employee)
+                                Permissions: mongooseToOject(position.permissions),
+                                User: mongooseToOject(res.locals.employee)
                                 })
                         })
                         .catch(next)
@@ -69,7 +69,7 @@ class RepairController {
                             of_repair: repair._id,
                             status: "Khám xe",
                         }).then(() => {
-                            res.redirect('/repairs')
+                            res.redirect('back')
                         })
                         .catch(next)
                     })
@@ -80,14 +80,14 @@ class RepairController {
     edit(req, res, next) {
         Repair.updateOne({ _id: req.params.id }, req.body)
             .then(() => {
-                res.redirect('/repairs')
+                res.redirect('back')
             })
             .catch(next)
     }
     delete(req, res, next) {
         Repair.deleteOne({ _id: req.params.id })
             .then(() => {
-                res.redirect('/repairs')
+                res.redirect('back')
             })
             .catch(next)
 
@@ -147,8 +147,8 @@ class RepairController {
                             Wages: mutipleMongooseToObject(data.wages),
                             activeManagementCar: true,
                             activeRepair: true,
-                            Rules: mongooseToOject(position.rules),
-                            User: mongooseToOject( res.locals.employee)
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
                 })
                     })
                 
@@ -323,8 +323,8 @@ class RepairController {
                             Detail_Wages: mutipleMongooseToObject(data.wages),
                             activeManagementCar: true,
                             activeRepair: true,
-                            Rules: mongooseToOject(position.rules),
-                            User: mongooseToOject( res.locals.employee)
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
                         })
                     })
                 
@@ -396,7 +396,7 @@ class RepairController {
                                                     Repair_Detail_Employee.updateMany({ _id: { $in: data.idEmployees } }, {
                                                         contracted: true })
                                                         .then(() => {
-                                                            res.redirect('/repairs/'+ req.params.id +'/repair-detail')
+                                                            res.redirect('/'+ res.locals.employee._id +'/repairs/'+ req.params.id +'/repair-detail')
                                                         })
                                                     
                                                 }).catch(next)
@@ -461,8 +461,8 @@ class RepairController {
                                                     Contracts: newContracts,
                                                     activeManagementCar: true,
                                                     activeRepair: true,
-                                                    Rules: mongooseToOject(position.rules),
-                                                    User: mongooseToOject( res.locals.employee)
+                                                    Permissions: mongooseToOject(position.permissions),
+                                                    User: mongooseToOject(res.locals.employee)
                                                 })
                                             })
                                     })

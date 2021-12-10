@@ -144,7 +144,7 @@
                 Validator.notGreaterThan('#input-money-pay','#label-total-money','Số tiền thanh toán không được vượt quá tổng tiền'),
             ],
             onSubmit: function() {
-                formDebt.action = '/reception/' + receptionId + '/create-debt?_method=POST'
+                formDebt.action = 'create-debt?_method=POST'
                 formDebt.submit()
             }
         })

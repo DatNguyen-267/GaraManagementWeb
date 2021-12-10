@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./css/repair.css">
 <div class="grid__content">
-  <div class="template__title">
-    Quản lý sửa chữa
+  <div class="header__breadcrumb">
+    <div class="header__breadcrumb-main">Theo dõi sửa chữa</div>
   </div>
   <div class="toolbar">
       <div class="toolbar__search">
@@ -49,7 +49,7 @@
 </div>
 <!-- MODAL -->
 
-<form method="POST" action="/repairs/create" id="form-add" name="form-add">
+<form method="POST" action="" id="form-add" name="form-add">
   <div class="modal fade" id="modal-add" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -118,7 +118,7 @@
   </div>
 </form>
 
-<form method="GET" name="form-edit"></form>
+<form method="GET" name="form-edit" action=""></form>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -131,7 +131,7 @@
         Validator.isRequireSelectBox('#input-add-name','--- Chọn khách hàng ---', 'Vui lòng chọn khách hàng'),
       ],
       onSubmit: function() {
-          formAdd.action = '/repairs/create' 
+          formAdd.action = 'repairs/create' 
           formAdd.submit()
         }
       })
@@ -149,7 +149,7 @@
       repairId = button.data('id')
     })
     btnEdit.click(function(){
-      formEdit.action = 'repairs/' + $(this).data('id') + '/repair-detail'
+      formEdit.action =  'repairs/' + $(this).data('id') + '/repair-detail'
       formEdit.submit()
     })
     btnAcceptDelete.click(function() {

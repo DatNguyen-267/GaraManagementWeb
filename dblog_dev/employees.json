@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "address": "TIEN GIANG SOUTH SIDE",
+  "date_of_birth": "26/07/2001",
+  "name": "Đạt",
+  "position": {
+    "$oid": "61b1bd286ad927bd712e2e89"
+  },
+  "CMND": "312323023",
+  "email": "datn@gmail.com",
+  "salary": "15000000",
+  "phoneNumber": "089698867"
+}]

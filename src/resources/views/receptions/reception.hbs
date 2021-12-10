@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/css/reception.css">
 <div class="grid__content {{active}}">
   <div class="header__breadcrumb">
-        <div class="header__breadcrumb-item header__breadcrumb-item--floating" onclick="history.back()">Tiếp nhận xe</div>
-    </div>
+    <div class="header__breadcrumb-main">Tiếp nhận xe</div>
+  </div>
   <div class="header">
     <div class="template__title"></div>
   </div>
@@ -104,7 +104,7 @@
 
 <!-- POP UP FORM -->
 <!-- FORM THÊM PHIẾU TIẾP NHẬN-->
-<form method="POST" action="/reception/create" id="form-add-reception" name="form-add-reception">
+<form method="POST" action="/{{User._id}}/reception/create" id="form-add-reception" name="form-add-reception">
   <div class="modal fade" id="modal-add-reception" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -199,7 +199,7 @@
 </form>
 
 <!-- FORM SỬA PHIẾU TIẾP NHẬN-->
-<form method="POST" name="form-submit" id="form-edit">
+<form method="POST" name="form-submit" id="form-edit" action="">
   <div class="modal fade" id="form-edit-reception" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -253,7 +253,8 @@
 </form>
 
 <!-- FORM XÓA PHIẾU TIẾP NHẬN-->
-<div class="modal fade" id="form-delete-reception" tabindex="-1" role="dialog">
+
+<div class="modal fade" id="form-delete-reception" tabindex="-1" role="dialog"action="">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -312,9 +313,9 @@
   </div>
 </div>
 {{!-- FORM --}}
-<form name="form-delete" method="POST"></form>
-<form name="form-pay" method="GET"></form>
-<form name="form-debt" method="GET"></form>
+<form name="form-delete" method="POST" action=""></form>
+<form name="form-pay" method="GET" action=""></form>
+<form name="form-debt" method="GET" action=""></form>
 
 <!-- MAIN CSS -->
 <script>
@@ -338,7 +339,7 @@
         //Validator.minLength('#reception-add-receptionDate',6),
       ],
       onSubmit: function() {
-          formAddReception.action = '/reception/create' 
+          {{!-- formAddReception.action = '/reception/create'  --}}
           formAddReception.submit()
         }
       })
@@ -357,11 +358,11 @@
             //Validator.isRequire('#reception-edit-receptionDate', 'Vui lòng chọn ngày tiếp nhận'),
           ],
           onSubmit: function() {
-            formSubmit.action = '/reception/' + receptionId + '/?_method=PUT' 
+            formSubmit.action = 'reception/' + receptionId + '/?_method=PUT' 
             formSubmit.submit()
           }
     })
-    const formAddReception= document.forms['form-add-reception']
+    var formAddReception= document.forms['form-add-reception']
     var formSubmit = document.forms['form-submit']
     var formDelete = document.forms['form-delete']
     var btnSubmitEdit = $('#btn-edit-form')
@@ -395,7 +396,7 @@
     })
     btnAcceptDelete.click(function () {
       if (receptionId != null) {
-        formDelete.action = '/reception/' + receptionId + '/?_method=DELETE'
+        formDelete.action = 'reception/' + receptionId + '/?_method=DELETE'
         formDelete.submit()
       }
 
@@ -406,8 +407,8 @@
     $("#add-address").attr('disabled','disabled');
     $("#add-cardIdentify").attr('disabled','disabled');
     $("#add-email").attr('disabled','disabled');
-    const checkboxNewCustomer = document.getElementById('customer-check-input')
-    const formOldCustomer = document.querySelector('#form-old-customer')
+    var checkboxNewCustomer = document.getElementById('customer-check-input')
+    var formOldCustomer = document.querySelector('#form-old-customer')
     checkboxNewCustomer.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
           $("#form-old-customer").attr('disabled','disabled');
@@ -430,10 +431,10 @@
       var button = $(event.relatedTarget)
       receptionId = button.data('id')
     })
-    const formPay = document.forms['form-pay']
-    const btnAccceptPay = document.querySelector('#btn-accept-pay')
+    var formPay = document.forms['form-pay']
+    var btnAccceptPay = document.querySelector('#btn-accept-pay')
     btnAccceptPay.onclick = function() {
-      formPay.action = '/reception/' + receptionId + '/pay'
+      formPay.action = 'reception/' + receptionId + '/pay'
       formPay.submit()
     }
 
@@ -441,10 +442,10 @@
       var button = $(event.relatedTarget)
       receptionId = button.data('id')
     })
-    const formDebt = document.forms['form-debt']
-    const btnAccceptDebt = document.querySelector('#btn-accept-debt')
+    var formDebt = document.forms['form-debt']
+    var btnAccceptDebt = document.querySelector('#btn-accept-debt')
     btnAccceptDebt.onclick = function() {
-      formDebt.action = '/reception/' + receptionId + '/debt'
+      formDebt.action ='reception/' + receptionId + '/debt'
       formDebt.submit()
     }
   })

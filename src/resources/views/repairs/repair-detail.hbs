@@ -1,18 +1,15 @@
 <link rel="stylesheet" href="/css/repair.css">
 <div class="grid__item">
-    <div class="repair-detail__title">
-        <div>Quản lý sửa chữa</div>
-        <div>></div>
-        <div>Thông tin sửa chữa</div>
-    </div>
-
-    <div class="back">
-
+    <div class="header__breadcrumb">
+        <form action="/{{User._id}}/repairs">
+            <button class="header__breadcrumb-item header__breadcrumb-item--floating" type="submit" >Theo dõi sửa chữa</button>
+        </form>
+        <div class="header__breadcrumb-item">>Thông tin sửa chữa</div>
     </div>
     <div class="repair-detail__navbar">
         <div class="repair-detail__nav">
             <button class="repair-detail__nav-item  btn btn-primary">Thông tin sửa chữa</button>
-            <form method="GET" action="/repairs/{{Repair._id}}/contract-detail">
+            <form method="GET" action="contract-detail">
                 <button style="submit" class="repair-detail__nav-item btn btn-primary">Thông tin hợp đồng</button>
             </form>
         </div>
@@ -795,7 +792,7 @@
         var sellPrice = document.querySelector('#sell-price')
         var totalMoney = document.querySelector('#total-money')
         // VALIDATOR
-        const formAddMaterial = document.forms['form-add-material']
+        var formAddMaterial = document.forms['form-add-material']
         Validator({
             form: '#form-add-material', // id của cái form cần validate
             errorSelector: '.form-message', // tên class để hiện cái lỗi
@@ -807,11 +804,11 @@
             onSubmit: function() {
                 var optionSelected = selectMaterial.options[selectMaterial.options.selectedIndex]
                 var materialId = optionSelected.getAttribute('data-id')
-                formAddMaterial.action =  '/repairs/' + repairId +'/' + materialId + '/create-material'
+                formAddMaterial.action =  '' + materialId + '/create-material'
                 formAddMaterial.submit()
             }
         })
-        const formAddWage = document.forms['form-add-wage']
+        var formAddWage = document.forms['form-add-wage']
         Validator({
             form: '#form-add-wage', // id của cái form cần validate
             errorSelector: '.form-message', // tên class để hiện cái lỗi
@@ -819,11 +816,11 @@
                 Validator.isRequireSelectBox('#select-wage','-- Chọn tiền công --','Vui lòng chọn nhân viên sữa chữa'),
             ],
             onSubmit: function() {
-                formAddWage.action =  '/repairs/' + repairId +'/' + wageSelectedId + '/create-wage'
+                formAddWage.action = wageSelectedId + '/create-wage'
                 formAddWage.submit()
             }
         })
-        const formAddEmployee = document.forms['form-add-employee']
+        var formAddEmployee = document.forms['form-add-employee']
         Validator({
             form: '#form-add-employee', // id của cái form cần validate
             errorSelector: '.form-message', // tên class để hiện cái lỗi
@@ -831,11 +828,11 @@
                 Validator.isRequireSelectBox('#select-employee','-- Chọn nhân viên sửa chữa --','Vui lòng chọn nhân viên sữa chữa'),
             ],
             onSubmit: function() {
-                formAddEmployee.action =  '/repairs/' + repairId +'/' + employeeSelectedId + '/create-employee'
+                formAddEmployee.action =  employeeSelectedId + '/create-employee'
                 formAddEmployee.submit()
             }
         })
-        const formEditMaterial = document.forms['form-edit-material']
+        var formEditMaterial = document.forms['form-edit-material']
         Validator({
             form: '#form-edit-material', // id của cái form cần validate
             errorSelector: '.form-message', // tên class để hiện cái lỗi
@@ -845,11 +842,11 @@
                 Validator.isRequireSelectBox('#select-edit-amount','-- Chọn số lượng --','Vui lòng chọn số lượng'),
             ],
             onSubmit: function() {
-                formEditMaterial.action = '/repairs/' + materialItemId +'/'+ materialSelectedEdit.getAttribute('data-id') + '/edit-material?_method=PUT'
+                formEditMaterial.action =  materialItemId +'/'+ materialSelectedEdit.getAttribute('data-id') + '/edit-material?_method=PUT'
                 formEditMaterial.submit() 
             }
         })
-        const formEditWage = document.forms['form-edit-wage']
+        var formEditWage = document.forms['form-edit-wage']
         Validator({
             form: '#form-edit-wage', // id của cái form cần validate
             errorSelector: '.form-message', // tên class để hiện cái lỗi
@@ -857,11 +854,11 @@
                 Validator.isRequireSelectBox('#select-edit-wage','-- Chọn tiền công --','Vui lòng chọn nhân viên sữa chữa'),
             ],
             onSubmit: function() {
-                formEditWage.action = '/repairs/' + wageItemId + '/' + wageSelectedId + '/edit-wage?_method=PUT'
+                formEditWage.action = wageItemId + '/' + wageSelectedId + '/edit-wage?_method=PUT'
                 formEditWage.submit()
             }
         })
-        const formEditEmployee = document.forms['form-edit-employee']
+        var formEditEmployee = document.forms['form-edit-employee']
         Validator({
             form: '#form-edit-employee', // id của cái form cần validate
             errorSelector: '.form-message', // tên class để hiện cái lỗi
@@ -869,7 +866,7 @@
                 Validator.isRequireSelectBox('#select-edit-employee','-- Chọn nhân viên sửa chữa --','Vui lòng chọn nhân viên sữa chữa'),
             ],
             onSubmit: function() {
-                formEditEmployee.action = '/repairs/' + employeeItemId + '/' + employeeSelectedId + '/edit-employee?_method=PUT'
+                formEditEmployee.action = 'repairs/' + employeeItemId + '/' + employeeSelectedId + '/edit-employee?_method=PUT'
                 formEditEmployee.submit()
             }
         })
@@ -877,7 +874,7 @@
         var formAcceptSuccess = document.forms['form-accept-success']
 
         btnAcceptSuccess.onclick = function() {
-            formAcceptSuccess.action = '/repairs/' + repairId + '/accept-success-repair?_method=PUT'
+            formAcceptSuccess.action = 'accept-success-repair?_method=PUT'
             formAcceptSuccess.submit()
         }
 
@@ -939,7 +936,7 @@
         var btnAcceptOrdered = document.querySelector('#btn-accept-ordered')
         var formOrdered = document.forms['form-ordered']
         btnAcceptOrdered.onclick = function() {
-            formOrdered.action = '/repairs/' + repairId + '/ordered'
+            formOrdered.action = 'ordered'
             formOrdered.submit()
         }
         
@@ -1100,10 +1097,7 @@
                 }
             }
         })
-        {{!-- btnAcceptEditMaterial.onclick = function() {
-            formEditMaterial.action = '/repairs/' + materialItemId +'/'+ materialSelectedEdit.getAttribute('data-id') + '/edit-material?_method=PUT'
-            formEditMaterial.submit() 
-        } --}}
+
         ///
         /// SỬA TIỀN công
         /// 
@@ -1166,7 +1160,7 @@
         var btnContract = document.querySelector('#btn-contract')
         var formContract = document.forms['form-contract']
         btnContract.onclick = function() {
-            formContract.action = '/repairs/' + repairId + '/contract'
+            formContract.action = 'contract'
             formContract.submit()
         }
 
@@ -1179,7 +1173,7 @@
             detailMaterialIdDelete = button.data('id')
         })
         btnAcceptDeleteMaterial.onclick = function() {
-            formDeleteMaterial.action = '/repairs/' +repairId + '/' + detailMaterialIdDelete + '/delete-detail-material?_method=DELETE'
+            formDeleteMaterial.action = 'repairs/' +repairId + '/' + detailMaterialIdDelete + '/delete-detail-material?_method=DELETE'
             formDeleteMaterial.submit()
         }
         // XÓA Tiền công
@@ -1191,7 +1185,7 @@
             detailWageIdDelete = button.data('id')
         })
         btnAcceptDeleteWage.onclick = function() {
-            formDeleteWage.action = '/repairs/'+ repairId + '/'  + detailWageIdDelete + '/delete-detail-wage?_method=DELETE'
+            formDeleteWage.action = 'repairs/'+ repairId + '/'  + detailWageIdDelete + '/delete-detail-wage?_method=DELETE'
             formDeleteWage.submit()
         }
         // XÓA nhân viên sửa chữa
@@ -1203,7 +1197,7 @@
             detailEmployeeIdDelete = button.data('id')
         })
         btnAcceptDeleteEmployee.onclick = function() {
-            formDeleteEmployee.action = '/repairs/' + repairId + '/' + detailEmployeeIdDelete + '/delete-detail-employee?_method=DELETE'
+            formDeleteEmployee.action = 'repairs/' + repairId + '/' + detailEmployeeIdDelete + '/delete-detail-employee?_method=DELETE'
             formDeleteEmployee.submit()
         }
     })

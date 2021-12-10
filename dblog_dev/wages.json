@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "619776a2b3ff373a1df6a690"
+  },
+  "money": "1230000",
+  "name": "Sửa chữa"
+},{
+  "_id": {
+    "$oid": "6199f8aebbb772e97411b493"
+  },
+  "money": "20000",
+  "name": "Rửa xe"
+},{
+  "_id": {
+    "$oid": "6199f8b0bbb772e97411b494"
+  },
+  "money": "170000",
+  "name": "Thay phụ kiện"
+}]

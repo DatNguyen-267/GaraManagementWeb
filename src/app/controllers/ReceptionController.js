@@ -69,7 +69,7 @@ class ReceptionController {
                                     of_reception: customer.of_reception
                                 })
                                     .then(() => {
-                                    res.redirect('/reception')
+                                    res.redirect('back')
                                 }).catch(next)
                         }).catch(next)
                     }).catch(next)
@@ -92,7 +92,7 @@ class ReceptionController {
                             of_reception: customer.of_reception
                         })
                             .then(() => {
-                            res.redirect('/reception')
+                            res.redirect('back')
                         }).catch(next)
                 }).catch(next)
             })
@@ -104,13 +104,13 @@ class ReceptionController {
     }
     edit(req,res,next){
         Reception.updateOne({_id:req.params.id}, req.body)
-            .then(() => res.redirect('/reception'))
+            .then(() => res.redirect('back'))
             .catch(next)
     }
     delete(req,res,next){
         Reception.delete({_id: req.params.id})
             .then(()=> {
-                res.redirect('/reception')
+                res.redirect('back')
             })
             .catch(next)
     }
@@ -139,8 +139,8 @@ class ReceptionController {
                                     Now: now,
                                     activeManagementCar: true,
                                     activeReception: true,
-                                    Rules: mongooseToOject(position.rules),
-                                    User: mongooseToOject( res.locals.employee)
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(res.locals.employee)
                                 })
                             })
                             .catch(next)
@@ -165,7 +165,7 @@ class ReceptionController {
                             debt: 0,
                         })
                         .then(() => {
-                            res.redirect('/reception')
+                            res.redirect('/' + res.locals.employee._id + '/reception')
                         })
                         .catch(next)
                     })
@@ -198,8 +198,8 @@ class ReceptionController {
                                     Now: now,
                                     activeManagementCar: true,
                                     activeReception: true,
-                                    Rules: mongooseToOject(position.rules),
-                                    User: mongooseToOject( res.locals.employee)
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(res.locals.employee)
                                 })
                             })
                             .catch(next)
@@ -222,8 +222,8 @@ class ReceptionController {
                             status: "Nợ",
                             debt: debt,
                         })
-                        .then(() => {
-                            res.redirect('/reception')
+                            .then(() => {
+                                res.redirect('/' + res.locals.employee._id + '/reception')
                         })
                         .catch(next)
                     })
