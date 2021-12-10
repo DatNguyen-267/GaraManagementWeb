@@ -1,19 +1,31 @@
 const Customer = require('../models/Customer.js')
 const Reception = require('../models/Reception.js')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
+const { mongooseToOject } = require('../../util/mongoose')
 const { render, NULL } = require('node-sass')
 const { SchemaTypes } = require('mongoose')
+const Position = require('../models/Position')
+
 class CustomerController {
     show(req, res, next) {
-        Customer.find({})
-            .then(customers => {
-                res.render('customer/customer', {
-                    customers: mutipleMongooseToObject(customers),
-                    activeManagementCustomer: true,
-                    activeCustomer: true,
-                })
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => { 
+                Customer.find({})
+                .then(customers => {
+                    res.render('customer/customer', {
+                        customers: mutipleMongooseToObject(customers),
+                        activeManagementCustomer: true,
+                        activeCustomer: true,
+                        Permissions: mongooseToOject(position.permissions),
+                        User: mongooseToOject(res.locals.employee)
+                    })
+                })
+                .catch(next)
+            })
+        
 
     }
 
@@ -40,7 +52,7 @@ class CustomerController {
             else{
                 customer.save()
                 .then(() => {
-                    res.redirect('/customer')
+                    res.redirect('back')
 
                 })
                 .catch(next)
@@ -64,30 +76,40 @@ class CustomerController {
 
     //-----------Debt-------------//
     showdebt(req, res, next) {
-        Customer.find({}).populate('of_reception', ['name', 'debt','receptionDate'])
-            .then(customers => {
-                for (const customer of customers) {
-                    var totaldebt = 0
-                    for (const reception of customer.of_reception) {
-                        totaldebt = reception.debt + totaldebt
-                    }
-                    customer.debt = totaldebt
-                }
-                var listdebt = []
-                for (const customer of customers) {
-                    if (customer.debt > 0) {
-                        listdebt.push(customer)
-                    }
-                }
-                res.render('customer/customer-debt', {
-                    listdebt: mutipleMongooseToObject(listdebt),
-                    activeManagementCustomer: true,
-                    activeCustomerDebt: true,
-                })
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => { 
+                Customer.find({}).populate('of_reception', ['name', 'debt'])
+                    .then(customers => {
+                        for (const customer of customers) {
+                            var totaldebt = 0
+                            for (const reception of customer.of_reception) {
+                                totaldebt = reception.debt + totaldebt
+                            }
+                            customer.debt = totaldebt
+                        }
+                        var listdebt = []
+                        for (const customer of customers) {
+                            if (customer.debt > 0) {
+                                listdebt.push(customer)
+                            }
+                        }
+                        res.render('customer/customer-debt', {
+                            listdebt: mutipleMongooseToObject(listdebt),
+                            activeManagementCustomer: true,
+                            activeCustomerDebt: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
+                        })
+                    })
+                    .catch(next)
+            })
+        
     }
     customerDebtDetail(req, res, next) {
+        
         Customer.find({ _id: req.params.id }).populate('of_reception')
             .then(customers => {
                 var listreception = []
@@ -110,64 +132,67 @@ class CustomerController {
 
     //----------History--------//
     showhistory(req, res, next) {
-        Customer.find({}).populate('of_reception', ['name', 'debt'])
-            .then(customers => {
-                for (const customer of customers) {
-                    var totaldebt = 0
-                    var number_of_reception = 0
-                    for (const reception of customer.of_reception) {
-                        totaldebt = reception.debt + totaldebt
-                        number_of_reception = number_of_reception + 1
-                    }
-                    customer.debt = totaldebt
-                    customer.number_of_reception = number_of_reception
-                }
-                var listhistory = []
-                for (const customer of customers) {
-
-                    listhistory.push(customer)
-
-                }
-
-                res.render('customer/customer-history', {
-                    listhistory: mutipleMongooseToObject(listhistory),
-                    activeManagementCustomer: true,
-                    activeCustomerHistory: true,
-                })
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => { 
+                Customer.find({}).populate('of_reception', ['name', 'debt'])
+                    .then(customers => {
+                        for (const customer of customers) {
+                            var totaldebt = 0
+                            var number_of_reception = 0
+                            for (const reception of customer.of_reception) {
+                                totaldebt = reception.debt + totaldebt
+                                number_of_reception = number_of_reception +1
+                            }
+                            customer.debt = totaldebt
+                            customer.number_of_reception = number_of_reception
+                        }
+                        var listhistory = []
+                        for (const customer of customers) {
+
+                            listhistory.push(customer)
+
+                        }
+                        
+                        res.render('customer/customer-history', {
+                            listhistory: mutipleMongooseToObject(listhistory),
+                            activeManagementCustomer: true,
+                            activeCustomerHistory: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
+                        })
+                    })
+                    .catch(next)
+            })
     }
     customerHistoryDetail(req, res, next) {
-        Customer.find({ _id: req.params.id }).populate('of_reception')
-        .then((customers) => {
-            return customers;
-        })
-        .then((customers) =>{
-           
-            
-            
-            Reception.find().populate('of_customer').populate('brand')
-            .then(Receptions => {
-                var listreception = [];
-                
-                for (const customer of customers) {
-                    for (const reception of Receptions) {
-                        if(reception.of_customer._id.toString() == customer._id.toString())
-                        {
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
+            })
+            .then((position) => { 
+                Customer.find({ _id: req.params.id }).populate('of_reception')
+                .then(customers => {
+                    var listreception = []
+                    for (const customer of customers) {
+                        for (const reception of customer.of_reception) {
                             listreception.push(reception)
+
                         }
                     }
-                }    
-                res.render('customer/customer-history-detail', {
-                    listreception: mutipleMongooseToObject(listreception),
-                    activeManagementCustomer: true,
-                    activeCustomerHistory: true,
+                    res.render('customer/customer-history-detail', {
+                        listreception: mutipleMongooseToObject(listreception),
+                        activeManagementCustomer: true,
+                        activeCustomerHistory: true,
+                        Permissions: mongooseToOject(position.permissions),
+                        User: mongooseToOject(res.locals.employee)
+                    })
                 })
-                
+                .catch(next)
             })
-            .catch(next)
-        })
-        .catch(next)
+        
     }
 
 }
