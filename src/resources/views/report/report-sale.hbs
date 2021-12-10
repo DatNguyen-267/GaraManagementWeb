@@ -84,7 +84,7 @@
 
 <!-- POP UP FORM -->
 <!-- FORM Lập báo cáo-->
-<form method="POST" action="/reportsale/create">
+<form method="POST" action="/{{User._id}}/reportsale/create">
     <div class="modal fade" id="form-add-report-sale" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -171,7 +171,7 @@
     </div>
 </form>
 
-<form method="POST" name="form-search"></form>
+<form method="POST" name="form-search" action="/{{User._id}}/reportsale/"></form>
 <!-- scrip -->
 {{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -184,6 +184,7 @@
     crossorigin="anonymous"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="./jquery.table2excel.min.js"></script> --}}
+
 {{!--Load Tháng Hiện Tại --}}
 <script>
     var month_min = 1,
@@ -305,7 +306,7 @@
 
             var time = month + "-" + year
 
-            formSearch.action = '/reportsale/' + time + '/?_method=GET'
+            formSearch.action = formSearch.action + time + '/?_method=GET'
             formSearch.submit()
 
         })

@@ -1,4 +1,5 @@
 const Customer = require('../models/Customer.js')
+const Reception = require('../models/Reception.js')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 const { render, NULL } = require('node-sass')
@@ -24,27 +25,72 @@ class CustomerController {
                 })
                 .catch(next)
             })
-        
-
     }
 
     create(req, res, next) {
+        var check = 0
         const customer = new Customer(req.body)
-        customer.save()
-            .then(() => {
-                res.redirect('back')
-            })
-            .catch(next)
+        Customer.find({})
+        .then(customers => {
+            for (const iteam of customers) {
+                if( iteam.cardIdentify == customer.cardIdentify)
+                {
+                    check = 1
+                    
+                }
+            }
+            if(check == 1){
+               res.render('customer/customer', {
+                    customers: mutipleMongooseToObject(customers),
+                    activeManagementCustomer: true,
+                    activeCustomer: true,
+                    check,
+                })
+            }
+            else{
+                customer.save()
+                .then(() => {
+                    res.redirect('back')
+
+                })
+                .catch(next)
+            }
+        })
+        .catch(next)
+        
     }
     edit(req, res, next) {
-        Customer.updateOne({ _id: req.params.id }, req.body)
-            .then(() => res.redirect('/customer'))
-            .catch(next)
+        var check = 0
+        const customer = new Customer(req.body)
+        Customer.find({})
+        .then(customers => {
+            for (const iteam of customers) {
+                if( iteam.cardIdentify == customer.cardIdentify && iteam._id !=req.params.id)
+                {
+                    check = 2
+                }
+            }
+            if(check == 2){
+               res.render('customer/customer', {
+                    customers: mutipleMongooseToObject(customers),
+                    activeManagementCustomer: true,
+                    activeCustomer: true,
+                    check,
+                })
+            }
+            else{
+                Customer.updateOne({ _id: req.params.id }, req.body)
+                .then(() => res.redirect('back'))
+                .catch(next)
+            }
+        })
+        .catch(next)
+        
     }
     delete(req, res, next) {
         Customer.deleteOne({ _id: req.params.id })
             .then(() => {
-                res.redirect('/customer')
+                res.redirect('back')
             })
             .catch(next)
     }
@@ -148,11 +194,12 @@ class CustomerController {
             return position
             })
             .then((position) => { 
-                Customer.find({ _id: req.params.id }).populate('of_reception')
+                Customer.find({ _id: req.params.id }).populate({path:'of_reception',populate:{path:'brand'}})
                 .then(customers => {
                     var listreception = []
                     for (const customer of customers) {
                         for (const reception of customer.of_reception) {
+                            reception.name = customer.name
                             listreception.push(reception)
 
                         }

@@ -1,11 +1,15 @@
 const Report_Inventory = require('../models/Report_Inventory.js')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
+const { mongooseToOject } = require('../../util/mongoose')
 const { render, NULL } = require('node-sass')
 const { SchemaTypes } = require('mongoose')
 const Material = require('../models/Material.js')
 const Import_Detail = require('../models/ImportDetail.js')
+const Export_Detail = require('../models/ExportDetail.js')
 const Import_Voucher = require('../models/ImportVoucher.js')
+const Export_Voucher = require('../models/ExportVoucher.js')
 const Report_Inventory_Detail = require('../models/Report_Inventory_Detail.js')
+const Position = require('../models/Position')
 
 //Hàm đổi string sang date
 function stringToDate(_date, _format, _delimiter) {
@@ -24,216 +28,254 @@ function stringToDate(_date, _format, _delimiter) {
 
 class ReportInventoryController {
     show(req, res, next) {
-        Report_Inventory.find({})
-            .then(report_inventories => {
-                var check = 0
-                var report_Inventory
-                var today = new Date()
-                var month = today.getMonth() + 1
-                var year = today.getFullYear()
-                var datestring = "2/" + month + "/" + year
-                var date = stringToDate(datestring, "dd/MM/yyyy", "/");
-                var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
-                var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
-                var report_Inventory_date
-                var list = []
-
-                for (const iteam of report_inventories) {
-                    if (iteam.month == month && iteam.year == year) {
-                        report_Inventory = iteam
-                    }
-                }
-                if (report_Inventory == null) {
-                    Material.find({})
-                        .then(materials => {
-                            for (const material of materials) {
-                                var report_Inventory_detail = new Report_Inventory_Detail()
-                                report_Inventory_detail.of_report_inventory = report_Inventory
-                                report_Inventory_detail.of_material = material
-                                report_Inventory_detail.last_inventory = material.amount
-
-                                Import_Voucher.find({ imported: 'true' })
-                                    .then(import_vouchers => {
-                                        for (const iteam of import_vouchers) {
-                                            Import_Detail.find({of_voucher: iteam})
-                                                .then(import_details => {
-                                                    var incurred = 0
-                                                    for (const iteam of import_details) {
-
-                                                        incurred = incurred + iteam.amount
-                                                        
-
-                                                    }
-                                                    report_Inventory_detail.incurred = incurred
-                                                    report_Inventory_detail.first_inventory = report_Inventory_detail.last_inventory
-
-                                                }).then(()=>{})
-                                                .catch(next)
-                                        }
-                                        
-
-                                    }).then(()=>{})
-                                    .catch(next)
-                                list.push(report_Inventory_detail)
-                            }
-                            
-                            res.render('report/report-inventory', {
-                                list: mutipleMongooseToObject(list),
-                                report_inventories: mutipleMongooseToObject(report_inventories),
-                                report_Inventory_date,
-                                month,
-                                year,
-                                check,
-                                activeManagementReport: true,
-                                activeReportInventory: true,
-                            })
-                        })
-                        .catch(next)
-                }
-                else {
-                    check = 1
-                    Report_Inventory_Detail.find({ of_report_inventory: report_Inventory }).populate('of_material')
-                        .then(report_inventory_details => {
-
-                            report_Inventory_date = report_Inventory.report_inventory_date
-
-                            for (const iteam of report_inventory_details) {
-                                list.push(iteam.of_material)
-                            }
-                            res.render('report/report-inventory', {
-                                list: mutipleMongooseToObject(list),
-                                report_inventories: mutipleMongooseToObject(report_inventories),
-                                report_Inventory_date,
-                                month,
-                                year,
-                                check,
-                                activeManagementReport: true,
-                                activeReportInventory: true,
-                            })
-
-                        })
-                        .catch(next)
-
-                }
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+                return position
             })
-            .catch(next)
+            .then((position) => {
+                Promise.all([
+                    Report_Inventory.find({}), Import_Detail.find({}).populate('of_voucher').populate('material'), Material.find({}), Export_Detail.find({}).populate('of_voucher').populate('material')])
+                    .then(([report_inventories, import_details, materials, export_details]) => {
+                        var check = 0
+                        var report_inventory
+                        var today = new Date()
+                        var month = today.getMonth() + 1
+                        var year = today.getFullYear()
+                        var datestring = "2/" + month + "/" + year
+                        var date = stringToDate(datestring, "dd/MM/yyyy", "/");
+                        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
+                        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
+                        var report_inventory_date
+                        var list = []
+
+                        for (const iteam of report_inventories) {
+                            if (iteam.month == month && iteam.year == year) {
+                                report_inventory = iteam
+                            }
+                        }
+
+                        if (report_inventory == null) {
+                            for (const material of materials) {
+
+                                var id_material = material._id
+                                var report_inventory_detail = new Report_Inventory_Detail()
+                                report_inventory_detail.of_report_inventory = report_inventory
+                                report_inventory_detail.of_material = material
+                                report_inventory_detail.last_inventory = material.amount
+
+                                var incurred = 0
+                                for (const import_detail of import_details) {
+                                    var id = import_detail.material._id
+                                    if (id == material.id && import_detail.of_voucher.imported == true) {
+                                        var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
+                                        if (import_date >= firstDay && import_date <= lastDay) {
+                                            incurred = incurred + import_detail.amount
+                                        }
+                                    }
+                                }
+                                report_inventory_detail.incurred = incurred
+                                report_inventory_detail.first_inventory = report_inventory_detail.last_inventory - incurred
+                                list.push(report_inventory_detail)
+                            }
+                            res.render('report/report-inventory', {
+                                list: mutipleMongooseToObject(list),
+                                report_inventories: mutipleMongooseToObject(report_inventories),
+                                report_inventory_date,
+                                month,
+                                year,
+                                check,
+                                activeManagementReport: true,
+                                activeReportInventory: true,
+                                Permissions: mongooseToOject(position.permissions),
+                                User: mongooseToOject(res.locals.employee)
+                            })
+                        }
+                        else {
+                            check = 1
+                            Report_Inventory_Detail.find({ of_report_inventory: report_inventory }).populate('of_material')
+                                .then(report_inventory_details => {
+                                    report_inventory_date = report_inventory.report_inventory_date
+                                    for (const iteam of report_inventory_details) {
+                                        list.push(iteam.of_material)
+                                    }
+                                    res.render('report/report-inventory', {
+                                        list: mutipleMongooseToObject(list),
+                                        report_inventories: mutipleMongooseToObject(report_inventories),
+                                        report_inventory_date,
+                                        month,
+                                        year,
+                                        check,
+                                        activeManagementReport: true,
+                                        activeReportInventory: true,
+                                        Permissions: mongooseToOject(position.permissions),
+                                        User: mongooseToOject(res.locals.employee)
+                                    })
+
+                                })
+                                .catch(next)
+                        }
+                    })
+                    .catch(next)
+            })
     }
     create(req, res, next) {
         Report_Inventory.find({})
             .then(report_inventories => {
-                var report_Inventory_check
+                var report_inventory_check
                 var check = 1
                 for (const iteam of report_inventories) {
                     if (iteam.month == req.body.month.toString() && iteam.year == req.body.year.toString()) {
-                        report_Inventory_check = iteam
+                        report_inventory_check = iteam
                     }
                 }
-                if (report_Inventory_check == null) {
-                    const report_Inventory = new Report_Inventory(req.body)
-                    report_Inventory.save()
+                if (report_inventory_check == null) {
+                    const report_inventory = new Report_Inventory(req.body)
+                    report_inventory.save()
                         .then(() => {
-                            var month = req.body.month.toString()
-                            var year = req.body.year.toString()
-                            var datestring = "2/" + month + "/" + year
-                            var date = stringToDate(datestring, "dd/MM/yyyy", "/");
-                            var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
-                            var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
-
-                            material.find({ status: "Paied" })
-                                .then(materials => {
+                            Promise.all([
+                                Report_Inventory.find({}), Import_Detail.find({}).populate('of_voucher').populate('material'), Material.find({}), Export_Detail.find({}).populate('of_voucher').populate('material')])
+                                .then(([report_inventories, import_details, materials, export_details]) => {
+                                    var month = req.body.month.toString()
+                                    var year = req.body.year.toString()
+                                    var datestring = "2/" + month + "/" + year
+                                    var date = stringToDate(datestring, "dd/MM/yyyy", "/");
+                                    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
+                                    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
 
                                     for (const material of materials) {
-                                        var report_Inventory_detail = new Report_Inventory_Detail()
-                                        report_Inventory_detail.of_report_inventory = report_Inventory
-                                        report_Inventory_detail.of_material = material
-                                        report_Inventory_detail.save()
+
+                                        var id_material = material._id
+                                        var report_inventory_detail = new Report_Inventory_Detail()
+                                        report_inventory_detail.of_report_inventory = report_inventory
+                                        report_inventory_detail.of_material = material
+                                        report_inventory_detail.last_inventory = material.amount
+
+                                        var incurred = 0
+                                        for (const import_detail of import_details) {
+                                            var id = import_detail.material._id
+                                            if (id == material.id && import_detail.of_voucher.imported == true) {
+                                                var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
+                                                if (import_date >= firstDay && import_date <= lastDay) {
+                                                    incurred = incurred + import_detail.amount
+                                                }
+                                            }
+                                        }
+                                        report_inventory_detail.incurred = incurred
+                                        report_inventory_detail.first_inventory = report_inventory_detail.last_inventory - incurred
+                                        report_inventory_detail.save()
                                     }
+                                    res.redirect('back')
                                 })
                                 .catch(next)
-
-                            res.redirect('back')
                         })
                         .catch(next)
                 }
                 else {
                     res.redirect('back')
-
                 }
             })
             .catch(next)
 
     }
     find(req, res, next) {
-        var month
-        var year
-        var liststring = req.params.time.split('-')
-        for (const iteam of liststring) {
-            if (iteam <= 12) {
-                month = iteam
-            }
-            else {
-                year = iteam
-            }
-        }
-        Report_Inventory.find({})
-            .then(report_inventories => {
-                var check = 0
-                var report_Inventory
-                var report_Inventory_date
-                var list = []
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+                return position
+            })
+            .then((position) => {
+                Promise.all([
+                    Report_Inventory.find({}), Import_Detail.find({}).populate('of_voucher').populate('material'), Material.find({}), Export_Detail.find({}).populate('of_voucher').populate('material')])
+                    .then(([report_inventories, import_details, materials, export_details]) => {
+                        var today = new Date().toISOString().substring(0, 10);
+                        var check = 0
+                        var month
+                        var year
+                        var liststring = req.params.time.split('-')
+                        for (const iteam of liststring) {
+                            if (iteam <= 12) {
+                                month = iteam
+                            }
+                            else {
+                                year = iteam
+                            }
+                        }
+                        var report_inventory
+                        var datestring = "2/" + month + "/" + year
+                        var date = stringToDate(datestring, "dd/MM/yyyy", "/");
+                        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().substring(0, 10);
+                        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().substring(0, 10);
+                        var report_inventory_date
+                        var list = []
 
-                for (const iteam of report_inventories) {
-                    if (iteam.month == month && iteam.year == year) {
-                        report_Inventory = iteam
-                    }
-                }
-                if (report_Inventory == null) {
-                    material.find({ status: "Paied" })
-                        .then(materials => {
+                        for (const iteam of report_inventories) {
+                            if (iteam.month == month && iteam.year == year) {
+                                report_inventory = iteam
+                            }
+                        }
 
+                        if (report_inventory == null) {
                             for (const material of materials) {
 
-                                list.push(material)
+                                var id_material = material._id
+                                var report_inventory_detail = new Report_Inventory_Detail()
+                                report_inventory_detail.of_report_inventory = report_inventory
+                                report_inventory_detail.of_material = material
+                                report_inventory_detail.last_inventory = material.amount
 
+                                var incurred = 0
+                                for (const import_detail of import_details) {
+                                    var id = import_detail.material._id
+                                    if (id == material.id && import_detail.of_voucher.imported == true) {
+                                        var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
+                                        if (import_date >= firstDay && import_date <= lastDay) {
+                                            incurred = incurred + import_detail.amount
+                                        }
+                                    }
+                                }
+                                report_inventory_detail.incurred = incurred
+                                report_inventory_detail.first_inventory = report_inventory_detail.last_inventory - incurred
+                                list.push(report_inventory_detail)
                             }
                             res.render('report/report-inventory', {
                                 list: mutipleMongooseToObject(list),
                                 report_inventories: mutipleMongooseToObject(report_inventories),
-                                report_Inventory_date,
+                                report_inventory_date,
                                 month,
                                 year,
                                 check,
                                 activeManagementReport: true,
                                 activeReportInventory: true,
+                                Permissions: mongooseToOject(position.permissions),
+                                User: mongooseToOject(res.locals.employee)
                             })
+                        }
+                        else {
+                            check = 1
+                            Report_Inventory_Detail.find({ of_report_inventory: report_inventory }).populate('of_material')
+                                .then(report_inventory_details => {
+                                    report_inventory_date = report_inventory.report_inventory_date
+                                    for (const iteam of report_inventory_details) {
+                                        list.push(iteam)
+                                    }
+                                    res.render('report/report-inventory', {
+                                        list: mutipleMongooseToObject(list),
+                                        report_inventories: mutipleMongooseToObject(report_inventories),
+                                        report_inventory_date,
+                                        month,
+                                        year,
+                                        check,
+                                        activeManagementReport: true,
+                                        activeReportInventory: true,
+                                        Permissions: mongooseToOject(position.permissions),
+                                        User: mongooseToOject(res.locals.employee)
+                                    })
 
-                        })
-                        .catch(next)
-                }
-                else {
-                    check = 1;
-                    Report_Inventory_Detail.find({ of_report_inventory: report_Inventory }).populate('of_material')
-                        .then(report_inventory_details => {
-                            report_Inventory_date = report_Inventory.report_inventory_date
-                            for (const iteam of report_inventory_details) {
-                                list.push(iteam.of_material)
-                            }
-                            res.render('report/report-inventory', {
-                                list: mutipleMongooseToObject(list),
-                                report_inventories: mutipleMongooseToObject(report_inventories),
-                                report_Inventory_date,
-                                month,
-                                year,
-                                check,
-                                activeManagementReport: true,
-                                activeReportInventory: true,
-                            })
-
-                        })
-                        .catch(next)
-                }
+                                })
+                                .catch(next)
+                        }
+                    })
+                    .catch(next)
             })
-            .catch()
 
     }
 }

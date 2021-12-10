@@ -76,7 +76,7 @@
 
 <!-- POP UP FORM -->
 <!-- FORM Lập báo cáo-->
-<form method="POST" action="/reportinventory/create">
+<form method="POST" action="/{{User._id}}/reportinventory/create">
     <div class="modal fade" id="form-add-report-inventory" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -102,11 +102,6 @@
                             <label for="report-inventory-add-date" class="col-form-label">Ngày lập:</label>
                             <input type="date" class="form-control" id="report-inventory-add-date" name="report_inventory_date"
                                 required readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="report-inventory-add-total-money" class="col-form-label">Tổng tiền:</label>
-                            <input type="text" class="form-control" id="report-inventory-add-total-money" name="total_money"
-                                required>
                         </div>
                     </form>
                 </div>
@@ -163,9 +158,9 @@
     </div>
 </form>
 
-<form method="POST" name="form-search"></form>
+<form method="POST" name="form-search" action="/{{User._id}}/reportinventory/"></form>
 <!-- scrip -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+{{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -175,7 +170,8 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="./jquery.table2excel.min.js"></script>
+<script src="./jquery.table2excel.min.js"></script>  --}}
+
 {{!--Load Tháng Hiện Tại --}}
 <script>
     var month_min = 1,
@@ -232,7 +228,6 @@
         a.document.write('<p>Ngày lập: '+ report_date+ '<p>')
         a.document.write('<p>Tháng: '+ option_month+'  Năm: '+option_year+'<p>')
         a.document.write(printContents) ;
-        a.document.write('<p>Tổng tiền: '+ total_money+'<p>')
         a.print();
         a.document.close();
         a.window.close()
@@ -266,9 +261,6 @@
             var option_year = select_year.options[select_year.selectedIndex].text
             document.getElementById('report-inventory-add-year').value = option_year;
 
-            var total_money = document.getElementById('total-money__p')
-            document.getElementById('report-inventory-add-total-money').value = total_money.innerText;
-
             var today = new Date();
             document.getElementById('report-inventory-add-date').value = today.toISOString().substring(0, 10);
 
@@ -297,7 +289,7 @@
 
             var time = month + "-" + year
 
-            formSearch.action = '/reportinventory/' + time + '/?_method=GET'
+            formSearch.action = formSearch.action + time + '/?_method=GET'
             formSearch.submit()
 
         })
