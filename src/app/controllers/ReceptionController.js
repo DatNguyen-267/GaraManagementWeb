@@ -15,7 +15,9 @@ const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 
 const { render } = require('node-sass')
+
 const Position = require('../models/Position')
+
 class ReceptionController {
     show(req, res, next) {
         // res.send(res.locals.test)
