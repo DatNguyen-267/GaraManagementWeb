@@ -19,6 +19,7 @@ const customerhistoryRouter =require('./customerhistory')
 const reportsaleRouter =require('./reportsale')
 const reportinventoryRouter =require('./reportinventory')
 const loginRouter =require('./login')
+const dashboardRouter =require('./dashboard')
 
 
 
@@ -60,10 +61,11 @@ function route(app) {
       app.use('/:profile/export', exportRouter)
 
       app.use('/:profile/brand', brandRouter)
+
+      app.use('/:profile/dashboard', dashboardRouter)
+
       app.use('/login', loginRouter)
       app.use('/', siteRouter)
-
-      
 
       // app.post('/search', (req,res) => {
       //   console.log(req.body)

@@ -28,16 +28,16 @@ class ReceptionController {
             .then((position) => {
                 Promise.all([
                 Reception.find({}).populate('of_customer').populate('brand').populate('of_repair'), Customer.find({}) , Brand.find({})])
-                .then(([receptions, customers, brands]) => {
-                    res.render('receptions/reception', {
-                        Receptions: mutipleMongooseToObject(receptions),
-                        Customers: mutipleMongooseToObject(customers),
-                        Brands: mutipleMongooseToObject(brands),
-                        activeManagementCar: true,
-                        activeReception: true,
-                        Permissions: mongooseToOject(position.permissions),
-                        User: mongooseToOject(res.locals.employee)
-                    })  
+                    .then(([receptions, customers, brands]) => {
+                        res.render('receptions/reception', {
+                            Receptions: mutipleMongooseToObject(receptions),
+                            Customers: mutipleMongooseToObject(customers),
+                            Brands: mutipleMongooseToObject(brands),
+                            activeManagementCar: true,
+                            activeReception: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
+                        })  
                 })
                 .catch(next)
         })
@@ -60,8 +60,8 @@ class ReceptionController {
                 newReception.license = req.body.license
                 newReception.phone = req.body.phone
                 newReception.of_customer = newCustomer._id
-                    newReception.brand = req.body.brand
-
+                newReception.brand = req.body.brand
+                
                 newReception.save()
                     .then(() => {
                         Customer.findOne({ _id: newCustomer._id })
@@ -79,6 +79,7 @@ class ReceptionController {
             
         }
         else {
+            
             const reception = new Reception(req.body)
             reception.status = 'Mới'
             reception.license = req.body.license
@@ -86,12 +87,13 @@ class ReceptionController {
             reception.of_customer = req.body.oldCustomer
             reception.brand = req.body.brand
             reception.save()
-            .then(() => {
+                .then(() => {
                 Customer.findOne({ _id: req.body.oldCustomer })
                     .then((customer) => {
                         customer.of_reception.push(reception)
                         Customer.updateOne({ _id: req.body.oldCustomer }, {
-                            of_reception: customer.of_reception
+                            of_reception: customer.of_reception,
+                            phone: req.body.phone
                         })
                             .then(() => {
                             res.redirect('back')

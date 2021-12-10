@@ -4,7 +4,11 @@
 
 <div class="grid__content">
   <div class="header__breadcrumb">
-    <div class="header__breadcrumb-main">Quản lý hiệu xe</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Quản lý hiệu xe</a></li>
+        </ol>
+    </nav>
   </div>
 
   <div class="toolbar">
@@ -125,9 +129,14 @@
     </div>
   </div>
 </form>
-
+<div id="message-no-delete" data-nodelete="{{NoDelete}}"></div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    window.onload = function() {
+      if ($('#message-no-delete').data('nodelete')) {
+        alert("Không thể xóa hiệu xe này vì đang được sử dụng ở phiếu tiếp nhận")
+      }
+    }
     const formAdd = document.forms['form-add']
     Validator({
       form: '#form-add', // id của cái form cần validate

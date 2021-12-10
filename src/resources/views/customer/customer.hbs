@@ -1,9 +1,14 @@
 <link rel="stylesheet" href="/css/customer.css">
 <div class="container__customer">
+  <div class="header__breadcrumb">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Danh sách khách hàng</a></li>
+          </ol>
+      </nav>
+  </div>
   <div class="header__customer">
-    <div class="header__customer__title">Khách hàng</div>
-    <button class="header__customer__btn-add btn btn--primary" data-toggle="modal" data-target="#form-add-customer">Thêm
-      khách hàng</button>
+    
   </div>
   <div class="ctner__customer">
     <div class="toolbar">
@@ -23,6 +28,8 @@
           <a class="toolbar__filter-item dropdown-item" href="#"></a>
         </div>
       </div> --}}
+      <button class="dropdown toolbar__btn btn btn--primary" data-toggle="modal" data-target="#form-add-customer">Thêm
+        khách hàng</button>
     </div>
     <div class="list-customer">
       <table class="table table--default">

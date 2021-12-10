@@ -1,7 +1,11 @@
 <link rel="stylesheet" href="./css/repair.css">
 <div class="grid__content">
   <div class="header__breadcrumb">
-    <div class="header__breadcrumb-main">Theo dõi sửa chữa</div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Theo dõi sửa chữa</a></li>
+        </ol>
+    </nav>
   </div>
   <div class="toolbar">
       <div class="toolbar__search">
@@ -32,7 +36,7 @@
               <tr>
                   <td scope="row">{{this._id}}</th>
                   <td>{{this.of_reception._id}}</td>
-                  <td>{{this.license}}</td>
+                  <td>{{this.of_reception.license}}</td>
                   <td>{{this.customer_name}}</td>
                   {{!-- <td>{{this.createdAt}}</td> --}}
                   <td>{{this.status}}</td>

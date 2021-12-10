@@ -93,7 +93,7 @@ class RepairController {
 
     }
     repairDetail(req, res, next) {
-        Repair.findOne({ _id: req.params.id }).populate('of_reception')
+        Repair.findOne({ _id: req.params.id }).populate({path: 'of_reception', populate: { path: 'of_customer'} })
             .then((repair) => {
                 return Material.find({})
                     .then((materials) => {
@@ -414,7 +414,7 @@ class RepairController {
             return position
             })
             .then((position) => { 
-                Repair.findOne({_id: req.params.id}).populate('of_reception')
+                Repair.findOne({ _id: req.params.id }).populate({path: 'of_reception', populate: { path: 'of_customer'} })
                     .then((repair) => {
                         Contract.find({ of_repair: repair._id })
                             .then((contracts) => {
@@ -434,16 +434,7 @@ class RepairController {
                                                     temp.detailMaterial = []
                                                     temp.detailWage = []    
                                                     newContracts.push(temp)
-                                                }
-                                                // content: String,
-                                                // material: {type:Schema.Types.ObjectId , ref: "Material" },
-                                                // of_repair: { type: Schema.Types.ObjectId, ref: "Repair" },
-                                                // material_name: String,
-                                                // amount: Number,
-                                                // sell_price: Number,
-                                                // total_money: Number,
-                                                // exported: { type:Boolean,  default: false },
-                                                
+                                                }                  
                                                 for (var contract of newContracts) {
                                                     for (var detailMaterial of detailMaterials) {
                                                         if (detailMaterial.createdAt.getTime() < contract.createdAt.getTime()) {
@@ -456,13 +447,15 @@ class RepairController {
                                                         }
                                                     }
                                                 }
+                                                // res.send(repair)
                                                 res.render('repairs/contract-detail', {
                                                     Repair: mongooseToOject(repair),
                                                     Contracts: newContracts,
                                                     activeManagementCar: true,
                                                     activeRepair: true,
+                                                    Now: new Date(),
                                                     Permissions: mongooseToOject(position.permissions),
-                                                    User: mongooseToOject(res.locals.employee)
+                                                    User: mongooseToOject(res.locals.employee),
                                                 })
                                             })
                                     })

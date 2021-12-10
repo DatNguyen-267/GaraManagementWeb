@@ -16,6 +16,13 @@
     <div class="app">   
         <div class="menu" {{isHidden login}}>
             <div class="menu__body" >
+                <div class="menu__body-item " >
+                    <button class="menu__body-mainlist {{activeMainMenu activeDashBoard}} " type="button" id="dash-board"
+                        data-transfer="http://localhost:8080/{{User._id}}/dashboard">
+                            <span class="menu__body-mainlist-icon ti-home"></span>
+                            <div class="menu__body-mainlist-name">Trang chủ</div>
+                    </button>
+                </div>
                 <div class="menu__body-item ">
                     <button class="menu__body-mainlist {{activeMainMenu activeManagementCar}} " type="button" data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
                             <span class="menu__body-mainlist-icon ti-car"></span>
@@ -103,14 +110,20 @@
         var btnMainMenu = $('.menu__body-item')
         for (var item of btnMainMenu)
         {
-            if (item.querySelector('.menu__body-sublist').classList.contains('show'))
-            item.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(-90deg)"
-            else  item.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(0deg)"
+            if (item.querySelector('.menu__body-sublist')) {
+                if (item.querySelector('.menu__body-sublist').classList.contains('show'))
+                item.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(-90deg)"
+                else  item.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(0deg)"
+            }
+            
         }
         btnMainMenu.click(function(){
-            if (this.querySelector('.menu__body-sublist').classList.contains('show'))
-            this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(0deg)"
-            else  this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(-90deg)"
+            if (item.querySelector('.menu__body-sublist')) { 
+                if (this.querySelector('.menu__body-sublist').classList.contains('show'))
+                this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(0deg)"
+                else  this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(-90deg)"
+            }
+            
         })
         
         // CHUYỂN TRANG
@@ -120,6 +133,12 @@
             formTransfer.action = this.getAttribute('data-transfer')
             formTransfer.submit()
         })
+
+        var btnDashboard = document.querySelector('#dash-board')
+        btnDashboard.onclick = function() {
+            formTransfer.action = btnDashboard.getAttribute('data-transfer')
+            formTransfer.submit()
+        }
     })
 </script>
 

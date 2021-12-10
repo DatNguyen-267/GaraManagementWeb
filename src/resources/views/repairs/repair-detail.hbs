@@ -1,10 +1,12 @@
 <link rel="stylesheet" href="/css/repair.css">
 <div class="grid__item">
-    <div class="header__breadcrumb">
-        <form action="/{{User._id}}/repairs">
-            <button class="header__breadcrumb-item header__breadcrumb-item--floating" type="submit" >Theo dõi sửa chữa</button>
-        </form>
-        <div class="header__breadcrumb-item">>Thông tin sửa chữa</div>
+    <div class="header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/{{User._id}}/repairs">Theo dõi sửa chữa</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Thông tin sửa chữa</li>
+            </ol>
+        </nav>
     </div>
     <div class="repair-detail__navbar">
         <div class="repair-detail__nav">
@@ -34,7 +36,7 @@
                     </div>
                     <div class="info-group">
                         <label for="">Tên khách hàng:</label>
-                        <label >{{Repair.of_reception.name}}</label>
+                        <label >{{Repair.of_reception.of_customer.name}}</label>
                     </div>
                     <div class="info-group">
                         <label for="">Biển số xe:</label>
