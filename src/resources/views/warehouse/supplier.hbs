@@ -165,43 +165,73 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    Validator({
+      form: '#form-add',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#add-name', 'Vui lòng nhập mã tên nhà cung cấp'),
+        Validator.isRequire('#add-email', 'Vui lòng nhập email nhà cung cấp'),
+        Validator.isEmail('#add-email'),
+        Validator.isRequire('#add-telephone', 'Vui lòng nhập số điện thoại nhà cung cấp'),
+        Validator.isNumber('#add-telephone')
+      ],
+      onSubmit: function () {
+        formAdd.action = '/supplier/create'
+        formAdd.submit()
+      }
+    })
+
+    Validator({
+      form: '#form-edit',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#edit-name', 'Vui lòng nhập mã tên nhà cung cấp'),
+        Validator.isRequire('#edit-email', 'Vui lòng nhập email nhà cung cấp'),
+        Validator.isEmail('#edit-email'),
+        Validator.isRequire('#edit-telephone', 'Vui lòng nhập số điện thoại nhà cung cấp'),
+        Validator.isNumber('#edit-telephone')
+      ],
+      onSubmit: function () {
+        formEdit.action = '/supplier/' + supplierID + '/?_method=PUT'
+        formEdit.submit()
+      }
+    })
+
     var btnEdit = document.querySelectorAll('.btn--edit-item')
     var btnDelete = document.querySelectorAll('.btn--delete-item')
     var btnModalDelete = document.getElementById('btnModalDelete')
     var btnModalEdit = document.getElementById('btnModalEdit')
+    var formAdd = document.forms['form-add']
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
+
+    var supplierID
     
     for(var item of btnDelete) {
       item.onclick = function() {
-        var supplierId = this.getAttribute('data-id')
-        btnModalDelete.setAttribute('data-id', supplierId)
+        supplierID = this.getAttribute('data-id')
+        btnModalDelete.setAttribute('data-id', supplierID)
       }
     }
 
     for(var item of btnEdit) {
       item.onclick = function() {
-        var supplierId = this.getAttribute('data-id')
-        btnModalEdit.setAttribute('data-id', supplierId)
+        var rowData = this.parentElement.parentElement
+
+        document.getElementById('edit-name').value = rowData.cells[0].textContent
+        document.getElementById('edit-email').value = rowData.cells[1].textContent
+        document.getElementById('edit-telephone').value = rowData.cells[2].textContent
+
+        supplierID = this.getAttribute('data-id')
+        btnModalEdit.setAttribute('data-id', supplierID)
       }
-
-      var rowData = item.parentElement.parentElement
-
-      document.getElementById('edit-name').value = rowData.cells[0].textContent
-      document.getElementById('edit-email').value = rowData.cells[1].textContent
-      document.getElementById('edit-telephone').value = rowData.cells[2].textContent
     }
 
     btnModalDelete.onclick = function () {
-      var supplierId = this.getAttribute('data-id')
-      formDelete.action = '/supplier/' + supplierId + '/delete?_method=DELETE'
+      supplierID = this.getAttribute('data-id')
+      formDelete.action = '/supplier/' + supplierID + '/delete?_method=DELETE'
       formDelete.submit()
-    }
-
-    btnModalEdit.onclick = function () {
-      var supplierId = this.getAttribute('data-id')
-      formEdit.action = '/supplier/' + supplierId + '/?_method=PUT'
-      formEdit.submit()
     }
   })
 </script>

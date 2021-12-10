@@ -62,7 +62,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form method="POST" name="form-edit">
+      <form method="POST" name="form-edit" id="form-edit">
       <div class="modal-header">
         <h5 class="modal-title">Sửa vật tư</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -81,10 +81,10 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_supplier" id="edit-supplier" aria-label="Default select example">
+              <select class="form-control" name="of_supplier" id="edit-supplier">
                 <option>-- Nhà cung cấp --</option>
                 {{#each suppliers}}
-                <option value="{{this.supplier_id}}">{{this.name}}</option>
+                <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
               <span class="form-message"></span>
@@ -150,6 +150,9 @@
     <div class="toolbar__btn">
         <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm vật tư</button>
     </div>
+    <div class="toolbar__btn">
+        <button class="toolbar__btn-add btn btn-primary" id="table-to-excel-btn">Xuất excel</button>
+    </div>
 </div>
 
 <table class="table table--default">
@@ -180,7 +183,28 @@
   </tbody>
 </table>
 
-
+<table class="table table--default" id="data-table">
+  <thead class="thead-dark"> 
+    <tr>
+      <th scope="col">Tên vật tư</th>
+      <th scope="col">Nhà cung cấp</th>
+      <th scope="col">Số lượng</th>
+      <th scope="col">Giá nhập</th>
+      <th scope="col">Giá bán</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each materials}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.of_supplier.name}}</td>
+        <td>{{this.amount}}</td>
+        <td>{{this.import_price}}</td>
+        <td>{{this.sell_price}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
 
 <form name="form-delete" method="POST" action=""></form>
 
@@ -192,12 +216,56 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    Validator({
+      form: '#form-add',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#add-name', 'Vui lòng nhập tên vật tư'),
+        Validator.isRequireSelectBox('#add-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
+        Validator.isRequire('#add-import-price', 'Vui lòng nhập giá nhập vật tư'),
+        Validator.isRequire('#add-sell-price', 'Vui lòng nhập giá bán vật tư'),
+        Validator.isNumber('#add-import-price'),
+        Validator.isNumber('#add-sell-price'),
+      ],
+      onSubmit: function () {
+        formAdd.action = '/material/create'
+        formAdd.submit()
+      }
+    })
+
+    Validator({
+      form: '#form-edit',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#edit-name', 'Vui lòng nhập tên vật tư'),
+        Validator.isRequireSelectBox('#edit-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
+        Validator.isRequire('#edit-import-price', 'Vui lòng nhập giá nhập vật tư'),
+        Validator.isRequire('#edit-sell-price', 'Vui lòng nhập giá bán vật tư'),
+        Validator.isNumber('#edit-import-price'),
+        Validator.isNumber('#edit-sell-price'),
+      ],
+      onSubmit: function () {
+        materialId = this.getAttribute('data-id')
+        formEdit.action = '/material/' + materialId + '/?_method=PUT'
+        formEdit.submit()
+      }
+    })
+
+    document.getElementById('table-to-excel-btn').onclick = function () {
+      var table2Excel = new Table2Excel()
+      table2Excel.export(document.getElementById('data-table'))
+    }
+
     var btnEdit = document.querySelectorAll('.btn--edit-item')
     var btnDelete = document.querySelectorAll('.btn--delete-item')
     var btnModalDelete = document.getElementById('btnModalDelete')
     var btnModalEdit = document.getElementById('btnModalEdit')
+    var formAdd = document.forms['form-add']
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
+
+    var materialID
     
     for(var item of btnDelete) {
       item.onclick = function() {
@@ -208,28 +276,21 @@
 
     for(var item of btnEdit) {
       item.onclick = function() {
-        var materialId = this.getAttribute('data-id')
+        var rowData = this.parentElement.parentElement
+
+        document.getElementById('edit-name').value = rowData.cells[0].textContent
+        document.getElementById('edit-import-price').value = rowData.cells[3].textContent
+        document.getElementById('edit-sell-price').value = rowData.cells[4].textContent
+
+        materialId = this.getAttribute('data-id')
         btnModalEdit.setAttribute('data-id', materialId)
       }
-
-      var rowData = item.parentElement.parentElement
-
-      document.getElementById('edit-name').value = rowData.cells[0].textContent
-      document.getElementById('edit-import-price').value = rowData.cells[3].textContent
-      document.getElementById('edit-sell-price').value = rowData.cells[4].textContent
     }
 
     btnModalDelete.onclick = function () {
-      var materialId = this.getAttribute('data-id')
+      materialId = this.getAttribute('data-id')
       formDelete.action = '/material/' + materialId + '/delete?_method=DELETE'
       formDelete.submit()
-    }
-
-    btnModalEdit.onclick = function () {
-      var materialId = this.getAttribute('data-id')
-      formEdit.action = '/material/' + materialId + '/?_method=PUT'
-      console.log(formEdit)
-      formEdit.submit()
     }
   })
 </script>

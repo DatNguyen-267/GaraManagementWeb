@@ -144,7 +144,8 @@
       <th scope="col">Nhà cung cấp</th>
       <th scope="col">Ngày nhập kho</th>
       <th scope="col">Tổng tiền</th>
-      <th scope="col">Thao tác</th>
+      <th scope="col">Trạng thái</th>
+      <th scope="col" colspan="3">Thao tác</th>
     </tr>
   </thead>
   <tbody>
@@ -154,6 +155,9 @@
         <td>{{this.of_supplier.name}}</td>
         <td>{{this.import_date}}</td>
         <td>{{this.total_price}}</td>
+        <td scope="row">
+          <div class="{{isImportStyle this.exported}}">{{isImportStatus this.exported}}</div>
+        </td>
         <td>
           <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
           <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
@@ -234,14 +238,14 @@
 
     for(var item of btnEdit) {
       item.onclick = function() {
+        var rowData = this.parentElement.parentElement
+
+        document.getElementById('edit-id').value = rowData.cells[0].textContent
+        document.getElementById('edit-date').value = rowData.cells[2].textContent
+
         voucherID = this.getAttribute('data-id')
         btnModalEdit.setAttribute('data-id', voucherID)
       }
-
-      var rowData = item.parentElement.parentElement
-
-      document.getElementById('voucher-edit-id').value = rowData.cells[0].textContent
-      document.getElementById('voucher-edit-date').value = rowData.cells[2].textContent
     }
 
     btnModalDelete.onclick = function () {

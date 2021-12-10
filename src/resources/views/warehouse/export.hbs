@@ -3,7 +3,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/export/create" method="POST">
+      <form action="/export/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm phiếu xuất kho</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,12 +15,13 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Phiếu sửa chữa</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="of_repair" aria-label="Default select example">
-                <option value="null">Phiếu sửa chữa</option>
+              <select class="form-control" name="of_repair" id="add-repair">
+                <option>-- Phiếu sửa chữa --</option>
                 {{#each repairs}}
                 <option value="{{this._id}}">{{this.license}}</option>
                 {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
@@ -42,12 +43,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Xuất kho</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
           </div>
           <div class="modal-body">Xác nhận xuất kho</div>
           <div class="modal-footer">
@@ -113,9 +111,23 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    Validator({
+      form: '#form-add',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequireSelectBox('#add-repair', '-- Phiếu sửa chữa --', 'Vui lòng chọn phiếu sửa chữa'),
+      ],
+      onSubmit: function () {
+        formAdd.action = '/export/create'
+        formAdd.submit()
+      }
+    })
+
     var btnExport = document.querySelectorAll('.btn--export-item')
     var btnView = document.querySelectorAll('.btn--view-item')
     var btnModalExport = document.getElementById('btnModalExport')
+    var formAdd = document['form-add']
     var formView = document['form-view']
     var formExport = document['form-export']
 

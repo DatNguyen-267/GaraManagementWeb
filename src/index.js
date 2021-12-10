@@ -19,7 +19,7 @@ app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, '/public')))
 // HTTP logger
 app.use(express.urlencoded({
-    extended:true
+  extended: true
 }))
 app.use(express.json())
 app.use(morgan('combined'))
@@ -27,11 +27,11 @@ app.use(morgan('combined'))
 
 // Template engine
 app.engine('hbs', handlebars({
-  extname:'.hbs',
+  extname: '.hbs',
   helpers: {
-    sum: (a,b) => a + b,
+    sum: (a, b) => a + b,
     permission: (check) => {
-      if (check == "true"){
+      if (check == "true") {
         return "Có phép"
       }
       return "Không phép"
@@ -41,19 +41,19 @@ app.engine('hbs', handlebars({
       else return "xxx"
     },
     isHidden: (a) => {
-        if (a) return "hidden"
+      if (a) return "hidden"
     },
     isDisable: (a) => {
-        if (a == true) return "disabled"
+      if (a == true) return "disabled"
     },
     isEnable: (a) => {
-        if (!a) return "disabled"
-        if (a == false) return "disabled"
+      if (!a) return "disabled"
+      if (a == false) return "disabled"
     },
     loadMaterial: (detailMaterial) => {
-      var html =``
+      var html = ``
       for (const item of detailMaterial) {
-        html+= `<tr>
+        html += `<tr>
                 <td scope="row">${item.content}</td>
                 <td scope="row">${item.material_name}</td>
                 <td scope="row">${item.amount}</td>
@@ -66,7 +66,7 @@ app.engine('hbs', handlebars({
     loadWage: (detailWage) => {
       var html = ``
       for (const item of detailWage) {
-        html+= `
+        html += `
             <tr>
                 <td scope="row">${item.wage_name}</td>
                 <td scope="row">${item.wage_money}</td>
@@ -100,19 +100,27 @@ app.engine('hbs', handlebars({
       if (isDebt == true) return "disabled"
       if (isSuccessRepair == false) return "disabled"
     },
+    isImportStatus(check) {
+      if (check) return "Hoàn thành"
+      else return "Chờ nhập"
+    },
     isExportedStatus(check) {
-      if(check) return "Hoàn thành"
+      if (check) return "Hoàn thành"
       else return "Chờ xuất"
     },
+    isImportStyle(check) {
+      if (check) return "status--success"
+      else return "status--pending"
+    },
     isExportedStyle(check) {
-      if(check) return "status--success"
+      if (check) return "status--success"
       else return "status--pending"
     }
   }
 
 }));
 app.set("view engine", 'hbs')
-app.set('views', path.join(__dirname, 'resources','views'))
+app.set('views', path.join(__dirname, 'resources', 'views'))
 
 // ROUTE INIT
 route(app)
