@@ -4,7 +4,7 @@ const Employee = require('../models/Employee')
 const Wage = require('../models/Wage')
 const Contract = require('../models/Contract')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
-const { mongooseToObject } = require('../../util/mongoose')
+const { mongooseToOject } = require('../../util/mongoose')
 
 const { render } = require('node-sass')
 const Reception = require('../models/Reception')

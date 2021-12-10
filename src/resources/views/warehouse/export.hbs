@@ -91,7 +91,7 @@
           <div class="{{isExportedStyle this.exported}}">{{isExportedStatus this.exported}}</div>
         </td>
         <td>
-          <button class="btn--export-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#exportModal">Xuất kho</button>
+          <button class="btn--export-item" data-id="{{this._id}}" {{isDisable this.exported}} data-bs-toggle="modal" data-bs-target="#exportModal">Xuất kho</button>
           <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
         </td>
       </tr>

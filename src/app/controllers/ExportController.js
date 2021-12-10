@@ -1,32 +1,42 @@
-const { mutipleMongooseToObject, mongooseToObject } = require('../../util/mongoose')
+const { mutipleMongooseToObject, mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
 const ExportVoucher = require('../models/ExportVoucher')
 const ExportDetail = require('../models/ExportDetail')
 const Repair = require('../models/Repair')
+const Material = require('../models/Material')
 const Repair_Detail_Material = require('../models/Repair_Detail_Material')
+const Position = require('../models/Position')
 
 class ExportController {
     show(req, res, next) {
-        Repair.find({}).then((repairs) => {
-            let list = []
-            for (var repair of repairs) {
-                Repair_Detail_Material.find({ of_repair: repair._id }).then((materials) => {
-                    if (materials.length) {
-                        list.push(repair)
-                    }
-                }).then(() => { })
-            }
-
-            ExportVoucher.find({}).then((vouchers) => {
-                res.render('warehouse/export', {
-                    vouchers: mutipleMongooseToObject(vouchers),
-                    repairs: mutipleMongooseToObject(list),
-                    activeManagementWarehouse: true,
-                    activeExport: true
-                })
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+                return position
             })
-        })
-            .catch(next)
+            .then((position) => {
+                Repair.find({}).then((repairs) => {
+                    let list = []
+                    for (var repair of repairs) {
+                        Repair_Detail_Material.find({ of_repair: repair._id, contracted: true, exported: false }).then((materials) => {
+                            if (materials.length) {
+                                list.push(repair)
+                            }
+                        }).then(() => { })
+                    }
+
+                    ExportVoucher.find({}).then((vouchers) => {
+                        res.render('warehouse/export', {
+                            vouchers: mutipleMongooseToObject(vouchers),
+                            repairs: mutipleMongooseToObject(list),
+                            activeManagementWarehouse: true,
+                            activeExport: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
+                        })
+                    })
+                })
+                    .catch(next)
+            })
     }
 
     create(req, res, next) {
@@ -46,7 +56,7 @@ class ExportController {
                             newMaterial.save().then(() => { })
                         }
                     }).then(() => {
-                        res.redirect('/export')
+                        res.redirect('back')
                     })
                 })
         })
@@ -57,25 +67,46 @@ class ExportController {
         ExportVoucher.updateOne({ _id: req.params.idVoucher }, { exported: true }).then(() => {
             ExportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
                 for (var detail of details) {
-                    Repair_Detail_Material.updateOne({ _id: detail.of_repair_material }, { exported: true })
-                        .then(() => { })
+                    var temp = detail
+                    Repair_Detail_Material.updateOne({ _id: temp.of_repair_material }, { exported: true })
+                        .then(() => {
+                            Material.findOne({ _id: temp.material }).then((material) => {
+                                Material.updateOne({ _id: temp.material },
+                                    {
+                                        amount: material.amount - temp.amount,
+                                        import_price: temp.import_price
+                                    })
+                                    .then(() => { })
+                            })
+                        })
                 }
             }).then(() => {
-                res.redirect('/export')
+                res.redirect('back')
             })
         })
             .catch(next)
     }
 
     showDetail(req, res, next) {
-        ExportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
-            ExportVoucher.findById(req.params.idVoucher).populate('of_repair').then((voucher) => {
-                res.render('warehouse/export_detail', {
-                    details: mutipleMongooseToObject(details),
-                    voucher: mongooseToObject(voucher)
+        Position.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+                return position
+            })
+            .then((position) => {
+                ExportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
+                    ExportVoucher.findById(req.params.idVoucher).populate('of_repair').then((voucher) => {
+                        res.render('warehouse/export_detail', {
+                            details: mutipleMongooseToObject(details),
+                            voucher: mongooseToOject(voucher),
+                            activeManagementWarehouse: true,
+                            activeExport: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
+                        })
+                    })
                 })
             })
-        })
+
     }
 }
 

@@ -3,7 +3,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="" method="POST" name="form-add">
+      <form action="" method="POST" name="form-add" id="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm vật tư</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,24 +15,27 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Vật tư</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="material" aria-label="Default select example">
-                <option value="null">Loại vật tư</option>
+              <select class="form-control" name="material" id="add-material">
+                <option>-- Loại vật tư --</option>
                 {{#each materials}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="import_price" />
+              <input type="text" class="form-control" id="add-import-price" name="import_price" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Số lượng</label>
             <div class="col-9"> 
-              <input type="text" class="form-control" id="" name="amount" />
+              <input type="text" class="form-control" id="add-amount" name="amount" />
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
@@ -50,7 +53,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="" method="POST" name="form-edit">
+      <form method="POST" name="form-edit" id="form-edit">
       <div class="modal-header">
         <h5 class="modal-title">Sửa vật tư</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -62,24 +65,27 @@
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Vật tư</label>
             <div class="col-9 form-group">
-              <select class="form-control" name="material" aria-label="Default select example">
-                <option value="null">Loại vật tư</option>
+              <select class="form-control" name="material" id="edit-material">
+                <option>-- Loại vật tư --</option>
                 {{#each materials}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
               </select>
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Giá nhập</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="import_price" />
+              <input type="text" class="form-control" id="edit-import-price" name="import_price" />
+              <span class="form-message"></span>
             </div>
           </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Số lượng</label>
             <div class="col-9">
-              <input type="text" class="form-control" id="" name="amount" />
+              <input type="text" class="form-control" id="edit-amount" name="amount" />
+              <span class="form-message"></span>
             </div>
           </div>
         </div>
@@ -119,12 +125,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Nhập kho</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">Xác nhận nhập kho</div>
           <div class="modal-footer">
@@ -207,6 +210,39 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    Validator({
+      form: '#form-add',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequireSelectBox('#add-material', '-- Loại vật tư --', 'Vui lòng chọn loại vật tư'),
+        Validator.isRequire('#add-import-price', 'Vui lòng nhập giá nhập vật tư'),
+        Validator.isNumber('#add-import-price'),
+        Validator.isRequire('#add-amount', 'Vui lòng nhập số lượng'),
+        Validator.isNumber('#add-amount'),
+      ],
+      onSubmit: function () {
+        formAdd.action = window.location.pathname + '/add'
+        formAdd.submit()
+      }
+    })
+
+    Validator({
+      form: '#form-edit',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequireSelectBox('#edit-material', '-- Loại vật tư --', 'Vui lòng chọn loại vật tư'),
+        Validator.isRequire('#edit-import-price', 'Vui lòng nhập giá nhập vật tư'),
+        Validator.isNumber('#edit-import-price'),
+        Validator.isRequire('#edit-amount', 'Vui lòng nhập số lượng'),
+        Validator.isNumber('#edit-amount'),
+      ],
+      onSubmit: function () {
+        formEdit.action = `${window.location.pathname}/${detailID}/?_method=PUT`
+        formEdit.submit()
+      }
+    })
+
     var addMaterialForm = document.getElementById('addMaterialForm')
     var btnDelete = document.querySelectorAll('.btn--delete-item')
     var btnEdit = document.querySelectorAll('.btn--edit-item')
@@ -218,33 +254,33 @@
     var formEdit = document['form-edit']
     var formImport = document['form-import']
 
-    formAdd.action = window.location.pathname + '/add'
     formImport.action = window.location.pathname + '/?_method=PUT'
+
+    var detailID
 
     for(var item of btnDelete) {
       item.onclick = function() {
-        var detailID = this.getAttribute('data-id') 
+        detailID = this.getAttribute('data-id') 
         btnModalDelete.setAttribute('data-id', detailID)
       }
     }
 
     for(var item of btnEdit) {
       item.onclick = function() {
-        var detailID = this.getAttribute('data-id') 
+        detailID = this.getAttribute('data-id') 
         btnModalEdit.setAttribute('data-id', detailID)
+
+        var rowData = this.parentElement.parentElement
+        
+        document.getElementById('edit-amount').value = rowData.cells[1].textContent
+        document.getElementById('edit-import-price').value = rowData.cells[2].textContent
       }
     }
 
     btnModalDelete.onclick = function () {
-      var detailID = this.getAttribute('data-id')
+      detailID = this.getAttribute('data-id')
       formDelete.action = `${window.location.pathname}/${detailID}/delete?_method=DELETE`
       formDelete.submit()
-    }
-
-    btnModalEdit.onclick = function () {
-      var detailID = this.getAttribute('data-id')
-      formEdit.action = `${window.location.pathname}/${detailID}/?_method=PUT`
-      formEdit.submit()
     }
 
     btnModalImport.onclick = function () {

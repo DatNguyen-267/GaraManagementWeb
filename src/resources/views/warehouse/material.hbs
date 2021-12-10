@@ -149,8 +149,6 @@
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
         <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm vật tư</button>
-    </div>
-    <div class="toolbar__btn">
         <button class="toolbar__btn-add btn btn-primary" id="table-to-excel-btn">Xuất excel</button>
     </div>
 </div>
@@ -183,7 +181,7 @@
   </tbody>
 </table>
 
-<table class="table table--default" id="data-table">
+<table class="table table--default" id="data-table" style="visibility: collapse;">
   <thead class="thead-dark"> 
     <tr>
       <th scope="col">Tên vật tư</th>
@@ -246,7 +244,6 @@
         Validator.isNumber('#edit-sell-price'),
       ],
       onSubmit: function () {
-        materialId = this.getAttribute('data-id')
         formEdit.action = 'material/' + materialId + '/?_method=PUT'
         formEdit.submit()
       }
@@ -254,7 +251,7 @@
 
     document.getElementById('table-to-excel-btn').onclick = function () {
       var table2Excel = new Table2Excel()
-      table2Excel.export(document.getElementById('data-table'))
+      table2Excel.export(document.getElementById('data-table'), 'danh-sach-vat-tu')
     }
 
     var btnEdit = document.querySelectorAll('.btn--edit-item')
@@ -283,7 +280,6 @@
         document.getElementById('edit-sell-price').value = rowData.cells[4].textContent
 
         materialId = this.getAttribute('data-id')
-        btnModalEdit.setAttribute('data-id', materialId)
       }
     }
 

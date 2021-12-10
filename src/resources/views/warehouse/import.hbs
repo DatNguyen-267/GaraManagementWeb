@@ -156,12 +156,12 @@
         <td>{{this.import_date}}</td>
         <td>{{this.total_price}}</td>
         <td scope="row">
-          <div class="{{isImportStyle this.exported}}">{{isImportStatus this.exported}}</div>
+          <div class="{{isImportedStyle this.imported}}">{{isImportedStatus this.imported}}</div>
         </td>
         <td>
           <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
-          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
-          <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+          <button class="btn--delete-item" data-id="{{this._id}}" {{isDisable this.imported}} data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+          <button class="btn--edit-item" data-id="{{this._id}}" {{isDisable this.imported}} data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
         </td>
       </tr>
     {{/each}}

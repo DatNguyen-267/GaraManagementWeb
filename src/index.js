@@ -112,7 +112,7 @@ app.engine('hbs', handlebars({
       if (isDebt == true) return "disabled"
       if (isSuccessRepair == false) return "disabled"
     },
-    isImportStatus(check) {
+    isImportedStatus(check) {
       if (check) return "Hoàn thành"
       else return "Chờ nhập"
     },
@@ -120,7 +120,7 @@ app.engine('hbs', handlebars({
       if (check) return "Hoàn thành"
       else return "Chờ xuất"
     },
-    isImportStyle(check) {
+    isImportedStyle(check) {
       if (check) return "status--success"
       else return "status--pending"
     },
