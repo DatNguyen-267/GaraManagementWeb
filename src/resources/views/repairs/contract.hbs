@@ -138,7 +138,7 @@
         </div>
     </div>
 </div>
-<form method="POST" name="form-accept-contract"></form>
+<form method="POST" name="form-accept-contract" action=""></form>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     btnAccept.onclick = function() {
-        formAcceptContract.action = '/repairs/' + repairId + '/create-contract'
+        formAcceptContract.action = 'create-contract'
         formAcceptContract.submit()
     }
 

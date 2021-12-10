@@ -1,25 +1,34 @@
-const Employee = require('../models/EmployeeList')
-const Tag = require('../models/EmployeeTag')
+const Employee = require('../models/Employee')
+const Tag = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
+const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
 
 class EmployeeListController {
     show(req,res,next) {// request , respond , next
-        
-        Employee.find({})
-            .then((employee)=> {
-                Tag.find({})
-                .then((tag) =>{
-                    res.render('employeeList/index', {
-                        employee: mutipleMongooseToObject(employee),
-                        tag: mutipleMongooseToObject(tag),
-                        activeEmployee: true,
-                        activeList:true
-                }
-                )
-                })
+        Tag.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+            return position
             })
-            .catch(next)
+            .then((position) => { 
+                Employee.find({})
+                    .then((employee)=> {
+                        Tag.find({})
+                        .then((tag) =>{
+                            res.render('employeeList/index', {
+                                employee: mutipleMongooseToObject(employee),
+                                tag: mutipleMongooseToObject(tag),
+                                activeEmployee: true,
+                                activeList: true,
+                                Permissions: mongooseToOject(position.permissions),
+                                User: mongooseToOject(res.locals.employee)
+                        }
+                        )
+                        })
+                    })
+                    .catch(next)
+            })
+        
     };
 
     create(req,res,next){

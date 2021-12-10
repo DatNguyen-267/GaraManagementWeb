@@ -15,6 +15,7 @@ const Reception = new Schema({
     receptionDate: {type: String},
     status: { type: String },
     isSuccess: { type: Boolean, default: false },
+    isSuccessRepair: { type: Boolean, default: false },
     isDebt: { type: Boolean, default: false },
 }, {
     timestamps: true,
