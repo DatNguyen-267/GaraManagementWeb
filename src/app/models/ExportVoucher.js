@@ -8,7 +8,6 @@ const ExportVoucher = new Schema({
     exported: { type: Schema.Types.Boolean, default: false },
     date: { type: Schema.Types.Date },
     detail: { type: Schema.Types.ObjectId, ref: 'ExportDetail' },
-    export_date: { type: Date },
     
 }, {
     timestamps: true,
