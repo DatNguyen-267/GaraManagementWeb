@@ -61,8 +61,8 @@
 <input type="text" id="check_cardIdentify" value="{{check}}" readonly hidden>
 <!-- POP UP FORM -->
 <!-- FORM THÊM Khách hàng-->
-<form method="POST" action="customer/create">
-  <div class="modal fade" id="form-add-customer" tabindex="-1" role="dialog">
+<form method="POST" action="customer/create" id="form-add-customer">
+  <div class="modal fade" id="modal-add-customer" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -265,18 +265,24 @@
   </div>
 </form>
 
-
-
-<!-- scrip -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-
+<script>
+  var check_cardIdentify = document.getElementById('check_cardIdentify').value
+    if(check_cardIdentify == 1){
+      if(confirm("Không thể thêm do trùng CMND!!!") == true || confirm("Không thể thêm do trùng CMND!!!") == false){
+        history.back()
+      }
+    }
+    if(check_cardIdentify == 2){
+      if(confirm("Không thể sửa đổi do trùng CMND!!!") == true || confirm("Không thể sửa đổi do trùng CMND!!!") == false){
+        history.back()
+      }
+    }
+</script>
+<!-- MAIN CSS -->
 {{!--Search--}}
 <script>
-  $(document).ready(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    $(document).ready(function () {
     $('#search-input').on('keyup', function (event) {
       event.preventDefault();
       /* Act on the event */
@@ -286,23 +292,8 @@
       });
     });
   });
-</script>
-
-<script>
-  //Thông báo trùng CMND
-    var check_cardIdentify = document.getElementById('check_cardIdentify').value
-    if(check_cardIdentify == 1){
-    history.back()
-    window.onload = function()
-    {
-       alert("alo") 
-    };
-    } 
-</script>
-<!-- MAIN CSS -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
     //Validate
+
     Validator({
       form: '#form-add-customer',
       errorSelector: '.form-message',
@@ -321,7 +312,7 @@
         //Validator.minLength('#reception-add-receptionDate',6),
       ],
       onSubmit: function () {
-        formAddCustomer.action = '/customer/create'
+        formAddCustomer.action = 'customer/create'
         formAddCustomer.submit()
       }
     })
@@ -343,7 +334,7 @@
         //Validator.minLength('#reception-add-receptionDate',6),
       ],
       onSubmit: function () {
-        formSubmit.action = '/customer/' + customerId + '/?_method=PUT'
+        formSubmit.action = 'customer/' + customerId + '/?_method=PUT'
         formSubmit.submit()
       }
     })
@@ -397,13 +388,12 @@
     //})
     btnAcceptDelete.click(function () {
       if (customerId != null && datareception == '') {
-        formDelete.action = '/customer/' + customerId + '/?_method=DELETE'
+        formDelete.action = 'customer/' + customerId + '/?_method=DELETE'
         formDelete.submit()
       }
       else {
-        window.alert("Không thể xóa!!!");
+        window.alert("Không thể xóa do khách hàng đã sử dụng dịch vụ!!!");
       }
     })
-    
   })
 </script>
