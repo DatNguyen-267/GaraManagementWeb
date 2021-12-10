@@ -3,7 +3,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/export/create" method="POST" id="form-add" name="form-add">
+      <form action="export/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm phiếu xuất kho</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -119,7 +119,7 @@
         Validator.isRequireSelectBox('#add-repair', '-- Phiếu sửa chữa --', 'Vui lòng chọn phiếu sửa chữa'),
       ],
       onSubmit: function () {
-        formAdd.action = '/export/create'
+        formAdd.action = 'export/create'
         formAdd.submit()
       }
     })
@@ -134,7 +134,7 @@
     for(var item of btnView) {
       item.onclick = function () {
         var voucherID = this.getAttribute('data-id')
-        formView.action = '/export/detail/' + voucherID
+        formView.action = 'export/detail/' + voucherID
         formView.submit()
       }
     }

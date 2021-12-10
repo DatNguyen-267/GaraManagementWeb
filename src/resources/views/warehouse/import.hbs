@@ -3,7 +3,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/import/create" method="POST" id="form-add" name="form-add">
+      <form action="import/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm phiếu nhập kho</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -190,7 +190,7 @@
         Validator.isRequire('#add-date', 'Vui lòng chọn ngày tạo phiếu nhập kho')
       ],
       onSubmit: function () {
-        formAdd.action = '/import/create'
+        formAdd.action = 'import/create'
         formAdd.submit()
       }
     })
@@ -204,7 +204,7 @@
         Validator.isRequire('#edit-date', 'Vui lòng chọn ngày tạo phiếu nhập kho')
       ],
       onSubmit: function () {
-        formEdit.action = '/import/' + voucherID + '/?_method=PUT'
+        formEdit.action = 'import/' + voucherID + '/?_method=PUT'
         formEdit.submit()
       }
     })
@@ -224,7 +224,7 @@
     for(var item of btnView) {
       item.onclick = function () {
         var voucherID = this.getAttribute('data-id')
-        formView.action = '/import/detail/' + voucherID
+        formView.action = 'import/detail/' + voucherID
         formView.submit()
       }
     }
@@ -250,7 +250,7 @@
 
     btnModalDelete.onclick = function () {
       voucherID = this.getAttribute('data-id')
-      formDelete.action = '/import/' + voucherID + '/delete?_method=DELETE'
+      formDelete.action = 'import/' + voucherID + '/delete?_method=DELETE'
       formDelete.submit()
     }
   })

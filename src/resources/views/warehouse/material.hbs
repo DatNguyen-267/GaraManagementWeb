@@ -4,7 +4,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/material/create" method="POST" id="form-add" name="form-add">
+      <form action="material/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm vật tư</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -229,7 +229,7 @@
         Validator.isNumber('#add-sell-price'),
       ],
       onSubmit: function () {
-        formAdd.action = '/material/create'
+        formAdd.action = 'material/create'
         formAdd.submit()
       }
     })
@@ -247,7 +247,7 @@
       ],
       onSubmit: function () {
         materialId = this.getAttribute('data-id')
-        formEdit.action = '/material/' + materialId + '/?_method=PUT'
+        formEdit.action = 'material/' + materialId + '/?_method=PUT'
         formEdit.submit()
       }
     })
@@ -289,7 +289,7 @@
 
     btnModalDelete.onclick = function () {
       materialId = this.getAttribute('data-id')
-      formDelete.action = '/material/' + materialId + '/delete?_method=DELETE'
+      formDelete.action = 'material/' + materialId + '/delete?_method=DELETE'
       formDelete.submit()
     }
   })

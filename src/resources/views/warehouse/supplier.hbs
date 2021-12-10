@@ -5,7 +5,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="/supplier/create" method="POST" id="form-add" name="form-add">
+      <form action="supplier/create" method="POST" id="form-add" name="form-add">
       <div class="modal-header">
         <h5 class="modal-title">Thêm nhà cung cấp</h5>
         <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -177,7 +177,7 @@
         Validator.isNumber('#add-telephone')
       ],
       onSubmit: function () {
-        formAdd.action = '/supplier/create'
+        formAdd.action = 'supplier/create'
         formAdd.submit()
       }
     })
@@ -193,7 +193,7 @@
         Validator.isNumber('#edit-telephone')
       ],
       onSubmit: function () {
-        formEdit.action = '/supplier/' + supplierID + '/?_method=PUT'
+        formEdit.action = 'supplier/' + supplierID + '/?_method=PUT'
         formEdit.submit()
       }
     })
@@ -230,7 +230,7 @@
 
     btnModalDelete.onclick = function () {
       supplierID = this.getAttribute('data-id')
-      formDelete.action = '/supplier/' + supplierID + '/delete?_method=DELETE'
+      formDelete.action = 'supplier/' + supplierID + '/delete?_method=DELETE'
       formDelete.submit()
     }
   })
