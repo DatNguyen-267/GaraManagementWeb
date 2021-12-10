@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 
 const Rule = new Schema({
     content: {type: String, required: true},
-    fine: {type: String, required: true},
+    fine: { type: String, required: true },
 }, {
     timestamps: true,
 })

@@ -10,11 +10,14 @@ const port = 8080
 const route = require('./routes')
 const db = require('./config/db')
 const { $where } = require('./app/models/EmployeeManagerment')
+const LoadProfileMiddleWare = require('./app/middlewares/LoadProfile')
 
 // Connect DB
 db.connect();
 
 app.use(methodOverride('_method'))
+
+app.use(LoadProfileMiddleWare)
 
 app.use(express.static(path.join(__dirname, '/public')))
 // HTTP logger
@@ -29,7 +32,15 @@ app.use(morgan('combined'))
 app.engine('hbs', handlebars({
   extname: '.hbs',
   helpers: {
+    loadRoles: (roles, tag) => {
+      if (!roles) return
+      for (var i = 0; i < roles.length; i++) {
+        if (roles[i] == tag) return "" 
+      }
+      return "disabled"
+    },
     sum: (a, b) => a + b,
+    subtract: (a, b) => Number.parseInt(a) - Number.parseInt(b),
     permission: (check) => {
       if (check == "true") {
         return "Có phép"
@@ -45,10 +56,11 @@ app.engine('hbs', handlebars({
     },
     isDisable: (a) => {
       if (a == true) return "disabled"
+      else return ""
     },
     isEnable: (a) => {
-      if (!a) return "disabled"
       if (a == false) return "disabled"
+      else return ""
     },
     loadMaterial: (detailMaterial) => {
       var html = ``
@@ -115,6 +127,9 @@ app.engine('hbs', handlebars({
     isExportedStyle(check) {
       if (check) return "status--success"
       else return "status--pending"
+    },
+    checkPay(isSuccessRepair) {
+      if (!isSuccessRepair) return "disabled"
     }
   }
 

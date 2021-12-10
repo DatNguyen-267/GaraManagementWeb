@@ -44,7 +44,9 @@
 .bill__footer {
   display: flex;
   align-items: center;
-  justify-content: right; }
+  justify-content: right;
+  margin-right: 16px;
+  margin-bottom: 32px; }
 
 .bill__footer .btn {
   margin-left: 16px;

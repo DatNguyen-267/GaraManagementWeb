@@ -54,6 +54,7 @@
     display: flex;
     align-items: center;
 }
+
 .menu__body-mainlist--active {
     background-color: var(--primary-color);
     color: var(--white-color);
@@ -75,6 +76,7 @@
     font-size: 12px;
     padding-top: 4px
 }
+
 .menu__body-sublist {
     padding: 0 8px;
     margin-top: 8px;

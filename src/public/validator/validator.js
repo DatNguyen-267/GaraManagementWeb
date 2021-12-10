@@ -12,10 +12,14 @@ function Validator(options) {
         var rules = selectorRules[rule.selector]
         // Lặp qua tững rules và kiểm tra
         // nếu có lỗi thì dừng việc kiểm tra
+        // console.log(inputElement)
+        // console.log(rules)
+        // console.log(rule)
         for (var i = 0; i < rules.length; ++i) {
             errorMessage = rules[i](inputElement.value)
             if (errorMessage) break;
         }
+        // console.log(errorMessage)
         if (errorMessage) {
             errorElement.innerText = errorMessage
             inputElement.parentElement.classList.add('invalid')
@@ -38,7 +42,6 @@ function Validator(options) {
             options.rules.forEach(function (rule) {
                 var inputElement = formElement.querySelector(rule.selector)
                 if (!inputElement.getAttribute('disabled')) {
- 
                     var isValid = validate(inputElement, rule)
                     if (!isValid ) {
                         isFormValid = false
@@ -124,6 +127,17 @@ Validator.isNumber = function (selector, errorMessage) {
             var regex = /^[0-9]+$/;
             
             return regex.test(value) ? undefined : 'Trường này chỉ nhập số từ 0 - 9'
+        },
+    }
+}
+Validator.notGreaterThan = function(selector, selectorLimited, errorMessage) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var limitedValue = document.querySelector(selectorLimited).textContent
+            console.log(limitedValue)
+            if (Number.parseInt(value) > Number.parseInt(limitedValue)) return errorMessage
+            else return undefined
         },
     }
 }

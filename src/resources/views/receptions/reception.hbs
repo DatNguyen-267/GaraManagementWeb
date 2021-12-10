@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="/css/reception.css">
 <div class="grid__content {{active}}">
+  <div class="header__breadcrumb">
+    <div class="header__breadcrumb-main">Tiếp nhận xe</div>
+  </div>
   <div class="header">
-    <div class="template__title">Tiếp nhận xe</div>
+    <div class="template__title"></div>
   </div>
   <div class="ctner">
     <div class="toolbar">
@@ -81,12 +84,12 @@
                 >Xóa</button>
               <button class="btn btn-danger btn-debt btn--item" data-id="{{this._id}}" data-toggle="modal"
                 data-target="#modal-debt" 
-                {{checkDebt this.isDebt this.of_repair.isSuccess}}
+                {{checkDebt this.isDebt this.isSuccessRepair}}
                 {{isHidden this.isSuccess}} 
                 >Ghi nợ</button>
               <button class="btn btn-success btn-pay btn--item" data-id="{{this._id}}" data-toggle="modal"
-                data-target="#modal-pay" 
-                {{isEnable this.of_repair.isSuccess}} 
+                data-target="#modal-pay"
+                {{isEnable this.isSuccessRepair}} 
                 {{isHidden this.isSuccess}} 
                 >Thanh toán</button>
             </td>
@@ -101,7 +104,7 @@
 
 <!-- POP UP FORM -->
 <!-- FORM THÊM PHIẾU TIẾP NHẬN-->
-<form method="POST" action="/reception/create" id="form-add-reception" name="form-add-reception">
+<form method="POST" action="/{{User._id}}/reception/create" id="form-add-reception" name="form-add-reception">
   <div class="modal fade" id="modal-add-reception" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -130,7 +133,7 @@
               <div class="side-new-customer">
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Tên khách hàng:</label>
-                  <input type="text" placeholder="Vd: Nguyễn Thành Đạt" class="form-control" id="add-new-name" name="name">
+                  <input type="text" placeholder="" class="form-control" id="add-new-name" name="name">
                   <span class="form-message"></span>
                 </div>
                 <div class="form-group">
@@ -140,17 +143,17 @@
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Địa chỉ:</label>
-                  <input type="text" placeholder="Vd: Tiền Giang" class="form-control" id="add-address" name="address">
+                  <input type="text" placeholder="" class="form-control" id="add-address" name="address">
                   <span class="form-message"></span>
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">CMND:</label>
-                  <input type="text" placeholder="Vd: 312329366" class="form-control" id="add-cardIdentify" name="cardIdentify">
+                  <input type="text" placeholder="" class="form-control" id="add-cardIdentify" name="cardIdentify">
                   <span class="form-message"></span> 
                 </div>
                 <div class="form-group">
                   <label for="reception-add-name" class="col-form-label">Email:</label>
-                  <input type="text" placeholder="Vd: example@gmail.com" class="form-control" id="add-email" name="email">
+                  <input type="text" placeholder="" class="form-control" id="add-email" name="email">
                   <span class="form-message"></span> 
                   {{!-- form-message --}}
                 </div>
@@ -158,13 +161,13 @@
             </div>
             <div class="form-group">
                 <label for="reception-add-phone" class="col-form-label">Số điện thoại:</label>
-                <input type="text" placeholder="Vd: 099999989" class="form-control" id="reception-add-phone" name="phone" >
+                <input type="text" placeholder="" class="form-control" id="reception-add-phone" name="phone" >
                 <span class="form-message"></span>
             </div>
             <div class="double-input">
               <div class="form-group">
                 <label for="reception-add-license" class="col-form-label">Biển số xe:</label>
-                <input type="text" placeholder="Vd: 37BB8095" class="form-control" id="reception-add-license" name="license" >
+                <input type="text" placeholder="" class="form-control" id="reception-add-license" name="license" >
                 <span class="form-message"></span>
               </div>
             </div>
@@ -196,7 +199,7 @@
 </form>
 
 <!-- FORM SỬA PHIẾU TIẾP NHẬN-->
-<form method="POST" name="form-submit" id="form-edit">
+<form method="POST" name="form-submit" id="form-edit" action="">
   <div class="modal fade" id="form-edit-reception" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -250,7 +253,8 @@
 </form>
 
 <!-- FORM XÓA PHIẾU TIẾP NHẬN-->
-<div class="modal fade" id="form-delete-reception" tabindex="-1" role="dialog">
+
+<div class="modal fade" id="form-delete-reception" tabindex="-1" role="dialog"action="">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -309,9 +313,9 @@
   </div>
 </div>
 {{!-- FORM --}}
-<form name="form-delete" method="POST"></form>
-<form name="form-pay" method="GET"></form>
-<form name="form-debt" method="GET"></form>
+<form name="form-delete" method="POST" action=""></form>
+<form name="form-pay" method="GET" action=""></form>
+<form name="form-debt" method="GET" action=""></form>
 
 <!-- MAIN CSS -->
 <script>
@@ -321,10 +325,10 @@
       form: '#form-add-reception', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
-        Validator.isRequireSelectBox('#add-old-customer','--- Chọn khách hàng ---', 'Vui chọn khách hàng'),
-        Validator.isRequire('#add-new-name', 'Vui chọn nhập tên khách hàng'),
-        Validator.isRequire('#add-birth', 'Vui chọn chọn ngày sinh'),
-        Validator.isRequire('#add-address', 'Vui chọn nhập địa chỉ'),
+        Validator.isRequireSelectBox('#add-old-customer','--- Chọn khách hàng ---', 'Vui lòng chọn khách hàng'),
+        Validator.isRequire('#add-new-name', 'Vui lòng chọn nhập tên khách hàng'),
+        Validator.isRequire('#add-birth', 'Vui lòng chọn chọn ngày sinh'),
+        Validator.isRequire('#add-address', 'Vui lòng chọn nhập địa chỉ'),
         Validator.isRequire('#add-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isEmail('#add-email'),
         Validator.isRequire('#reception-add-phone', 'Vui lòng nhập số điện thoại'),
@@ -335,7 +339,7 @@
         //Validator.minLength('#reception-add-receptionDate',6),
       ],
       onSubmit: function() {
-          formAddReception.action = '/reception/create' 
+          {{!-- formAddReception.action = '/reception/create'  --}}
           formAddReception.submit()
         }
       })
@@ -354,11 +358,11 @@
             //Validator.isRequire('#reception-edit-receptionDate', 'Vui lòng chọn ngày tiếp nhận'),
           ],
           onSubmit: function() {
-            formSubmit.action = '/reception/' + receptionId + '/?_method=PUT' 
+            formSubmit.action = 'reception/' + receptionId + '/?_method=PUT' 
             formSubmit.submit()
           }
     })
-    const formAddReception= document.forms['form-add-reception']
+    var formAddReception= document.forms['form-add-reception']
     var formSubmit = document.forms['form-submit']
     var formDelete = document.forms['form-delete']
     var btnSubmitEdit = $('#btn-edit-form')
@@ -392,7 +396,7 @@
     })
     btnAcceptDelete.click(function () {
       if (receptionId != null) {
-        formDelete.action = '/reception/' + receptionId + '/?_method=DELETE'
+        formDelete.action = 'reception/' + receptionId + '/?_method=DELETE'
         formDelete.submit()
       }
 
@@ -403,8 +407,8 @@
     $("#add-address").attr('disabled','disabled');
     $("#add-cardIdentify").attr('disabled','disabled');
     $("#add-email").attr('disabled','disabled');
-    const checkboxNewCustomer = document.getElementById('customer-check-input')
-    const formOldCustomer = document.querySelector('#form-old-customer')
+    var checkboxNewCustomer = document.getElementById('customer-check-input')
+    var formOldCustomer = document.querySelector('#form-old-customer')
     checkboxNewCustomer.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
           $("#form-old-customer").attr('disabled','disabled');
@@ -427,10 +431,10 @@
       var button = $(event.relatedTarget)
       receptionId = button.data('id')
     })
-    const formPay = document.forms['form-pay']
-    const btnAccceptPay = document.querySelector('#btn-accept-pay')
+    var formPay = document.forms['form-pay']
+    var btnAccceptPay = document.querySelector('#btn-accept-pay')
     btnAccceptPay.onclick = function() {
-      formPay.action = '/reception/' + receptionId + '/pay'
+      formPay.action = 'reception/' + receptionId + '/pay'
       formPay.submit()
     }
 
@@ -438,10 +442,10 @@
       var button = $(event.relatedTarget)
       receptionId = button.data('id')
     })
-    const formDebt = document.forms['form-debt']
-    const btnAccceptDebt = document.querySelector('#btn-accept-debt')
+    var formDebt = document.forms['form-debt']
+    var btnAccceptDebt = document.querySelector('#btn-accept-debt')
     btnAccceptDebt.onclick = function() {
-      formDebt.action = '/reception/' + receptionId + '/debt'
+      formDebt.action ='reception/' + receptionId + '/debt'
       formDebt.submit()
     }
   })

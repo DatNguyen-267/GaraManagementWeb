@@ -1,22 +1,20 @@
 <link rel="stylesheet" href="/css/repair.css">
 <link rel="stylesheet" href="/css/contract.css">
 <div class="grid__item">
-    <div class="repair-detail__title">
-        <div>Quản lý sửa chữa</div>
-        <div>></div>
-        <div>Danh sách hợp đồng</div>
-    </div>
-    <div class="back">
-
+    <div class="header__breadcrumb">
+        <form action="/{{User._id}}/repairs">
+            <button class="header__breadcrumb-item header__breadcrumb-item--floating" type="submit" >Theo dõi sửa chữa</button>
+        </form>
+        <div class="header__breadcrumb-item">>Danh sách hợp đồng</div>
     </div>
     <div class="repair-detail__navbar">
         <div class="repair-detail__nav">
-            <form method="GET" action="/repairs/{{Repair._id}}/repair-detail">
-                <button class="repair-detail__nav-item">Thông tin sửa chữa</button>
+            <form method="GET" action="repair-detail">
+                <button class="repair-detail__nav-item btn btn-primary">Thông tin sửa chữa</button>
             </form>
             
-            <form method="GET" action="/repairs/{{Repair._id}}/contract-detail">
-                <button style="submit" class="repair-detail__nav-item">Thông tin hợp đồng</button>
+            <form method="GET" action="contract-detail">
+                <button style="submit" class="repair-detail__nav-item btn btn-primary">Thông tin hợp đồng</button>
             </form>
         </div>
     </div>

@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "61b1bf466ad927bd712e2ebb"
+  },
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "account": "admin",
+  "password": "admin"
+},{
+  "_id": {
+    "$oid": "61b1bf6d6ad927bd712e2ebd"
+  },
+  "of_employee": {
+    "$oid": "61a0e6ef6aa8c665eb148883"
+  },
+  "account": "quanly",
+  "password": "quanly"
+}]
