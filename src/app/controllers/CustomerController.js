@@ -1,4 +1,5 @@
 const Customer = require('../models/Customer.js')
+const Reception = require('../models/Reception.js')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { render, NULL } = require('node-sass')
 const { SchemaTypes } = require('mongoose')
@@ -17,12 +18,36 @@ class CustomerController {
     }
 
     create(req, res, next) {
+        var check = 0
         const customer = new Customer(req.body)
-        customer.save()
-            .then(() => {
-                res.redirect('/customer')
-            })
-            .catch(next)
+        Customer.find({})
+        .then(customers => {
+            for (const iteam of customers) {
+                if( iteam.cardIdentify == customer.cardIdentify)
+                {
+                    check = 1
+                    
+                }
+            }
+            if(check == 1){
+               res.render('customer/customer', {
+                    customers: mutipleMongooseToObject(customers),
+                    activeManagementCustomer: true,
+                    activeCustomer: true,
+                    check
+                })
+            }
+            else{
+                customer.save()
+                .then(() => {
+                    res.redirect('/customer')
+
+                })
+                .catch(next)
+            }
+        })
+        .catch(next)
+        
     }
     edit(req, res, next) {
         Customer.updateOne({ _id: req.params.id }, req.body)
@@ -39,7 +64,7 @@ class CustomerController {
 
     //-----------Debt-------------//
     showdebt(req, res, next) {
-        Customer.find({}).populate('of_reception', ['name', 'debt'])
+        Customer.find({}).populate('of_reception', ['name', 'debt','receptionDate'])
             .then(customers => {
                 for (const customer of customers) {
                     var totaldebt = 0
@@ -92,7 +117,7 @@ class CustomerController {
                     var number_of_reception = 0
                     for (const reception of customer.of_reception) {
                         totaldebt = reception.debt + totaldebt
-                        number_of_reception = number_of_reception +1
+                        number_of_reception = number_of_reception + 1
                     }
                     customer.debt = totaldebt
                     customer.number_of_reception = number_of_reception
@@ -103,7 +128,7 @@ class CustomerController {
                     listhistory.push(customer)
 
                 }
-                
+
                 res.render('customer/customer-history', {
                     listhistory: mutipleMongooseToObject(listhistory),
                     activeManagementCustomer: true,
@@ -114,21 +139,35 @@ class CustomerController {
     }
     customerHistoryDetail(req, res, next) {
         Customer.find({ _id: req.params.id }).populate('of_reception')
-            .then(customers => {
-                var listreception = []
+        .then((customers) => {
+            return customers;
+        })
+        .then((customers) =>{
+           
+            
+            
+            Reception.find().populate('of_customer').populate('brand')
+            .then(Receptions => {
+                var listreception = [];
+                
                 for (const customer of customers) {
-                    for (const reception of customer.of_reception) {
-                        listreception.push(reception)
-
+                    for (const reception of Receptions) {
+                        if(reception.of_customer._id.toString() == customer._id.toString())
+                        {
+                            listreception.push(reception)
+                        }
                     }
-                }
+                }    
                 res.render('customer/customer-history-detail', {
                     listreception: mutipleMongooseToObject(listreception),
                     activeManagementCustomer: true,
                     activeCustomerHistory: true,
                 })
+                
             })
             .catch(next)
+        })
+        .catch(next)
     }
 
 }

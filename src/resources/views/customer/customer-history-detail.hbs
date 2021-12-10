@@ -1,66 +1,72 @@
 <link rel="stylesheet" href="/css/customer-history-detail.css">
-<div class="container__customer-history-detail">
-    <div class="header__customer-history-detail">
-        <div class="header__customer-history-detail__title">Chi Tiết Lịch Sử</div>
-        <button class="header__customer-history-detail__btn-back btn btn--primary">Quay lại</button> 
-    </div>
-    <div class="ctner__customer-history-detail">
-        <div class="toolbar">
-            <div class="toolbar__search">
-                <input type="text" class="toolbar__search-input" id="search-input"
-                    placeholder="Tìm kiếm thông tin khách hàng...">
-                <span class="ti-search toolbar__search-icon"></span>
+<div class="grid__content {{active}}">
+  <div class="header__customer-history-detail">
+    <div class="template__title">Chi Tiết Lịch Sử</div>
 
-            </div>
-            {{!-- <div class="dropdown toolbar__filter">
-                <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  </div>
+  <div class="ctner__customer-history-detail">
+    <div class="toolbar">
+      <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin phiếu...">
+        <span class="ti-search toolbar__search-icon"></span>
 
-                </button>
-                <div class="toolbar__filter-menu dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="toolbar__filter-item dropdown-item" href="#">name</a>
-                    <a class="toolbar__filter-item dropdown-item" href="#"></a>
-                    <a class="toolbar__filter-item dropdown-item" href="#"></a>
-                </div>
-            </div> --}}
+      </div>
+      <div class="toolbar__btn">
+        <button class="toolbar__btn-back btn btn--primary">Quay lại</button>
+      </div>
+      {{!-- <div class="dropdown toolbar__filter">
+        <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        </button>
+        <div class="toolbar__filter-menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="toolbar__filter-item dropdown-item" href="#">name</a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
         </div>
-        <div class="list-customer-history-detail">
-            <table class="table table--default">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#Stt</th>
-                        <th scope="col">Biển số xe</th>
-                        <th scope="col">Hiệu xe</th>
-                        <th scope="col">Tên khách hàng</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">Ngày tiếp nhận</th>
-                        <th scope="col">Số tiền nợ</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col" colspan="2"></th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    {{#each listreception}}
-                    <tr data-id="{{this._id}}">
-                        <th scope="row">{{@index}}</th>
-                        <td>{{this.license}}</td>
-                        <td>{{this.brand}}</td>
-                        <td>{{this.name}}</td>
-                        <td>{{this.phone}}</td>
-                        <td>{{this.receptionDate}}</td>
-                        <td>{{this.debt}}</td>
-                        <td>{{this.status}}</td>
-                        <td></td>
-                        <td>
-                            <button class="btn--view-item" data-id="{{this._id}}" data-toggle="modal"
-                                data-target="#form-view-customer-history-detail" data-id="">Xem</button>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
+      </div> --}}
     </div>
+    <div class="list-customer-history-detail">
+      <table class="table table--default">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#Stt</th>
+            <th scope="col">Biển số xe</th>
+            <th scope="col">Hiệu xe</th>
+            <th scope="col">Tên khách hàng</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Ngày tiếp nhận</th>
+            <th scope="col">Số tiền nợ</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col" colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          {{#each listreception}}
+          <tr data-id="{{this._id}}">
+            <th scope="row">{{@index}}</th>
+            <td>{{this.license}}</td>
+            <td>{{this.brand.name}}</td>
+            <td>{{this.of_customer.name}}</td>
+            <td>{{this.phone}}</td>
+            <td>{{this.receptionDate}}</td>
+            <td>{{this.debt}}</td>
+            <td>
+              <div class="{{loadStatus this.status}}">
+                {{this.status}}
+              </div>
+            </td>
+            <td></td>
+            <td>
+              <button class="btn--view-item" data-id="{{this._id}}" data-toggle="modal"
+                data-target="#form-view-customer-history-detail" data-id="">Xem</button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 <!-- FORM XEM PHIẾU TIẾP NHẬN-->
 <div class="modal fade" id="form-view-customer-history-detail" tabindex="-1" role="dialog">
@@ -68,7 +74,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
-        <button type="button customer-history-detail__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button customer-history-detail__form-btn-close" class="close" data-dismiss="modal"
+          aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -76,19 +83,23 @@
         <form>
           <div class="form-group">
             <label for="customer-history-detail-view-name" class="col-form-label">Tên khách hàng:</label>
-            <input readonly type="text" class="form-control" id="customer-history-detail-view-name" name="customer-history-detail-view-name">
+            <input readonly type="text" class="form-control" id="customer-history-detail-view-name"
+              name="customer-history-detail-view-name">
           </div>
           <div class="form-group">
             <label for="customer-history-detail-view-lincense" class="col-form-label">Biển số xe:</label>
-            <input readonly type="text" class="form-control" id="customer-history-detail-view-license" name="customer-history-detail-view-lincense">
+            <input readonly type="text" class="form-control" id="customer-history-detail-view-license"
+              name="customer-history-detail-view-lincense">
           </div>
           <div class="form-group">
             <label for="customer-history-detail-view-phone" class="col-form-label">Số điện thoại:</label>
-            <input readonly type="text" class="form-control" id="customer-history-detail-view-phone" name="customer-history-detail-view-phone">
+            <input readonly type="text" class="form-control" id="customer-history-detail-view-phone"
+              name="customer-history-detail-view-phone">
           </div>
           <div class="form-group">
             <label for="customer-history-detail-view-address" class="col-form-label">Hiệu xe:</label>
-            <input readonly type="text" class="form-control" id="customer-history-detail-view-brand" name="customer-history-detail-view-address">
+            <input readonly type="text" class="form-control" id="customer-history-detail-view-brand"
+              name="customer-history-detail-view-address">
           </div>
           <div class="form-group">
             <label for="customer-history-detail-view-receptionDate" class="col-form-label">Ngày tiếp nhận:</label>
@@ -106,15 +117,12 @@
 
 
 <!-- scrip -->
-{{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script> --}}
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
 {{!--Search--}}
 <script>
   $(document).ready(function () {
@@ -131,23 +139,23 @@
 {{!-- --}}
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    
+
     var btnView = $('.btn--view-item')
-    var btnBack = $('.header__customer-history-detail__btn-back')
-    
+    var btnBack = $('.toolbar__btn-back')
+
     btnView.click(function () {
-        var id = $(this).data('id')
-        var rowData = $(this).parents('tr')[0]
-        $('#customer-history-detail-view-license').val(rowData.cells[1].textContent)
-        $('#customer-history-detail-view-brand').val(rowData.cells[2].textContent)
-        $('#customer-history-detail-view-name').val(rowData.cells[3].textContent)
-        $('#customer-history-detail-view-phone').val(rowData.cells[4].textContent)
-        $('#customer-history-detail-view-receptionDate').val(rowData.cells[5].textContent)
+      var id = $(this).data('id')
+      var rowData = $(this).parents('tr')[0]
+      $('#customer-history-detail-view-license').val(rowData.cells[1].textContent)
+      $('#customer-history-detail-view-brand').val(rowData.cells[2].textContent)
+      $('#customer-history-detail-view-name').val(rowData.cells[3].textContent)
+      $('#customer-history-detail-view-phone').val(rowData.cells[4].textContent)
+      $('#customer-history-detail-view-receptionDate').val(rowData.cells[5].textContent)
     })
 
     btnBack.click(function () {
-        history.back()
+      history.back()
     })
-   
+
   })
 </script>

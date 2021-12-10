@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./css/customer-debt.css">
-<div class="container__customer-debt">
+<div class="grid__content {{active}}">
   <div class="header__customer-debt">
-    <div class="header__customer-debt__title">Quản Lý Công Nợ</div>
+    <div class="template__title">Quản Lý Công Nợ</div>
   </div>
   <div class="ctner__customer-debt">
     <div class="toolbar">
@@ -32,7 +32,9 @@
             <th scope="col">CMND</th>
             <th scope="col">Email</th>
             <th scope="col">Số điện thoại</th>
-            <th scope="col">Nợ</th>
+            <th scope="col">Mã phiếu</th>
+            <th scope="col">Ngày tiếp nhận</th>
+            <th scope="col">Số tiền nợ</th>
             <th scope="col" colspan="2"></th>
           </tr>
         </thead>
@@ -44,11 +46,15 @@
             <td>{{this.cardIdentify}}</td>
             <td>{{this.email}}</td>
             <td>{{this.phone}}</td>
+            {{#each this.of_reception}}
+              <td>{{this._id}}</td>
+              <td>{{this.receptionDate}}</td>
+            {{/each}}
             <td>{{this.debt}}</td>
             <td></td>
-            <td>
+            {{!-- <td>
               <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
-            </td>
+            </td> --}}
           </tr>
           {{/each}}
         </tbody>
@@ -59,12 +65,11 @@
 
 <form method="GET" name="form-view"></form>
 <!-- scrip -->
-{{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}
+
 {{!--Search--}}
 <script>
   $(document).ready(function () {

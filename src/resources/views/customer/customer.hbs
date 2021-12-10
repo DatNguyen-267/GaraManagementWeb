@@ -1,28 +1,21 @@
 <link rel="stylesheet" href="/css/customer.css">
-<div class="container__customer">
+<div class="grid__content {{active}}">
   <div class="header__customer">
-    <div class="header__customer__title">Khách hàng</div>
-    <button class="header__customer__btn-add btn btn--primary" data-toggle="modal" data-target="#form-add-customer">Thêm
-      khách hàng</button>
+    <div class="template__title">Khách hàng</div>
+
   </div>
   <div class="ctner__customer">
     <div class="toolbar">
       <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin khách hàng...">
+        <input type="text" class="toolbar__search-input" id="search-input"
+          placeholder="Tìm kiếm thông tin khách hàng...">
         <span class="ti-search toolbar__search-icon"></span>
 
       </div>
-      {{!-- <div class="dropdown toolbar__filter">
-        <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-        </button>
-        <div class="toolbar__filter-menu dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="toolbar__filter-item dropdown-item" href="#"></a>
-          <a class="toolbar__filter-item dropdown-item" href="#"></a>
-          <a class="toolbar__filter-item dropdown-item" href="#"></a>
-        </div>
-      </div> --}}
+      <div class="toolbar__btn">
+        <button class="toobar__btn-add btn btn--primary" data-toggle="modal" data-target="#modal-add-customer">Thêm
+          khách hàng</button>
+      </div>
     </div>
     <div class="list-customer">
       <table class="table table--default">
@@ -65,11 +58,11 @@
   </div>
 </div>
 
-
+<input type="text" id="check_cardIdentify" value="{{check}}" readonly hidden>
 <!-- POP UP FORM -->
 <!-- FORM THÊM Khách hàng-->
-<form method="POST" action="/customer/create">
-  <div class="modal fade" id="form-add-customer" tabindex="-1" role="dialog">
+<form method="POST" action="/customer/create" id="form-add-customer" name="form-add-customer">
+  <div class="modal fade" id="modal-add-customer" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -83,32 +76,39 @@
             <div class="form-group">
               <label for="customer-add-name" class="col-form-label">Tên khách hàng:</label>
               <input type="text" class="form-control" id="customer-add-name" name="name" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-cardIdentify" class="col-form-label">CMND:</label>
               <input type="text" class="form-control" id="customer-add-cardIdentify" name="cardIdentify">
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-address" class="col-form-label">Địa chỉ:</label>
               <input type="text" class="form-control" id="customer-add-address" name="address" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-phone" class="col-form-label">Số điện thoại:</label>
               <input type="text" class="form-control" id="customer-add-phone" name="phone" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-email" class="col-form-label">Email:</label>
               <input type="email" class="form-control" id="customer-add-email" name="email" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-birthday" class="col-form-label">Ngày sinh:</label>
               <input type="date" class="form-control" id="customer-add-birthday" name="birthday" required>
+              <span class="form-message" id="birthday_error" ></span>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-          <button id="btn-add-customer" onclick="return validate();" type="submit" class="btn btn--send-dialog">Thêm</button>
+          <button id="btn-add-customer" onclick="return validate();" type="submit"
+            class="btn btn--send-dialog">Thêm</button>
         </div>
       </div>
     </div>
@@ -130,26 +130,32 @@
           <div class="form-group">
             <label for="customer-view-name" class="col-form-label">Tên khách hàng:</label>
             <input readonly type="text" class="form-control" id="customer-view-name" name="name">
+
           </div>
           <div class="form-group">
             <label for="customer-view-cardIdentify" class="col-form-label">CMND:</label>
             <input readonly type="text" class="form-control" id="customer-view-cardIdentify" name="cardIdentify">
+
           </div>
           <div class="form-group">
             <label for="customer-add-address" class="col-form-label">Địa chỉ:</label>
             <input readonly type="text" class="form-control" id="customer-view-address" name="address">
+
           </div>
           <div class="form-group">
             <label for="customer-view-phone" class="col-form-label">Số điện thoại:</label>
             <input readonly type="text" class="form-control" id="customer-view-phone" name="phone">
+
           </div>
           <div class="form-group">
             <label for="customer-view-email" class="col-form-label">Email:</label>
             <input readonly type="email" class="form-control" id="customer-view-email" name="email">
+
           </div>
           <div class="form-group">
             <label for="customer-view-birthday" class="col-form-label">Ngày sinh:</label>
             <input readonly type="date" class="form-control" id="customer-view-birthday" name="birthday">
+
           </div>
 
         </form>
@@ -162,7 +168,7 @@
 </div>
 
 <!-- FORM SỬA Khách hàng-->
-<form method="POST" name="form-submit">
+<form method="POST" name="form-submit" id="form-edit">
   <div class="modal fade" id="form-edit-customer" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -177,32 +183,38 @@
             <div class="form-group">
               <label for="customer-edit-name" class="col-form-label">Tên khách hàng:</label>
               <input type="text" class="form-control" id="customer-edit-name" name="name" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-edit-cardIdentify" class="col-form-label">CMND:</label>
               <input type="text" class="form-control" id="customer-edit-cardIdentify" name="cardIdentify">
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-address" class="col-form-label">Địa chỉ:</label>
               <input type="text" class="form-control" id="customer-edit-address" name="address" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-edit-phone" class="col-form-label">Số điện thoại:</label>
               <input type="text" class="form-control" id="customer-edit-phone" name="phone" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-edit-email" class="col-form-label">Email:</label>
               <input type="email" class="form-control" id="customer-edit-email" name="email" required>
+              <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-edit-birthday" class="col-form-label">Ngày sinh:</label>
-              <input type="date" class="form-control" id="customer-edit-birthday" name="birthday" max=today required>
+              <input type="date" class="form-control" id="customer-edit-birthday" name="birthday"required>
+              <span class="form-message"></span>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-          <button id="btn-edit-form" type="button" class="btn btn--send-dialog">Sửa</button>
+          <button id="btn-edit-form" type="submit" class="btn btn--send-dialog">Sửa</button>
         </div>
       </div>
     </div>
@@ -231,15 +243,37 @@
     </div>
   </div>
 </form>
+<!-- FORM hiện thông báo lỗi trùng CMND-->
+<form>
+  <div class="modal fade" id="form-error" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Thông báo</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-body-descreption">
+          Không thể thêm khách hàng do CMND bị trùng lập!!!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 
-{{!-- <!-- scrip -->
+
+<!-- scrip -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}
+
+
 {{!--Search--}}
 <script>
   $(document).ready(function () {
@@ -254,9 +288,67 @@
   });
 </script>
 
+<script>
+  //Thông báo trùng CMND
+    var check_cardIdentify = document.getElementById('check_cardIdentify').value
+    if(check_cardIdentify == 1){
+    history.back()
+    window.onload = function()
+    {
+       alert("alo") 
+    };
+    } 
+</script>
 <!-- MAIN CSS -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    //Validate
+    Validator({
+      form: '#form-add-customer',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#customer-add-name', 'Vui lòng nhập tên khách hàng'),
+        Validator.isRequire('#customer-add-birthday', 'Vui chọn chọn ngày sinh'),
+        Validator.isRequire('#customer-add-address', 'Vui chọn nhập địa chỉ'),
+        Validator.isRequire('#customer-add-cardIdentify', 'Vui lòng nhập CMND'),
+        Validator.isNumber('#customer-add-cardIdentify'),
+        Validator.minLength('#customer-add-cardIdentify', 9),
+        Validator.isRequire('#customer-add-email', 'Vui lòng nhập email'),
+        Validator.isEmail('#customer-add-email'),
+        Validator.isRequire('#customer-add-phone', 'Vui lòng nhập số điện thoại'),
+        Validator.isNumber('#customer-add-phone'),
+        Validator.minLength('#customer-add-phone', 10),
+        //Validator.minLength('#reception-add-receptionDate',6),
+      ],
+      onSubmit: function () {
+        formAddCustomer.action = '/customer/create'
+        formAddCustomer.submit()
+      }
+    })
+    Validator({
+      form: '#form-edit',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#customer-edit-name', 'Vui lòng nhập tên khách hàng'),
+        Validator.isRequire('#customer-edit-birthday', 'Vui chọn chọn ngày sinh'),
+        Validator.isRequire('#customer-edit-address', 'Vui chọn nhập địa chỉ'),
+        Validator.isRequire('#customer-edit-cardIdentify', 'Vui lòng nhập CMND'),
+        Validator.isNumber('#customer-edit-cardIdentify'),
+        Validator.minLength('#customer-edit-cardIdentify', 9),
+        Validator.isRequire('#customer-edit-email', 'Vui lòng nhập email'),
+        Validator.isEmail('#customer-edit-email'),
+        Validator.isRequire('#customer-edit-phone', 'Vui lòng nhập số điện thoại'),
+        Validator.isNumber('#customer-edit-phone'),
+        Validator.minLength('#customer-edit-phone', 10),
+        //Validator.minLength('#reception-add-receptionDate',6),
+      ],
+      onSubmit: function () {
+        formSubmit.action = '/customer/' + customerId + '/?_method=PUT'
+        formSubmit.submit()
+      }
+    })
+    
+    const formAddCustomer = document.forms['form-add-customer']
     var formSubmit = document.forms['form-submit']
     var formDelete = document.forms['form-delete']
     var btnSubmitEdit = $('#btn-edit-form')
@@ -271,10 +363,7 @@
       var button = $(event.relatedTarget)
       customerId = button.data('id')
     })
-    btnSubmitEdit.click(function () {
-      formSubmit.action = '/customer/' + customerId + '/?_method=PUT'
-      formSubmit.submit()
-    })
+
     $('#form-delete-customer').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
       customerId = button.data('id')
@@ -302,6 +391,10 @@
       $('#customer-edit-email').val(rowData.cells[5].textContent)
 
     })
+    //btnSubmitEdit.click(function () {
+    //  formSubmit.action = '/customer/' + customerId + '/?_method=PUT'
+    //  formSubmit.submit()
+    //})
     btnAcceptDelete.click(function () {
       if (customerId != null && datareception == '') {
         formDelete.action = '/customer/' + customerId + '/?_method=DELETE'
@@ -311,5 +404,6 @@
         window.alert("Không thể xóa!!!");
       }
     })
+    
   })
 </script>
