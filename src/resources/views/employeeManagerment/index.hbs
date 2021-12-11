@@ -47,75 +47,9 @@ crossorigin="anonymous"></script>
               </table> 
         </div>
             
-            <!-- Modal -->
-            <div class="modal fade " id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered infoModal modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Thông tin chi tiết</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body" id =  "test">
-                    <div class="row">
-                      <div class = "infoDiv">
-                        <h5>Thông tin nhân viên</h5>
-                        <label class = "name" id = "info_employeeName">Tên: Tran Quang Tuan</label>
-                        <label class = "phoneNumber" id = "info_phoneNumber"></label>
-                        <label class = "limitOffDate" id = "info_employeeName">Số ngày nghỉ có phép còn lại: 2</label>
-                      </div>
-                      <div class = "tagDiv">
-                        <ul class="nav nav-tabs">
-                          <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Nghỉ phép</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">Vi phạm</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class = "contentDiv">
-                        <h6>Ngày nghỉ gần đây</h6>
-                        {{#each dateoff}}
-                          <div class="card">
-                            <div class="card-body">
-                              <div class = "textDiv" style="float:left">
-                                <p class = "title" >Người tạo</p>
-                                <p class="card-text">Tên: {{this.creator}}</p>
-                                <p class="card-text">SĐT: {{this.creatorPhoneNumber}}</p>
-                              </div>
-                              <div class = "card__info">
-                                <p class = "title">Thông tin</p>
-                                <p class="card-text">Từ {{this.startDate}} <i class="fas fa-arrow-right"></i> {{this.endDate}}</p>
-                                <p class="card-text">Lý do: {{this.reson}}</p>
-                                <p class="card-text permission" id = "test1">{{permission this.havePermission}}</p>
-                              </div>
-                              <button class="btn"><i class="fas fa-trash"></i></button>
-                              <button class="btn"><i class="fas fa-pen"></i></button>
-                              
-                            </div>
-                          </div>
-                        {{/each}}
-                      </div>
-                      <div class = "btnDiv">
-                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <div class = "btnDiv">
-                      <button class = "pageBtn active">1</button>
-                      <button class = "pageBtn ">2</button>
-                      <button class = "pageBtn ">3</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>  
 
             <!--Add modal-->
-              <form method="POST" action="/employeeList/create">
+              <form method="POST" action="employeeList/create">
               <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered infoModal" role="document">
                 <div class="modal-content">
@@ -199,9 +133,7 @@ crossorigin="anonymous"></script>
         id = $(this).attr('employeeID')
         $('#info_employeeName').text("Tên nhân viên: " + $(this).children('#employeeName').text());
         $('#info_phoneNumber').text("SĐT: " + $(this).attr('employeeNumber'));
-        //$("#infoModal").modal();
-        //your code
-        infoForm.action = '/employeeManagerment/' + id + '/info'
+        infoForm.action = 'employeeManagerment/' + id + '/info'
         infoForm.submit();
       });
       function modified(){
@@ -209,29 +141,5 @@ crossorigin="anonymous"></script>
       };
 
       document.addEventListener('DOMContentLoaded', function () {
-      
-      var tdActive;
-      var btnDelete = $('#btn-delete')
-      var btnAcceptEdit = $('#btn-accept-edit')
-      var formEdit = document.forms['form-edit']
-      var formDelete = document.forms['form-delete']
-      var btnEdit = $('.btn-edit')
-      btnDelete.click(function() {
-          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
-          formDelete.submit();
-      })
-
-      $('#form-edit').on('shown.bs.modal', function (event) {
-          var button = $(event.relatedTarget)
-          employeeID = button.data('id')
-      })
-      btnAcceptEdit.click(function() {
-        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
-        formEdit.submit()
-      })
-      btnEdit.click(function(){
-        var row = $(this).parents('tr')[0]
-        $('#form-edit-name').val(row.cells[1].textContent)
-      })
     });
     </script>

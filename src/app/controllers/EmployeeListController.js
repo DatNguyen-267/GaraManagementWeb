@@ -35,14 +35,14 @@ class EmployeeListController {
         const newEmployeeManagerment = new Employee(req.body)
         newEmployeeManagerment.save()
             .then(() => {
-                res.redirect('/employeeList')
+                res.redirect('back')
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
     edit(req,res,next){
         Employee.updateOne({_id: req.params.id} , req.body)
             .then(()=> {
-                res.redirect('/employeeList')
+                res.redirect('back')
             })
             .catch(next)
     }
@@ -50,7 +50,7 @@ class EmployeeListController {
         const idDelete = req.params.id
         Employee.delete({_id:idDelete})
             .then(()=> {
-                res.redirect('/employeeList')
+                res.redirect('back')
             }) 
             .catch(next)
     } 

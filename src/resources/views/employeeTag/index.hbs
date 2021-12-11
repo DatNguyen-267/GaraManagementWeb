@@ -57,7 +57,7 @@ crossorigin="anonymous"></script>
               </table> 
         </div>
         <!-- add -->
-        <form method="POST" action="/employeeTag/create">
+        <form method="POST" action="employeeTag/create">
             <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content body__infoModal">
@@ -331,7 +331,7 @@ crossorigin="anonymous"></script>
       
       btnAcceptEdit.click(function() {
         
-        formEdit.action = '/employeeTag/' + tagID + '/edit?_method=PUT'
+        formEdit.action = 'employeeTag/' + tagID + '/edit?_method=PUT'
         formEdit.submit()
       })
       
@@ -360,7 +360,7 @@ crossorigin="anonymous"></script>
           $("#deleteModal").modal();
       });
       btnDelete.click(function() {
-          formDelete.action ='/employeeTag/' + tagID + '/delete?_method=DELETE'
+          formDelete.action ='employeeTag/' + tagID + '/delete?_method=DELETE'
           formDelete.submit();
       })
 

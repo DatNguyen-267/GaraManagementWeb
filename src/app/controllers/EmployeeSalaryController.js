@@ -2,6 +2,7 @@
 const Employee = require('../models/Employee')
 const Error = require('../models/ManagermentError')
 const Tag = require('../models/Position')
+const DateOff = require('../models/EmployeeManagerment')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { render } = require('node-sass')
 const { mongooseToOject } = require('../../util/mongoose')
@@ -16,38 +17,159 @@ class EmployeeSalaryController {
                     .then((employee)=> {
                         Error.find()
                             .then((error) =>{
-                                var data = []
-                                for (var item of employee){
-                                    var sum = 0;
-                                    for(var temp of error){
-                                        
-                                        if (item._id == temp.employeeID){
-                                            var n = temp.fine;
-                                            n = n.replaceAll('.','')
-                                            n = n.replace('₫','')
-                                            sum += parseInt(n);
+                                DateOff.find()
+                                    .then((dateoff) =>{
+                                        var data = []
+                                        var today;
+                                        for (var item of employee){
+                                            var fineSum = 0;
+                                            var errorCount = 0;
+                                            var dateOffCount = 0;
+                                            for(var temp of error){     
+                                                if (item._id == temp.employeeID){
+                                                    var x = new Date();
+                                                    var m = x.getMonth();
+                                                    var y = x.getFullYear();
+                                                    var d = x.getDate();
+                                                    today = y + '-' + (m+1).toString();
+                                                    var firstDay = new Date(y, m, 1);
+                                                    var lastDay = new Date(y, m + 1, 0);
+                                                    if (new Date(temp.date)  >= firstDay &&  new Date(temp.date)  <= lastDay)
+                                                    {
+                                                        errorCount++;
+                                                        var n = temp.fine;
+                                                        n = n.replaceAll('.','')
+                                                        n = n.replace('₫','')
+                                                        fineSum += parseInt(n);
+                                                    }
 
+                                                }
+                                            }
+
+                                            for(var temp of dateoff){     
+                                                if (item._id == temp.employeeID){
+                                                    var x = new Date();
+                                                    var m = x.getMonth();
+                                                    var y = x.getFullYear();
+                                                    var firstDay = new Date(y, m, 1);
+                                                    var lastDay = new Date(y, m + 1, 0);
+                                                    if (new Date(temp.startDate)  >= firstDay &&  new Date(temp.startDate)  <= lastDay)
+                                                    {
+                                                        dateOffCount++;
+                                                    }
+
+                                                }
+                                            }
+                                            var salary = item.salary;
+                                            salary = salary.replaceAll('.','')
+                                            salary = salary.replace('₫','')
+                                            var finalSalary = (parseInt(salary)) - fineSum
+                                            var formatter = new Intl.NumberFormat('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            });
+                                            fineSum = formatter.format(fineSum.toString());
+                                            finalSalary = formatter.format(finalSalary.toString());
+                                            data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount})
+                                            
                                         }
-                                    }
-                                    var formatter = new Intl.NumberFormat('vi-VN', {
-                                        style: 'currency',
-                                        currency: 'VND',
-                                    });
-                                    sum = formatter.format(sum.toString());
-                                    data.push({item:mongooseToOject(item),sum})
-                                }
-                                //res.send(data)
-                                res.render('employeeSalary/index', {
-                                    employee: mutipleMongooseToObject(employee),
-                                    data,
-                                    activeEmployee: true,
-                                    activeSalary: true,
-                                    Permissions: mongooseToOject(position.permissions),
-                                    User: mongooseToOject(res.locals.employee)
-                                })
+                                        res.render('employeeSalary/index', {
+                                            employee: mutipleMongooseToObject(employee),
+                                            data,
+                                            activeEmployee: true,
+                                            activeSalary: true,
+                                            Permissions: mongooseToOject(position.permissions),
+                                            User: mongooseToOject(res.locals.employee),
+                                            today
+                                        })
+                                    })
                             })
+                            .catch(next)
                     })
-                    .catch(next)
+        })
+        
+    };
+
+
+    getSalaryInfo(req, res, next) {// request , respond , next
+        Tag.findOne({ _id: res.locals.employee.position })
+            .then((position) => {
+                return position
+            })
+            .then((position) => { 
+                Employee.find({})
+                    .then((employee)=> {
+                        Error.find()
+                            .then((error) =>{
+                                DateOff.find()
+                                    .then((dateoff) =>{
+                                        var data = [];
+                                        var today;
+                                        var url = req.url.toString()
+                                        var start = url.indexOf('=') + 1;
+                                        var date = url.substring(start)
+                                        for (var item of employee){
+                                            var fineSum = 0;
+                                            var errorCount = 0;
+                                            var dateOffCount = 0;
+                                            var x = new Date(date);
+                                            var m = x.getMonth();
+                                            var y = x.getFullYear();
+                                            if (m + 1 < 10)
+                                                today = y + '-'+ '0' + (m+1).toString();
+                                            else
+                                                today = y + '-' + (m+1).toString();
+                                            var firstDay = new Date(y, m, 1);
+                                            var lastDay = new Date(y, m + 1, 0);
+                                            for(var temp of error){     
+                                                if (item._id == temp.employeeID){
+                                                    
+                                                    if (new Date(temp.date)  >= firstDay &&  new Date(temp.date)  <= lastDay)
+                                                    {
+                                                        errorCount++;
+                                                        var n = temp.fine;
+                                                        n = n.replaceAll('.','')
+                                                        n = n.replace('₫','')
+                                                        fineSum += parseInt(n);
+                                                    }
+
+                                                }
+                                            }
+
+                                            for(var temp of dateoff){     
+                                                if (item._id == temp.employeeID){
+                                                    if (new Date(temp.startDate)  >= firstDay &&  new Date(temp.startDate)  <= lastDay)
+                                                    {
+                                                        dateOffCount++;
+                                                    }
+
+                                                }
+                                            }
+                                            var salary = item.salary;
+                                            salary = salary.replaceAll('.','')
+                                            salary = salary.replace('₫','')
+                                            var finalSalary = (parseInt(salary)) - fineSum
+                                            var formatter = new Intl.NumberFormat('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            });
+                                            fineSum = formatter.format(fineSum.toString());
+                                            finalSalary = formatter.format(finalSalary.toString());
+                                            data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount})
+                                        }
+                                        res.render('employeeSalary/index', {
+                                            employee: mutipleMongooseToObject(employee),
+                                            data,
+                                            activeEmployee: true,
+                                            activeSalary: true,
+                                            Permissions: mongooseToOject(position.permissions),
+                                            User: mongooseToOject(res.locals.employee),
+                                            today
+                                        })
+                                    })
+                            })
+                            .catch(next)
+                    })
         })
         
     };
