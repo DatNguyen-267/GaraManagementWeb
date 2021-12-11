@@ -450,5 +450,13 @@
       formDebt.action ='reception/' + receptionId + '/debt'
       formDebt.submit()
     }
+
+    selectOldCustomer = document.querySelector('#add-old-customer')
+
+    selectOldCustomer.onchange = function() {
+      var phone = this.options[this.options.selectedIndex].getAttribute('data-phone')
+      console.log(phone)
+      $('#reception-add-phone').val(phone)
+    }
   })
 </script>

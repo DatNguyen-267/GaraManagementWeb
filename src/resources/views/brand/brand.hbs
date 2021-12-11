@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="./css/base.css">
-<link rel="stylesheet" href="./css/brand.css">
-
+{{!-- <link rel="stylesheet" href="./css/base.css">  --}}
+<link rel="stylesheet" type="text/css" href="/css/brand.css">
 
 <div class="grid__content">
   <div class="header__breadcrumb">
@@ -35,15 +34,15 @@
       </tr>
     </thead>
       <tbody>
-        {{#each brands}}
+        {{#each Data}}
         <tr>
           {{!-- 1 hiệu xe --}}
-          <td>{{this._id}}</td>
-          <td>{{this.name}}</td>
+          <td>{{this.brand._id}}</td>
+          <td>{{this.brand.name}}</td>
           <td class="row-btn">
-            <button class="btn btn--edit-item btn-edit" data-id="{{this._id}}" 
-            data-name="{{this.name}}" data-toggle="modal" data-target="#modal-edit">Sửa</button>
-            <button class="btn btn--delete-item btn-delete" data-id="{{this._id}}" 
+            <button class="btn btn--edit-item btn-edit" data-id="{{this.brand._id}}" 
+            data-name="{{this.brand.name}}" data-toggle="modal" data-target="#modal-edit">Sửa</button>
+            <button class="btn btn--delete-item btn-delete" data-id="{{this.brand._id}}" data-candelete="{{this.canDelete}}"
             data-target="#modal-delete" data-toggle="modal">Xóa</button>
           </td>
         </tr>
@@ -51,7 +50,6 @@
       </tbody>
   </table>
 </div>
-
 <form method="POST" action="/brand/create" id="form-add" name="form-add">
   <div class="modal fade" id="modal-add" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -179,15 +177,25 @@
       var row = $(this).parents('tr')[0]
       $('#form-edit-name').val(row.cells[1].textContent)
     })
-
+    var canDelete
     $('#modal-delete').on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         brandId = button.data('id')
+        canDelete = false
+        if ( button.data('candelete') == true) canDelete = true
+        console.log(button.data('candelete'))
+        console.log(canDelete)
     })
 
     btnAcceptDelete.onclick = function() {
-      formDelete.action = 'brand/' + brandId + '/delete?_method=DELETE'
-      formDelete.submit()
+      if (canDelete) {
+        formDelete.action = 'brand/' + brandId + '/delete?_method=DELETE'
+        formDelete.submit()
+      }
+      else {
+        alert("Không thể xóa hiệu xe này vì hiệu xe đang được sử dụng!!!")
+      }
+      
     }
   })
 </script>

@@ -1,5 +1,6 @@
 const Brand = require('../models/Brand')
 const Position = require('../models/Position')
+const Reception = require('../models/Reception')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
@@ -11,20 +12,46 @@ class BrandController {
     show(req, res, next) {
         Position.findOne({ _id: res.locals.employee.position })
             .then((position) => {
-            return position
+                return position
             })
-            .then((position) => { 
-                Brand.find({})
-                .then((brands)=> {
-                    res.render('brand/brand', {
-                        brands: mutipleMongooseToObject(brands),
-                        activeManagementCar: true,
-                        activeBrand: true,
-                        Permissions: mongooseToOject(position.permissions),
-                        User: mongooseToOject(res.locals.employee)
+            .then((position) => {
+                Reception.find({})
+                    .then((receptions) => {
+                        
+                        Brand.find({})
+                            .then((brands) => {
+                                
+                                var data = []
+                                for (var brand of brands) {
+                                    var check = false
+                                    for (var reception of receptions) {
+                                        if (reception.brand.toString() == brand._id.toString()) {
+                                            check = true
+                                            break
+                                        }
+                                    }
+                                    if (check) {
+                                        data.push({brand: mongooseToOject(brand),canDelete: false})
+                                    }
+                                    else {
+                                        data.push({brand: mongooseToOject(brand),canDelete: true})
+                                    }
+                                }
+                                
+                                for (const iterator of data) {
+                                    iterator.brand.stringify = JSON.stringify(iterator.brand);
+                                }
+                                res.render('brand/brand', {
+                                    Brand: mutipleMongooseToObject(brands),
+                                    Data: data,
+                                    activeManagementCar: true,
+                                    activeBrand: true,
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(res.locals.employee)
+                                })
+                        })
+                        .catch(next)
                     })
-                })
-                .catch(next)
             })
         
     } 
@@ -40,7 +67,7 @@ class BrandController {
         const idDelete = req.params.id
         Brand.delete({_id:idDelete})
             .then(()=> {
-                res.redirect('back')
+                res.redirect('back',301)
             }) 
             .catch()
     }   
