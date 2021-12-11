@@ -1,4 +1,6 @@
 const Employee = require('../models/Employee')
+const Error = require('../models/ManagermentError')
+const DateOff = require('../models/EmployeeManagerment')
 const Tag = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
@@ -48,11 +50,19 @@ class EmployeeListController {
     }
     delete(req,res,next){
         const idDelete = req.params.id
-        Employee.delete({_id:idDelete})
-            .then(()=> {
-                res.redirect('back')
-            }) 
-            .catch(next)
+        DateOff.delete({employeeID:idDelete})
+            .then(()=>{
+                Error.delete({employeeID:idDelete})
+                    .then(() =>{
+                        Employee.delete({_id:idDelete})
+                            .then(()=> {
+                                res.redirect('back')
+                            }) 
+                            .catch(next)
+                    })
+                
+            })
+       
     } 
     
 }

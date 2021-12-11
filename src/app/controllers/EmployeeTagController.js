@@ -1,4 +1,5 @@
 const Tag = require('../models/Position')
+const Employee = require('../models/Employee')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
@@ -43,11 +44,15 @@ class EmployeeTagController {
     }
     delete(req,res,next){
         const idDelete = req.params.id
-        Tag.delete({_id:idDelete})
+        Employee.count()
+            .then((employee)=>{
+                res.send(employee)
+            })
+        /*Tag.delete({_id:idDelete})
             .then(()=> {
                 res.redirect('employeeTag')
             }) 
-            .catch(next)
+            .catch(next)*/
     } 
 }
 
