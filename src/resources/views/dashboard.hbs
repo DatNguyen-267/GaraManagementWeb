@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/css/dashboard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<div class="grid__content">
+    <div class="header">
+        <div class="performance">
+            <div class="header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="performance__content">
+                <div class="performance__content-item">
+                    <div class="performance__content-info">
+                        <div class="performance__content-item-name">Số xe hiện tại</div>
+                        <div class="performance__content-item-number">{{CarOfGara}}/30</div>
+                    </div>
+                    <span class="performance__content-item-icon ti-bar-chart"></span>
+                </div>
+                <div class="performance__content-item">
+                    <div class="performance__content-info">
+                        <div class="performance__content-item-name">Số xe tiếp nhận hôm nay</div>
+                        <div class="performance__content-item-number">{{ReceptionOfDay}}</div>
+                    </div>
+                    <span class="performance__content-item-icon ti-shift-right"></span>
+                    
+                </div>
+                <div class="performance__content-item">
+                    <div class="performance__content-info">
+                        <div class="performance__content-item-name">Doanh thu tháng này</div>
+                        <div class="performance__content-item-number">{{SalesOfMonth}} VND</div>
+                    </div>
+                    <span class="performance__content-item-icon ti-stats-up"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chart">
+        <div class="chart-item">
+            <div class="chart-item-name">Doanh số trong năm</div>
+            <canvas class="chart-item-content" id="myChart"></canvas>
+        </div>
+        <div class="chart-item">
+            <div class="chart-item-name">Số xe tiếp nhận trong năm</div>
+            <canvas id="myChart-2"  class="chart-item-content"></canvas>
+        </div>
+    </div>
+    
+</div>
+{{!-- <div id="alert-message"></div> --}}
+<div id="data-chart-sales" data-sales="{{ListSales}}" hidden></div>
+<div id="data-chart-reception" data-reception= "{{ListReception}}" hidden></div>
+<div id="max-data" data-max= "{{SalesOfYear}}" hidden></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var xValues = [1,2,3,4,5,6,7,8,9,10,11,12];
+        var dataChartSales = document.querySelector('#data-chart-sales')
+        var dataChartReception = document.querySelector('#data-chart-reception')
+        var maxData = document.querySelector('#max-data').getAttribute('data-max')
+
+
+        var listSales = dataChartSales.getAttribute('data-sales').split(',')
+        var listReception = dataChartReception.getAttribute('data-reception').split(',')
+        console.log(listSales)
+        console.log(listReception)
+        new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "rgba(0,0,255,1.0)",
+            borderColor: "rgba(0,0,255,0.1)",
+            data: listSales
+            }]
+        },
+        options: {
+            legend: {display: false},
+            scales: {
+                yAxes: [{ticks: {min: 0, max:Number.parseInt(maxData)}}],
+            }
+        }
+        });
+        new Chart("myChart-2", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "rgba(0,0,255,1.0)",
+            borderColor: "rgba(0,0,255,0.1)",
+            data: listReception
+            }]
+        },
+        options: {
+            legend: {display: false},
+            scales: {
+            yAxes: [{ticks: {min: 0, max:16}}],
+            }
+        }
+        });
+    })  
+
+
+
+
+
+</script>

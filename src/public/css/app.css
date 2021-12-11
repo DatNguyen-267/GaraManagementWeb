@@ -1,11 +1,11 @@
 .app {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  min-height: 100vh; }
 
 .menu {
   background-color: #F9F9F9;
   border: 1px solid var(--border-color);
-  height: 100vh;
   min-width: 270px;
   max-width: 270px; }
 

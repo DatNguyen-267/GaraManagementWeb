@@ -1,10 +1,11 @@
 <link rel="stylesheet" href="/css/reception.css">
 <div class="grid__content {{active}}">
   <div class="header__breadcrumb">
-    <div class="header__breadcrumb-main">Tiếp nhận xe</div>
-  </div>
-  <div class="header">
-    <div class="template__title"></div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tiếp nhận xe</a></li>
+        </ol>
+    </nav>
   </div>
   <div class="ctner">
     <div class="toolbar">
@@ -121,7 +122,7 @@
               <select class="form-control" name="oldCustomer" id="add-old-customer"> 
                     <option>--- Chọn khách hàng ---</option>
                     {{#each Customers}}   
-                    <option value="{{this._id}}">{{this.name}}</option>
+                    <option value="{{this._id}}" data-phone={{this.phone}}>{{this.name}}</option>
                     {{/each}}
               </select>
               <span class="form-message"></span>
@@ -184,7 +185,7 @@
             </div>
             <div class="form-group">
               <label for="reception-add-receptionDate" class="col-form-label">Ngày tiếp nhận:</label>
-              <input type="date" class="form-control" id="reception-add-receptionDate" name="receptionDate">
+              <input type="date" class="form-control" id="reception-add-receptionDate" name="receptionDate" value="2021-09-10">
               <span class="form-message"></span>
             </div>
           </form>
@@ -412,6 +413,7 @@
     checkboxNewCustomer.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
           $("#form-old-customer").attr('disabled','disabled');
+          $("#add-old-customer").attr('disabled','disabled');
           $("#add-new-name").attr('disabled',false);
           $("#add-birth").attr('disabled',false);
           $("#add-address").attr('disabled',false);
@@ -447,6 +449,14 @@
     btnAccceptDebt.onclick = function() {
       formDebt.action ='reception/' + receptionId + '/debt'
       formDebt.submit()
+    }
+
+    selectOldCustomer = document.querySelector('#add-old-customer')
+
+    selectOldCustomer.onchange = function() {
+      var phone = this.options[this.options.selectedIndex].getAttribute('data-phone')
+      console.log(phone)
+      $('#reception-add-phone').val(phone)
     }
   })
 </script>

@@ -3,9 +3,13 @@
 
 <div class="grid__item">
     <div class="header">
-    <div class="template__title">Tiếp nhận xe</div>
-    <div class="template__title">Ghi nợ</div>
-</div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/{{User._id}}/reception">Tiếp nhận xe</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ghi nợ</li>
+            </ol>
+        </nav>
+    </div>
 <div class="container">
     <div class="bill">
         <div class="bill__header">
@@ -80,19 +84,19 @@
         <div class="bill__form">
             <form name="form-debt" method="POST" id="form-debt">
                 <div class="bill__money-info">
-                    <div class="bill__money-info-detail">
+                    <div class="bill__money-info-detail" >
                         <div class="info-group">
                             <label for="">Tổng tiền:</label>
                             <label id="label-total-money">{{Reception.total_money}}</label>
                         </div>
-                        <div class="form-group">
-                            <label for="">Số tiền thanh toán trước:</label>
-                            <input id="input-money-pay" type="text" class="form-control input-money" name="money_pay">
+                        <div class="form-group" >
+                            <label style="font-size: 16px;">Số tiền thanh toán trước:</label>
+                            <input id="input-money-pay" type="text" class="form-control input-money" name="money_pay" value="0">
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group">
-                            <label for="">Còn nợ:</label>
-                            <input id="input-debt" disabled type="text" class="form-control input-debt" name="debt">
+                        <div class="form-group" >
+                            <label style="font-size: 16px;">Còn nợ:</label>
+                            <input id="input-debt" disabled type="text" class="form-control input-debt" name="debt" value="{{Reception.total_money}}">
                         </div>
                     </div>
                 </div>
@@ -128,11 +132,102 @@
     </div>
 </div>
 </div>
-    
+<div id="bill-print" hidden>
+    <div class="bill__header">
+        <div class="bill__header-name">Phiếu ghi nợ</div>
+        <div class="bill__header-company-name">Nhà xe: DGara</div>
+        <div class="bill__header-phone">Địa chỉ: Khu phố 6, Thủ Đức, Thành phố Hồ Chí Minh</div>
+        <div class="bill__header-phone">SDT: 096964451</div>
+    </div>
+    <div class="bill__customer-info">
+            <div class="info-group">
+                <label for="">Tên khách hàng:</label>
+                <label >{{Reception.of_customer.name}}</label>
+            </div>
+            <div class="info-group">
+                <label for="">Biển số xe:</label>
+                <label >{{Reception.license}}</label>
+            </div>
+            <div class="info-group">
+                <label for="">Phone:</label>
+                <label >{{Reception.of_customer.phone}}</label>
+            </div>
+            <div class="info-group">
+                <label for="">Ngày lập phiếu:</label>
+                <label >{{Now}}</label>
+            </div>
+        </div>
+        <div class="bill__repair-info">
+            <div class="bill__repair-info__table-material">
+                <table class="table" style="overflow-y:scroll">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nội dung</th>
+                            <th scope="col">Tên vật tư</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each DetailMaterial}}
+                        <tr>
+                            <td scope="row">{{this.content}}</td>
+                            <td scope="row">{{this.material_name}}</td>
+                            <td scope="row">{{this.amount}}</td>
+                            <td scope="row">{{this.sell_price}}</td>
+                            <td scope="row">{{this.total_money}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="bill__repair-info__table-wage">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tên tiền công</th>
+                            <th scope="col">Tiền công</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each DetailWage}}
+                        <tr>
+                            <td scope="row">{{this.wage_name}}</td>
+                            <td scope="row">{{this.wage_money}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <form class="bill__form">
+            <form method="POST" >
+                <div class="bill__money-info">
+                    <div class="bill__money-info-detail">
+                        <div class="info-group">
+                            <label for="">Tổng tiền:</label>
+                            <label >{{Reception.total_money}}</label>
+                        </div>
+                        <div class="info-group">
+                            <label for="">Số tiền thanh toán trước:</label>
+                            <label id="print-money-pay" type="text">
+                        </div>
+                        <div class="info-group">
+                            <label for="">Còn nợ:</label>
+                            <label id="print-debt" disabled type="text">
+                        </div>
+                    </div>
+                </div>
+            </form>  
+        </form>
+</div>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var btnAcceptDebt = document.querySelector('#btn-accept-debt')
-        var btnPrint = document.querySelector('#btn-print')
+        var btnPrint = document.querySelector('.btn-print')
         var receptionId
         const formDebt = document.forms['form-debt']
         Validator({
@@ -162,6 +257,31 @@
         inputMoneyPay.onkeyup = function() {
             inputDebt.value = (Number.parseInt(labelTotalMoney.textContent) - Number.parseInt(inputMoneyPay.value))
     
+        }
+        btnPrint.onclick =  function() {
+            var labelPrintMoneyPay = document.querySelector('#print-money-pay')
+            var labelPrintDebt =  document.querySelector('#print-debt')
+            labelPrintMoneyPay.textContent = inputMoneyPay.value
+            labelPrintDebt.textContent = inputDebt.value
+            var divContents = document.getElementById("bill-print").innerHTML;
+            var a = window.open('', '', 'height=500, width=500');
+            a.document.write(`<html> 
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                    <link rel="stylesheet" href="/vendor/open-iconic-master/font/css/open-iconic-bootstrap.css">
+                    <link rel="stylesheet" href="/css/base.css">
+                    <link rel="stylesheet" href="/css/debt.css">
+
+                </head>`);
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.print();
+            a.document.close();
+            a.window.close()
         }
     })
 </script>

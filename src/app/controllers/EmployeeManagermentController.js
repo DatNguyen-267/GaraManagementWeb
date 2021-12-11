@@ -65,7 +65,7 @@ class EmployeeManagermentController {
                             .then((error) =>{
                                 DateOff.find({employeeID: id})
                                     .then((dateoff) =>{
-                                        Rule.find({employeeID: id})
+                                        Rule.find()
                                             .then((rule) =>{
                                                 //res.send(rule)
                                         res.render('employeeManagerment/info', {
@@ -94,7 +94,7 @@ class EmployeeManagermentController {
         const id = req.body.eID;
         newDate.save()
             .then(() => {
-                res.redirect('/employeeManagerment/' + id + '/info')
+                res.redirect('back')
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
@@ -103,7 +103,7 @@ class EmployeeManagermentController {
         const id = req.body.eID;
         DateOff.updateOne({_id: req.params.id} , req.body)
             .then(()=> {
-                res.redirect('/employeeManagerment/' + id + '/info')
+                res.redirect('back')
             })
             .catch(next)
     }
@@ -112,7 +112,7 @@ class EmployeeManagermentController {
         const idDelete = req.params.id
         DateOff.delete({_id:idDelete})
             .then(()=> {
-                res.redirect('/employeeManagerment/' + id + '/info')
+                res.redirect('back')
             }) 
             .catch(next)
     }
@@ -122,7 +122,7 @@ class EmployeeManagermentController {
         const id = req.body.eID;
         newError.save()
             .then(() => {
-                res.redirect('/employeeManagerment/' + id + '/info')
+                res.redirect('back')
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
@@ -131,7 +131,7 @@ class EmployeeManagermentController {
         const id = req.body.eID;
         Error.updateOne({_id: req.params.id} , req.body)
             .then(()=> {
-                res.redirect('/employeeManagerment/' + id + '/info')
+                res.redirect('back')
             })
             .catch(next)
     }
@@ -140,7 +140,7 @@ class EmployeeManagermentController {
         const idDelete = req.params.id
         Error.delete({_id:idDelete})
             .then(()=> {
-                res.redirect('/employeeManagerment/' + id + '/info')
+                res.redirect('back')
             }) 
             .catch(next)
     }

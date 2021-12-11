@@ -5,8 +5,8 @@ const mongooseDelete = require('mongoose-delete')
 const Schema = mongoose.Schema
 
 const Rule = new Schema({
-    content: {type: String, required: true},
-    fine: { type: String, required: true },
+    content: {type: String},
+    description: {type: String},
 }, {
     timestamps: true,
 })

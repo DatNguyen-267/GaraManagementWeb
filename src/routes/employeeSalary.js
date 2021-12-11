@@ -4,8 +4,9 @@ const router = express.Router()
 
 
 router.get('/', EmployeeSalaryController.show);
+router.get('/SalaryInfo',EmployeeSalaryController.getSalaryInfo)
 router.post('/create', EmployeeSalaryController.create);
-router.put('/:id/edit', EmployeeSalaryController.edit) //slug
+router.put('/edit', EmployeeSalaryController.edit) //slug
 router.delete('/:id/delete', EmployeeSalaryController.delete) //slug
 
 module.exports = router

@@ -1,0 +1,239 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<title>Danh sách nhân viên</title>
+    <div class = "grid__content">
+        <header class = "employeeList__header">
+        <h1 class = "template__title">Quản lý quy định</h1>
+        <div class="toolbar">
+          <div class="toolbar__search">
+            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm quy định" aria-label="Search" onkeyup="search()">
+            <span class="ti-search toolbar__search-icon"> </span>
+          </div>
+          <div class="toolbar__btn">
+            <button class="header__btn-add btn btn-primary" id = "btn--add-item">Thêm quy định mới</button>
+          </div>
+        </div>
+    </header>
+    <body class = "employeeList__body">
+        <div class = "table-responsive">
+            <table class="table table--default employeeList__body__table" id = "ruleTable" >
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Quy định</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col"></th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  {{#each rule}}
+                    <tr ruleID = "{{this._id}}">
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td class = "content">{{this.content}}</td>
+                    <td class = "description">{{this.description}}</td>
+                    <td>
+                      <button class = "btn--edit-item" onclick="">Sửa</i></button>
+                      <button class = "btn--delete-item" onclick="deleted()">Xóa</i></button>
+                    </td>           
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table> 
+        </div>
+          
+          <!--Modified Modal -->
+          <form method="POST" name = "form-edit" action = "" id = "form-edit-rule">
+            <div class="modal fade " id="modifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Tên lỗi quy định:</label>
+                      <input type="text" class="form-control" name="content"  id = "m_content">
+                      <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Mô tả tiền phạt:</label>
+                      <input type="text" class="form-control" name="description"  id = "m_description">
+                      <span class="form-message"></span>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="submit" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+          <!--Add Modal -->
+          <form method="POST" action="create" id = "form-add-rule" name = "form-add">
+            <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Thêm quy định</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id =  "test">
+                  <form>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Tên quy định:</label>
+                      <input type="text" class="form-control" name="content" id = 'n_content'>
+                      <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-phone" class="col-form-label">Mô tả tiền phạt:</label>
+                      <input type="text" class="form-control" name="description" id = 'n_description'>
+                      <span class="form-message"></span>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="submit" class="btn btn-primary" id= "btn-add">Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+          <!--Delete Modal -->
+          <form name="form-delete" method="POST" action="">
+              <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa quy định</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <label id = "informLabel">Bạn có chắc chắn muốn xóa quy định này không?</label>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete">Xóa</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+         
+
+          
+    </body>
+    </div>
+
+
+    <script>
+      var ID;
+      function search(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchKey");
+        filter = input.value;
+        table = document.getElementById("ruleTable");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+        }
+      }
+      Date.prototype.toDateInputValue = (function() {
+          var local = new Date(this);
+          local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+          return local.toJSON().slice(0,10);
+      });
+      $(".btn--edit-item").click(function() {
+          ID = $(this).closest("tr").attr('ruleID');
+          $('#m_content').val($(this).closest("tr").find(".content").text());
+          $('#m_description').val($(this).closest("tr").find(".description").text());
+          $("#modifiedModal").modal();
+      });
+      
+      $("#btn--add-item").click(function() {
+          $("#addModal").modal();
+      });
+      
+
+      $(".btn--delete-item").click(function() {
+          ID = $(this).closest("tr").attr('ruleID');
+          $("#deleteModal").modal();
+      });
+      $('#employeeTable tbody tr').click(function () {
+        employeeID = $(this).attr('employeeID')
+      });
+      document.addEventListener('DOMContentLoaded', function () {
+      //add validator
+      Validator({
+      form: '#form-add-rule', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#n_content', 'Vui nhập tên quy định'),
+        Validator.isRequire('#n_description', 'Vui nhập mô tả'),
+      ],
+      onSubmit: function() {
+          formAddEmployee.action = 'rules/create'
+          $('#n_tagID').val($('.nOps:selected').attr('tagID'));
+          formAddEmployee.submit()  
+        }
+      })
+      //modified validator  
+      Validator({
+      form: '#form-edit-rule', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#m_content', 'Vui nhập tên quy định'),
+        Validator.isRequire('#m_description', 'Vui nhập mô tả'),
+      ],
+      onSubmit: function() {
+          formEdit.action = 'rules/' + ID + '/edit?_method=PUT' 
+          formEdit.submit()
+        }
+      })
+
+      var tdActive;
+      var btnAcceptAdd = $('#btn-add')
+      var btnDelete = $('#btn-delete')
+      var btnAcceptEdit = $('#btn-accept-edit')
+      var formAdd =  document.forms['form-add']
+      var formEdit = document.forms['form-edit']
+      var formDelete = document.forms['form-delete']
+      var formAddEmployee = document.forms['form-add']
+
+      btnDelete.click(function() {
+        formDelete.action = 'rules/'+  ID + '/delete?_method=DELETE'
+        formDelete.submit();
+      })
+    });
+
+      
+    </script>

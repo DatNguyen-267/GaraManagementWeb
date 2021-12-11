@@ -1,32 +1,36 @@
 @charset "UTF-8";
 /* Form POP UP */
-.container__customer-history {
+.container__wage {
   margin: 16px 36px; }
 
-.customer-history__form-btn-close {
+.wage__form-btn-close {
   font-size: 16px; }
 
 /* HEADER */
-.header__customer-history {
+.header__wage {
   display: flex;
   text-align: center;
   justify-content: space-between; }
 
-.header__customer-history__title {
+.header__wage__title {
   font-size: 20px;
   font-weight: 700;
   color: var(--text-color); }
 
 /* BODY */
-.ctner__customer-history {
+.ctner__wage {
   height: 75vh; }
 
 /* THANH TIỆN ÍCH */
 .toolbar__search-input {
   width: 250px; }
 
-/* DANH SÁCH LỊCH SỬ KHÁCH HÀNG */
-.list-customer-history {
+.toobar__btn-add {
+  width: 180px;
+  box-shadow: 0 2px 10px var(--blue-color-rgba); }
+
+/* DANH SÁCH KHÁCH HÀNG */
+.list-wage {
   background-color: var(--white-color);
   height: 100%;
   border-radius: 5px;
@@ -35,10 +39,11 @@
   border-collapse: collapse;
   width: 100%; }
 
-.list-customer-history__table {
+.list-wage__table {
   font-size: 14px;
   cursor: default;
   text-align: center; }
 
-.list-customer-history button {
-  width: 60px; }
+/* Lỗi */
+#birthday_error {
+  color: red; }

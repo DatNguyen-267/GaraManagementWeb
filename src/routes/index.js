@@ -15,11 +15,18 @@ const customerdebtRouter = require('./customerdebt')
 const supplierRouter = require('./supplier')
 const importRouter = require('./import')
 const exportRouter = require('./export')
-const customerhistoryRouter = require('./customerhistory')
-const reportsaleRouter = require('./reportsale')
-const reportinventoryRouter = require('./reportinventory')
-const loginRouter = require('./login')
 const settingRouter = require('./setting')
+const customerhistoryRouter =require('./customerhistory')
+const reportsaleRouter =require('./reportsale')
+const reportinventoryRouter =require('./reportinventory')
+const loginRouter =require('./login')
+const dashboardRouter =require('./dashboard')
+
+const ruleRouter = require('./rules')
+
+
+const wageRouter =require('./wage')
+
 
 
 
@@ -42,6 +49,8 @@ function route(app) {
 
       app.use('/:profile/employeeManagerment', employeeManagermentRouter)
 
+      app.use('/:profile/rules', ruleRouter)
+      
       app.use('/:profile/customer', customerRouter)
 
       app.use('/:profile/customerdebt', customerdebtRouter)
@@ -63,6 +72,11 @@ function route(app) {
       app.use('/:profile/setting', settingRouter)
 
       app.use('/:profile/brand', brandRouter)
+
+      app.use('/:profile/dashboard', dashboardRouter)
+
+      app.use('/:profile/wage', wageRouter)
+
       app.use('/login', loginRouter)
       app.use('/', siteRouter)
 

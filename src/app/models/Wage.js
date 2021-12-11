@@ -7,6 +7,8 @@ const Schema = mongoose.Schema
 const Wage = new Schema({
     name: String, 
     money: Number, 
+    not_delete: { type: Boolean, default: false },
+    not_edit: { type: Boolean, default: false },
 }, {
     timestamps: true,
 })

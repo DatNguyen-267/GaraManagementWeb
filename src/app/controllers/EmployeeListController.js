@@ -1,4 +1,6 @@
 const Employee = require('../models/Employee')
+const Error = require('../models/ManagermentError')
+const DateOff = require('../models/EmployeeManagerment')
 const Tag = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
@@ -35,24 +37,32 @@ class EmployeeListController {
         const newEmployeeManagerment = new Employee(req.body)
         newEmployeeManagerment.save()
             .then(() => {
-                res.redirect('/employeeList')
+                res.redirect('back')
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
     edit(req,res,next){
         Employee.updateOne({_id: req.params.id} , req.body)
             .then(()=> {
-                res.redirect('/employeeList')
+                res.redirect('back')
             })
             .catch(next)
     }
     delete(req,res,next){
         const idDelete = req.params.id
-        Employee.delete({_id:idDelete})
-            .then(()=> {
-                res.redirect('/employeeList')
-            }) 
-            .catch(next)
+        DateOff.delete({employeeID:idDelete})
+            .then(()=>{
+                Error.delete({employeeID:idDelete})
+                    .then(() =>{
+                        Employee.delete({_id:idDelete})
+                            .then(()=> {
+                                res.redirect('back')
+                            }) 
+                            .catch(next)
+                    })
+                
+            })
+       
     } 
     
 }

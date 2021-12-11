@@ -12,12 +12,12 @@ crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <title>Nghỉ phép và vi phạm</title>
-    <body class = "employeeManagerment_info__body">
+<div class = "grid__content">
+  <body class = "employeeManagerment_info__body">
         <div class = "container-fluid">
           <p><strong>Thông tin nhân viên</strong></p>
           <p>Tên: {{employee.name}}</p>
           <p>SĐT: {{employee.phoneNumber}}</p>
-          <p>Số ngày nghỉ có phép còn lại: 2</p>
         </div>
         <div class = "container-fluid">
           <ul class="nav nav-tabs">
@@ -65,6 +65,7 @@ crossorigin="anonymous"></script>
               <p>Lỗi vi phạm: {{this.content}}</p>
               <p>Tiền phạt: {{this.fine}}</p>
               <p>Ngày: {{this.date}}</p>
+              <p>Mô tả: {{this.description}}</p>
             </div>
             <div class = "creator">
               <p><strong><i class="fas fa-user-alt"></i> Người tạo</strong></p>
@@ -72,7 +73,7 @@ crossorigin="anonymous"></script>
               <p>SĐT: {{this.creatorPhoneNumber}}</p>
             </div>
             <div class = "btn-container">
-              <button class="btn btn-edit-error" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+              <button class="btn btn-edit-error" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" description = "{{this.description}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
               <button class="btn btn-delete-error" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
             </div>
           </div>
@@ -80,7 +81,7 @@ crossorigin="anonymous"></script>
         </div>
         </div>
         <!-- date off add modal -->
-        <form method="POST" action="/employeeManagerment/dateoff/create" name = "form-add-dateoff">
+        <form method="POST"  name = "form-add-dateoff" id = "form-add-dateoff">
             <div class="modal fade " id="dateoffAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -94,22 +95,24 @@ crossorigin="anonymous"></script>
                   <form>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu:</label>
-                      <input type="date" class="form-control dataStr" name="startDate">
+                      <input type="date" class="form-control dataStr" name="startDate" id = "n_startDate">
                       <!--data -->
                       <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
                       <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
                       <input type="hidden" class="form-control data" name="creator" value="Trần Ngọc Dung">
                       <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="0986123123">
                       <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
-
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Ngày kết thúc:</label>
-                      <input type="date" class="form-control" name="endDate">
+                      <input type="date" class="form-control" name="endDate" id = "n_endDate">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Lý do</label>
-                      <input type="text" class="form-control" name="reson" autocomplete="off">
+                      <input type="text" class="form-control" name="reson" autocomplete="off" id = "n_reson">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Trạng thái:</label>
@@ -125,20 +128,21 @@ crossorigin="anonymous"></script>
                           Không phép
                         </label>
                       </div>
+                      <span class="form-message"></span>
                     </div>
 
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="summit" class="btn btn-primary" onclick="addDateoff()">Thêm</button>
+                  <button type="submit" class="btn btn-primary" onclick="addDateoff()">Thêm</button>
                 </div>
               </div>
             </div>
           </div>
           </form>
         <!-- date off edit modal -->
-        <form method="POST" name = "form-edit-d" action = "">
+        <form method="POST" name = "form-edit-dateoff" action = "/{{User._id}}/employeeManagerment/" id = "form-edit-dateoff">
             <div class="modal fade " id="modifiedDateOffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -153,6 +157,7 @@ crossorigin="anonymous"></script>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu:</label>
                       <input type="date" class="form-control dataStr" name="startDate" id = "m_StartDate">
+                      <span class="form-message"></span>
                       <!--data -->
                       <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
                       <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
@@ -164,10 +169,12 @@ crossorigin="anonymous"></script>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Ngày kết thúc:</label>
                       <input type="date" class="form-control" name="endDate" id = "m_EndDate">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Lý do</label>
                       <input type="text" class="form-control" name="reson" id = "m_Reson" autocomplete="off">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Trạng thái:</label>
@@ -189,14 +196,14 @@ crossorigin="anonymous"></script>
                   </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="button" class="btn btn-primary" id = "btn-accept-edit-d">Lưu</button>
+                  <button type="submit" class="btn btn-primary" id = "btn-accept-edit-d">Lưu</button>
                 </div>
               </div>
             </div>
           </div>
         </form>
         <!--date off delete modal -->
-        <form name="form-delete-d" method="POST" action="">
+        <form name="form-delete-dateoff" method="POST" action = "/{{User._id}}/employeeManagerment/">
             <div class="modal fade" id="deleteDateOffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
@@ -220,7 +227,7 @@ crossorigin="anonymous"></script>
         </form>
 
         <!-- error add modal -->
-        <form method="POST" action="/employeeManagerment/error/create" name = "form-add-error">
+        <form method="POST" name = "form-add-error" id = "form-add-error">
             <div class="modal fade " id="errorAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -234,7 +241,8 @@ crossorigin="anonymous"></script>
                   <form>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Ngày:</label>
-                      <input type="date" class="form-control dataStr" name="date">
+                      <input type="date" class="form-control dataStr" name="date" id = "n_Date">
+                      <span class="form-message"></span>
                       <!--data -->
                       <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
                       <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
@@ -245,30 +253,36 @@ crossorigin="anonymous"></script>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Lỗi vi phạm:</label>
-                      <select class = "form-control content" name="content" placeholder="">
+                      <select class = "form-control content" name="content" placeholder="" id = "n_Content">
                             <option value= "" disabled selected>Chọn lỗi vi phạm</option>
                             {{#each rule}}
-                              <option value="{{this.content}}" fine= "{{this.fine}}">{{this.content}}</option>
+                              <option value="{{this.content}}" fine= "{{this.description}}">{{this.content}}</option>
                             {{/each}}
                       </select>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Tiền phạt:</label>
-                      <input type="text" class="form-control fine" name="fine" autocomplete="off" id = "m_fine">
+                      <input type="text" class="form-control fine" name="fine" autocomplete="off" id = "n_Fine">
+                      <span class="form-message"></span>
                     </div>
-
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Mô tả:</label>
+                      <textarea type="text" class="form-control" name="description" autocomplete="off" id = "n_Description" placeholder="Nhập mô tả lỗi vi phạm"></textarea>
+                      <span class="form-message"></span>
+                    </div>
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="summit" class="btn btn-primary" onclick="addDateoff()">Thêm</button>
+                  <button type="submit" class="btn btn-primary">Thêm</button>
                 </div>
               </div>
             </div>
           </div>
           </form>
         <!-- error edit modal -->
-        <form method="POST" name = "form-edit-e" action = "">
+        <form method="POST" name = "form-edit-error" action = "/{{User._id}}/employeeManagerment/" id = "form-edit-error">
             <div class="modal fade " id="modifiedErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -285,34 +299,40 @@ crossorigin="anonymous"></script>
                       <input type="date" class="form-control dataStr" name="date" id = "m_Date">
                       <!--data -->
                       <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
-
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Lỗi vi phạm:</label>
                       <select class = "form-control content" name="content" placeholder="" id = "m_Content">
                             <option value= "" disabled selected>Chọn lỗi vi phạm</option>
                             {{#each rule}}
-                              <option value="{{this.content}}" fine= "{{this.fine}}">{{this.content}}</option>
+                              <option value="{{this.content}}" fine= "{{this.description}}">{{this.content}}</option>
                             {{/each}}
                       </select>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Tiền phạt:</label>
-                      <input type="text" class="form-control fine" name="fine" id = "m_fine" autocomplete="off">
+                      <input type="text" class="form-control fine" name="fine" id = "m_Fine" autocomplete="off">
+                      <span class="form-message"></span>
                     </div>
-
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Mô tả:</label>
+                      <textarea type="text" class="form-control" name="description" autocomplete="off" id = "m_Description" placeholder="Nhập mô tả lỗi vi phạm"></textarea>
+                      <span class="form-message"></span>
+                    </div>
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="button" class="btn btn-primary" id = "btn-accept-edit-e">Lưu</button>
+                  <button type="submit" class="btn btn-primary" id = "btn-accept-edit-e">Lưu</button>
                 </div>
               </div>
             </div>
           </div>
           </form>
         <!--error delete modal -->
-        <form name="form-delete-e" method="POST" action="">
+        <form name="form-delete-error" method="POST" action = "/{{User._id}}/employeeManagerment/">
             <div class="modal fade" id="deleteErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
@@ -335,6 +355,7 @@ crossorigin="anonymous"></script>
           </div>
         </form>
     </body>
+</div>
 
 
     <script>
@@ -343,19 +364,19 @@ crossorigin="anonymous"></script>
             style: 'currency',
             currency: 'VND',
         });
-      $('#m_fine').change(function() {
-        var temp = $('#m_fine').val();
+      $('#m_Fine').change(function() {
+        var temp = $('#m_Fine').val();
         temp = temp.replaceAll('.','')
         temp = temp.replace('₫','')
         temp = formatter.format(temp);
-        $('#m_fine').val(temp);
+        $('#m_Fine').val(temp);
       });
-      $('#n_fine').change(function() {
-        var temp = $('#n_fine').val();
+      $('#n_Fine').change(function() {
+        var temp = $('#n_Fine').val();
         temp = temp.replaceAll('.','')
         temp = temp.replace('₫','')
         temp = formatter.format(temp);
-        $('#n_fine').val(temp);
+        $('#n_Fine').val(temp);
       });
       //dateoff
       
@@ -385,7 +406,8 @@ crossorigin="anonymous"></script>
           id = $(this).attr('errorID');
           $("#m_Date").val($(this).attr('date'));
           $("#m_Content").val($(this).attr('content'));
-          $("#m_fine").val($(this).attr('fine'));
+          $("#m_Fine").val($(this).attr('fine'));
+          $("#m_Description").val($(this).attr('description'));
           $("#modifiedErrorModal").modal();
       });
       $(".btn-delete-error").click(function() {
@@ -400,30 +422,88 @@ crossorigin="anonymous"></script>
       var btnAcceptEditDateOff = $('#btn-accept-edit-d')
       var btnDeleteError = $('#btn-delete-e')
       var btnAcceptEditError = $('#btn-accept-edit-e')
-      var formEdit = document.forms['form-edit']
-      var formDelete = document.forms['form-delete']
-
+      var formAddDateOff = document.forms['form-add-dateoff']
+      var formEditDateOff = document.forms['form-edit-dateoff']
+      var formDeleteDateOff = document.forms['form-delete-dateoff']
+      var formAddError= document.forms['form-add-error']
+      var formEditError = document.forms['form-edit-error']
+      var formDeleteError = document.forms['form-delete-error']
       //date off
       btnDeleteDateOff.click(function() {
-          var formDelete = document.forms['form-delete-d']
-          formDelete.action ='/employeeManagerment/dateoff/' + id + '/delete?_method=DELETE'
-          formDelete.submit();
+          formDeleteDateOff.action +='dateoff/' + id  + '/delete?_method=DELETE'
+          formDeleteDateOff.submit();
       })
-      btnAcceptEditDateOff.click(function() {
-        var formEdit = document.forms['form-edit-d']
-        formEdit.action = '/employeeManagerment/dateoff/' + id + '/edit?_method=PUT'
-        formEdit.submit()
-      })
+      
       //error
       btnDeleteError.click(function() {
-          var formDelete = document.forms['form-delete-e']
-          formDelete.action ='/employeeManagerment/error/' + id + '/delete?_method=DELETE'
-          formDelete.submit();
+          formDeleteError.action +='error/' + id + '/delete?_method=DELETE'
+          formDeleteError.submit();
       })
       btnAcceptEditError.click(function() {
         var formEdit = document.forms['form-edit-e']
-        formEdit.action = '/employeeManagerment/error/' + id + '/edit?_method=PUT'
+        formEdit.action = 'employeeManagerment/error/' + id + '/edit?_method=PUT'
         formEdit.submit()
+      })
+
+
+      //VALIDATOR
+
+      Validator({
+      form: '#form-add-dateoff', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#n_startDate', 'Vui nhập ngày bắt đầu'),
+        Validator.isRequire('#n_endDate', 'Vui nhập ngày kết thúc'),
+        Validator.isRequire('#n_reson', 'Vui nhập lý do'),
+      ],
+      onSubmit: function() {
+          formAddDateOff.action = 'dateoff/create'
+          formAddDateOff.submit()  
+        }
+      })
+      //modified validator  
+      Validator({
+      form: '#form-edit-dateoff', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#m_StartDate', 'Vui nhập ngày bắt đầu'),
+        Validator.isRequire('#m_EndDate', 'Vui nhập ngày kết thúc'),
+        Validator.isRequire('#m_Reson', 'Vui nhập lý do'),
+      ],
+      onSubmit: function() {
+          formEditDateOff.action += 'dateoff/' + id + '/edit?_method=PUT'
+          formEditDateOff.submit()
+        }
+      })
+
+
+      Validator({
+      form: '#form-add-error', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#n_Date', 'Vui nhập ngày'),
+        Validator.isRequire('#n_Content', 'Vui nhập lỗi vi phạm'),
+        Validator.isRequire('#n_Fine', 'Vui nhập tiền phạt'),
+      ],
+      onSubmit: function() {
+          formAddError.action = 'error/create'
+          formAddError.submit()  
+        }
+      })
+      //modified validator  
+      Validator({
+      form: '#form-edit-error', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#m_Date', 'Vui nhập ngày'),
+        Validator.isRequire('#m_Content', 'Vui nhập lỗi vi phạm'),
+        Validator.isRequire('#m_Fine', 'Vui nhập tiền phạt'),
+      ],
+      onSubmit: function() {
+          formEditError.action += 'error/' + id + '/edit?_method=PUT'
+          console.log(formEditError.action)
+          formEditError.submit()
+        }
       })
 
 

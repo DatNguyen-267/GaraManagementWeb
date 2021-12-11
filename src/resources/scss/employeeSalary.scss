@@ -58,15 +58,6 @@ hr.solid {
     margin: 0 40px;
 }
 
-.employeeSalary__header{
-    padding:2em;
-    &__title{
-        color: $primary-color;
-    }
-    .navbar{
-        padding-left: 0;
-    }
-}
 
 .employeeSalary__body{
     &__table{
@@ -105,7 +96,7 @@ hr.solid {
             tr{
                 margin-top: 1em;
             }
-            .id,.name,.tag{
+            .id,.name,.tag,.salary{
                 text-align: right;
             }
         }

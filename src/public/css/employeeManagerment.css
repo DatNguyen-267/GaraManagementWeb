@@ -71,7 +71,8 @@ hr.solid {
         width: 50%;
         float: left; }
         .employeeManagerment__body .infoModal .contentDiv .card .card__info .permission {
-          font-weight: bold; }
+          font-weight: bold;
+          color: green; }
       .employeeManagerment__body .infoModal .contentDiv .card .textDiv {
         margin-top: .2em;
         margin-bottom: .2em;
@@ -97,10 +98,3 @@ hr.solid {
     background-color: #ec1f55;
     color: white;
     font-weight: bold; }
-
-.employeeManagerment__header {
-  padding: 2em; }
-  .employeeManagerment__header__title {
-    color: #ec1f55; }
-  .employeeManagerment__header .navbar {
-    padding-left: 0; }
