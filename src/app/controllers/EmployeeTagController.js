@@ -29,7 +29,7 @@ class EmployeeTagController {
         const newTag = new Tag(req.body)
         newTag.save()
             .then(() => {
-                res.redirect('/employeeTag')
+                res.redirect('employeeTag')
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
@@ -37,7 +37,7 @@ class EmployeeTagController {
     edit(req,res,next){
         Tag.updateOne({_id: req.params.id} , req.body)
             .then(()=> {
-                res.redirect('/employeeTag')
+                res.redirect('employeeTag')
             })
             .catch(next)
     }
@@ -45,7 +45,7 @@ class EmployeeTagController {
         const idDelete = req.params.id
         Tag.delete({_id:idDelete})
             .then(()=> {
-                res.redirect('/employeeTag')
+                res.redirect('employeeTag')
             }) 
             .catch(next)
     } 

@@ -12,174 +12,128 @@ crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <title>Nghỉ phép và vi phạm</title>
-     <header class = "employeeManagerment__header">
-        <h1 class = "employeeManagerment__header__title">Nghỉ phép và vi phạm</h1>
-        <nav class="navbar">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </nav>
-    </header>
-    <body class = "employeeManagerment__body">
-        <div class = "table-responsive" style="margin-left:2em; margin-right:2em;">
-          <table class="table employeeManagerment__body__table" id = "managerTable">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Họ và Tên</th>
-                  <th scope="col">Chức vụ</th>
-                  <th scope="col">Số lần vi phạm</th>
-                  <th scope="col">Số ngày nghỉ</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each data}}
-                <tr employeeID = "{{this.employee._id}}" employeeNumber = "{{this.employee.phoneNumber}}">
-                  <th scope="row">{{sum @index 1}}</th>
-                  <td id = "employeeName">{{this.employee.name}}</td>
-                  <td>{{this.employee.Tag}}</td>
-                  <td>{{this.errorCount}}</td>
-                  <td>{{this.dateoffCount}}</td>  
-                </tr>
-                {{/each}}
-            </table> 
-      </div>
-          
-          <!-- Modal -->
-          <div class="modal fade " id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered infoModal modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Thông tin chi tiết</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body" id =  "test">
-                  <div class="row">
-                    <div class = "infoDiv">
-                      <h5>Thông tin nhân viên</h5>
-                      <label class = "name" id = "info_employeeName">Tên: Tran Quang Tuan</label>
-                      <label class = "phoneNumber" id = "info_phoneNumber"></label>
-                      <label class = "limitOffDate" id = "info_employeeName">Số ngày nghỉ có phép còn lại: 2</label>
-                    </div>
-                    <div class = "tagDiv">
-                      <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="#">Nghỉ phép</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Vi phạm</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class = "contentDiv">
-                      <h6>Ngày nghỉ gần đây</h6>
-                      {{#each dateoff}}
-                        <div class="card">
-                          <div class="card-body">
-                            <div class = "textDiv" style="float:left">
-                              <p class = "title" >Người tạo</p>
-                              <p class="card-text">Tên: {{this.creator}}</p>
-                              <p class="card-text">SĐT: {{this.creatorPhoneNumber}}</p>
-                            </div>
-                            <div class = "card__info">
-                              <p class = "title">Thông tin</p>
-                              <p class="card-text">Từ {{this.startDate}} <i class="fas fa-arrow-right"></i> {{this.endDate}}</p>
-                              <p class="card-text">Lý do: {{this.reson}}</p>
-                              <p class="card-text permission" id = "test1">{{permission this.havePermission}}</p>
-                            </div>
-                            <button class="btn"><i class="fas fa-trash"></i></button>
-                            <button class="btn"><i class="fas fa-pen"></i></button>
-                            
-                          </div>
-                        </div>
-                      {{/each}}
-                    </div>
-                    <div class = "btnDiv">
-                      <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <div class = "btnDiv">
-                    <button class = "pageBtn active">1</button>
-                    <button class = "pageBtn ">2</button>
-                    <button class = "pageBtn ">3</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>  
-
-          <!--Add modal-->
-            <form method="POST" action="/employeeList/create">
-            <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered infoModal" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Thêm nhân viên</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body" id =  "test">
-                  <form>
-                    <div class="form-group">
-                      <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
-                      <input type="text" class="form-control" name="name">
-                    </div>
-                    <div class="form-group">
-                      <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
-                      <input type="text" class="form-control" name="address">
-                    </div>
-                    <div class="form-group">
-                      <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
-                      <input type="text" class="form-control" name="phoneNumber">
-                    </div>
-                    <div class="form-group">
-                      <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
-                      <input type="text" class="form-control" name="email">
-                    </div>
-                    <div class="form-group">
-                      <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
-                      <input type="text" class="form-control" name="CMND">
-                    </div>
-                    <div class="form-group">
-                      <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
-                      <select class = "form-control" name="Tag" placeholder="">
-                            <option value= "" disabled selected>Chọn loại nhân viên</option>
-                            {{#each tag}}
-                              <option value="{{this.name}}">{{this.name}}</option>
-                            {{/each}}
-                      </select>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="summit" class="btn btn-primary" onclick="add()">Thêm</button>
-                </div>
-              </div>
-            </div>
+    <div class = "grid__content">
+      <header class = "employeeManagerment__header">
+        <h1 class = "template__title">Nghỉ phép và vi phạm</h1>
+        <div class="toolbar">
+          <div class="toolbar__search">
+            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
+            <span class="ti-search toolbar__search-icon"> </span>
           </div>
-          </form>
-          <form method = "GET" name = "info-form"></form>
-    </body>
+        </div>
+      </header>
+      <body class = "employeeManagerment__body">
+          <div class = "table-responsive">
+            <table class="table table--default employeeManagerment__body__table" id = "managerTable">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Họ và Tên</th>
+                    <th scope="col">Chức vụ</th>
+                    <th scope="col">Số lần vi phạm</th>
+                    <th scope="col">Số ngày nghỉ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each data}}
+                  <tr employeeID = "{{this.employee._id}}" employeeNumber = "{{this.employee.phoneNumber}}">
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td id = "employeeName">{{this.employee.name}}</td>
+                    <td>{{this.employee.Tag}}</td>
+                    <td>{{this.errorCount}}</td>
+                    <td>{{this.dateoffCount}}</td>  
+                  </tr>
+                  {{/each}}
+              </table> 
+        </div>
+            
+
+            <!--Add modal-->
+              <form method="POST" action="employeeList/create">
+              <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered infoModal" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Thêm nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id =  "test">
+                    <form>
+                      <div class="form-group">
+                        <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
+                        <input type="text" class="form-control" name="name">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
+                        <input type="text" class="form-control" name="address">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
+                        <input type="text" class="form-control" name="phoneNumber">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
+                        <input type="text" class="form-control" name="email">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
+                        <input type="text" class="form-control" name="CMND">
+                      </div>
+                      <div class="form-group">
+                        <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
+                        <select class = "form-control" name="Tag" placeholder="">
+                              <option value= "" disabled selected>Chọn loại nhân viên</option>
+                              {{#each tag}}
+                                <option value="{{this.name}}">{{this.name}}</option>
+                              {{/each}}
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="summit" class="btn btn-primary" onclick="add()">Thêm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </form>
+            <form method = "GET" name = "info-form"></form>
+      </body>
+    </div>
 
 
     <script>
       var employeeID;
       var id;
       var infoForm = document.forms['info-form'];
+      function search(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchKey");
+        filter = input.value;
+        table = document.getElementById("employeeTable");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+        }
+      }
       $('#managerTable tbody tr').click(function () {
         id = $(this).attr('employeeID')
         $('#info_employeeName').text("Tên nhân viên: " + $(this).children('#employeeName').text());
         $('#info_phoneNumber').text("SĐT: " + $(this).attr('employeeNumber'));
-        //$("#infoModal").modal();
-        //your code
-        infoForm.action = '/employeeManagerment/' + id + '/info'
+        infoForm.action = 'employeeManagerment/' + id + '/info'
         infoForm.submit();
       });
       function modified(){
@@ -187,29 +141,5 @@ crossorigin="anonymous"></script>
       };
 
       document.addEventListener('DOMContentLoaded', function () {
-      
-      var tdActive;
-      var btnDelete = $('#btn-delete')
-      var btnAcceptEdit = $('#btn-accept-edit')
-      var formEdit = document.forms['form-edit']
-      var formDelete = document.forms['form-delete']
-      var btnEdit = $('.btn-edit')
-      btnDelete.click(function() {
-          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
-          formDelete.submit();
-      })
-
-      $('#form-edit').on('shown.bs.modal', function (event) {
-          var button = $(event.relatedTarget)
-          employeeID = button.data('id')
-      })
-      btnAcceptEdit.click(function() {
-        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
-        formEdit.submit()
-      })
-      btnEdit.click(function(){
-        var row = $(this).parents('tr')[0]
-        $('#form-edit-name').val(row.cells[1].textContent)
-      })
     });
     </script>

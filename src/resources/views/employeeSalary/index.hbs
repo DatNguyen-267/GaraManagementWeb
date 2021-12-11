@@ -12,24 +12,29 @@ crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <title>Quản lý tiền công</title>
-    <header class = "employeeSalary__header">
-        <h1 class = "employeeSalary__header__title">Quản lý tiền công</h1>
-        <h5>1/11/2021 - 30/11/2021</h5>
-        <nav class="navbar">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search " placeholder="Search here" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </nav>
+
+<div class = "grid__content">
+  <header class = "employeeSalary__header">
+        <h1 class = "template__title">Quản lý tiền công</h1>
+        <h7>1/11/2021 - 30/11/2021</h7>
+        <div class="toolbar">
+          <div class="toolbar__search">
+            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
+            <span class="ti-search toolbar__search-icon"> </span>
+          </div>
+          <div class="dropdown">
+              <input type="month" class="form-control dataStr" id = "date" value="{{today}}">
+          </div>
+          <button class="header__btn-add btn btn-primary" id = "btn-change">Xem bảng lương</button>
+          <div class="toolbar__btn">
+            <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Xuất bảng lương</button>
+          </div>
+        </div>
     </header>
     <body class = "employeeSalary__body">
-        <div class = "body__btnContainer">
-            
-            <button type="button" class="btn btn-primary" style="float: right;"><i class="fas fa-file-export"></i></button>
-        </div>
-        <div class = "table-responsive" style="margin-left:2em; margin-right:2em;">
-            <table class="table employeeSalary__body__table" id ="employeeTable">
-                <thead>
+        <div class = "table-responsive">
+            <table class="table table--default employeeSalary__body__table" id ="employeeTable">
+                <thead  class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Họ và Tên</th>
@@ -40,19 +45,21 @@ crossorigin="anonymous"></script>
                   </tr>
                 </thead>
                 <tbody>
-                  {{#each data}}
-                    <tr>
-                    <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.item.name}}</td>
-                    <td>{{this.item.Tag}}</td>
-                    <td>{{this.sum}}</td>
-                    <td>2</td>  
-                    <td class = "salary">{{this.item.salary}}</td>             
-                  </tr>  
-                  {{/each}}
+                    {{#each data}}
+                    <tr percent = "{{this.item.percent}}" startDate = "{{this.item.startDate}}" salary = "{{this.item.salary}}" 
+                    dateoffCount = "{{this.dateOffCount}}" errorCount = "{{this.errorCount}}">
+                      <input type="hidden" value="{{this.item._id}}" name = "eIDs">
+                      <input type="hidden" value="{{this.item.salary}}" name = "finalSalarys">
+                      <th scope="row">{{sum @index 1}}</th>
+                      <td id = "name">{{this.item.name}}</td>
+                      <td id = "tag">{{this.item.Tag}}</td>
+                      <td id = "sum">{{this.fineSum}}</td>
+                      <td id = "bonus">{{this.item.bonus}}</td>  
+                      <td id = "finalSalary">{{this.finalSalary}}</td>      
+                    </tr>
+                    {{/each}}
               </table> 
         </div>
-          
           <!--Info Modal -->
           <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered " role="document">
@@ -68,39 +75,31 @@ crossorigin="anonymous"></script>
                     <table class = "infoTable">
                       <tr>
                         <td>
-                          <label>ID</label>
-                        </td>
-                        <td>
-                          <p class = "id">nv001</p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
                           <label>Họ và Tên</label>
                         </td>
                         <td>
-                          <p class = "name">Tran Quang Tuan</p>
-                        </td>
-                      </tr>
-                      <tr >
-                        <td>
-                          <label >Chức vụ</label></td>
-                        <td>
-                          <p class = "tag">Nhân viên</p>
+                          <p class = "name" id = "i_name"></p>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <label >Tiền công</label></td>
+                          <label >Chức vụ</label></td>
                         <td>
-                          <p class = "tag">5.000.000</p>
+                          <p class = "tag" id = "i_tag"></p>
                         </td>
                       </tr>
-                      <tr style="border-bottom: 1px black solid;">
+                      <tr>
                         <td>
-                          <label>Số tiền thưởng</label></td>
+                          <label >Hệ số tăng lương</label></td>
                         <td>
-                          <input type="text" class="form-control dataStr" style="margin-bottom:.2rem;width:40%; height:50%;font-size:.7rem;padding:.2rem" name="startDate"><label style="float: right; margin-right:.4rem">+</label>
+                          <p class = "tag" id = "i_percent"></p>
+                        </td>
+                      </tr>
+                      <trstyle="border-bottom: 1px black solid;">
+                        <td>
+                          <label >Tiền công</label></td>
+                        <td>
+                          <p class = "salary" id = "i_salary"></p>
                         </td>
                       </tr>
                       <!--So tien thuong-->
@@ -110,21 +109,7 @@ crossorigin="anonymous"></script>
                         <td>
                           <label >Tổng số ngày nghỉ</label></td>
                         <td>
-                          <p class = "tag">5</p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <label >Số ngày nghỉ có phép</label></td>
-                        <td>
-                          <p class = "tag">2</p>
-                        </td>
-                      </tr>
-                      <tr style="border-bottom: 1px black solid;">
-                        <td>
-                          <label >Số ngày nghỉ không phép</label></td>
-                        <td>
-                          <p class = "tag">3</p>
+                          <p class = "tag" id = "i_dateoffCount"></p>
                         </td>
                       </tr>
                       <!--So lan vi pham-->
@@ -133,64 +118,99 @@ crossorigin="anonymous"></script>
                           <label>Số lần vi phạm</label>
                         </td>
                         <td>
-                          <p class = "tag">2</p>
+                          <p class = "tag" id = "i_errorCount">2</p>
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <label >Số tiền phạt</label></td>
                         <td>
-                          <p class = "tag">- 200.000</p>
+                          <p class = "tag" id = "i_errorSum"></p>
                         </td>
                       </tr>
                     </table>
                     <div style="width: 100%">
-                      <label style="float:left; margin: 0 1em;">Lương</label></td>
-                      <p style="float:right; font-weight: Bold; margin: 0 1em;" class = "tag">5.000.000</p>
+                      <label style="float:left; margin: 0 1em;"><strong>Lương</strong></label></td>
+                      <p style="float:right; font-weight: Bold; margin: 0 1em;" class = "tag" id = "i_finalSalary"></p>
                     </div>
                   </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                  <button type="button" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
                 </div>
               </div>
             </div>
           </div>
     </body>
+    <form method = "GET" name = "form-info">
+      <input type="hidden" name = "date" id = 'i_date' action = "/{{User._id}}/employeeManagerment/SalaryInfo">
+    </form>
+</div>
 
 
-    <script>
-      var employeeID;
+<script>
+      var flat = true;
+      var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+      function salaryCal(salary,bonus,errorSum){
+        salary = salary.replaceAll('.','')
+        salary = salary.replace('₫','')
+        bonus = bonus.replaceAll('.','')
+        bonus = bonus.replace('₫','')
+        errorSum = errorSum.replaceAll('.','')
+        errorSum = errorSum.replace('₫','')
+        errorSum = errorSum.replace('-','')
+        var rs = parseInt(salary) + parseInt(bonus) - parseInt(errorSum);
+        rs = formatter.format(Math.round(rs/1000)*1000);
+          return rs;
+      }
       const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
       $('#employeeTable tbody tr').click(function () {
+        $('#i_name').text($(this).closest("tr").find("#name").text());
+        $('#i_tag').text($(this).closest("tr").find("#tag").text());
+        $('#i_salary').text($(this).attr('salary'));
+        $('#i_bonus').val($(this).closest("tr").find("#bonus").text());
+        $('#i_errorSum').text($(this).closest("tr").find("#sum").text());
+        $('#i_dateoffCount').text($(this).closest("tr").attr("dateoffCount"));
+        $('#i_errorCount').text($(this).closest("tr").attr("errorCount"));
+        $('#i_percent').text($(this).closest("tr").attr("percent"));
         $("#infoModal").modal();
-        //your code
+        $('#i_finalSalary').text($(this).closest("tr").find("#finalSalary").text());
       });
-      function modified(){
-        
-      };
-
-      document.addEventListener('DOMContentLoaded', function () {
+      function search(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchKey");
+        filter = input.value;
+        table = document.getElementById("employeeTable");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none"; 
+            }
+          }   
+        }
+      }
       
+      document.addEventListener('DOMContentLoaded', function () {
+
       var tdActive;
-      var btnDelete = $('#btn-delete')
+      var btnChange = $('#btn-change')
+      var formGetInfo = document.forms['form-info']
       var btnAcceptEdit = $('#btn-accept-edit')
       var formEdit = document.forms['form-edit']
-      var formDelete = document.forms['form-delete']
-      var btnEdit = $('.btn-edit')
-      btnDelete.click(function() {
-          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
-          formDelete.submit();
-      })
-
-      $('#form-edit').on('shown.bs.modal', function (event) {
-          var button = $(event.relatedTarget)
-          employeeID = button.data('id')
-      })
-      btnAcceptEdit.click(function() {
-        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
-        formEdit.submit()
-      })
-      btnEdit.click(function(){
-        var row = $(this).parents('tr')[0]
-        $('#form-edit-name').val(row.cells[1].textContent)
+      btnChange.click(function() {
+        $('#i_date').val($('#date').val())
+        formGetInfo.submit()
       })
     });
     </script>

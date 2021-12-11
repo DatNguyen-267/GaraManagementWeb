@@ -11,22 +11,23 @@ crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <title>Danh sách nhân viên</title>
-    <header class = "employeeList__header">
-        <h1 class = "employeeList__header__title">Danh sách nhân viên</h1>
-        <nav class="navbar">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search " id = "searchKey" placeholder="Search here" aria-label="Search" onkeyup="search()">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </nav>
+    <div class = "grid__content">
+        <header class = "employeeList__header">
+        <h1 class = "template__title">Danh sách nhân viên</h1>
+        <div class="toolbar">
+          <div class="toolbar__search">
+            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
+            <span class="ti-search toolbar__search-icon"> </span>
+          </div>
+          <div class="toolbar__btn">
+            <button class="header__btn-add btn btn-primary" id = "btn--add-item">Thêm nhân viên mới</button>
+          </div>
+        </div>
     </header>
     <body class = "employeeList__body">
-        <div class = "employeeList__body__btnContainer">
-            <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></i></button>
-        </div>
-        <div class = "table-responsive"  style="margin-left:2em; margin-right:2em;">
-            <table class="table employeeList__body__table" id = "employeeTable" >
-                <thead>
+        <div class = "table-responsive">
+            <table class="table table--default employeeList__body__table" id = "employeeTable" >
+                <thead class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Họ và Tên</th>
@@ -36,14 +37,13 @@ crossorigin="anonymous"></script>
                     <th scope="col">CMND</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Ngày bắt đầu làm</th>
-                    <th scope="col"></th>
-                    <td></td>   
+                    <th scope="col"></th> 
                   </tr>
                 </thead>
                 <tbody>
                   
                   {{#each employee}}
-                  <tr employeeID = "{{this._id}}">
+                    <tr employeeID = "{{this._id}}">
                     <th scope="row">{{sum @index 1}}</th>
                     <td id = "name">{{this.name}}</td>
                     <td id = "address">{{this.address}}</td>
@@ -63,7 +63,7 @@ crossorigin="anonymous"></script>
         </div>
           
           <!--Modified Modal -->
-          <form method="POST" name = "form-edit" action = "">
+          <form method="POST" name = "form-edit" action = "" id = "form-edit-employeeList">
             <div class="modal fade " id="modifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -78,52 +78,67 @@ crossorigin="anonymous"></script>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
                       <input type="text" class="form-control" name="name"  id = "m_name">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
                       <input type="text" class="form-control" name="address"  id = "m_address">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
                       <input type="text" class="form-control" name="phoneNumber"  id = "m_phoneNumber">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
                       <input type="text" class="form-control" name="email"  id = "m_email">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
-                      <input type="text" class="form-control" name="CMND"  id = "m_CMND">
+                      <input type="text" class="form-control" name="CMND"  id = "m_cmnd">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="" id = "m_tag">
                             <option value= "" disabled selected>Chọn loại nhân viên</option>
                             {{#each tag}}
-                            <option value="{{this.name}}" salary = "{{this.salary}}" class= "mOps">{{this.name}}</option>
+                            <option value="{{this.name}}" salary = "{{this.salary}}" percent ="{{this.percent}}" tagID = {{this._id}} class= "mOps">{{this.name}}</option>
                             {{/each}}
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
-                      <input type="text" class="form-control" name="salary" readonly id = "m_salary">
+                      <input type="hidden" id = "m_tagID" name = "position">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
                       <input type="date" class="form-control dataStr" name="startDate" id = "m_startDate">
+                      <span class="form-message"></span>
                     </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
+                      <input type="text" class="form-control" name="salary" readonly id = "m_salary">
+                      <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-receptionDate" class="col-form-label">Hệ số tăng lương:</label>
+                      <input type="text" class="form-control" name="percent" readonly id = "m_percent" placeholder="%/năm">
+                      <span class="form-message"></span>
+                    </div>
+                    
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="button" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
+                  <button type="submit" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
                 </div>
               </div>
             </div>
           </div>
           </form>
           <!--Add Modal -->
-          <form method="POST" action="/employeeList/create">
+          <form method="POST" action="create" id = "form-add-employeeList" name = "form-add">
             <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered infoModal" role="document">
               <div class="modal-content">
@@ -137,46 +152,60 @@ crossorigin="anonymous"></script>
                   <form>
                     <div class="form-group">
                       <label for="reception-add-lincense" class="col-form-label">Tên nhân viên:</label>
-                      <input type="text" class="form-control" name="name">
+                      <input type="text" class="form-control" name="name" id = 'n_name'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-phone" class="col-form-label">Địa chỉ:</label>
-                      <input type="text" class="form-control" name="address">
+                      <input type="text" class="form-control" name="address" id = 'n_address'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-brand" class="col-form-label">Số điện thoại</label>
-                      <input type="text" class="form-control" name="phoneNumber">
+                      <input type="text" class="form-control" name="phoneNumber" id = 'n_phoneNumber'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Email:</label>
-                      <input type="text" class="form-control" name="email">
+                      <input type="text" class="form-control" name="email" id = 'n_email'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">CMND:</label>
-                      <input type="text" class="form-control" name="CMND">
+                      <input type="text" class="form-control" name="CMND" id = 'n_cmnd'>
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="" id = "n_tag">
-                            <option value= "" disabled selected>Chọn loại nhân viên</option>
+                            <option value= "" disabled selected>--- Chọn loại nhân viên ---</option>
                             {{#each tag}}
-                              <option value="{{this.name}}" salary = "{{this.salary}}" class= "nOps">{{this.name}}</option>
+                              <option value="{{this.name}}" salary = "{{this.salary}}" percent="{{this.percent}}" tagID = {{this._id}} class= "nOps">{{this.name}}</option>
                             {{/each}}
                       </select>
+                      <input type="hidden" id = "n_tagID" name = "position">
+                      <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
+                      <input type="date" class="form-control dataStr" name="startDate" id = "n_startDate">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Lương:</label>
                       <input type="text" class="form-control" name="salary" style="" readonly id = "n_salary">
+                      <span class="form-message"></span>
                     </div>
                     <div class="form-group">
-                      <label for="reception-add-lincense" class="col-form-label">Ngày bắt đầu làm:</label>
-                      <input type="date" class="form-control dataStr" name="startDate">
+                      <label for="reception-add-receptionDate" class="col-form-label">Hệ số tăng lương:</label>
+                      <input type="text" class="form-control" name="percent" readonly id = "n_percent" placeholder="%/năm">
+                      <span class="form-message"></span> 
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="summit" class="btn btn-primary" onclick="add()">Thêm</button>
+                  <button type="submit" class="btn btn-primary" id= "btn-add">Thêm</button>
                 </div>
               </div>
             </div>
@@ -208,6 +237,7 @@ crossorigin="anonymous"></script>
 
           
     </body>
+    </div>
 
 
     <script>
@@ -216,6 +246,21 @@ crossorigin="anonymous"></script>
             currency: 'VND',
           });
       var employeeID;
+      function salaryCal(percent,salary){
+          percent = percent.replace('%','');
+          var startDate = new Date($('#m_startDate').val());
+          var ageDifMs = Date.now() - startDate;
+          var ageDate = new Date(ageDifMs); // miliseconds from epoch
+          var workYears = Math.abs(ageDate.getUTCFullYear() - 1970);
+          salary = salary.replaceAll('.','')
+          salary = salary.replace('₫','')
+          var temp = parseInt(salary) * 1.0;
+          for(var i = 0; i < workYears; i++){
+            temp += temp * parseInt(percent) / 100.0
+          }
+          temp = Math.round(temp/1000)*1000
+          return temp;
+      }
       function search(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
@@ -226,15 +271,21 @@ crossorigin="anonymous"></script>
           var td1 = tr[i].getElementsByTagName("td")[0];
           if (td1) {
             txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
             if (txtValue.includes(filter)) {
               tr[i].style.display = "";
             } else {
               tr[i].style.display = "none";
             }
           }   
-                 
-  }
+        }
       }
+      Date.prototype.toDateInputValue = (function() {
+          var local = new Date(this);
+          local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+          return local.toJSON().slice(0,10);
+      });
       $(".btn--edit-item").click(function() {
           employeeID = $(this).closest("tr").attr('employeeID');
           $('#m_name').val($(this).closest("tr").find("#name").text());
@@ -243,16 +294,36 @@ crossorigin="anonymous"></script>
           $('#m_email').val($(this).closest("tr").find("#email").text());
           $('#m_CMND').val($(this).closest("tr").find("#CMND").text());
           $('#m_tag').val($(this).closest("tr").find("#tag").text());
-          $('#m_salary').val($('option:selected').attr('salary'));
+          $('#m_percent').val($('option:selected').attr('percent'));
           $('#m_startDate').val($(this).closest("tr").find("#startDate").text());
           $("#modifiedModal").modal();
+          $('#m_salary').val(formatter.format(salaryCal($('option:selected').attr('percent'),$('option:selected').attr('salary') )));
+          $('#m_tagID').val($('option:selected').attr('tagID'));
+      });
+      
+      $("#btn--add-item").click(function() {
+          $('#n_startDate').val(new Date().toDateInputValue());
+          $("#addModal").modal();
       });
       
       $('#m_tag').change(function(){
-          $('#m_salary').val($('.mOps:selected').attr('salary'));
+          $('#m_percent').val($('option:selected').attr('percent'));
+          $('#m_salary').val(formatter.format(salaryCal($('.mOps:selected').attr('percent'),$('.mOps:selected').attr('salary') )));
       });
        $('#n_tag').change(function(){
-          $('#n_salary').val($('.nOps:selected').attr('salary'));
+          $('#n_percent').val($('.nOps:selected').attr('percent'));
+          $('#n_salary').val(formatter.format(salaryCal($('.nOps:selected').attr('percent'),$('.nOps:selected').attr('salary') )));
+      });
+      $('#n_startDate').change(function(){
+          if ($('#n_tag').val() == "") return;
+          $('#n_percent').val($('.nOps:selected').attr('percent'));
+          $('#n_salary').val(formatter.format(salaryCal($('.nOps:selected').attr('percent'),$('.nOps:selected').attr('salary') )));
+      });
+
+      $('#m_startDate').change(function(){
+          if ($('#m_tag').val() == "") return;
+          $('#m_percent').val($('option:selected').attr('percent'));
+          $('#m_salary').val(formatter.format(salaryCal($('.mOps:selected').attr('percent'),$('.mOps:selected').attr('salary') )));
       });
 
       $(".btn--delete-item").click(function() {
@@ -261,28 +332,64 @@ crossorigin="anonymous"></script>
           employeeID = $(this).closest("tr").attr('employeeID');
           $("#deleteModal").modal();
       });
-
+      $('#employeeTable tbody tr').click(function () {
+        employeeID = $(this).attr('employeeID')
+      });
       document.addEventListener('DOMContentLoaded', function () {
-      
+      //add validator
+      Validator({
+      form: '#form-add-employeeList', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequireSelectBox('#n_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
+        Validator.isRequire('#n_name', 'Vui nhập tên nhân viên'),
+        Validator.isRequire('#n_address', 'Vui nhập địa chỉ'),
+        Validator.isRequire('#n_email', 'Vui nhập email'),
+        Validator.isRequire('#n_phoneNumber', 'Vui lòng nhập số điện thoại'),
+        Validator.isEmail('#n_email'),
+        Validator.isRequire('#n_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
+        Validator.isNumber('#n_cmnd'),
+        Validator.isNumber('#n_phoneNumber'),
+      ],
+      onSubmit: function() {
+          formAddEmployee.action = 'employeeList/create'
+          $('#n_tagID').val($('.nOps:selected').attr('tagID'));
+          formAddEmployee.submit()  
+        }
+      })
+      //modified validator  
+      Validator({
+      form: '#form-edit-employeeList', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequireSelectBox('#m_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
+        Validator.isRequire('#m_name', 'Vui nhập tên nhân viên'),
+        Validator.isRequire('#m_address', 'Vui nhập địa chỉ'),
+        Validator.isRequire('#m_email', 'Vui nhập email'),
+        Validator.isRequire('#m_phoneNumber', 'Vui lòng nhập số điện thoại'),
+        Validator.isEmail('#m_email'),
+        Validator.isRequire('#m_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
+        Validator.isNumber('#m_cmnd'),
+        Validator.isNumber('#m_phoneNumber'),
+      ],
+      onSubmit: function() {
+          formEdit.action = 'employeeList/' + employeeID + '/edit?_method=PUT' 
+          formEdit.submit()
+        }
+      })
+
       var tdActive;
+      var btnAcceptAdd = $('#btn-add')
       var btnDelete = $('#btn-delete')
       var btnAcceptEdit = $('#btn-accept-edit')
+      var formAdd =  document.forms['form-add']
       var formEdit = document.forms['form-edit']
       var formDelete = document.forms['form-delete']
-      var btnEdit = $('.btn-edit')
-      btnDelete.click(function() {
-          formDelete.action ='/employeeList/' + employeeID + '/delete?_method=DELETE'
-          formDelete.submit();
-      })
+      var formAddEmployee = document.forms['form-add']
 
-      
-      btnAcceptEdit.click(function() {
-        formEdit.action = '/employeeList/' + employeeID + '/edit?_method=PUT'
-        formEdit.submit()
-      })
-      btnEdit.click(function(){
-        var row = $(this).parents('tr')[0]
-        $('#form-edit-name').val(row.cells[1].textContent)
+      btnDelete.click(function() {
+        formDelete.action = 'employeeList/'+  employeeID + '/delete?_method=DELETE'
+        formDelete.submit();
       })
     });
 

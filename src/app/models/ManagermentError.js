@@ -5,13 +5,14 @@ const mongooseDelete = require('mongoose-delete')
 const Scheme = mongoose.Schema
 
 const Error = new Scheme({
-    employeeID: {type: String, required: true,},
-    creatorID: {type: String, required: true,},
-    creator: {type: String, required: true,},
-    creatorPhoneNumber: {type: String, required: true,},
-    date: {type: String, required: true,},
-    content: {type: String,required: true},
-    fine: {type: String, required: true},
+    employeeID: {type: String,},
+    creatorID: {type: String,},
+    creator: {type: String,},
+    creatorPhoneNumber: {type: String,},
+    date: {type: String,},
+    content: {type: String},
+    fine: {type: String},
+    description: {type: String,default: "Không có"}
 }, {
     timestamps: true,
 })

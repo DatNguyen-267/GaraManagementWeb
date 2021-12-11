@@ -65,7 +65,6 @@ hr.solid {
 .employeeManagerment_info__body{
     .item{
         background-color: white;
-        margin: .2rem;
         margin-top: 1rem;
         display: flex;
         flex-direction: row;
@@ -74,9 +73,8 @@ hr.solid {
         }
         .info{
             width: 45%;
-
+            
         }
-
         .creator{
             width: 45%;
             
@@ -87,9 +85,6 @@ hr.solid {
             align-items: center;
             justify-content: center;
         }
-    }
-    .data{
-        visibility: hidden;
     }
 }
 

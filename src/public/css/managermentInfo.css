@@ -33,7 +33,6 @@ hr.solid {
 
 .employeeManagerment_info__body .item {
   background-color: white;
-  margin: .2rem;
   margin-top: 1rem;
   display: flex;
   flex-direction: row; }
@@ -47,6 +46,3 @@ hr.solid {
     display: flex;
     align-items: center;
     justify-content: center; }
-
-.employeeManagerment_info__body .data {
-  visibility: hidden; }

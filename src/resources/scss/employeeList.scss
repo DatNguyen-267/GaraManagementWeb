@@ -63,7 +63,6 @@ hr.solid {
 }
 
 .employeeList__header{
-    padding:2em;
     &__title{
         color:$primary-color;
     }
@@ -81,15 +80,6 @@ hr.solid {
         
     }
 
-    &__btnContainer{
-        display: block;
-        padding:0;
-        padding-right: 2em;
-        height: 50px;
-        button{
-            margin-left:2%;
-        }
-    }
 
     .modifiedButton{
         border: none;
