@@ -29,7 +29,7 @@
           <a class="toolbar__filter-item dropdown-item" href="#"></a>
         </div>
       </div> --}}
-      <button class="dropdown toolbar__btn btn btn--primary" data-toggle="modal" data-target="#form-add-customer">Thêm
+      <button class="dropdown toolbar__btn btn btn--primary" data-toggle="modal" data-target="#modal-add-customer">Thêm
         khách hàng</button>
     </div>
     <div class="list-customer">
@@ -81,7 +81,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+          <h5 class="modal-title">Thêm Khách Hàng</h5>
           <button type="button customer__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -135,7 +135,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+        <h5 class="modal-title">Xem Khách Hàng</h5>
         <button type="button customer__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -188,7 +188,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+          <h5 class="modal-title">Sửa Khách Hàng</h5>
           <button type="button customer__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -280,33 +280,35 @@
   </div>
 </form>
 
+<!-- MAIN CSS -->
+
 <script>
-  var check_cardIdentify = document.getElementById('check_cardIdentify').value
+  document.addEventListener('DOMContentLoaded', function () {
+    //Search
+    $(document).ready(function () {
+      $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-body tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+      });
+    });
+    //Thông báo trùng CMND
+    var check_cardIdentify = document.getElementById('check_cardIdentify').value
+      //Khi thêm
     if(check_cardIdentify == 1){
       if(confirm("Không thể thêm do trùng CMND!!!") == true || confirm("Không thể thêm do trùng CMND!!!") == false){
         history.back()
       }
     }
+      //Khi sửa đổi
     if(check_cardIdentify == 2){
       if(confirm("Không thể sửa đổi do trùng CMND!!!") == true || confirm("Không thể sửa đổi do trùng CMND!!!") == false){
         history.back()
       }
     }
-</script>
-<!-- MAIN CSS -->
-{{!--Search--}}
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    $(document).ready(function () {
-    $('#search-input').on('keyup', function (event) {
-      event.preventDefault();
-      /* Act on the event */
-      var keyword = $(this).val().toLowerCase();
-      $('#table-body tr').filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
-      });
-    });
-  });
     //Validate
 
     Validator({
