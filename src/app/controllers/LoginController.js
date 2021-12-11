@@ -16,7 +16,7 @@ class LoginController {
         Account.findOne({ account: req.body.account })
             .then((account) => {
                 if (req.body.password == account.password) {
-                    res.redirect('/' + account.of_employee+ '/reception') 
+                    res.redirect('/' + account.of_employee+ '/dashboard') 
                 }
                 else res.redirect('/login')
             })
