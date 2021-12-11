@@ -75,8 +75,8 @@ class EmployeeSalaryController {
                                                 }
                                             }
                                             var salary = item.salary;
-                                            salary = salary.replaceAll('.','')
-                                            salary = salary.replace('₫','')
+                                            // salary = salary.replaceAll('.','')
+                                            // salary = salary.replace('₫','')
                                             var finalSalary = (parseInt(salary)) - fineSum
                                             var formatter = new Intl.NumberFormat('vi-VN', {
                                                 style: 'currency',
