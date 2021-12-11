@@ -3,43 +3,59 @@
 <div class="container">
     <div class="left-container">
         <h2>Thông tin gara</h2>
-        <form class="container-fluid">
+        <form method="POST" class="container-fluid" name="form-edit-gara-information" id="form-edit-gara-information">
             <div class="form-group">
                 <label for="">Tên gara</label>
-                <input type="text" class="form-control" id="" name="gara_name" value="{{setting.gara_name}}">
+                <input type="text" class="form-control" id="edit-gara-name" name="gara_name" value="{{setting.gara_name}}">
+                <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="">Số điện thoại</label>
-                <input type="text" class="form-control" id="" name="telephone" value="{{setting.telephone}}">
+                <input type="text" class="form-control" id="edit-telephone" name="telephone" value="{{setting.telephone}}">
+                <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="">Địa chỉ</label>
-                <input type="text" class="form-control" id="" value="{{setting.address}}">
+                <input type="text" class="form-control" id="edit-address" name="address" value="{{setting.address}}">
+                <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="">Email</label>
-                <input type="email" class="form-control" id="" value="{{setting.email}}">
+                <input type="text" class="form-control" id="edit-email" name="email" value="{{setting.email}}">
+                <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="">Số xe tối đa trong ngày</label>
-                <input type="text" class="form-control" id="" value="{{setting.max_receptions}}">
+                <input type="text" class="form-control" id="edit-max-receptions" name="max_receptions" value="{{setting.max_receptions}}">
+                <span class="form-message"></span>
             </div>
             <button type="submit" class="btn btn-primary">Thay đổi</button>
-            <button type="submit" class="btn btn-primary">Hoàn tác</button>
+            <button type="button" class="btn btn-primary" id="reset-gara-information-btn">Hoàn tác</button>
             </form>
     </div>
     <div class="right-container">
         <h2>Thay đổi mật khẩu</h2>
-        <form class="form-inline container-fluid justify-content-between">
+        <form class="form-inline container-fluid justify-content-between" id="form-verify-password">
             <div class="form-group mb-2">
                 <label for="" class="sr-only"></label>
                 <input type="text" readonly class="form-control-plaintext" id="" value="email@example.com">
             </div>
             <div class="form-group mx-sm-3 mb-2">
                 <label for="" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="" placeholder="Nhập mật khẩu">
+                <input type="password" class="form-control" id="" placeholder="Nhập mật khẩu cũ">
             </div>
             <button type="submit" class="btn btn-primary mb-2">Xác nhận</button>
+        </form>
+        <form class="form-inline container-fluid justify-content-between" id="form-change-password">
+            <div class="form-group mb-2">
+                <label for="" class="sr-only"></label>
+                <input type="text" readonly class="form-control-plaintext" id="" value="email@example.com">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="" class="sr-only">Password</label>
+                <input type="password" class="form-control" id="" placeholder="Nhập mật khẩu mới">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Thay đổi</button>
         </form>
     </div>
 </div>
@@ -50,9 +66,39 @@
         crossorigin="anonymous">
 </script>
 
+<form method="GET" name="form-reset-information"></form>
+<form method="POST" name="form-edit-password"></form>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-      
+      Validator({
+      form: '#form-edit-gara-information',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#edit-gara-name', 'Vui lòng nhập tên gara'),
+        Validator.isRequire('#edit-telephone', 'Vui lòng nhập số điện thoại'),
+        Validator.isRequire('#edit-address', 'Vui lòng nhập địa chỉ'),
+        Validator.isRequire('#edit-email', 'Vui lòng nhập email'),
+        Validator.isEmail('#edit-email'),
+        Validator.isRequire('#edit-max-receptions', 'Vui lòng số lượng tối đa trong ngày'),
+        Validator.isNumber('#edit-max-receptions')
+      ],
+      onSubmit: function () {
+          formEditGaraInformation.action = 'setting/edit-gara-information'
+          formEditGaraInformation.submit()
+      }
+    })
+
+    var formEditGaraInformation = document.forms['form-edit-gara-information']
+    var resetGaraInformation = document.getElementById('reset-gara-information-btn')
+    var resetInformationForm = document.forms['form-reset-information']
+    var verifyChangePasswordForm = document.forms['form-change-password']
+
+    resetGaraInformation.onclick = function() {
+        resetGaraInformation.action = 'setting'
+        resetInformationForm.submit()
+    }
+
+
   })
 </script>

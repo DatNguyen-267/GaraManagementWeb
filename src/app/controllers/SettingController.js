@@ -22,7 +22,11 @@ class SettingController {
             })
     }
 
-    
+    editGaraInformation(req, res, next) {
+        Setting.updateOne({_id: settingID}, req.body).then(() => {
+            res.redirect('back')
+        }).catch(next)
+    }
 }
 
 module.exports = new SettingController
