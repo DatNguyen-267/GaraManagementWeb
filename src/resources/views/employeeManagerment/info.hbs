@@ -256,7 +256,7 @@ crossorigin="anonymous"></script>
                       <select class = "form-control content" name="content" placeholder="" id = "n_Content">
                             <option value= "" disabled selected>Chọn lỗi vi phạm</option>
                             {{#each rule}}
-                              <option value="{{this.content}}" fine= "{{this.fine}}">{{this.content}}</option>
+                              <option value="{{this.content}}" fine= "{{this.description}}">{{this.content}}</option>
                             {{/each}}
                       </select>
                       <span class="form-message"></span>
@@ -306,7 +306,7 @@ crossorigin="anonymous"></script>
                       <select class = "form-control content" name="content" placeholder="" id = "m_Content">
                             <option value= "" disabled selected>Chọn lỗi vi phạm</option>
                             {{#each rule}}
-                              <option value="{{this.content}}" fine= "{{this.fine}}">{{this.content}}</option>
+                              <option value="{{this.content}}" fine= "{{this.description}}">{{this.content}}</option>
                             {{/each}}
                       </select>
                       <span class="form-message"></span>

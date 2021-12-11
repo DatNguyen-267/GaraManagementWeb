@@ -65,7 +65,7 @@ class EmployeeManagermentController {
                             .then((error) =>{
                                 DateOff.find({employeeID: id})
                                     .then((dateoff) =>{
-                                        Rule.find({employeeID: id})
+                                        Rule.find()
                                             .then((rule) =>{
                                                 //res.send(rule)
                                         res.render('employeeManagerment/info', {

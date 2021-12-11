@@ -20,20 +20,39 @@ class EmployeeSalaryController {
                                 DateOff.find()
                                     .then((dateoff) =>{
                                         var data = []
-                                        var today;
+                                        var today,firstDate,lastDate;
                                         for (var item of employee){
                                             var fineSum = 0;
                                             var errorCount = 0;
                                             var dateOffCount = 0;
+                                            var x = new Date();
+                                            var m = x.getMonth();
+                                            var y = x.getFullYear();
+                                            var d = x.getDate();
+                                            if (m + 1 < 10)
+                                            today = y + '-'+ '0' + (m+1).toString();
+                                            else
+                                                today = y + '-' + (m+1).toString();
+                                            var firstDay = new Date(y, m, 1);
+                                            m = firstDay.getMonth();
+                                            y = firstDay.getFullYear();
+                                            var d = firstDay.getDate();
+                                            if (m + 1 < 10)
+                                                firstDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
+                                            else
+                                                firstDate = d + '/'+ (m+1).toString() + '/' +y;
+                                            var lastDay = new Date(y, m + 1, 0);
+                                            m = lastDay.getMonth();
+                                            y = lastDay.getFullYear();
+                                            var d = lastDay.getDate();
+                                            if (m + 1 < 10)
+                                                lastDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
+                                            else
+                                                lastDate = d + '/'+ (m+1).toString() + '/' +y;
+
                                             for(var temp of error){     
                                                 if (item._id == temp.employeeID){
-                                                    var x = new Date();
-                                                    var m = x.getMonth();
-                                                    var y = x.getFullYear();
-                                                    var d = x.getDate();
-                                                    today = y + '-' + (m+1).toString();
-                                                    var firstDay = new Date(y, m, 1);
-                                                    var lastDay = new Date(y, m + 1, 0);
+                                                    
                                                     if (new Date(temp.date)  >= firstDay &&  new Date(temp.date)  <= lastDay)
                                                     {
                                                         errorCount++;
@@ -48,11 +67,6 @@ class EmployeeSalaryController {
 
                                             for(var temp of dateoff){     
                                                 if (item._id == temp.employeeID){
-                                                    var x = new Date();
-                                                    var m = x.getMonth();
-                                                    var y = x.getFullYear();
-                                                    var firstDay = new Date(y, m, 1);
-                                                    var lastDay = new Date(y, m + 1, 0);
                                                     if (new Date(temp.startDate)  >= firstDay &&  new Date(temp.startDate)  <= lastDay)
                                                     {
                                                         dateOffCount++;
@@ -80,7 +94,9 @@ class EmployeeSalaryController {
                                             activeSalary: true,
                                             Permissions: mongooseToOject(position.permissions),
                                             User: mongooseToOject(res.locals.employee),
-                                            today
+                                            today,
+                                            firstDate,
+                                            lastDate
                                         })
                                     })
                             })
@@ -104,23 +120,37 @@ class EmployeeSalaryController {
                                 DateOff.find()
                                     .then((dateoff) =>{
                                         var data = [];
-                                        var today;
+                                        var today,firstDate,lastDate;
                                         var url = req.url.toString()
                                         var start = url.indexOf('=') + 1;
                                         var date = url.substring(start)
+                                        var x = new Date(date);
+                                        var m = x.getMonth();
+                                        var y = x.getFullYear();
+                                        if (m + 1 < 10)
+                                            today = y + '-'+ '0' + (m+1).toString();
+                                        else
+                                            today = y + '-' + (m+1).toString();
+                                        var firstDay = new Date(y, m, 1);
+                                        m = firstDay.getMonth();
+                                        y = firstDay.getFullYear();
+                                        var d = firstDay.getDate();
+                                        if (m + 1 < 10)
+                                            firstDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
+                                        else
+                                            firstDate = d + '/'+ (m+1).toString() + '/' +y;
+                                        var lastDay = new Date(y, m + 1, 0);
+                                        m = lastDay.getMonth();
+                                        y = lastDay.getFullYear();
+                                        var d = lastDay.getDate();
+                                        if (m + 1 < 10)
+                                            lastDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
+                                        else
+                                            lastDate = d + '/'+ (m+1).toString() + '/' +y;
                                         for (var item of employee){
                                             var fineSum = 0;
                                             var errorCount = 0;
                                             var dateOffCount = 0;
-                                            var x = new Date(date);
-                                            var m = x.getMonth();
-                                            var y = x.getFullYear();
-                                            if (m + 1 < 10)
-                                                today = y + '-'+ '0' + (m+1).toString();
-                                            else
-                                                today = y + '-' + (m+1).toString();
-                                            var firstDay = new Date(y, m, 1);
-                                            var lastDay = new Date(y, m + 1, 0);
                                             for(var temp of error){     
                                                 if (item._id == temp.employeeID){
                                                     
@@ -164,7 +194,9 @@ class EmployeeSalaryController {
                                             activeSalary: true,
                                             Permissions: mongooseToOject(position.permissions),
                                             User: mongooseToOject(res.locals.employee),
-                                            today
+                                            today,
+                                            firstDate,
+                                            lastDate
                                         })
                                     })
                             })
