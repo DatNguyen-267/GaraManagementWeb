@@ -1,0 +1,10 @@
+[{
+  "_id": {
+    "$oid": "61b38a12cac11240da1afbd6"
+  },
+  "gara_name": "DGara",
+  "telephone": "414324234",
+  "address": "143242 St, daf, dfadsf",
+  "email": "dgara@gmail.com",
+  "max_receptions": 30
+}]

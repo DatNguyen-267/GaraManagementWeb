@@ -10,15 +10,16 @@ const employeeSalaryRouter = require('./employeeSalary')
 const employeeManagermentRouter = require('./employeeManagerment')
 const brandRouter = require('./brand')
 const materialRouter = require('./material')
-const customerRouter =require('./customer')
-const customerdebtRouter =require('./customerdebt')
+const customerRouter = require('./customer')
+const customerdebtRouter = require('./customerdebt')
 const supplierRouter = require('./supplier')
 const importRouter = require('./import')
 const exportRouter = require('./export')
-const customerhistoryRouter =require('./customerhistory')
-const reportsaleRouter =require('./reportsale')
-const reportinventoryRouter =require('./reportinventory')
-const loginRouter =require('./login')
+const customerhistoryRouter = require('./customerhistory')
+const reportsaleRouter = require('./reportsale')
+const reportinventoryRouter = require('./reportinventory')
+const loginRouter = require('./login')
+const settingRouter = require('./setting')
 
 
 
@@ -30,17 +31,17 @@ function route(app) {
       app.use('/:profile/me', meRouter)
 
       app.use('/:profile/reception', receptionRouter)
-      
+
       app.use('/:profile/repairs', repairRouter)
 
       app.use('/:profile/employeeList', employeeListRouter)
 
       app.use('/:profile/employeeTag', employeeTagRouter)
-      
+
       app.use('/:profile/employeeSalary', employeeSalaryRouter)
 
       app.use('/:profile/employeeManagerment', employeeManagermentRouter)
-      
+
       app.use('/:profile/customer', customerRouter)
 
       app.use('/:profile/customerdebt', customerdebtRouter)
@@ -59,11 +60,13 @@ function route(app) {
 
       app.use('/:profile/export', exportRouter)
 
+      app.use('/:profile/setting', settingRouter)
+
       app.use('/:profile/brand', brandRouter)
       app.use('/login', loginRouter)
       app.use('/', siteRouter)
 
-      
+
 
       // app.post('/search', (req,res) => {
       //   console.log(req.body)
