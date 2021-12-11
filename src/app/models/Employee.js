@@ -11,6 +11,8 @@ const Employee = new Schema({
     address: {type: String},
     phoneNumber: {type: String},
     salary: {type: String},
+    Tag: String,
+    percent: String,
     startDate: {type: String},
     position: {type: Schema.Types.ObjectId , ref:'Position'}
 }, {

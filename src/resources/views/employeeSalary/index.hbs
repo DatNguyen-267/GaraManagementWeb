@@ -16,16 +16,18 @@ crossorigin="anonymous"></script>
 <div class = "grid__content">
   <header class = "employeeSalary__header">
         <h1 class = "template__title">Quản lý tiền công</h1>
-        <h7>1/11/2021 - 30/11/2021</h7>
+        <h7>{{firstDate}} - {{lastDate}}</h7>
         <div class="toolbar">
           <div class="toolbar__search">
             <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
             <span class="ti-search toolbar__search-icon"> </span>
           </div>
           <div class="dropdown">
-              <input type="month" class="form-control dataStr" id = "date" value="{{today}}">
+            <form method = "GET" name = "form-info" action = "/{{User._id}}/employeeSalary/SalaryInfo">
+              <input type="month" class="form-control dataStr" id = "date" name = "date" value="{{today}}">
+            </form>
           </div>
-          <button class="header__btn-add btn btn-primary" id = "btn-change">Xem bảng lương</button>
+          <button class="header__btn-add btn btn-primary" style="margin-left: .4rem;" id = "btn-change">Xem bảng lương</button>
           <div class="toolbar__btn">
             <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Xuất bảng lương</button>
           </div>
@@ -143,9 +145,7 @@ crossorigin="anonymous"></script>
             </div>
           </div>
     </body>
-    <form method = "GET" name = "form-info">
-      <input type="hidden" name = "date" id = 'i_date' action = "/{{User._id}}/employeeManagerment/SalaryInfo">
-    </form>
+    
 </div>
 
 
@@ -209,7 +209,6 @@ crossorigin="anonymous"></script>
       var btnAcceptEdit = $('#btn-accept-edit')
       var formEdit = document.forms['form-edit']
       btnChange.click(function() {
-        $('#i_date').val($('#date').val())
         formGetInfo.submit()
       })
     });

@@ -223,7 +223,7 @@ crossorigin="anonymous"></script>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <label id = "informLabel">Bạn có chắc chắn muốn xóa nhân viên x?</label>
+                    <label id = "informLabel">Bạn có chắc chắn muốn xóa nhân viên không?</label>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -292,13 +292,13 @@ crossorigin="anonymous"></script>
           $('#m_address').val($(this).closest("tr").find("#address").text());
           $('#m_phoneNumber').val($(this).closest("tr").find("#phoneNumber").text());
           $('#m_email').val($(this).closest("tr").find("#email").text());
-          $('#m_CMND').val($(this).closest("tr").find("#CMND").text());
+          $('#m_cmnd').val($(this).closest("tr").find("#CMND").text());
           $('#m_tag').val($(this).closest("tr").find("#tag").text());
           $('#m_percent').val($('option:selected').attr('percent'));
           $('#m_startDate').val($(this).closest("tr").find("#startDate").text());
-          $("#modifiedModal").modal();
           $('#m_salary').val(formatter.format(salaryCal($('option:selected').attr('percent'),$('option:selected').attr('salary') )));
           $('#m_tagID').val($('option:selected').attr('tagID'));
+          $("#modifiedModal").modal();
       });
       
       $("#btn--add-item").click(function() {
@@ -307,7 +307,7 @@ crossorigin="anonymous"></script>
       });
       
       $('#m_tag').change(function(){
-          $('#m_percent').val($('option:selected').attr('percent'));
+          $('#m_percent').val($('.mOps:selected').attr('percent'));
           $('#m_salary').val(formatter.format(salaryCal($('.mOps:selected').attr('percent'),$('.mOps:selected').attr('salary') )));
       });
        $('#n_tag').change(function(){
@@ -354,6 +354,8 @@ crossorigin="anonymous"></script>
       onSubmit: function() {
           formAddEmployee.action = 'employeeList/create'
           $('#n_tagID').val($('.nOps:selected').attr('tagID'));
+          $('#n_salary').val($('.nOps:selected').attr('salary'));
+          $('#n_percent').val($('.nOps:selected').attr('percent'));
           formAddEmployee.submit()  
         }
       })
@@ -374,6 +376,9 @@ crossorigin="anonymous"></script>
       ],
       onSubmit: function() {
           formEdit.action = 'employeeList/' + employeeID + '/edit?_method=PUT' 
+          $('#m_tagID').val($('.mOps:selected').attr('tagID'));
+          $('#m_salary').val($('.mOps:selected').attr('salary'));
+          $('#m_percent').val($('.mOps:selected').attr('percent'));
           formEdit.submit()
         }
       })
