@@ -102,7 +102,7 @@ class CustomerController {
             return position
             })
             .then((position) => { 
-                Customer.find({}).populate('of_reception', ['name', 'debt'])
+                Customer.find({}).populate('of_reception')
                     .then(customers => {
                         for (const customer of customers) {
                             var totaldebt = 0

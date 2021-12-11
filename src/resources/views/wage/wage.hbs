@@ -1,0 +1,279 @@
+<link rel="stylesheet" href="/css/wage.css">
+<div class="container__wage">
+  <div class="header__breadcrumb">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Danh sách tiền công</a></li>
+          </ol>
+      </nav>
+  </div>
+  <div class="header__wage">
+    
+  </div>
+  <div class="ctner__wage">
+    <div class="toolbar">
+      <div class="toolbar__search">
+        <input type="text" class="toolbar__search-input" id="search-input"
+          placeholder="Tìm kiếm thông tin tiền công...">
+        <span class="ti-search toolbar__search-icon"></span>
+
+      </div>
+      {{!-- <div class="dropdown toolbar__filter">
+        <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        </button>
+        <div class="toolbar__filter-menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+          <a class="toolbar__filter-item dropdown-item" href="#"></a>
+        </div>
+      </div> --}}
+      <button class="dropdown toolbar__btn btn btn--primary" data-toggle="modal" data-target="#modal-add-wage">Thêm tiền công</button>
+    </div>
+    <div class="list-wage">
+      <table class="table table--default">
+         <colgroup>
+            <col style="width: 70px;">
+            <col >
+            <col >
+            {{!-- <col >  --}}
+            <col style="width: 230px;"> 
+        </colgroup>
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#Stt</th>
+            <th scope="col">Loại tiền công</th>
+            <th scope="col">Số tiền công</th>
+            <th scope="col" colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          {{#each wages}}
+          <tr data-id="{{this._id}}">
+            <th scope="row">{{@index}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.money}}</td>
+            <td></td>
+            <td>
+              <button class="btn--edit-item" data-id="{{this._id}}" data-notedit="{{this.not_edit}}" data-toggle="modal"
+                data-target="#form-edit-wage" data-id="">Sửa</button>
+              <button class="btn--delete-item" data-id="{{this._id}}" data-notdelete="{{this.not_delete}}"
+                data-toggle="modal" data-target="#form-delete-wage" data-id="">Xóa</button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<input type="text" id="check_cardIdentify" value="{{check}}" readonly hidden>
+<!-- POP UP FORM -->
+<!-- FORM THÊM tiền công-->
+<form method="POST" action="wage/create" id="form-add-wage">
+  <div class="modal fade" id="modal-add-wage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm Tiền Công</h5>
+          <button type="button wage__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="wage-add-name" class="col-form-label">Tên tiền công:</label>
+              <input type="text" class="form-control" id="wage-add-name" name="name" required>
+              <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+              <label for="wage-add-money" class="col-form-label">Số tiền công (VND):</label>
+              <input type="text" class="form-control" id="wage-add-money" name="money" required>
+              <span class="form-message"></span>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+          <button id="btn-add-wage" onclick="return validate();" type="submit"
+            class="btn btn--send-dialog">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- FORM SỬA tiền công-->
+<form method="POST" name="form-submit" id="form-edit">
+  <div class="modal fade" id="form-edit-wage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sửa tiền công</h5>
+          <button type="button wage__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="wage-edit-name" class="col-form-label">Tên tiền công:</label>
+              <input type="text" class="form-control" id="wage-edit-name" name="name" required>
+              <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+              <label for="wage-edit-money" class="col-form-label">Số tiền công (VND):</label>
+              <input type="text" class="form-control" id="wage-edit-money" name="money" required>
+              <span class="form-message"></span>
+            </div>
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+          <button id="btn-edit-form" type="submit" class="btn btn--send-dialog">Sửa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- FORM XÓA tiền công-->
+<form method="POST" name="form-delete" action="">
+  <div class="modal fade" id="form-delete-wage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Xóa tiền công</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-body-descreption">
+          Bạn có chắc chắn muốn xóa tiền công này!!!
+        </div>
+        <div class="modal-footer">
+          <button id="btn-accept-delete" type="button" class="btn btn--delete-dialog">Xóa</button>
+          <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  
+</script>
+<!-- MAIN CSS -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    
+    //Search
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-body tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
+    //Hiện thông báo khi bị trùng loại tiền công
+    var check_cardIdentify = document.getElementById('check_cardIdentify').value
+    if(check_cardIdentify == 1){
+      if(confirm("Không thể thêm do trùng loại tiền công!!!") == true || confirm("Không thể thêm do trùng loại tiền công!!!") == false){
+        history.back()
+      }
+    }
+    if(check_cardIdentify == 2){
+      if(confirm("Không thể sửa đổi do trùng loại tiền công!!!") == true || confirm("Không thể sửa đổi do trùng loại tiền công!!!") == false){
+        history.back()
+      }
+    }
+    //Validate
+
+    Validator({
+      form: '#form-add-wage',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#wage-add-name', 'Vui lòng nhập tên tiền công'),
+        Validator.isRequire('#wage-add-money', 'Vui lòng nhập tiền công'),
+        Validator.isNumber('#wage-add-money'),
+        //Validator.minLength('#reception-add-receptionDate',6),
+      ],
+      onSubmit: function () {
+        formAddwage.action = 'wage/create'
+        formAddwage.submit()
+      }
+    })
+    Validator({
+      form: '#form-edit',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#wage-edit-name', 'Vui lòng nhập tên tiền công'),
+        Validator.isRequire('#wage-edit-money', 'Vui lòng nhập số tiền công'),
+        Validator.isNumber('#wage-edit-money'),
+        //Validator.minLength('#reception-add-receptionDate',6),
+      ],
+      onSubmit: function () {
+        if(datanotedit == true){
+          window.alert("Không thể sửa đổi thông tin tiền công do đã được sử dụng trong dịch vụ!!!")
+        }
+        else{
+        formSubmit.action = 'wage/' + wageId + '/?_method=PUT'
+        formSubmit.submit()
+        }
+      }
+    })
+    
+    const formAddwage = document.forms['form-add-wage']
+    var formSubmit = document.forms['form-submit']
+    var formDelete = document.forms['form-delete']
+    var btnSubmitEdit = $('#btn-edit-form')
+    var btnView = $('.btn--view-item')
+    var btnEdit = $('.btn--edit-item')
+    var btnAcceptDelete = $('#btn-accept-delete')
+
+    var wageId;
+    var datanotdelete;
+    var datanotedit;
+
+    $('#form-edit-wage').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      wageId = button.data('id')
+      datanotedit = button.data('notedit')
+    })
+
+    $('#form-delete-wage').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      wageId = button.data('id')
+      datanotdelete = button.data('notdelete')
+    })
+    btnEdit.click(function () {
+      var id = $(this).data('id')
+      var rowData = $(this).parents('tr')[0]
+      $('#wage-edit-name').val(rowData.cells[1].textContent)
+      $('#wage-edit-money').val(rowData.cells[2].textContent)
+
+    })
+    //btnSubmitEdit.click(function () {
+    //  formSubmit.action = '/wage/' + wageId + '/?_method=PUT'
+    //  formSubmit.submit()
+    //})
+    btnAcceptDelete.click(function () {
+      if (wageId != null && datanotdelete == false) {
+        formDelete.action = 'wage/' + wageId + '/?_method=DELETE'
+        formDelete.submit()
+      }
+      else {
+        window.alert("Không thể xóa do tiền công đã được sử dụng trong dịch vụ!!!");
+      }
+    })
+  })
+</script>

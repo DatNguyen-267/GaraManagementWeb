@@ -56,8 +56,7 @@ class ReportInventoryController {
 
                         if (report_inventory == null) {
                             for (const material of materials) {
-
-                                var id_material = material._id
+                                var id_material = material._id.toString()
                                 var report_inventory_detail = new Report_Inventory_Detail()
                                 report_inventory_detail.of_report_inventory = report_inventory
                                 report_inventory_detail.of_material = material
@@ -65,14 +64,24 @@ class ReportInventoryController {
 
                                 var incurred = 0
                                 for (const import_detail of import_details) {
-                                    var id = import_detail.material._id
-                                    if (id == material.id && import_detail.of_voucher.imported == true) {
+                                    var id = import_detail.material._id.toString()
+                                    if (id == id_material && import_detail.of_voucher.imported == true) {
                                         var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
                                         if (import_date >= firstDay && import_date <= lastDay) {
                                             incurred = incurred + import_detail.amount
                                         }
                                     }
                                 }
+                                for (const export_detail of export_details) {
+                                    var id = export_detail.material._id.toString()
+                                    if (id == id_material && export_detail.of_voucher.exported == true) {
+                                        var export_date = new Date(export_detail.of_voucher.updatedAt).toISOString().substring(0, 10);
+                                        if (export_date >= firstDay && export_date <= lastDay) {
+                                            incurred = incurred - export_detail.amount
+                                        }
+                                    }
+                                }
+
                                 report_inventory_detail.incurred = incurred
                                 report_inventory_detail.first_inventory = report_inventory_detail.last_inventory - incurred
                                 list.push(report_inventory_detail)
@@ -135,6 +144,7 @@ class ReportInventoryController {
                             Promise.all([
                                 Report_Inventory.find({}), Import_Detail.find({}).populate('of_voucher').populate('material'), Material.find({}), Export_Detail.find({}).populate('of_voucher').populate('material')])
                                 .then(([report_inventories, import_details, materials, export_details]) => {
+                                    var today = new Date().toISOString().substring(0, 10);
                                     var month = req.body.month.toString()
                                     var year = req.body.year.toString()
                                     var datestring = "2/" + month + "/" + year
@@ -144,19 +154,47 @@ class ReportInventoryController {
 
                                     for (const material of materials) {
 
-                                        var id_material = material._id
+                                        var id_material = material._id.toString()
                                         var report_inventory_detail = new Report_Inventory_Detail()
                                         report_inventory_detail.of_report_inventory = report_inventory
                                         report_inventory_detail.of_material = material
-                                        report_inventory_detail.last_inventory = material.amount
+                                        var last_inventory = material.amount
+                                        for (const import_detail of import_details) {
+                                            var id = import_detail.material._id.toString()
+                                            if (id == id_material && import_detail.of_voucher.imported == true) {
+                                                var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
+                                                if (import_date > lastDay && import_date <= today) {
+                                                    last_inventory = last_inventory - import_detail.amount
+                                                }
+                                            }
+                                        }
+                                        for (const export_detail of export_details) {
+                                            var id = export_detail.material._id.toString()
+                                            if (id == id_material && export_detail.of_voucher.exported == true) {
+                                                var export_date = new Date(export_detail.of_voucher.updatedAt).toISOString().substring(0, 10);
+                                                if (export_date > lastDay && export_date <= today) {
+                                                    last_inventory = last_inventory + export_detail.amount
+                                                }
+                                            }
+                                        }
+                                        report_inventory_detail.last_inventory = last_inventory
 
                                         var incurred = 0
                                         for (const import_detail of import_details) {
-                                            var id = import_detail.material._id
-                                            if (id == material.id && import_detail.of_voucher.imported == true) {
+                                            var id = import_detail.material._id.toString()
+                                            if (id == id_material && import_detail.of_voucher.imported == true) {
                                                 var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
                                                 if (import_date >= firstDay && import_date <= lastDay) {
                                                     incurred = incurred + import_detail.amount
+                                                }
+                                            }
+                                        }
+                                        for (const export_detail of export_details) {
+                                            var id = export_detail.material._id.toString()
+                                            if (id == id_material && export_detail.of_voucher.exported == true) {
+                                                var export_date = new Date(export_detail.of_voucher.updatedAt).toISOString().substring(0, 10);
+                                                if (export_date >= firstDay && export_date <= lastDay) {
+                                                    incurred = incurred - export_detail.amount
                                                 }
                                             }
                                         }
@@ -216,19 +254,48 @@ class ReportInventoryController {
                         if (report_inventory == null) {
                             for (const material of materials) {
 
-                                var id_material = material._id
+                                var id_material = material._id.toString()
+                                //res.send(id_material)
                                 var report_inventory_detail = new Report_Inventory_Detail()
                                 report_inventory_detail.of_report_inventory = report_inventory
                                 report_inventory_detail.of_material = material
-                                report_inventory_detail.last_inventory = material.amount
+                                var last_inventory = material.amount
+                                for (const import_detail of import_details) {
+                                    var id = import_detail.material._id.toString()
+                                    if (id == id_material && import_detail.of_voucher.imported == true) {
+                                        var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
+                                        if (import_date > lastDay && import_date <= today) {
+                                            last_inventory = last_inventory - import_detail.amount
+                                        }
+                                    }
+                                }
+                                for (const export_detail of export_details) {
+                                    var id = export_detail.material._id.toString()
+                                    if (id == id_material && export_detail.of_voucher.exported == true) {
+                                        var export_date = new Date(export_detail.of_voucher.updatedAt).toISOString().substring(0, 10);
+                                        if (export_date > lastDay && export_date <= today) {
+                                            last_inventory = last_inventory + export_detail.amount
+                                        }
+                                    }
+                                }
+                                report_inventory_detail.last_inventory = last_inventory
 
                                 var incurred = 0
                                 for (const import_detail of import_details) {
-                                    var id = import_detail.material._id
-                                    if (id == material.id && import_detail.of_voucher.imported == true) {
+                                    var id = import_detail.material._id.toString()
+                                    if (id == id_material && import_detail.of_voucher.imported == true) {
                                         var import_date = new Date(import_detail.of_voucher.import_date).toISOString().substring(0, 10);
                                         if (import_date >= firstDay && import_date <= lastDay) {
                                             incurred = incurred + import_detail.amount
+                                        }
+                                    }
+                                }
+                                for (const export_detail of export_details) {
+                                    var id = export_detail.material._id.toString()
+                                    if (id == id_material && export_detail.of_voucher.exported == true) {
+                                        var export_date = new Date(export_detail.of_voucher.updatedAt).toISOString().substring(0, 10);
+                                        if (export_date >= firstDay && export_date <= lastDay) {
+                                            incurred = incurred - export_detail.amount
                                         }
                                     }
                                 }

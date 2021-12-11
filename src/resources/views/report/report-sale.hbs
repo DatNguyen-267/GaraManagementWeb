@@ -34,8 +34,7 @@
                         cáo</button>
                     {{!-- <button class="toolbar__btn-edit btn btn--edit-item" data-toggle="modal"
                         data-target="#form-edit-report-sale">Sửa báo cáo</button> --}}
-                    <button class="toolbar__btn-export btn btn-success" id="toolbar-btn-export"
-                        onclick="printDiv('printtableArea')">Xuất bản in</button>
+                    <button class="toolbar__btn-print btn btn-success" id="toolbar-btn-print">Xuất bản in</button>
                 </div>
             </div>
         </div>
@@ -133,7 +132,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+                    <h5 class="modal-title">Sửa Báo Cáo</h5>
                     <button type="button report-sale__form-btn-close" class="close" data-dismiss="modal"
                         aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -214,10 +213,19 @@
 
 
 </script>
-{{!--Xuất bản in dữ liệu --}}
+
+{{!-- --}}
 <script>
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var formSearch = document.forms['form-search']
+        var btnSearch = $('.toolbar__search-btn')
+        var btnPrint = $('.toolbar__btn-print')
+        var check=btnSearch.data('check')
+        var report_sale_date = document.getElementById('report-sale-date-input').value
+        //Xuất bản in
+        btnPrint.click(function() {
+        var printContents = document.getElementById('printtableArea').innerHTML;
         var a = window.open();
         var report_date = document.getElementById("report-sale-date-input").value
         var select_month = document.getElementById('search-select--month');
@@ -245,18 +253,7 @@
         a.print();
         a.document.close();
         a.window.close()
-    }
-    
-</script>
-
-{{!-- --}}
-<script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var formSearch = document.forms['form-search']
-        var btnSearch = $('.toolbar__search-btn')
-        var check=btnSearch.data('check')
-        var report_sale_date = document.getElementById('report-sale-date-input').value
+    })
 
         if (check==1 || report_sale_date != '' ) {
             document.getElementById('toobar-btn-add').disabled = true;
