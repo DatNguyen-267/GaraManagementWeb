@@ -95,6 +95,8 @@
                     </button>
                     <div class="menu__body-sublist collapse {{expandSubMenu activeManagementWarehouse}} "
                         id="menu__body-sublist-management-warehouse">
+                        <div data-transfer="http://localhost:8080/{{User._id}}/supplier"
+                            class="menu__body-sublist-item {{activeItemMenu activeSupplier}}">Danh sách nhà cung cấp</div>
                         <div data-transfer="http://localhost:8080/{{User._id}}/material"
                             class="menu__body-sublist-item {{activeItemMenu activeMaterial}}">Danh sách vật tư</div>
                         <div data-transfer="http://localhost:8080/{{User._id}}/import"
@@ -119,11 +121,10 @@
                     </div>
                 </div>
                 <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu }} " type="button" data-toggle="collapse" 
-                            data-target="#menu__body-sublist-setting">
-                        <span class="menu__body-mainlist-icon ti-package"></span>
-                        <div class="menu__body-mainlist-name">Cài đặt</div>
-                        <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
+                    <button class="menu__body-mainlist {{activeMainMenu activeSetting}} " type="button" id="setting"
+                        data-transfer="http://localhost:8080/{{User._id}}/setting">
+                            <span class="menu__body-mainlist-icon ti-home"></span>
+                            <div class="menu__body-mainlist-name">Cài đặt</div>
                     </button>
                 </div>
             </div>
@@ -185,6 +186,12 @@
         var btnDashboard = document.querySelector('#dash-board')
         btnDashboard.onclick = function() {
             formTransfer.action = btnDashboard.getAttribute('data-transfer')
+            formTransfer.submit()
+        }
+
+        var btnSetting = document.querySelector('#setting')
+        btnSetting.onclick = function() {
+            formTransfer.action = btnSetting.getAttribute('data-transfer')
             formTransfer.submit()
         }
     })

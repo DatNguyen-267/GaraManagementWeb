@@ -15,6 +15,7 @@ class SettingController {
                 Setting.findById(settingID).then((setting) => {
                     res.render('setting', {
                         setting: mongooseToOject(setting),
+                        activeSetting: true,
                         Permissions: mongooseToOject(position.permissions),
                         User: mongooseToOject(res.locals.employee)
                     })
