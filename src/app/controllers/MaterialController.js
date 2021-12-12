@@ -1,5 +1,7 @@
 const Material = require('../models/Material')
 const Supplier = require('../models/Supplier')
+const ImportDetail = require('../models/ImportDetail')
+const ExportDetail = require('../models/ExportDetail')
 const Position = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
@@ -42,11 +44,19 @@ class MaterialController {
 
     delete(req, res, next) {
         const idDelete = req.params.id
-        Material.deleteOne({ _id: idDelete })
-            .then(() => {
-                res.redirect('back')
+        ImportDetail.find({material: idDelete}).then((imports) => {
+            ExportDetail.find({material: idDelete}).then((exports) => {
+                if(imports.length == 0 && exports.length == 0) {
+                    Material.deleteOne({ _id: idDelete })
+                    .then(() => {
+                        res.redirect('back')
+                    })
+                    .catch(next)
+                } else {
+                    res.redirect('back')
+                }
             })
-            .catch(next)
+        })
     }
 
     edit(req, res, next) {
