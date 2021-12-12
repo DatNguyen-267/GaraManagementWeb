@@ -32,12 +32,16 @@ app.use(morgan('combined'))
 app.engine('hbs', handlebars({
   extname: '.hbs',
   helpers: {
-    checkPermission: (permissions, tag) => {
-      var s = []
-      for (const item of permissions) {
-        if (item == tag) return ""
+    checkPermission: ( permissions, tag) => {
+      if (permissions) {
+        var s = []
+        for (const item of permissions) {
+          if (item == tag) return ""
+        }
+        return "disabled"
       }
-      return "disabled"
+      else return ""
+      
       // if (!permissions) { return ""}
       // if (permissions.include(tag)) return ""
       // else return "disabled"
