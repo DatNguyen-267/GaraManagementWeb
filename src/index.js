@@ -32,12 +32,19 @@ app.use(morgan('combined'))
 app.engine('hbs', handlebars({
   extname: '.hbs',
   helpers: {
-    loadRoles: (roles, tag) => {
-      if (!roles) return
-      for (var i = 0; i < roles.length; i++) {
-        if (roles[i] == tag) return "" 
+    checkPermission: ( permissions, tag) => {
+      if (permissions) {
+        var s = []
+        for (const item of permissions) {
+          if (item == tag) return ""
+        }
+        return "disabled"
       }
-      return "disabled"
+      else return ""
+      
+      // if (!permissions) { return ""}
+      // if (permissions.include(tag)) return ""
+      // else return "disabled"
     },
     sum: (a, b) => a + b,
     subtract: (a, b) => Number.parseInt(a) - Number.parseInt(b),

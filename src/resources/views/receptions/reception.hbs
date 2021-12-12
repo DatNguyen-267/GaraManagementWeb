@@ -9,9 +9,11 @@
   </div>
   <div class="ctner">
     <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin xe...">
-        <span class="ti-search toolbar__search-icon"> </span>
+      <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
       </div>
 
       <div class="dropdown toolbar__filter">
@@ -32,7 +34,7 @@
       </div>
     </div>
     <div class="list-reception">
-      <table class="table table--default">
+      <table class="table">
         <colgroup>
             <col style="width: 70px;">
             <col >
@@ -46,7 +48,7 @@
         </colgroup>
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#STT</th>
+            <th scope="col">#Mã phiếu tiếp nhận</th>
             <th scope="col">Biển số xe</th>
             <th scope="col">Hiệu xe</th>
             <th scope="col">Tên khách hàng</th>
@@ -60,7 +62,8 @@
         <tbody>
           {{#each Receptions}}
           <tr data-id="{{this._id}}">
-            <th scope="row"> {{sum @index 1}} </th>
+            {{!-- {{sum @index 1}} --}}
+            <td scope="row">  {{this._id}} </td>
             <td>{{this.license}}</td>
             <td>{{this.brand.name}}</td>
             <td>{{this.of_customer.name}}</td>
@@ -185,7 +188,7 @@
             </div>
             <div class="form-group">
               <label for="reception-add-receptionDate" class="col-form-label">Ngày tiếp nhận:</label>
-              <input type="date" class="form-control" id="reception-add-receptionDate" name="receptionDate" value="2021-09-10">
+              <input type="date" class="form-control" id="reception-add-receptionDate" name="receptionDate" >
               <span class="form-message"></span>
             </div>
           </form>

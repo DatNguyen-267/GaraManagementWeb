@@ -604,7 +604,7 @@
                             </div>
                             <div class="info-group">
                                 <label for="">Tên khách hàng:</label>
-                                <label >{{Repair.of_reception.name}}</label>
+                                <label >{{Repair.of_reception.of_customer.name}}</label>
                             </div>
                             <div class="info-group">
                                 <label for="">Biển số xe:</label>
@@ -616,7 +616,7 @@
                             </div>
                             <div class="info-group">
                                 <label for="">Ngày báo giá:</label>
-                                <label >28/11/2021</label>
+                                <label id="quote-date" ></labelquote-date-print>
                             </div>
                         </div>
                         <label >Danh sách vật tư</label>
@@ -715,7 +715,7 @@
                 </div>
                 <div class="info-group">
                     <label for="">Ngày báo giá:</label>
-                    <label >28/11/2021</label>
+                    <label id="quote-date-print"></label>
                 </div>
             </div>
             <label >Danh sách vật tư</label>
@@ -944,6 +944,7 @@
         
         var btnPrintQuote = document.querySelector('#btn-print-quote')
         btnPrintQuote.onclick = function() {
+            $('#content-quote').textContent = (new Date()).toISOString()
             var divContents = document.getElementById("content-quote").innerHTML;
             var a = window.open('', '', 'height=500, width=500');
             a.document.write(`<html> 
@@ -1202,5 +1203,11 @@
             formDeleteEmployee.action = 'repairs/' + repairId + '/' + detailEmployeeIdDelete + '/delete-detail-employee?_method=DELETE'
             formDeleteEmployee.submit()
         }
+
+        $('#modal-quote').on('show.bs.modal', function (event) {
+            //
+            document.querySelector('#quote-date').textContent = (new Date()).toISOString().substring(0, 10)
+            console.log($('#quote-date').textContent)
+        })
     })
 </script>

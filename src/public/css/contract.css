@@ -6,7 +6,8 @@ html {
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  width: 60vw; }
+  width: 60vw;
+  justify-content: left; }
 
 .header__title {
   font-weight: 700; }
@@ -51,8 +52,13 @@ html {
   display: flex;
   justify-content: right;
   align-items: center;
-  margin-bottom: 100px; }
+  margin-bottom: 100px;
+  margin-right: 110px; }
 
 .contract__footer-btn {
-  margin-left: 16px;
+  margin-right: 16px;
   padding: 6px 16px; }
+
+.contract__footer-btn a {
+  color: white !important;
+  text-decoration: none; }
