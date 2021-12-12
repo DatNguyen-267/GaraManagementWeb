@@ -160,8 +160,12 @@
       <label id="import-date">{{voucher.import_date}}</label>
     </div>
     <div class="info-group">
+      <label for="">Nhân viên phụ trách:</label>
+      <label id="import-date">{{voucher.of_employee.name}}</label>
+    </div>
+    <div class="info-group">
       <label for="">Tổng tiền</label>
-      <label id="label-repair-id">{{voucher.total_price}}đ</label>
+      <label id="label-repair-id">{{voucher.total_price}}</label>
     </div>
   </div>
 
@@ -195,7 +199,7 @@
         <tr>
           <td>{{this.material.name}}</td>
           <td>{{this.amount}}</td>
-          <td>{{this.import_price}}đ</td>
+          <td>{{this.import_price}}</td>
           <td>
             <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
             <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
