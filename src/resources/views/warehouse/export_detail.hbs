@@ -41,6 +41,10 @@
       <label id="create-date">{{voucher.createdAt}}</label>
     </div>
     <div class="info-group">
+      <label for="">Nhân viên phụ trách:</label>
+      <label id="create-date">{{voucher.of_employee.name}}</label>
+    </div>
+    <div class="info-group">
       <label for="">Ngày xuất kho:</label>
       <label id="export-date">{{voucher.updatedAt}}</label>
     </div>
@@ -74,7 +78,7 @@
         <tr>
           <td>{{this.material_name}}</td>
           <td>{{this.amount}}</td>
-          <td>{{this.sell_price}}đ</td>
+          <td>{{this.sell_price}}</td>
         </tr>
       {{/each}}
     </tbody>

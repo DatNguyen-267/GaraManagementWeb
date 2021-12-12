@@ -24,7 +24,7 @@ class ExportController {
                         }).then(() => { })
                     }
 
-                    ExportVoucher.find({}).then((vouchers) => {
+                    ExportVoucher.find({}).populate('of_employee', 'name').then((vouchers) => {
                         res.render('warehouse/export', {
                             vouchers: mutipleMongooseToObject(vouchers),
                             repairs: mutipleMongooseToObject(list),
@@ -53,6 +53,7 @@ class ExportController {
                             newMaterial.material_name = detail.material_name
                             newMaterial.amount = detail.amount
                             newMaterial.sell_price = detail.sell_price
+                            newMaterial.of_employee = res.locals.employee._id
                             newMaterial.save().then(() => { })
                         }
                     }).then(() => {
@@ -94,7 +95,7 @@ class ExportController {
             })
             .then((position) => {
                 ExportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
-                    ExportVoucher.findById(req.params.idVoucher).populate('of_repair').then((voucher) => {
+                    ExportVoucher.findById(req.params.idVoucher).populate('of_repair').populate('of_employee', 'name').then((voucher) => {
                         res.render('warehouse/export_detail', {
                             details: mutipleMongooseToObject(details),
                             voucher: mongooseToOject(voucher),
