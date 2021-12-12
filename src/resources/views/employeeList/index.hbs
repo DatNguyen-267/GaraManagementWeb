@@ -301,23 +301,13 @@
       
       $('#m_tag').change(function(){
           $('#m_percent').val($('.mOps:selected').attr('percent'));
-          $('#m_salary').val(formatter.format(salaryCal($('.mOps:selected').attr('percent'),$('.mOps:selected').attr('salary') )));
+          $('#m_salary').val($('.mOps:selected').attr('salary'));
       });
        $('#n_tag').change(function(){
           $('#n_percent').val($('.nOps:selected').attr('percent'));
-          $('#n_salary').val(formatter.format(salaryCal($('.nOps:selected').attr('percent'),$('.nOps:selected').attr('salary') )));
-      });
-      $('#n_startDate').change(function(){
-          if ($('#n_tag').val() == "") return;
-          $('#n_percent').val($('.nOps:selected').attr('percent'));
-          $('#n_salary').val(formatter.format(salaryCal($('.nOps:selected').attr('percent'),$('.nOps:selected').attr('salary') )));
+           $('#n_salary').val($('.nOps:selected').attr('salary'));
       });
 
-      $('#m_startDate').change(function(){
-          if ($('#m_tag').val() == "") return;
-          $('#m_percent').val($('option:selected').attr('percent'));
-          $('#m_salary').val(formatter.format(salaryCal($('.mOps:selected').attr('percent'),$('.mOps:selected').attr('salary') )));
-      });
 
       $(".btn--delete-item").click(function() {
           var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
