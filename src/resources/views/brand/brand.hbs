@@ -11,9 +11,11 @@
   </div>
 
   <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin xe...">
-        <span class="ti-search toolbar__search-icon"> </span>
+      <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
       </div>
       <div class="toolbar__btn">
           <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#modal-add">Thêm hiệu xe</button>
@@ -33,7 +35,7 @@
         <th scope="col" colspan="2"></th>
       </tr>
     </thead>
-      <tbody>
+      <tbody id="table-data">
         {{#each Data}}
         <tr>
           {{!-- 1 hiệu xe --}}
@@ -141,24 +143,25 @@
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
         Validator.isRequire('#input-name', 'Vui lòng nhập tên hiệu xe'),
+        Validator.isDuplicate('#input-name', '#table-data',1, 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formAdd.action = 'brand/create' 
           formAdd.submit()
         }
       })
-      const formEdit = document.forms['form-edit']
-      Validator({
-        form: '#form-edit', // id của cái form cần validate
-        errorSelector: '.form-message', // tên class để hiện cái lỗi
-        rules: [
-          Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
-        ],
-        onSubmit: function() {
-            formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'
-            formEdit.submit()
-          }
-        })
+    const formEdit = document.forms['form-edit']
+    Validator({
+      form: '#form-edit', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
+      ],
+      onSubmit: function() {
+          formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'
+          formEdit.submit()
+        }
+      })
 
     var brandId;
     var tdActive;

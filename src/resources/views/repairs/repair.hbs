@@ -8,9 +8,11 @@
     </nav>
   </div>
   <div class="toolbar">
-      <div class="toolbar__search">
-          <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
-          <span class="toolbar__search-icon ti-search"> </span>
+      <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
       </div>
       <div class="toolbar__filter"></div>
       <div class="toolbar__btn">
@@ -21,8 +23,8 @@
       <table class="table">
           <thead class="thead-dark">
               <tr>
-                  <th scope="col">Mã phiếu sửa chữa</th>
-                  <th scope="col">Mã phiếu tiếp nhận</th>
+                  <th scope="col">#Mã phiếu sửa chữa</th>
+                  <th scope="col">#Mã phiếu tiếp nhận</th>
                   <th scope="col">Biển số xe</th>
                   <th scope="col">Tên khách hàng</th>
                   {{!-- <th scope="col">Ngày tạo</th> --}}
@@ -39,7 +41,11 @@
                   <td>{{this.of_reception.license}}</td>
                   <td>{{this.customer_name}}</td>
                   {{!-- <td>{{this.createdAt}}</td> --}}
-                  <td>{{this.status}}</td>
+                  <td>
+                      <div class="{{loadStatus this.status}}">
+                        {{this.status}}
+                      </div>
+                  </td>
                   <td>{{this.debt}}</td>
                   <td class="row-btn">
                       <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
