@@ -12,10 +12,11 @@
   </div>
   <div class="ctner__wage">
     <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input"
-          placeholder="Tìm kiếm thông tin tiền công...">
-        <span class="ti-search toolbar__search-icon"></span>
+      <div class="search-form">
+        <input type="search" value="" placeholder="Tìm kiếm" class="search-input">
+        <button type="button" class="search-button">
+              <span class="ti-search "> </span>
+        </button>
 
       </div>
       {{!-- <div class="dropdown toolbar__filter">
@@ -206,6 +207,7 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#wage-add-name', 'Vui lòng nhập tên tiền công'),
+        Validator.isDuplicate('#wage-add-name', '#table-body',2, 'Loại tiền công đã tồn tại. Vui lòng nhập lại!'),
         Validator.isRequire('#wage-add-money', 'Vui lòng nhập tiền công'),
         Validator.isNumber('#wage-add-money'),
         //Validator.minLength('#reception-add-receptionDate',6),

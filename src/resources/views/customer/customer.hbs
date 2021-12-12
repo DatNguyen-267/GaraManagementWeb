@@ -12,10 +12,11 @@
   </div>
   <div class="ctner__customer">
     <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input"
-          placeholder="Tìm kiếm thông tin khách hàng...">
-        <span class="ti-search toolbar__search-icon"></span>
+      <div class="search-form">
+        <input type="search" value="" placeholder="Tìm kiếm" class="search-input">
+        <button type="button" class="search-button">
+              <span class="ti-search "> </span>
+          </button>
 
       </div>
       {{!-- <div class="dropdown toolbar__filter">
@@ -33,7 +34,7 @@
         khách hàng</button>
     </div>
     <div class="list-customer">
-      <table class="table table--default">
+      <table class="table table--default" id="table-data">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#STT</th>
@@ -320,6 +321,7 @@
         Validator.isRequire('#customer-add-address', 'Vui chọn nhập địa chỉ'),
         Validator.isRequire('#customer-add-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isNumber('#customer-add-cardIdentify'),
+        Validator.isDuplicate('#customer-add-cardIdentify', '#table-body',4, 'CMND đã tồn tại. Vui lòng nhập lại!'),
         Validator.minLength('#customer-add-cardIdentify', 9),
         Validator.isRequire('#customer-add-email', 'Vui lòng nhập email'),
         Validator.isEmail('#customer-add-email'),
