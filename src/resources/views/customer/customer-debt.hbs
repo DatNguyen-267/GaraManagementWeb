@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="./css/customer-debt.css">
+<link rel="stylesheet" href="/css/customer-debt.css">
 <div class="container__customer-debt grid__content">
   <div class="header__breadcrumb">
-      <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Theo dõi công nợ</a></li>
-          </ol>
-      </nav>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Theo dõi công nợ</a></li>
+      </ol>
+    </nav>
   </div>
   <div class="ctner__customer-debt">
     <div class="toolbar">
@@ -26,12 +26,13 @@
           <a class="toolbar__filter-item dropdown-item" href="#"></a>
         </div>
       </div> --}}
+      <button class="dropdown toolbar__btn btn btn--primary" id="btn-export-excel">Xuất Excel</button>
     </div>
     <div class="list-customer-debt">
-      <table class="table table--default">
+      <table class="table table--default" id="data-table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#Stt</th>
+            <th scope="col">#STT</th>
             <th scope="col">Họ và tên</th>
             <th scope="col">CMND</th>
             <th scope="col">Email</th>
@@ -51,8 +52,8 @@
             <td>{{this.email}}</td>
             <td>{{this.phone}}</td>
             {{#each this.of_reception}}
-              <td>{{this._id}}</td>
-              <td>{{this.receptionDate}}</td>
+            <td>{{this._id}}</td>
+            <td>{{this.receptionDate}}</td>
             {{/each}}
             <td>{{this.debt}}</td>
             <td></td>
@@ -69,29 +70,30 @@
 
 <form method="GET" name="form-view"></form>
 <!-- scrip -->
-
-
-{{!--Search--}}
-<script>
-  
-</script>
 {{!-- --}}
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var btnView = $('.btn--view-item')
     var formView = document.forms['form-view']
+
+    //Xuất excel
+    document.getElementById('btn-export-excel').onclick = function () {
+      var table2Excel = new Table2Excel()
+      table2Excel.export(document.getElementById('data-table'), 'Quản lý công nợ khách hàng')
+    }
+
     //Search
     $(document).ready(function () {
-    $('#search-input').on('keyup', function (event) {
-      event.preventDefault();
-      /* Act on the event */
-      var keyword = $(this).val().toLowerCase();
-      $('#table-body tr').filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+      $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-body tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
       });
     });
-  });
-    btnView.click(function(){
+    btnView.click(function () {
       formView.action = 'customerdebt/' + $(this).data('id') + '/customerdebtdetail'
       formView.submit()
     })

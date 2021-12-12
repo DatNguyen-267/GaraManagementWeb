@@ -29,10 +29,10 @@ class WageController {
                             }
                             res.render('wage/wage', {
                                 wages: mutipleMongooseToObject(wages),
-                                // activeManagementWage: true,
-                                // activeWage: true,
-                                 Permissions: mongooseToOject(position.permissions),
-                                 User: mongooseToOject(res.locals.employee)
+                                activeManagementCar: true,
+                                activeWage: true,
+                                Permissions: mongooseToOject(position.permissions),
+                                User: mongooseToOject(res.locals.employee)
                             })
                     })
                     .catch(next)
@@ -53,8 +53,8 @@ class WageController {
             if(check == 1){
                res.render('wage/wage', {
                     wages: mutipleMongooseToObject(wages),
-                    // activeManagementWage: true,
-                    // activeWage: true,
+                    activeManagementCar: true,
+                    activeWage: true,
                     check,
                 })
             }
@@ -84,8 +84,8 @@ class WageController {
             if(check == 2){
                res.render('wage/wage', {
                     wages: mutipleMongooseToObject(wages),
-                    // activeManagementWage: true,
-                    // activeWage: true,
+                    activeManagementCar: true,
+                    activeWage: true,
                     check,
                 })
             }

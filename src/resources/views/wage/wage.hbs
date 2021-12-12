@@ -35,14 +35,16 @@
       <table class="table table--default">
          <colgroup>
             <col style="width: 70px;">
-            <col >
+            <col style="width: 300px;">
+            <col style="width: 700px;">
             <col >
             {{!-- <col >  --}}
-            <col style="width: 230px;"> 
+            <col style="width: 100px;"> 
         </colgroup>
         <thead class="thead-dark">
           <tr>
             <th scope="col">#Stt</th>
+            <th scope="col">Mã tiền công</th>
             <th scope="col">Loại tiền công</th>
             <th scope="col">Số tiền công</th>
             <th scope="col" colspan="2"></th>
@@ -52,6 +54,7 @@
           {{#each wages}}
           <tr data-id="{{this._id}}">
             <th scope="row">{{@index}}</th>
+            <td>{{this._id}}</td>
             <td>{{this.name}}</td>
             <td>{{this.money}}</td>
             <td></td>
