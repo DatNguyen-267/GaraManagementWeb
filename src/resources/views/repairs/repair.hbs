@@ -9,7 +9,7 @@
   </div>
   <div class="toolbar">
       <div class="search-form">
-          <input type="search" value="" placeholder="Tìm kiếm" class="search-input">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
           <button type="button" class="search-button">
             <span class="ti-search "> </span>
           </button>
@@ -33,7 +33,7 @@
                   <th scope="col"></th>
               </tr>
           </thead>
-          <tbody>
+          <tbody id="table-data">
               {{#each repairs}}
               <tr>
                   <td scope="row">{{this._id}}</th>
@@ -47,9 +47,12 @@
                       </div>
                   </td>
                   <td>{{this.debt}}</td>
-                  <td class="row-btn">
-                      <button class="btn--edit-item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Sửa</button>
-                      <button class="btn--delete-item" data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
+                  <td class="row-btn--left">
+                      <button class="btn-view btn btn--primary btn--item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Chi tiết</button>
+                      <button 
+                        {{isHidden this.isSuccess}}
+                      class="btn-delete btn btn-danger btn--item btn--item-min-width" 
+                      data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
                   </td>
               </tr>
               {{/each}}
@@ -132,6 +135,16 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
     const formAdd = document.forms['form-add']
     Validator({
       form: '#form-add', // id của cái form cần validate
@@ -149,8 +162,7 @@
     var repairId;
     var btnAcceptDelete = $('#btn-accept-delete')
     var btnAcceptEdit = $('#btn-accept-edit')
-    var btnView = $('.btn--view-item')
-    var btnEdit = $('.btn--edit-item')
+    var btnEdit = $('.btn-view')
     var formDelete = document.forms['form-delete']
     var formEdit = document.forms['form-edit']
     

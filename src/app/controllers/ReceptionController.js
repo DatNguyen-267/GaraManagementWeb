@@ -41,10 +41,8 @@ class ReceptionController {
                 })
                 .catch(next)
         })
-        
     }
     create(req, res, next) {
-        
         if (req.body.isNewCustomer == 'on') {
             var newCustomer = new Customer()
             newCustomer.name = req.body.name
@@ -106,7 +104,8 @@ class ReceptionController {
 
         }
     }
-    edit(req,res,next){
+    edit(req, res, next) {
+        // res.send(req.body)
         Reception.updateOne({_id:req.params.id}, req.body)
             .then(() => res.redirect('back'))
             .catch(next)
@@ -157,7 +156,6 @@ class ReceptionController {
         
     }
     createBill(req, res, next) {
-        
         var newBill = new Bill()
         Reception.findOne({ _id: req.params.id })
             .then((reception) => {

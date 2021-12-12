@@ -12,7 +12,7 @@
 
   <div class="toolbar">
       <div class="search-form">
-          <input type="search" value="" placeholder="Tìm kiếm" class="search-input">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
           <button type="button" class="search-button">
             <span class="ti-search "> </span>
           </button>
@@ -22,7 +22,7 @@
       </div>
   </div>
   {{!-- THÊM --}}
-  <table class="table">
+  <table class="table" >
     <colgroup>
       <col>
       <col>
@@ -30,18 +30,20 @@
     </colgroup>
     <thead class="thead-dark">
       <tr>
+        <th scope="col">STT</th>
         <th scope="col">Mã hiệu xe</th>
         <th scope="col">Tên hiệu xe</th>
         <th scope="col" colspan="2"></th>
       </tr>
     </thead>
-      <tbody id="table-data">
+      <tbody id="table-data" >
         {{#each Data}}
         <tr>
           {{!-- 1 hiệu xe --}}
+          <th scope="row">{{@index}}</th>
           <td>{{this.brand._id}}</td>
           <td>{{this.brand.name}}</td>
-          <td class="row-btn">
+          <td class="row-btn--center">
             <button class="btn btn--edit-item btn-edit" data-id="{{this.brand._id}}" 
             data-name="{{this.brand.name}}" data-toggle="modal" data-target="#modal-edit">Sửa</button>
             <button class="btn btn--delete-item btn-delete" data-id="{{this.brand._id}}" data-candelete="{{this.canDelete}}"
@@ -132,6 +134,18 @@
 <div id="message-no-delete" data-nodelete="{{NoDelete}}"></div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
+
     window.onload = function() {
       if ($('#message-no-delete').data('nodelete')) {
         alert("Không thể xóa hiệu xe này vì đang được sử dụng ở phiếu tiếp nhận")
