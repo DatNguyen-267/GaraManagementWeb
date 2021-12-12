@@ -1,27 +1,29 @@
 <link rel="stylesheet" href="/css/employeeSalary.css">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <title>Quản lý tiền công</title>
 
 <div class = "grid__content">
   <header class = "employeeSalary__header">
-        <h1 class = "template__title">Quản lý tiền công</h1>
+        <div class="header__breadcrumb">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Lương</a></li>
+              </ol>
+          </nav>
+        </div>  
         <h7>{{firstDate}} - {{lastDate}}</h7>
         <div class="toolbar">
-          <div class="toolbar__search">
-            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
-            <span class="ti-search toolbar__search-icon"> </span>
-          </div>
+          <div class="search-form">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+              <button type="button" class="search-button">
+                <span class="ti-search "> </span>
+              </button>
+            </div>
           <div class="dropdown">
             <form method = "GET" name = "form-info" action = "/{{User._id}}/employeeSalary/SalaryInfo">
               <input type="month" class="form-control dataStr" id = "date" name = "date" value="{{today}}">
@@ -42,7 +44,6 @@ crossorigin="anonymous"></script>
                     <th scope="col">Họ và Tên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Số tiền phạt</th>
-                    <th scope="col">Số thưởng</th>
                     <th scope="col">Lương</th>   
                   </tr>
                 </thead>
@@ -56,7 +57,6 @@ crossorigin="anonymous"></script>
                       <td id = "name">{{this.item.name}}</td>
                       <td id = "tag">{{this.item.Tag}}</td>
                       <td id = "sum">{{this.fineSum}}</td>
-                      <td id = "bonus">{{this.item.bonus}}</td>  
                       <td id = "finalSalary">{{this.finalSalary}}</td>      
                     </tr>
                     {{/each}}
@@ -150,6 +150,8 @@ crossorigin="anonymous"></script>
 
 
 <script>
+      
+      document.addEventListener('DOMContentLoaded', function () {
       var flat = true;
       var formatter = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -180,7 +182,7 @@ crossorigin="anonymous"></script>
         $("#infoModal").modal();
         $('#i_finalSalary').text($(this).closest("tr").find("#finalSalary").text());
       });
-      function search(){
+      $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -195,13 +197,12 @@ crossorigin="anonymous"></script>
             if (txtValue.includes(filter)) {
               tr[i].style.display = "";
             } else {
-              tr[i].style.display = "none"; 
+              tr[i].style.display = "none";
             }
           }   
         }
-      }
+      })
       
-      document.addEventListener('DOMContentLoaded', function () {
 
       var tdActive;
       var btnChange = $('#btn-change')

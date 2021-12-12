@@ -15,6 +15,10 @@ $text-size-3: 1.5em;
 $text-size-4: 1.2em;
 $text-size-5: 1em;
 
+
+
+
+
 * {
     padding: 0;
     margin: 0;
@@ -29,7 +33,6 @@ $text-size-5: 1em;
     box-sizing: border-box;
     font-family: $fontFamily;
   }
-
 
 
 
@@ -56,48 +59,67 @@ hr.solid {
 }
 
 
-.employeeSalary__body{
+.register__body{
     &__table{
         tbody > tr:hover{
             color: $primary-color;
-            button{
-                opacity: 1;
-                color: $primary-color;
-            }
         }
-        .salary{
-            font-weight: 500;
-        }
+        
     }
 
-    &__btnContainer{
-        display: block;
-        padding:0;
-        padding-right: 2em;
-        height: 50px;
-        button{
-            margin-left:2%;
-        }
-    }
 
+    .modifiedButton{
+        border: none;
+        background-color: transparent;
+        opacity: 0;
+    }
+    .infoModal{
+        width: 750px;
+
+    }
     
-    &__infoModal{
-        height: auto;
-        .infoTable{
-            margin:1em;
+    h3 {
+        font-size: 18px;
+        text-align: center;
+        margin: 20px 0 20px;
+        small {
+            display: block;
+            font-size: 13px;
+            padding-top: 4px;
+            color: $gray-color;
+        }
+    }
+
+    &__tag{
+        font-size: 13px;
+        color: $gray-color;
+        margin: 0;
+        margin-left: 5%;
+    }
+
+    &__info{
+        font-size: 15px;
+        color: $text-color;
+        margin: 0;
+        margin-left: 5%;
+        margin-top: 0;
+    }
+
+    &__infoContainer{
+        margin-top: 1em;
+    }
+    &__infoContainer:last-child{
+        margin-bottom: 1em;
+    }
+    .modifiedTable{
+        margin:1em;
+        width: 100%;
+        input{
+            float: right;
             width: 100%;
-            input{
-                float: right;
-                width: 100%;
-            }
-            tr{
-                margin-top: 1em;
-            }
-            .id,.name,.tag,.salary{
-                text-align: right;
-            }
+        }
+        tr{
+            margin-top: 1em;
         }
     }
-
-    
 }
