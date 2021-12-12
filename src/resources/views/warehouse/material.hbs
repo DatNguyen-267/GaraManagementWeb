@@ -247,8 +247,13 @@
         Validator.isNumber('#add-sell-price'),
       ],
       onSubmit: function () {
-        formAdd.action = 'material/create'
-        formAdd.submit()
+        var name = document.getElementById('add-name').value
+        if(!checkExist(name)) {
+          formAdd.action = 'material/create'
+          formAdd.submit()
+        } else {
+          alert("Vật tư này đã tồn tại")
+        }
       }
     })
 
@@ -264,8 +269,13 @@
         Validator.isNumber('#edit-sell-price'),
       ],
       onSubmit: function () {
-        formEdit.action = 'material/' + materialId + '/?_method=PUT'
-        formEdit.submit()
+        var name = document.getElementById('edit-name').value
+        if(!checkExist(name)) {
+          formEdit.action = 'material/' + materialId + '/?_method=PUT'
+          formEdit.submit()
+        } else {
+          alert("Vật tư này đã tồn tại")
+        }
       }
     })
 
@@ -283,7 +293,17 @@
     var formEdit = document.forms['form-edit']
 
     var materialID
-    
+
+    var materialList = document.getElementById('table-data').rows
+    const checkExist = (name) => {
+      for(var row of materialList) {
+        if(name == row.cells[0].textContent) {
+          return true
+        }
+      }
+      return false
+    }
+
     for(var item of btnDelete) {
       item.onclick = function() {
         var materialId = this.getAttribute('data-id')
@@ -309,25 +329,6 @@
       formDelete.submit()
     }
 
-    document.getElementById('search-key').onkeyup = function() {
-      var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("search-key");
-        filter = input.value;
-        table = document.getElementById("material-list");
-        tr = $("tbody tr");
-        for (i = 0; i < tr.length; i++) {
-          var td1 = tr[i].getElementsByTagName("td")[0];
-          if (td1) {
-            txtValue = td1.textContent || td1.innerText;
-            filter = filter.toUpperCase();
-            txtValue = txtValue.toUpperCase();
-            if (txtValue.includes(filter)) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
-          }   
-        }
-    }
+
   })
 </script>

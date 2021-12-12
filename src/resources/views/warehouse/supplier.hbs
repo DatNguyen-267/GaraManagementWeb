@@ -45,7 +45,6 @@
   </div>
 </div>
 
-
 {{!-- Modal sửa nhà cung cấp --}}
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editSupplierLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -214,8 +213,13 @@
         Validator.isNumber('#add-telephone')
       ],
       onSubmit: function () {
-        formAdd.action = 'supplier/create'
-        formAdd.submit()
+        var name = document.getElementById('add-name').value
+        if(!checkExist(name)) {
+          formAdd.action = 'supplier/create'
+          formAdd.submit()
+        } else {
+          alert("Nhà cung cấp này đã tồn tại")
+        }
       }
     })
 
@@ -230,10 +234,25 @@
         Validator.isNumber('#edit-telephone')
       ],
       onSubmit: function () {
-        formEdit.action = 'supplier/' + supplierID + '/?_method=PUT'
+        var name = document.getElementById('edit-name').value
+        if(!checkExist(name)) {
+          formEdit.action = 'supplier/' + supplierID + '/?_method=PUT'
         formEdit.submit()
+        } else {
+          alert("Nhà cung cấp này đã tồn tại")
+        }
       }
     })
+
+    var supplierList = document.getElementById('table-data').rows
+    const checkExist = (name) => {
+      for(var row of supplierList) {
+        if(name == row.cells[0].textContent) {
+          return true
+        }
+      }
+      return false
+    }
 
     document.getElementById('table-to-excel-btn').onclick = function () {
       var table2Excel = new Table2Excel()
