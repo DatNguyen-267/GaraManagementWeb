@@ -31,16 +31,20 @@
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Số lần vi phạm</th>
                     <th scope="col">Số ngày nghỉ</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   {{#each data}}
-                  <tr employeeID = "{{this.employee._id}}" employeeNumber = "{{this.employee.phoneNumber}}">
+                  <tr>
                     <th scope="row">{{sum @index 1}}</th>
                     <td id = "employeeName">{{this.employee.name}}</td>
                     <td>{{this.employee.Tag}}</td>
                     <td>{{this.errorCount}}</td>
                     <td>{{this.dateoffCount}}</td>  
+                    <td>
+                       <button class = "btn--view-item" employeeID = "{{this.employee._id}}" employeeNumber = "{{this.employee.phoneNumber}}">Xem</i></button>
+                    </td>
                   </tr>
                   {{/each}}
               </table> 
@@ -131,12 +135,19 @@
           }   
         }
       })
-      $('#managerTable tbody tr').click(function () {
+      $(".btn--view-item").click(function() {
+          id = $(this).attr('employeeID')
+          $('#info_employeeName').text("Tên nhân viên: " + $(this).children('#employeeName').text());
+          $('#info_phoneNumber').text("SĐT: " + $(this).attr('employeeNumber'));
+          infoForm.action = 'employeeManagerment/' + id + '/info'
+          infoForm.submit();
+      });
+      /*$('#managerTable tbody tr').click(function () {
         id = $(this).attr('employeeID')
         $('#info_employeeName').text("Tên nhân viên: " + $(this).children('#employeeName').text());
         $('#info_phoneNumber').text("SĐT: " + $(this).attr('employeeNumber'));
         infoForm.action = 'employeeManagerment/' + id + '/info'
         infoForm.submit();
-      });
+      });*/
     });
     </script>

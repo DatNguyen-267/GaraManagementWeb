@@ -14,7 +14,7 @@ class RegisterController {
             })
             .then((position) => { 
                 Account.find({})
-                    .then((account)=> {
+                    .then((account)=> { 
                         Employee.find({})
                         .then((employees) =>{
                             var data = [];
@@ -50,34 +50,28 @@ class RegisterController {
 
     create(req,res,next){
         const newAccount = new Account(req.body)
-        newAccount.save()
+        //res.send(req.body)
+        Employee.updateOne({_id: req.body.of_employee},{$set:{haveAccount:"true"}})
+            .then(()=>{
+                newAccount.save()
             .then(() => {
                 res.redirect('back')
             }) // Khi thành công 
-            .catch(next) // Khi thất bại
-    }
-    edit(req,res,next){
-        Employee.updateOne({_id: req.params.id} , req.body)
-            .then(()=> {
-                res.redirect('back')
+            .catch(next) 
             })
-            .catch(next)
+        // Khi thất bại*/
     }
     delete(req,res,next){
         const idDelete = req.params.id
-        DateOff.delete({employeeID:idDelete})
+        //res.send(req.params.id)
+        Employee.updateOne({_id: req.body.of_employee},{$set:{haveAccount:"false"}})
             .then(()=>{
-                Error.delete({employeeID:idDelete})
-                    .then(() =>{
-                        Employee.delete({_id:idDelete})
-                            .then(()=> {
-                                res.redirect('back')
-                            }) 
-                            .catch(next)
-                    })
-                
+                Account.delete({_id:idDelete})
+                .then(()=> {
+                    res.redirect('back')
+                }) 
+                .catch(next)
             })
-       
     } 
     
 }
