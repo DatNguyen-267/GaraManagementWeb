@@ -344,6 +344,7 @@
         Validator.isRequire('#customer-edit-address', 'Vui chọn nhập địa chỉ'),
         Validator.isRequire('#customer-edit-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isNumber('#customer-edit-cardIdentify'),
+        Validator.isDuplicate('#customer-edit-cardIdentify', '#table-body',4, 'CMND đã tồn tại. Vui lòng nhập lại!'),
         Validator.minLength('#customer-edit-cardIdentify', 9),
         Validator.isRequire('#customer-edit-email', 'Vui lòng nhập email'),
         Validator.isEmail('#customer-edit-email'),
@@ -399,6 +400,7 @@
       $('#customer-edit-address').val(rowData.cells[3].textContent)
       $('#customer-edit-phone').val(rowData.cells[6].textContent)
       $('#customer-edit-email').val(rowData.cells[5].textContent)
+      $('#customer-edit-cardIdentify').attr('data-old', rowData.cells[4].textContent )
 
     })
     //btnSubmitEdit.click(function () {

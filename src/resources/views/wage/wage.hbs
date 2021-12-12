@@ -189,17 +189,17 @@
         });
     });
     //Hiện thông báo khi bị trùng loại tiền công
-    var check_cardIdentify = document.getElementById('check_cardIdentify').value
-    if(check_cardIdentify == 1){
-      if(confirm("Không thể thêm do trùng loại tiền công!!!") == true || confirm("Không thể thêm do trùng loại tiền công!!!") == false){
-        history.back()
-      }
-    }
-    if(check_cardIdentify == 2){
-      if(confirm("Không thể sửa đổi do trùng loại tiền công!!!") == true || confirm("Không thể sửa đổi do trùng loại tiền công!!!") == false){
-        history.back()
-      }
-    }
+    //var check_cardIdentify = document.getElementById('check_cardIdentify').value
+    //if(check_cardIdentify == 1){
+    //  if(confirm("Không thể thêm do trùng loại tiền công!!!") == true || confirm("Không thể thêm do trùng loại tiền công!!!") == false){
+    //    history.back()
+    //  }
+    //}
+    //if(check_cardIdentify == 2){
+    //  if(confirm("Không thể sửa đổi do trùng loại tiền công!!!") == true || confirm("Không thể sửa đổi do trùng loại tiền công!!!") == false){
+    //    history.back()
+    //  }
+    //}
     //Validate
 
     Validator({
@@ -222,6 +222,7 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#wage-edit-name', 'Vui lòng nhập tên tiền công'),
+        Validator.isDuplicate('#wage-edit-name', '#table-body',2, 'Loại tiền công đã tồn tại. Vui lòng nhập lại!'),
         Validator.isRequire('#wage-edit-money', 'Vui lòng nhập số tiền công'),
         Validator.isNumber('#wage-edit-money'),
         //Validator.minLength('#reception-add-receptionDate',6),
@@ -263,8 +264,9 @@
     btnEdit.click(function () {
       var id = $(this).data('id')
       var rowData = $(this).parents('tr')[0]
-      $('#wage-edit-name').val(rowData.cells[1].textContent)
-      $('#wage-edit-money').val(rowData.cells[2].textContent)
+      $('#wage-edit-name').val(rowData.cells[2].textContent)
+      $('#wage-edit-money').val(rowData.cells[3].textContent)
+      $('#wage-edit-name').attr('data-old',rowData.cells[2].textContent)
 
     })
     //btnSubmitEdit.click(function () {

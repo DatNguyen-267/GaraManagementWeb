@@ -30,61 +30,69 @@ class CustomerController {
     create(req, res, next) {
         var check = 0
         const customer = new Customer(req.body)
-        Customer.find({})
-        .then(customers => {
-            for (const iteam of customers) {
-                if( iteam.cardIdentify == customer.cardIdentify)
-                {
-                    check = 1
-                    
-                }
-            }
-            if(check == 1){
-               res.render('customer/customer', {
-                    customers: mutipleMongooseToObject(customers),
-                    activeManagementCustomer: true,
-                    activeCustomer: true,
-                    check,
-                })
-            }
-            else{
-                customer.save()
-                .then(() => {
-                    res.redirect('back')
-
-                })
-                .catch(next)
-            }
+        customer.save()
+        .then(() => {
+            res.redirect('back')
         })
         .catch(next)
+        // Customer.find({})
+        // .then(customers => {
+        //     for (const iteam of customers) {
+        //         if( iteam.cardIdentify == customer.cardIdentify)
+        //         {
+        //             check = 1
+                    
+        //         }
+        //     }
+        //     if(check == 1){
+        //        res.render('customer/customer', {
+        //             customers: mutipleMongooseToObject(customers),
+        //             activeManagementCustomer: true,
+        //             activeCustomer: true,
+        //             check,
+        //         })
+        //     }
+        //     else{
+        //         customer.save()
+        //         .then(() => {
+        //             res.redirect('back')
+
+        //         })
+        //         .catch(next)
+        //     }
+        // })
+        // .catch(next)
         
     }
     edit(req, res, next) {
-        var check = 0
-        const customer = new Customer(req.body)
-        Customer.find({})
-        .then(customers => {
-            for (const iteam of customers) {
-                if( iteam.cardIdentify == customer.cardIdentify && iteam._id !=req.params.id)
-                {
-                    check = 2
-                }
-            }
-            if(check == 2){
-               res.render('customer/customer', {
-                    customers: mutipleMongooseToObject(customers),
-                    activeManagementCustomer: true,
-                    activeCustomer: true,
-                    check,
-                })
-            }
-            else{
-                Customer.updateOne({ _id: req.params.id }, req.body)
-                .then(() => res.redirect('back'))
-                .catch(next)
-            }
-        })
+        Customer.updateOne({ _id: req.params.id }, req.body)
+        .then(() => res.redirect('back'))
         .catch(next)
+        // var check = 0
+        // const customer = new Customer(req.body)
+        // Customer.find({})
+        // .then(customers => {
+        //     for (const iteam of customers) {
+        //         if( iteam.cardIdentify == customer.cardIdentify && iteam._id !=req.params.id)
+        //         {
+        //             check = 2
+        //         }
+        //     }
+        //     if(check == 2){
+        //        res.render('customer/customer', {
+        //             customers: mutipleMongooseToObject(customers),
+        //             activeManagementCustomer: true,
+        //             activeCustomer: true,
+        //             check,
+        //         })
+        //     }
+        //     else{
+        //         Customer.updateOne({ _id: req.params.id }, req.body)
+        //         .then(() => res.redirect('back'))
+        //         .catch(next)
+        //     }
+        // })
+        // .catch(next)
         
     }
     delete(req, res, next) {
