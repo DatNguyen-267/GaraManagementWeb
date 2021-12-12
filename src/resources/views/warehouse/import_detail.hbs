@@ -147,57 +147,70 @@
 {{!-- Danh sách vật tư --}}
 
 <div class="grid__content">
-  <div class="template__title">
-    Danh sách phiếu nhập kho > Danh sách vật tư
-</div>
-
-<div class="toolbar">
-    <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
-        <span class="toolbar__search-icon ti-search"> </span>
-    </div>
-    <div class="toolbar__filter"></div>
-    <div class="toolbar__btn">
-        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm vật tư</button>
-    </div>
-</div>
-
-<div class="row">
-  <div class="d-grid gap-2 d-flex justify-content-end">
-    <button
-      type="button"
-      class="btn btn-warning"
-      data-bs-toggle="modal"
-      data-bs-target="#importModal"
-    >
-      Nhập kho
-    </button>
+  <div class="header__breadcrumb">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/{{User._id}}/import">Danh sách phiếu nhập kho</a></li>
+            <li class="breadcrumb-item"><a href="#">Danh sách vật tư</a></li>
+        </ol>
+    </nav>
   </div>
-</div>
 
-<table class="table table--default">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Tên vật tư</th>
-      <th scope="col">Số lượng</th>
-      <th scope="col">Giá nhập</th>
-      <th scope="col" colspan="2">Thao tác</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each details}}
+  <div class="import-detail">
+    <div class="info-group">
+      <label for="">Mã phiếu nhập kho:</label>
+      <label id="label-repair-id">{{voucher.import_id}}</label>
+    </div>
+    <div class="info-group">
+      <label for="">Nhà cung cấp:</label>
+      <label id="label-repair-id">{{voucher.of_supplier.name}}</label>
+    </div>
+    <div class="info-group">
+      <label for="">Ngày nhập kho:</label>
+      <label id="label-repair-id">{{voucher.import_date}}</label>
+    </div>
+    <div class="info-group">
+      <label for="">Tổng tiền</label>
+      <label id="label-repair-id">{{voucher.total_price}}đ</label>
+    </div>
+  </div>
+
+  <div class="toolbar">
+      <div class="toolbar__search">
+          <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm vật tư" id="search-key">
+          <span class="toolbar__search-icon ti-search"> </span>
+      </div>
+      <div class="toolbar__filter"></div>
+      <div class="toolbar__btn">
+          <button class="toolbar__btn-add btn btn-primary" {{isDisable voucher.imported}} data-toggle="modal" data-target="#addModal">Thêm vật tư</button>
+          <button class="toolbar__btn-add btn btn-primary" {{isDisable voucher.imported}} {{isDisable isEmpty}} data-bs-toggle="modal" data-bs-target="#importModal">Nhập kho</button>
+      </div>
+  </div>
+
+  <table class="table table--default" id="material-list">
+    <thead class="thead-dark">
       <tr>
-        <td>{{this.material.name}}</td>
-        <td>{{this.amount}}</td>
-        <td>{{this.import_price}}</td>
-        <td>
-          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
-          <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
-        </td>
+        <th scope="col">Tên vật tư</th>
+        <th scope="col">Số lượng</th>
+        <th scope="col">Giá nhập</th>
+        <th scope="col" colspan="2">Thao tác</th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each details}}
+        <tr>
+          <td>{{this.material.name}}</td>
+          <td>{{this.amount}}</td>
+          <td>{{this.import_price}}đ</td>
+          <td>
+            <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+            <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
 
 <form name="form-delete" method="POST" action=""></form>
 <form name="form-import" method="POST" action=""></form>
@@ -285,6 +298,27 @@
 
     btnModalImport.onclick = function () {
       formImport.submit()
+    }
+
+    document.getElementById('search-key').onkeyup = function() {
+      var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-key");
+        filter = input.value;
+        table = document.getElementById("material-list");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+        }
     }
   })
 </script>
