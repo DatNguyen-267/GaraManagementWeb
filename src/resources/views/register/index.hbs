@@ -1,44 +1,41 @@
 
-<link rel="stylesheet" href="/css/employeeList.css">
+<link rel="stylesheet" href="/css/register.css">
 
 <title>Danh sách nhân viên</title>
     <div class = "grid__content">
       <div class="header__breadcrumb">
           <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Danh sách nhân viên</a></li>
+                  <li class="breadcrumb-item"><a href="#">Quản lý tài khoản</a></li>
               </ol>
           </nav>
       </div>
-      <header class = "employeeList__header">
+      <header>
 
         <div class="toolbar">
           <div class="toolbar__search">
             <div class="search-form">
-            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin tài khoản" aria-label="Search">
               <button type="button" class="search-button">
                 <span class="ti-search "> </span>
               </button>
             </div>
           </div>
           <div class="toolbar__btn">
-            <button class="header__btn-add btn btn-primary" id = "btn--add-item">Thêm nhân viên mới</button>
+            <button class="header__btn-add btn btn-primary" id = "btn--add-item">Thêm tài khoản mới</button>
           </div>
         </div>
     </header>
-    <body class = "employeeList__body">
+    <body class = "register__body">
         <div class = "table-responsive">
-            <table class="table table--default employeeList__body__table" id = "employeeTable" >
+            <table class="table table--default employeeList__body__table" id = "accountTable" >
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Họ và Tên</th>
-                    <th scope="col">Địa chỉ</th>
-                    <th scope="col">Số điện thoại</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">CMND</th>
+                    <th scope="col">Tên tài khoản</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Tên nhân viên</th>
                     <th scope="col">Chức vụ</th>
-                    <th scope="col">Ngày bắt đầu làm</th>
                     <th scope="col"></th> 
                   </tr>
                 </thead>
@@ -51,9 +48,6 @@
                     <td id = "address">{{this.address}}</td>
                     <td id = "phoneNumber">{{this.phoneNumber}}</td>
                     <td id = "email">{{this.email}}</td>
-                    <td id = "CMND">{{this.CMND}}</td>  
-                    <td id = "tag">{{this.Tag}}</td>
-                    <td id = "startDate">{{this.startDate}}</td>
                     <td>
                       <button class = "btn--edit-item">Sửa</i></button>
                       <button class = "btn--delete-item">Xóa</i></button>
@@ -254,7 +248,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
-        table = document.getElementById("employeeTable");
+        table = document.getElementById("accountTable");
         tr = $("tbody tr");
         for (i = 0; i < tr.length; i++) {
           var td1 = tr[i].getElementsByTagName("td")[0];
@@ -325,7 +319,7 @@
           employeeID = $(this).closest("tr").attr('employeeID');
           $("#deleteModal").modal();
       });
-      $('#employeeTable tbody tr').click(function () {
+      $('#accountTable tbody tr').click(function () {
         employeeID = $(this).attr('employeeID')
       });
       //add validator
@@ -342,9 +336,9 @@
         Validator.isRequire('#n_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
         Validator.isNumber('#n_cmnd'),
         Validator.isNumber('#n_phoneNumber'),
-        Validator.isDuplicate('#n_email', '#employeeTable',4, 'Email đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#n_phoneNumber', '#employeeTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#n_cmnd', '#employeeTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#n_email', '#accountTable',4, 'Email đã tồn tại. Vui lòng nhập lại!'),
+        Validator.isDuplicate('#n_phoneNumber', '#accountTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!'),
+        Validator.isDuplicate('#n_cmnd', '#accountTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
             
@@ -367,9 +361,9 @@
         Validator.isRequire('#m_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
         Validator.isNumber('#m_cmnd'),
         Validator.isNumber('#m_phoneNumber'),
-        Validator.isDuplicate('#m_email', '#employeeTable',4, 'Email đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#m_phoneNumber', '#employeeTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#m_cmnd', '#employeeTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#m_email', '#accountTable',4, 'Email đã tồn tại. Vui lòng nhập lại!'),
+        Validator.isDuplicate('#m_phoneNumber', '#accountTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!'),
+        Validator.isDuplicate('#m_cmnd', '#accountTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formEdit.action = 'employeeList/' + employeeID + '/edit?_method=PUT' 

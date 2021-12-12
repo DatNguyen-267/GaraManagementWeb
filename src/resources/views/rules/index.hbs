@@ -188,6 +188,7 @@ crossorigin="anonymous"></script>
           $('#m_content').val($(this).closest("tr").find(".content").text());
           $('#m_description').val($(this).closest("tr").find(".description").text());
           $("#modifiedModal").modal();
+          $('#m_content').attr('data-old',$(this).closest("tr").find(".content").text() )
       });
       
       $("#btn--add-item").click(function() {
@@ -224,6 +225,7 @@ crossorigin="anonymous"></script>
       rules: [
         Validator.isRequire('#m_content', 'Vui nhập tên quy định'),
         Validator.isRequire('#m_description', 'Vui nhập mô tả'),
+        Validator.isDuplicate('#m_content', '#ruleTable',1, 'Tên quy định đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formEdit.action = 'rules/' + ID + '/edit?_method=PUT' 

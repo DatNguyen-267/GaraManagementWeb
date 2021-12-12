@@ -134,7 +134,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="summit" class="btn btn-primary">Thêm</button>
+                  <button type="submit" class="btn btn-primary">Thêm</button>
                 </div>
               </div>
             </div>
@@ -214,7 +214,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                  <button type="button" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
+                  <button type="submit" class="btn btn-primary" id = "btn-accept-edit">Lưu</button>
                 </div>
               </div>
             </div>
@@ -333,6 +333,7 @@
           $('#m_tag').val($(this).closest("tr").find(".tag").text());
           $('#m_salary').val($(this).closest("tr").find(".salary").text());
           $('#m_percent').val($(this).closest("tr").find(".percent").text());
+          $('#m_tag').attr('data-old', $(this).closest("tr").find(".tag").text())
           permission.forEach(element => {
              var x = "#check_" + (element);
             $(x).attr('checked', 'checked');
@@ -366,50 +367,30 @@
           Validator.isDuplicate('#m_tag', '#tagTable',1, 'Tên chức vụ đã tồn tại. Vui lòng nhập lại!')
         ],
         onSubmit: function() {
-            formAddTag.submit()  
+            formEdit.action = 'employeeTag/' + tagID + '/edit?_method=PUT'
+            formEdit.submit()  
           }
         });
-      })
-      
-      
-    
-      btnAcceptEdit.click(function() {
-        
-        formEdit.action = 'employeeTag/' + tagID + '/edit?_method=PUT'
-        formEdit.submit()
-      })
-      
-
-      document.addEventListener('DOMContentLoaded', function () {
-      
-      
-      
-
-      $('#form-edit').on('shown.bs.modal', function (event) {
-          var button = $(event.relatedTarget)
-          employeeID = button.data('id')
-      })
-      
-      btnEdit.click(function(){
-        var row = $(this).parents('tr')[0]
-        $('#form-edit-name').val(row.cells[1].textContent)
-      })
-    });
-
-
-    //delete
-
-    $(".btn--delete-item").click(function() {
-          tagID = $(this).closest("tr").attr('id-tag');
-          if ($(this).attr('flat') == 'true')
-          $("#deleteModal").modal();
-          else
-          alert("Tồn tại nhân viên thuộc chức vụ này!!! Vui lòng kiểm tra lại!!!")
-      });
-      btnDelete.click(function() {
+        btnDelete.click(function() {
           formDelete.action ='employeeTag/' + tagID + '/delete?_method=DELETE'
           formDelete.submit();
+        })
+        $(".btn--delete-item").click(function() {
+            tagID = $(this).closest("tr").attr('id-tag');
+            if ($(this).attr('flat') == 'true')
+            $("#deleteModal").modal();
+            else
+            alert("Tồn tại nhân viên thuộc chức vụ này!!! Vui lòng kiểm tra lại!!!")
       })
+      });
+      
+      
+
+      
+    //delete
+
+   
+      
 
 
     </script>
