@@ -1,15 +1,11 @@
 
 <link rel="stylesheet" href="/css/employeeList.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <title>Danh sách nhân viên</title>
     <div class = "grid__content">
         <header class = "employeeList__header">
@@ -43,7 +39,7 @@ crossorigin="anonymous"></script>
                 <tbody>
                   
                   {{#each employee}}
-                    <tr employeeID = "{{this._id}}">
+                    <tr employeeID = "{{this._id}}"   n >
                     <th scope="row">{{sum @index 1}}</th>
                     <td id = "name">{{this.name}}</td>
                     <td id = "address">{{this.address}}</td>
@@ -246,21 +242,6 @@ crossorigin="anonymous"></script>
             currency: 'VND',
           });
       var employeeID;
-      function salaryCal(percent,salary){
-          percent = percent.replace('%','');
-          var startDate = new Date($('#m_startDate').val());
-          var ageDifMs = Date.now() - startDate;
-          var ageDate = new Date(ageDifMs); // miliseconds from epoch
-          var workYears = Math.abs(ageDate.getUTCFullYear() - 1970);
-          salary = salary.replaceAll('.','')
-          salary = salary.replace('₫','')
-          var temp = parseInt(salary) * 1.0;
-          for(var i = 0; i < workYears; i++){
-            temp += temp * parseInt(percent) / 100.0
-          }
-          temp = Math.round(temp/1000)*1000
-          return temp;
-      }
       function search(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
@@ -296,8 +277,8 @@ crossorigin="anonymous"></script>
           $('#m_tag').val($(this).closest("tr").find("#tag").text());
           $('#m_percent').val($('option:selected').attr('percent'));
           $('#m_startDate').val($(this).closest("tr").find("#startDate").text());
-          $('#m_salary').val(formatter.format(salaryCal($('option:selected').attr('percent'),$('option:selected').attr('salary') )));
-          $('#m_tagID').val($('option:selected').attr('tagID'));
+          $('#m_salary').val($('.mOps:selected').attr('salary'));
+          $('#m_tagID').val($('.mOps:selected').attr('tagID'));
           $("#modifiedModal").modal();
       });
       
@@ -352,10 +333,9 @@ crossorigin="anonymous"></script>
         Validator.isNumber('#n_phoneNumber'),
       ],
       onSubmit: function() {
+            
           formAddEmployee.action = 'employeeList/create'
           $('#n_tagID').val($('.nOps:selected').attr('tagID'));
-          $('#n_salary').val($('.nOps:selected').attr('salary'));
-          $('#n_percent').val($('.nOps:selected').attr('percent'));
           formAddEmployee.submit()  
         }
       })
@@ -375,10 +355,30 @@ crossorigin="anonymous"></script>
         Validator.isNumber('#m_phoneNumber'),
       ],
       onSubmit: function() {
+          var flat = false;
+          $('#employeeTable tbody tr').each(function() {
+              // Encode column and content information.
+                if ($(this).find("#email").text() == $('#m_email').val()){
+                  alert("Email đã tồn tại!!! Vui lòng kiểm tra lại!!!")
+                  flat =true;
+                  return;
+                }
+                if ($(this).find("#phoneNumber").text() == $('#m_phoneNumber').val()){
+                  alert("Số điện thoại đã tồn tại!!! Vui lòng kiểm tra lại!!!")
+                  flat =true;
+                  return;
+                }
+                if ($(this).find("#CMND").text() == $('#m_cmnd').val()){
+                  alert("CMND đã tồn tại!!! Vui lòng kiểm tra lại!!!")
+                  flat =true;
+                  return;
+                }
+                
+              }
+          );
+          if (flat) return;
           formEdit.action = 'employeeList/' + employeeID + '/edit?_method=PUT' 
           $('#m_tagID').val($('.mOps:selected').attr('tagID'));
-          $('#m_salary').val($('.mOps:selected').attr('salary'));
-          $('#m_percent').val($('.mOps:selected').attr('percent'));
           formEdit.submit()
         }
       })

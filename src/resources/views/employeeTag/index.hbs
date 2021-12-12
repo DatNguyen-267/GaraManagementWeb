@@ -3,13 +3,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <title>Danh sách nhân viên</title>
 <div class = "grid__content">
@@ -39,16 +35,16 @@ crossorigin="anonymous"></script>
                   </tr>
                 </thead>
                 <tbody>
-                  {{#each tag}}
+                  {{#each data}}
                   
-                  <tr permission-data = "{{this.permissions}}" id-tag = "{{this._id}}" >
+                  <tr permission-data = "{{this.item.permissions}}" id-tag = "{{this.item._id}}" >
                     <td class = "count">{{sum @index 1}}</td>
-                    <td class = "tag">{{this.name}}</td>
-                    <td class = "salary">{{this.salary}}</td>
-                    <td class = "percent">{{this.percent}}</td>
+                    <td class = "tag">{{this.item.name}}</td>
+                    <td class = "salary">{{this.item.salary}}</td>
+                    <td class = "percent">{{this.item.percent}}</td>
                     <td>
                       <button class = "btn--edit-item" >Sửa</i></button>
-                      <button class = "btn--delete-item">Xóa</i></button>
+                      <button class = "btn--delete-item" flat = "{{this.flat}}">Xóa</i></button>
                     </td>
 
                   </tr>
@@ -85,13 +81,13 @@ crossorigin="anonymous"></script>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="1" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Quản lý quy định
+                            Quản lý xe
                           </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="2" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý nhân viên
+                            Quản lý Khách hàng
                           </label>
                         </div>
                       </div>
@@ -99,13 +95,13 @@ crossorigin="anonymous"></script>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="3" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Quản lý dịch vụ
+                            Quản lý nhân viên
                           </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="4" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý khách hàng
+                            Quản lý kho
                           </label>
                         </div>
                       </div>
@@ -113,13 +109,13 @@ crossorigin="anonymous"></script>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="5" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Quản lý kho
+                            Báo cáo
                           </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="6" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Báo cáo
+                            Quản lý quy định
                           </label>
                         </div>
                       </div>
@@ -357,7 +353,10 @@ crossorigin="anonymous"></script>
 
     $(".btn--delete-item").click(function() {
           tagID = $(this).closest("tr").attr('id-tag');
+          if ($(this).attr('flat') == 'true')
           $("#deleteModal").modal();
+          else
+          alert("Tồn tại nhân viên thuộc chức vụ này!!! Vui lòng kiểm tra lại!!!")
       });
       btnDelete.click(function() {
           formDelete.action ='employeeTag/' + tagID + '/delete?_method=DELETE'

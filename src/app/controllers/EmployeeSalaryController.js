@@ -74,10 +74,8 @@ class EmployeeSalaryController {
 
                                                 }
                                             }
-                                            var salary = item.salary;
-                                            salary = salary.replaceAll('.','')
-                                            salary = salary.replace('₫','')
-                                            var finalSalary = (parseInt(salary)) - fineSum
+                                            var salary = salaryCal(item.salary,item.percent,item.startDate,Date.now());
+                                            var finalSalary = salary - fineSum
                                             var formatter = new Intl.NumberFormat('vi-VN', {
                                                 style: 'currency',
                                                 currency: 'VND',
@@ -175,10 +173,8 @@ class EmployeeSalaryController {
 
                                                 }
                                             }
-                                            var salary = item.salary;
-                                            salary = salary.replaceAll('.','')
-                                            salary = salary.replace('₫','')
-                                            var finalSalary = (parseInt(salary)) - fineSum
+                                            var salary = salaryCal(item.salary,item.percent,item.startDate,new Date(today));
+                                            var finalSalary = salary - fineSum
                                             var formatter = new Intl.NumberFormat('vi-VN', {
                                                 style: 'currency',
                                                 currency: 'VND',
@@ -210,7 +206,7 @@ class EmployeeSalaryController {
         const newSalaryInfo = new SalaryInfo(req.body)
         newSalaryInfo.save()
             .then(() => {
-                res.redirect('/employeeSalary')
+                res.redirect('back')
             }) // Khi thành công 
             .catch(next) // Khi thất bại
     }
@@ -227,10 +223,30 @@ class EmployeeSalaryController {
         const idDelete = req.params.id
         SalaryInfo.delete({ID:idDelete})
             .then(()=> {
-                res.redirect('/employeeSalary')
+                res.redirect('back')
             }) 
             .catch(next)
     } 
+    
+    
+    
+}
+
+function salaryCal(salary,percent,startDate,today){
+    if (percent == null || salary == null) return;
+    percent = percent.replace('%','');
+    var startDate = new Date(startDate);
+    var ageDifMs = today - startDate;
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    var workYears = Math.abs(ageDate.getUTCFullYear() - 1970);
+    salary = salary.replaceAll('.','')
+    salary = salary.replace('₫','')
+    var temp = parseInt(salary) * 1.0;
+    for(var i = 0; i < workYears; i++){
+      temp += temp * parseInt(percent) / 100.0
+    }
+    temp = Math.round(temp/1000)*1000
+    return temp;
 }
 
 
