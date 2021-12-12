@@ -50,7 +50,7 @@
                 <tbody>
                     {{#each data}}
                     <tr percent = "{{this.item.percent}}" startDate = "{{this.item.startDate}}" salary = "{{this.item.salary}}" 
-                    dateoffCount = "{{this.dateOffCount}}" errorCount = "{{this.errorCount}}">
+                    dateoffCount = "{{this.dateOffCount}}" errorCount = "{{this.errorCount}}" mSalary = "{{this.mSalary}}">
                       <input type="hidden" value="{{this.item._id}}" name = "eIDs">
                       <input type="hidden" value="{{this.item.salary}}" name = "finalSalarys">
                       <th scope="row">{{sum @index 1}}</th>
@@ -173,7 +173,7 @@
       $('#employeeTable tbody tr').click(function () {
         $('#i_name').text($(this).closest("tr").find("#name").text());
         $('#i_tag').text($(this).closest("tr").find("#tag").text());
-        $('#i_salary').text($(this).attr('salary'));
+        $('#i_salary').text($(this).closest("tr").attr('mSalary'));
         $('#i_bonus').val($(this).closest("tr").find("#bonus").text());
         $('#i_errorSum').text($(this).closest("tr").find("#sum").text());
         $('#i_dateoffCount').text($(this).closest("tr").attr("dateoffCount"));

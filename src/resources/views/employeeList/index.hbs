@@ -105,7 +105,7 @@
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="" id = "m_tag">
-                            <option value= "" disabled selected>Chọn loại nhân viên</option>
+                            <option value= "" disabled selected>--- Chọn chức vụ nhân viên ---</option>
                             {{#each tag}}
                             <option value="{{this.name}}" salary = "{{this.salary}}" percent ="{{this.percent}}" tagID = {{this._id}} class= "mOps">{{this.name}}</option>
                             {{/each}}
@@ -180,7 +180,7 @@
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Chức vụ:</label>
                       <select class = "form-control" name="Tag" placeholder="" id = "n_tag">
-                            <option value= "" disabled selected>--- Chọn loại nhân viên ---</option>
+                            <option value= "" disabled selected>--- Chọn chức vụ nhân viên ---</option>
                             {{#each tag}}
                               <option value="{{this.name}}" salary = "{{this.salary}}" percent="{{this.percent}}" tagID = {{this._id}} class= "nOps">{{this.name}}</option>
                             {{/each}}
@@ -203,6 +203,7 @@
                       <input type="text" class="form-control" name="percent" readonly id = "n_percent" placeholder="%/năm">
                       <span class="form-message"></span> 
                     </div>
+                    <input type="hidden" class="form-control" name="haveAccount"  value = "false">
                   </form>
                 </div>
                 <div class="modal-footer">
@@ -323,7 +324,7 @@
       form: '#form-add-employeeList', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
-        Validator.isRequireSelectBox('#n_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
+        Validator.isRequireSelectBox('#n_tag','--- Chọn chức vụ nhân viên ---', 'Vui chọn chức vụ nhân viên'),
         Validator.isRequire('#n_name', 'Vui nhập tên nhân viên'),
         Validator.isRequire('#n_address', 'Vui nhập địa chỉ'),
         Validator.isRequire('#n_email', 'Vui nhập email'),
@@ -348,7 +349,7 @@
       form: '#form-edit-employeeList', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
-        Validator.isRequireSelectBox('#m_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
+        Validator.isRequireSelectBox('#m_tag','--- Chọn chức vụ nhân viên ---', 'Vui chọn chức vụ nhân viên'),
         Validator.isRequire('#m_name', 'Vui nhập tên nhân viên'),
         Validator.isRequire('#m_address', 'Vui nhập địa chỉ'),
         Validator.isRequire('#m_email', 'Vui nhập email'),

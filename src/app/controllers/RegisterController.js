@@ -16,12 +16,28 @@ class RegisterController {
                 Account.find({})
                     .then((account)=> {
                         Employee.find({})
-                        .then((tag) =>{
+                        .then((employees) =>{
+                            var data = [];
+                            var noAccounts = [];
+                            for (var item of account){
+                                for (var employee of employees){
+                                    if (item.of_employee.toString() == employee._id.toString()){
+                                        data.push({item:mongooseToOject(item),employee:mongooseToOject(employee)})
+                                    }
+                                }
+                            }
+                            for (var employee of employees){
+                                if (employee.haveAccount == "false"){
+                                    noAccounts.push({employee:mongooseToOject(employee)})
+                                }
+                            }
                             res.render('register/index', {
-                            activeEmployee: true,
-                            activeAccountManager: true,
-                            Permissions: mongooseToOject(position.permissions),
-                            User: mongooseToOject(res.locals.employee)
+                                noAccounts,
+                                data,
+                                activeEmployee: true,
+                                activeAccountManager: true,
+                                Permissions: mongooseToOject(position.permissions),
+                                User: mongooseToOject(res.locals.employee)
                     }
                     )
                     })
@@ -33,8 +49,8 @@ class RegisterController {
     };
 
     create(req,res,next){
-        const newEmployeeManagerment = new Employee(req.body)
-        newEmployeeManagerment.save()
+        const newAccount = new Account(req.body)
+        newAccount.save()
             .then(() => {
                 res.redirect('back')
             }) // Khi thành công 

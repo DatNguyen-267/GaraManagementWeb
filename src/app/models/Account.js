@@ -4,7 +4,7 @@ const mongooseDelete = require('mongoose-delete')
 const Scheme = mongoose.Schema
 
 const Account = new Scheme({
-    of_employee: [{ type: Scheme.Types.ObjectId, ref: 'Employee'}],
+    of_employee: { type: Scheme.Types.ObjectId, ref: 'Employee'},
     account: {type: String},
     password: {type: String},
 }, {
