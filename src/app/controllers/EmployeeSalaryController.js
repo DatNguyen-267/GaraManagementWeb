@@ -20,7 +20,7 @@ class EmployeeSalaryController {
                                 DateOff.find()
                                     .then((dateoff) =>{
                                         var data = []
-                                        var today,firstDate,lastDate;
+                                        var today,firstDate,lastDate,mSalary;
                                         for (var item of employee){
                                             var fineSum = 0;
                                             var errorCount = 0;
@@ -75,14 +75,16 @@ class EmployeeSalaryController {
                                                 }
                                             }
                                             var salary = salaryCal(item.salary,item.percent,item.startDate,Date.now());
+                                            
                                             var finalSalary = salary - fineSum
                                             var formatter = new Intl.NumberFormat('vi-VN', {
                                                 style: 'currency',
                                                 currency: 'VND',
                                             });
+                                            mSalary = formatter.format(salary.toString());
                                             fineSum = formatter.format(fineSum.toString());
                                             finalSalary = formatter.format(finalSalary.toString());
-                                            data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount})
+                                            data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount,mSalary})
                                             
                                         }
                                         res.render('employeeSalary/index', {
@@ -94,7 +96,7 @@ class EmployeeSalaryController {
                                             User: mongooseToOject(res.locals.employee),
                                             today,
                                             firstDate,
-                                            lastDate
+                                            lastDate,
                                         })
                                     })
                             })
