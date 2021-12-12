@@ -19,10 +19,12 @@ crossorigin="anonymous"></script>
           </nav>
         </div>
         <div class="toolbar">
-          <div class="toolbar__search">
-            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm quy định" aria-label="Search" onkeyup="search()">
-            <span class="ti-search toolbar__search-icon"> </span>
-          </div>
+          <div class="search-form">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+              <button type="button" class="search-button">
+                <span class="ti-search "> </span>
+              </button>
+            </div>
           <div class="toolbar__btn">
             <button class="header__btn-add btn btn-primary" id = "btn--add-item">Thêm quy định mới</button>
           </div>
@@ -152,8 +154,11 @@ crossorigin="anonymous"></script>
 
 
     <script>
-      var ID;
-      function search(){
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        var ID;
+
+      $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -172,7 +177,7 @@ crossorigin="anonymous"></script>
             }
           }   
         }
-      }
+      })
       Date.prototype.toDateInputValue = (function() {
           var local = new Date(this);
           local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -197,7 +202,6 @@ crossorigin="anonymous"></script>
       $('#employeeTable tbody tr').click(function () {
         employeeID = $(this).attr('employeeID')
       });
-      document.addEventListener('DOMContentLoaded', function () {
       //add validator
       Validator({
       form: '#form-add-rule', // id của cái form cần validate

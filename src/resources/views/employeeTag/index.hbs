@@ -18,10 +18,12 @@
           </nav>
         </div>
         <div class="toolbar">
-          <div class="toolbar__search">
-            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
-            <span class="ti-search toolbar__search-icon"> </span>
-          </div>
+          <div class="search-form">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+              <button type="button" class="search-button">
+                <span class="ti-search "> </span>
+              </button>
+            </div>
 
           <div class="toolbar__btn">
             <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#addModal">Thêm chức vụ</button>
@@ -244,7 +246,9 @@
 </div>
 
     <script>
-       var formatter = new Intl.NumberFormat('vi-VN', {
+      
+      document.addEventListener('DOMContentLoaded', function () {
+         var formatter = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
             currency: 'VND',
         });
@@ -291,7 +295,8 @@
         temp = formatter.format(temp);
         $('#n_salary').val(temp);
       });
-      function search(){
+
+      $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -309,7 +314,7 @@
           }   
                  
         }
-      }
+      })
       $(".btn--edit-item").click(function() {
 
           var data = $(this).closest("tr").attr('permission-data');
@@ -336,7 +341,6 @@
 
 
       });
-      document.addEventListener('DOMContentLoaded', function () {
         Validator({
           form: '#form-add-tag', // id của cái form cần validate
           errorSelector: '.form-message', // tên class để hiện cái lỗi

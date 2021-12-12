@@ -18,10 +18,12 @@
         </div>  
         <h7>{{firstDate}} - {{lastDate}}</h7>
         <div class="toolbar">
-          <div class="toolbar__search">
-            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
-            <span class="ti-search toolbar__search-icon"> </span>
-          </div>
+          <div class="search-form">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+              <button type="button" class="search-button">
+                <span class="ti-search "> </span>
+              </button>
+            </div>
           <div class="dropdown">
             <form method = "GET" name = "form-info" action = "/{{User._id}}/employeeSalary/SalaryInfo">
               <input type="month" class="form-control dataStr" id = "date" name = "date" value="{{today}}">
@@ -148,6 +150,8 @@
 
 
 <script>
+      
+      document.addEventListener('DOMContentLoaded', function () {
       var flat = true;
       var formatter = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -178,7 +182,7 @@
         $("#infoModal").modal();
         $('#i_finalSalary').text($(this).closest("tr").find("#finalSalary").text());
       });
-      function search(){
+      $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -193,13 +197,12 @@
             if (txtValue.includes(filter)) {
               tr[i].style.display = "";
             } else {
-              tr[i].style.display = "none"; 
+              tr[i].style.display = "none";
             }
           }   
         }
-      }
+      })
       
-      document.addEventListener('DOMContentLoaded', function () {
 
       var tdActive;
       var btnChange = $('#btn-change')

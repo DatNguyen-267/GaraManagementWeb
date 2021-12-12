@@ -1,11 +1,6 @@
 
 <link rel="stylesheet" href="/css/employeeList.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <title>Danh sách nhân viên</title>
     <div class = "grid__content">
       <div class="header__breadcrumb">
@@ -19,8 +14,12 @@
 
         <div class="toolbar">
           <div class="toolbar__search">
-            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
-            <span class="ti-search toolbar__search-icon"> </span>
+            <div class="search-form">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+              <button type="button" class="search-button">
+                <span class="ti-search "> </span>
+              </button>
+            </div>
           </div>
           <div class="toolbar__btn">
             <button class="header__btn-add btn btn-primary" id = "btn--add-item">Thêm nhân viên mới</button>
@@ -56,8 +55,8 @@
                     <td id = "tag">{{this.Tag}}</td>
                     <td id = "startDate">{{this.startDate}}</td>
                     <td>
-                      <button class = "btn--edit-item" onclick="">Sửa</i></button>
-                      <button class = "btn--delete-item" onclick="deleted()">Xóa</i></button>
+                      <button class = "btn--edit-item">Sửa</i></button>
+                      <button class = "btn--delete-item">Xóa</i></button>
                     </td>           
                   </tr>
                   {{/each}}
@@ -244,12 +243,14 @@
 
 
     <script>
+      document.addEventListener('DOMContentLoaded', function () {
       var formatter = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
             currency: 'VND',
           });
       var employeeID;
-      function search(){
+      //search
+      $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -268,7 +269,8 @@
             }
           }   
         }
-      }
+      })
+
       Date.prototype.toDateInputValue = (function() {
           var local = new Date(this);
           local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -323,7 +325,6 @@
       $('#employeeTable tbody tr').click(function () {
         employeeID = $(this).attr('employeeID')
       });
-      document.addEventListener('DOMContentLoaded', function () {
       //add validator
       Validator({
       form: '#form-add-employeeList', // id của cái form cần validate
@@ -339,8 +340,8 @@
         Validator.isNumber('#n_cmnd'),
         Validator.isNumber('#n_phoneNumber'),
         Validator.isDuplicate('#n_email', '#employeeTable',4, 'Email đã tồn tại. Vui lòng nhập lại!')
-        Validator.isDuplicate('#n_phoneNumber', '#employeeTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!')
-        Validator.isDuplicate('#n_cmnd', '#employeeTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
+        //Validator.isDuplicate('#n_phoneNumber', '#employeeTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!')
+        //Validator.isDuplicate('#n_cmnd', '#employeeTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
             
