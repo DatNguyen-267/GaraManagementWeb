@@ -12,6 +12,7 @@ const Repair_Detail_Material = require('../models/Repair_Detail_Material')
 const Repair_Detail_Wage = require('../models/Repair_Detail_Wage')
 const Repair_Detail_Employee = require('../models/Repair_Detail_Employee')
 const Position = require('../models/Position')
+const Setting = require('../models/Setting')
 var listReception
 class RepairController {
     show(req, res, next) {
@@ -317,15 +318,20 @@ class RepairController {
                     return position
                     })
                     .then((position) => {
-                        res.render('repairs/contract', {
-                            Repair: mongooseToOject(data.repair),
-                            Detail_Materials: mutipleMongooseToObject(data.materials),
-                            Detail_Wages: mutipleMongooseToObject(data.wages),
-                            activeManagementCar: true,
-                            activeRepair: true,
-                            Permissions: mongooseToOject(position.permissions),
-                            User: mongooseToOject(res.locals.employee)
-                        })
+                        Setting.find({})
+                            .then((setting) => {
+                                res.render('repairs/contract', {
+                                    Repair: mongooseToOject(data.repair),
+                                    Detail_Materials: mutipleMongooseToObject(data.materials),
+                                    Detail_Wages: mutipleMongooseToObject(data.wages),
+                                    activeManagementCar: true,
+                                    activeRepair: true,
+                                    Setting: mongooseToOject(setting[0]),
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(res.locals.employee)
+                                })
+                            })
+                        
                     })
                 
             })
@@ -335,7 +341,7 @@ class RepairController {
     createContract(req, res, next) {
         var contract = new Contract()
         contract.of_repair = req.params.id
-        
+        contract.employee_create = res.locals.employee._id
         contract.save()
             .then(() => {
                 return Repair_Detail_Material.find({ of_repair: req.params.id })
@@ -416,7 +422,7 @@ class RepairController {
             .then((position) => { 
                 Repair.findOne({ _id: req.params.id }).populate({path: 'of_reception', populate: { path: 'of_customer'} })
                     .then((repair) => {
-                        Contract.find({ of_repair: repair._id })
+                        Contract.find({ of_repair: repair._id }).populate('employee_create')
                             .then((contracts) => {
                                 Repair_Detail_Material.find({ of_repair: repair._id })
                                     .then((detailMaterials) => {
@@ -430,7 +436,7 @@ class RepairController {
                                                     temp.createdAtConvert = item.createdAt.toDateString()
                                                     temp.createdAt = item.createdAt
                                                     temp.total_money = item.total_money
-                                                    temp.employee_create = item.employee_create
+                                                    temp.employee_create = mongooseToOject(item.employee_create)
                                                     temp.detailMaterial = []
                                                     temp.detailWage = []    
                                                     newContracts.push(temp)
@@ -450,10 +456,10 @@ class RepairController {
                                                 // res.send(repair)
                                                 res.render('repairs/contract-detail', {
                                                     Repair: mongooseToOject(repair),
-                                                    Contracts: newContracts,
+                                                    Contracts: (newContracts),
                                                     activeManagementCar: true,
                                                     activeRepair: true,
-                                                    Now: new Date(),
+                                                    Now: (new Date()).toISOString(),
                                                     Permissions: mongooseToOject(position.permissions),
                                                     User: mongooseToOject(res.locals.employee),
                                                 })

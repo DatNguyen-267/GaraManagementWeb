@@ -72,6 +72,7 @@
                     <tr>
                         <th scope="col">Mã hợp đồng</th>
                         <th scope="col">Ngày lập</th>
+                        <th scope="col">Người lập</th>
                         <th scope="col">Tổng tiền</th>
                         <th scope="col"></th>
                     </tr>
@@ -81,6 +82,7 @@
                     <tr>
                         <td scope="row">{{this._id}}</td>
                         <td scope="row">{{this.createdAtConvert}}</td>
+                        <td scope="row">{{this.employee_create.name}}</td>
                         <td scope="row">{{this.total_money}}</td>
                         <td class="td-contain-btn" scope="row"> 
                             <button class="btn--view-item" data-toggle="modal" data-target="#modal-contract-detail-{{this._id}}" data-id="{{this._id}}">Xem</button>
@@ -105,7 +107,7 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="contract__day">Hôm hợp đồng: {{this.createdAt}} </div>
+                    <div class="contract__day">Ngày hợp đồng: {{this.createdAt}} </div>
                     <div class="contract__info-A">
                         <div class="contract__info-A__header">Bên sửa xe (Bên A)</div>
                         <div class="contract__info-item">
@@ -209,7 +211,7 @@
     </div>
     <div class="modal-body">
     <form>
-        <div class="contract__day">Hôm hợp đồng: {{this.createdAt}}</div>
+        <div class="contract__day">Ngày hợp đồng: {{this.createdAt}}</div>
         <div class="contract__info-A">
             <div class="contract__info-A__header">Bên sửa xe (Bên A)</div>
             <div class="contract__info-item">

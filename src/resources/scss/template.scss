@@ -1,0 +1,38 @@
+
+
+.search-form {
+    background-color: white;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    box-shadow: 0px 2px 6px var(--border-color);
+    width: 350px;
+    margin-right: 12px;
+}
+
+.search-input {
+    padding: 4px;
+    border: 0;
+    border-radius: inherit;
+    flex-grow: 1;
+    font-size: 16px;
+    font-family: "Poppins";
+    outline: none;
+}
+
+.search-button {
+    padding: 4px 16px;
+    cursor:pointer;
+    display: inline-block;
+    text-align: center;
+    background-color: #2979ff;
+    border: 0;
+    border-radius: inherit;
+    font-size: 16px;
+    width: max-content;
+    flex-shrink: 0;
+    color: white;
+    outline: none;
+}

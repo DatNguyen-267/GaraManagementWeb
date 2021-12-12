@@ -1,4 +1,5 @@
-<form action="/login" name="login" id="login" method="POST">
+<link rel="stylesheet" href="/css/login.css">
+{{!-- <form action="/login" name="login" id="login" method="POST">
     <div class="content">
         <div class="form-group">
             <label class="col-form-label">Tài khoản:</label>
@@ -14,4 +15,61 @@
     <div>
         <button class="btn btn-primary" type="submit">Đăng nhập</button>
     </div>
-</form>
+</form> --}}
+
+<div class="overlay">
+    <form action="/login" name="login" id="login" method="POST">
+        <div class="con">
+            <header class="head-form">
+                <h2>Log In</h2>
+                <p>login here using your username and password</p>
+            </header>
+            <br>
+            <div class="field-set">
+                <span class="input-item">
+                    <i class="fa fa-user-circle"></i>
+                    </span>
+                    <input class="form-input" id="txt-input" type="text" placeholder="@UserName" required name="account">
+                <br>
+                    <span class="input-item">
+                        <i class="fa fa-key"></i>
+                    </span>
+                    <input class="form-input" type="password" placeholder="Password" id="pwd"  name="password" required>
+                    <span>
+                        <i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"></i>
+                    </span>
+                <br>
+                <button class="log-in"> Log In </button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+
+<script>
+        // Show/hide password onClick of button using Javascript only
+
+// https://stackoverflow.com/questions/31224651/show-hide-password-onclick-of-button-using-javascript-only
+
+function show() {
+    var p = document.getElementById('pwd');
+    p.setAttribute('type', 'text');
+}
+
+function hide() {
+    var p = document.getElementById('pwd');
+    p.setAttribute('type', 'password');
+}
+
+var pwShown = 0;
+
+document.getElementById("eye").addEventListener("click", function () {
+    if (pwShown == 0) {
+        pwShown = 1;
+        show();
+    } else {
+        pwShown = 0;
+        hide();
+    }
+}, false);
+</script>

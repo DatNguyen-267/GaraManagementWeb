@@ -1,3 +1,4 @@
+// const { check } = require("prettier")
 
 function Validator(options) {
     var selectorRules = []
@@ -139,5 +140,24 @@ Validator.notGreaterThan = function(selector, selectorLimited, errorMessage) {
             if (Number.parseInt(value) > Number.parseInt(limitedValue)) return errorMessage
             else return undefined
         },
+    }
+}
+Validator.isDuplicate = function (selector, tableData, index , errorMessage) {
+    return {
+        selector: selector,
+        test: function (value) {
+            var table = document.querySelector(tableData)
+            var rows = table.querySelectorAll('tr')
+            var checkList = []
+            for (var row of rows) {
+                checkList.push(row.cells[index].textContent)
+            }
+            console.log(value.toString())
+            console.log(checkList)
+            console.log((checkList.includes(value.toString())))
+            if ((checkList.includes(value.toString()))) return errorMessage
+            else return undefined
+            // if )  
+        }
     }
 }

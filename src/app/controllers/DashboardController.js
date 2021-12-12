@@ -28,8 +28,10 @@ class DashboardController {
                         for (const item of receptions) {
                             if ((new Date(item.receptionDate)).getYear() == now.getYear() && item.isSuccess) {
                                 listSalesOfYear[(new Date(item.receptionDate)).getMonth()] += item.total_money
-                                listReceptionOfYear[(new Date(item.receptionDate)).getMonth()] += 1
                                 salesOfYear+= item.total_money
+                            }
+                            if ((new Date(item.receptionDate)).getYear() == now.getYear()) {
+                                listReceptionOfYear[(new Date(item.receptionDate)).getMonth()] += 1
                             }
                             if (item.isSuccess == false) {
                                 carOfGara += 1
