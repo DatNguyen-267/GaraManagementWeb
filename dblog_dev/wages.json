@@ -1,19 +1,113 @@
 [{
   "_id": {
-    "$oid": "619776a2b3ff373a1df6a690"
+    "$oid": "61b5eb0d250dff915c610572"
   },
-  "money": "1230000",
-  "name": "Sửa chữa"
+  "name": "Rửa xe",
+  "money": 30000,
+  "not_delete": false,
+  "not_edit": false,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:29:01.157Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:29:01.157Z"
+  },
+  "__v": 0
 },{
   "_id": {
-    "$oid": "6199f8aebbb772e97411b493"
+    "$oid": "61b5eb14250dff915c610582"
   },
-  "money": "20000",
-  "name": "Rửa xe"
+  "name": "Thay phụ tùng",
+  "money": 50000,
+  "not_delete": false,
+  "not_edit": false,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:29:08.043Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:29:08.043Z"
+  },
+  "__v": 0
 },{
   "_id": {
-    "$oid": "6199f8b0bbb772e97411b494"
+    "$oid": "61b5eb1b250dff915c610592"
   },
-  "money": "170000",
-  "name": "Thay phụ kiện"
+  "name": "Thay nhớt",
+  "money": 20000,
+  "not_delete": false,
+  "not_edit": false,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:29:15.943Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:29:15.943Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5eb37250dff915c6105a2"
+  },
+  "name": "Dán Decal khung",
+  "money": 320000,
+  "not_delete": false,
+  "not_edit": false,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:29:43.974Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:29:43.974Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5eb64250dff915c6105b3"
+  },
+  "name": "Sửa chữa ",
+  "money": 100000,
+  "not_delete": false,
+  "not_edit": false,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:30:28.904Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:30:28.904Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5eb7d250dff915c6105ed"
+  },
+  "name": "Thay bình xăng",
+  "money": 120000,
+  "not_delete": false,
+  "not_edit": false,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:30:53.536Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:30:53.536Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5eb96250dff915c6105fd"
+  },
+  "name": "Thay bánh xe",
+  "money": 200000,
+  "not_delete": false,
+  "not_edit": false,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:31:18.666Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:31:18.666Z"
+  },
+  "__v": 0
 }]

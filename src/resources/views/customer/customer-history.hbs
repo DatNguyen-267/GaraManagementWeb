@@ -28,8 +28,8 @@
         </div>
       </div> --}}
     </div>
-    <div class="list-customer-history">
-      <table class="table table--default">
+    <div class="">
+      <table class="table ">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#STT</th>
@@ -45,7 +45,7 @@
         <tbody id="table-body">
           {{#each listhistory}}
           <tr data-id="{{this._id}}">
-            <th scope="row">{{@index}}</th>
+            <th scope="row">{{sum @index 1}}</th>
             <td>{{this.name}}</td>
             <td>{{this.cardIdentify}}</td>
             <td>{{this.email}}</td>
@@ -53,7 +53,7 @@
             <td>{{this.debt}}</td>
             <td>{{this.number_of_reception}}</td>
             <td></td>
-            <td>
+            <td class="row-btn--right">
               <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
             </td>
           </tr>

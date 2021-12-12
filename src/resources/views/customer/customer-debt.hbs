@@ -29,8 +29,8 @@
       </div> --}}
       <button class="dropdown toolbar__btn btn btn--primary" id="btn-export-excel">Xuất Excel</button>
     </div>
-    <div class="list-customer-debt">
-      <table class="table table--default" id="data-table">
+    <div class="">
+      <table class="table" id="data-table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#STT</th>
@@ -47,7 +47,7 @@
         <tbody id="table-body">
           {{#each listdebt}}
           <tr data-id="{{this._id}}">
-            <th scope="row">{{@index}}</th>
+            <th scope="row">{{sum @index 1}}</th>
             <td>{{this.name}}</td>
             <td>{{this.cardIdentify}}</td>
             <td>{{this.email}}</td>

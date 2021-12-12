@@ -1,98 +1,113 @@
 [{
   "_id": {
-    "$oid": "618bd1a05ce0d9fcb1147965"
+    "$oid": "61b5eaab250dff915c61044c"
   },
   "name": "KIA",
-  "slug": "",
-  "deleted": false,
-  "deletedAt": {
-    "$date": "2021-11-11T14:33:29.549Z"
-  },
-  "updatedAt": {
-    "$date": "2021-11-11T14:33:29.550Z"
-  }
-},{
-  "_id": {
-    "$oid": "618bd9d24fab2cf7b9791ea5"
-  },
-  "name": "MEC",
   "deleted": false,
   "createdAt": {
-    "$date": "2021-11-10T14:40:18.856Z"
+    "$date": "2021-12-12T12:27:23.403Z"
   },
   "updatedAt": {
-    "$date": "2021-11-10T14:40:18.856Z"
+    "$date": "2021-12-12T12:27:23.403Z"
   },
-  "slug": "mec",
+  "slug": "kia",
   "__v": 0
 },{
   "_id": {
-    "$oid": "618bd9fa4fab2cf7b9791eaa"
+    "$oid": "61b5eac2250dff915c61045e"
   },
-  "name": "datnguyen2672001",
+  "name": "Volvo",
   "deleted": false,
   "createdAt": {
-    "$date": "2021-11-10T14:40:58.162Z"
+    "$date": "2021-12-12T12:27:46.222Z"
   },
   "updatedAt": {
-    "$date": "2021-11-10T14:40:58.162Z"
+    "$date": "2021-12-12T12:27:46.222Z"
   },
-  "slug": "datnguyen2672001",
+  "slug": "volvo",
   "__v": 0
 },{
   "_id": {
-    "$oid": "618bde0434418bc2f8ed0ae3"
+    "$oid": "61b5eacf250dff915c610470"
   },
-  "name": "32131",
+  "name": "Toyota",
   "deleted": false,
   "createdAt": {
-    "$date": "2021-11-10T14:58:12.544Z"
+    "$date": "2021-12-12T12:27:59.469Z"
   },
   "updatedAt": {
-    "$date": "2021-11-10T14:58:12.544Z"
+    "$date": "2021-12-12T12:27:59.469Z"
   },
-  "slug": "32131",
+  "slug": "toyota",
   "__v": 0
 },{
   "_id": {
-    "$oid": "618d2307c887faf6ef1ae8e5"
+    "$oid": "61b5ead6250dff915c610483"
   },
-  "name": "BBB",
+  "name": "Chevrolet",
   "deleted": false,
   "createdAt": {
-    "$date": "2021-11-11T14:04:55.976Z"
+    "$date": "2021-12-12T12:28:06.308Z"
   },
   "updatedAt": {
-    "$date": "2021-11-11T14:04:55.976Z"
+    "$date": "2021-12-12T12:28:06.308Z"
   },
-  "slug": "bbb",
+  "slug": "chevrolet",
   "__v": 0
 },{
   "_id": {
-    "$oid": "618d2320c887faf6ef1ae8eb"
+    "$oid": "61b5eada250dff915c610495"
   },
-  "name": "LLLL",
+  "name": "Ford",
   "deleted": false,
   "createdAt": {
-    "$date": "2021-11-11T14:05:20.612Z"
+    "$date": "2021-12-12T12:28:10.812Z"
   },
   "updatedAt": {
-    "$date": "2021-11-11T14:05:20.612Z"
+    "$date": "2021-12-12T12:28:10.812Z"
   },
-  "slug": "llll",
+  "slug": "ford",
   "__v": 0
 },{
   "_id": {
-    "$oid": "618d234cc887faf6ef1ae8f2"
+    "$oid": "61b5eade250dff915c6104a7"
   },
-  "name": "ppppp",
+  "name": "Honda",
   "deleted": false,
   "createdAt": {
-    "$date": "2021-11-11T14:06:04.168Z"
+    "$date": "2021-12-12T12:28:14.921Z"
   },
   "updatedAt": {
-    "$date": "2021-11-11T14:06:04.168Z"
+    "$date": "2021-12-12T12:28:14.921Z"
   },
-  "slug": "ppppp",
+  "slug": "honda",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5eae4250dff915c6104b9"
+  },
+  "name": "Isuzu",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:28:20.231Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:28:20.231Z"
+  },
+  "slug": "isuzu",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5eae9250dff915c6104cb"
+  },
+  "name": "Lexus",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:28:25.707Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:28:25.707Z"
+  },
+  "slug": "lexus",
   "__v": 0
 }]

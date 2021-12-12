@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "61b5eda0c5ad0fa7db8155c9"
+  },
+  "name": "Thuận Phát",
+  "email": "tpcpn@gmail.com",
+  "telephone": "0836363363",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:40:00.456Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:42:35.020Z"
+  },
+  "slug": "thua-n-pha-t",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5ee18c5ad0fa7db8155df"
+  },
+  "name": "Công Ty TNHH Tương Lai",
+  "email": "tl@gmail.com",
+  "telephone": "0861442222",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:42:00.071Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:42:37.550Z"
+  },
+  "slug": "cong-ty-tnhh-tuong-lai",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5ee2fc5ad0fa7db8155f5"
+  },
+  "name": "Công Ty TNHH SX DV TM Thiên Ngọc Phát",
+  "email": "tnpsxdv@gmail.com",
+  "telephone": "0987785557",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:42:23.392Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:42:39.802Z"
+  },
+  "slug": "cong-ty-tnhh-sx-dv-tm-thien-ngoc-phat",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5ee5ac5ad0fa7db815667"
+  },
+  "name": "Công Ty TNHH Sản Xuất Thương Mại Tân Tín Văn",
+  "email": "vvvv@gmail.com",
+  "telephone": "0999947852",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:43:06.725Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T12:43:06.725Z"
+  },
+  "slug": "cong-ty-tnhh-san-xuat-thuong-mai-tan-tin-van",
+  "__v": 0
+}]

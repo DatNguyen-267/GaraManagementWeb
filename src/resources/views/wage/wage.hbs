@@ -55,7 +55,7 @@
         <tbody id="table-body">
           {{#each wages}}
           <tr data-id="{{this._id}}">
-            <th scope="row">{{@index}}</th>
+            <th scope="row">{{sum @index 1}}</th>
             <td>{{this._id}}</td>
             <td>{{this.name}}</td>
             <td>{{this.money}}</td>

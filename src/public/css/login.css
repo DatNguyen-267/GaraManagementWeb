@@ -10,12 +10,9 @@
 /* End Global rules */
 /* Start body rules */
 body {
-  background-image: linear-gradient(-225deg, #63c7ff 0%, #63c7ff 100%);
-  background-image: linear-gradient(to top, #63c7ff 0%, #bbe0f5 100%);
+  background-image: white;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  font-family: 'Vibur', cursive;
-  /*   the main font */
   font-family: 'Abel', sans-serif;
   opacity: .95;
   /* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */ }
@@ -32,7 +29,8 @@ form {
   margin: 2% auto;
   box-shadow: 0 9px 50px rgba(234, 177, 149, 0.31);
   padding: 2%;
-  background-image: linear-gradient(-225deg, #d4f7b5 50%, #63c7ff 50%); }
+  background-image: linear-gradient(-225deg, #63c7ff 0%, #63c7ff 100%);
+  background-image: linear-gradient(to top, #63c7ff 0%, #bbe0f5 100%); }
 
 /* form Container */
 form .con {
@@ -52,7 +50,6 @@ header {
 /* Login title form form */
 header h2 {
   font-size: 250%;
-  font-family: 'Playfair Display', serif;
   color: #3e403f; }
 
 /*  A welcome message or an explanation of the login form */
@@ -153,3 +150,7 @@ button:hover {
     transform: translateY(3px); }
   100% {
     transform: translateY(5px); } }
+
+.message-error {
+  font-family: "Roboto", sans-serif;
+  margin-top: 4px; }

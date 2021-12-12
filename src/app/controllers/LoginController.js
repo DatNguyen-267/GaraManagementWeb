@@ -12,13 +12,25 @@ class LoginController {
             login: true,
         })
     }
+    showError(req, res, next) {
+        // res.send(res.locals.test)
+        res.render('login', {
+            login: true,
+            Error: "Tên đăng nhập hoặc tài khoản không chính xác",
+            isError: true,
+        })
+    }
     login(req, res, next) {
-        Account.findOne({ account: req.body.account })
+        Account.findOne({account: req.body.account})
             .then((account) => {
-                if (req.body.password == account.password) {
+                if (account) {
+                    if (req.body.password == account.password) {
                     res.redirect('/' + account.of_employee+ '/dashboard') 
+                    }
+                    else res.redirect('/login/error')
                 }
-                else res.redirect('/login')
+                else res.redirect('/login/error')
+                
             })
     }
 }

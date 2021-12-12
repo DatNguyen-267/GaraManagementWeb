@@ -40,7 +40,7 @@
         {{#each Data}}
         <tr>
           {{!-- 1 hiệu xe --}}
-          <th scope="row">{{@index}}</th>
+          <th scope="row">{{sum @index 1}}</th>
           <td>{{this.brand._id}}</td>
           <td>{{this.brand.name}}</td>
           <td class="row-btn--center">
