@@ -15,7 +15,7 @@
             <span class="ti-search "> </span>
           </button>
       </div>
-
+{{!-- 
       <div class="dropdown toolbar__filter">
         <button class=" btn dropdown-toggle toolbar__filter-btn" type="button" id="dropdownMenuButton"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,10 +26,14 @@
           <a class="toolbar__filter-item dropdown-item" href="#">Đang sửa chữa</a>
           <a class="toolbar__filter-item dropdown-item" href="#">Đã hoàn thành</a>
         </div>
+      </div> --}}
+      <div class="car-present">
+        Số xe hiện tại trong nhà xe: 
+        <label id="car-of-gara" for="">{{CarPresent}}</label>
+        /<label id="max-car-reception" for="">{{MaxCar}}</label>
       </div>
-
       <div class="toolbar__btn">
-        <button class="header__btn-add btn btn-primary" data-toggle="modal" data-target="#modal-add-reception">Thêm phiếu
+        <button class="header__btn-add btn btn-primary" data-toggle="modal">Thêm phiếu
               tiếp nhận</button>
       </div>
     </div>
@@ -484,6 +488,18 @@
       var phone = this.options[this.options.selectedIndex].getAttribute('data-phone')
       console.log(phone)
       $('#reception-add-phone').val(phone)
+    }
+
+    var btnHeaderAdd = document.querySelector('.header__btn-add')
+    var labelCarOfGara = document.querySelector('#car-of-gara')
+    var labelMaxCarReception = document.querySelector('#max-car-reception')
+    btnHeaderAdd.onclick = function() {
+      console.log(Number.parseInt(labelCarOfGara.textContent))
+      console.log(Number.parseInt(labelMaxCarReception.textContent))
+      if (Number.parseInt(labelCarOfGara.textContent) == Number.parseInt(labelMaxCarReception.textContent))
+          alert('Số xe trong gara đã đạt tối đa không thể tiếp nhận thêm')
+      else 
+      $('#modal-add-reception').modal('show')
     }
   })
 </script>

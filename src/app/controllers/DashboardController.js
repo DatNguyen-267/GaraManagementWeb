@@ -3,6 +3,7 @@ const Reception = require('../models/Reception')
 const { mongooseToOject } = require('../../util/mongoose')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const Position = require('../models/Position')
+const Setting = require('../models/Setting')
 class DashboardController {
 
     // [GET] /courses/:slug
@@ -23,28 +24,30 @@ class DashboardController {
                     listSalesOfYear[i] = 0
                     listReceptionOfYear[i] = 0
                 }
-                Reception.find({})
-                    .then((receptions) => {
-                        for (const item of receptions) {
-                            if ((new Date(item.receptionDate)).getYear() == now.getYear() && item.isSuccess) {
-                                listSalesOfYear[(new Date(item.receptionDate)).getMonth()] += item.total_money
-                                salesOfYear+= item.total_money
-                            }
-                            if ((new Date(item.receptionDate)).getYear() == now.getYear()) {
-                                listReceptionOfYear[(new Date(item.receptionDate)).getMonth()] += 1
-                            }
-                            if (item.isSuccess == false) {
-                                carOfGara += 1
-                            }
-                            if (((new Date(item.receptionDate)).getYear() == now.getYear())
-                                && ((new Date(item.receptionDate)).getMonth() == now.getMonth())
-                                && ((new Date(item.receptionDate)).getDate() == now.getDate())) {
-                                receptionOfDay +=1
-                            }
-                            if ((new Date(item.receptionDate)).getMonth() == now.getMonth() && item.isSuccess) {
-                                salesOfMonth += item.total_money
-                            }
-                        }
+                Setting.find({})
+                    .then((setting) => {
+                        Reception.find({})
+                            .then((receptions) => {
+                                for (const item of receptions) {
+                                    if ((new Date(item.receptionDate)).getYear() == now.getYear() && item.isSuccess) {
+                                        listSalesOfYear[(new Date(item.receptionDate)).getMonth()] += item.total_money
+                                        salesOfYear+= item.total_money
+                                    }
+                                    if ((new Date(item.receptionDate)).getYear() == now.getYear()) {
+                                        listReceptionOfYear[(new Date(item.receptionDate)).getMonth()] += 1
+                                    }
+                                    if (item.isSuccess == false) {
+                                        carOfGara += 1
+                                    }
+                                    if (((new Date(item.receptionDate)).getYear() == now.getYear())
+                                        && ((new Date(item.receptionDate)).getMonth() == now.getMonth())
+                                        && ((new Date(item.receptionDate)).getDate() == now.getDate())) {
+                                        receptionOfDay +=1
+                                    }
+                                    if ((new Date(item.receptionDate)).getMonth() == now.getMonth() && item.isSuccess) {
+                                        salesOfMonth += item.total_money
+                                    }
+                                }
                         res.render('dashboard', {
                             activeDashBoard: true,
                             Permissions: mongooseToOject(position.permissions),
@@ -54,10 +57,11 @@ class DashboardController {
                             CarOfGara: carOfGara,
                             ReceptionOfDay: receptionOfDay,
                             SalesOfMonth: salesOfMonth,
-                            SalesOfYear:salesOfYear * 1.5,
+                            SalesOfYear: salesOfYear * 1.5,
+                            maxCar: setting[0].max_receptions
                         })
                     }) 
-                
+                    })
             })
         
     }

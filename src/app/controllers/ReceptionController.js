@@ -17,10 +17,13 @@ const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
 
 const Position = require('../models/Position')
+const Setting = require('../models/Setting')
 
 class ReceptionController {
     show(req, res, next) {
         // res.send(res.locals.test)
+        var CarPresent = 0
+        var now = new Date()
         Position.findOne({ _id: res.locals.employee.position })
             .then((position) => {
             return position
@@ -29,14 +32,27 @@ class ReceptionController {
                 Promise.all([
                 Reception.find({}).populate('of_customer').populate('brand').populate('of_repair'), Customer.find({}) , Brand.find({})])
                     .then(([receptions, customers, brands]) => {
-                        res.render('receptions/reception', {
-                            Receptions: mutipleMongooseToObject(receptions),
-                            Customers: mutipleMongooseToObject(customers),
-                            Brands: mutipleMongooseToObject(brands),
-                            activeManagementCar: true,
-                            activeReception: true,
-                            Permissions: mongooseToOject(position.permissions),
-                            User: mongooseToOject(res.locals.employee)
+                        Setting.find({})
+                            .then((setting) => {
+                                for (const item of receptions) {
+                                    
+                                    if (((new Date(item.receptionDate)).getYear() == now.getYear())
+                                        && ((new Date(item.receptionDate)).getMonth() == now.getMonth())
+                                        && ((new Date(item.receptionDate)).getDate() == now.getDate())) {
+                                        CarPresent +=1
+                                    }
+                                }
+                                res.render('receptions/reception', {
+                                    Receptions: mutipleMongooseToObject(receptions),
+                                    Customers: mutipleMongooseToObject(customers),
+                                    Brands: mutipleMongooseToObject(brands),
+                                    activeManagementCar: true,
+                                    activeReception: true,
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(res.locals.employee),
+                                    CarPresent: CarPresent,
+                                    MaxCar: setting[0].max_receptions,
+                                })
                         })  
                 })
                 .catch(next)

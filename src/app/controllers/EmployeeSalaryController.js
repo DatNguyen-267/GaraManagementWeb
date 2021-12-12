@@ -57,9 +57,16 @@ class EmployeeSalaryController {
                                                     {
                                                         errorCount++;
                                                         var n = temp.fine;
-                                                        n = n.replaceAll('.','')
-                                                        n = n.replace('₫','')
-                                                        fineSum += parseInt(n);
+                                                        var newsalary = ''
+    
+                                                        for (const item of n) {
+                                                            if (item!= '.' && item !='₫')
+                                                            newsalary += item
+                                                        }
+                                                        newsalary = newsalary.trim()
+                                                        // n = n.replaceAll('.','')
+                                                        // n = n.replace('₫','')
+                                                        fineSum += parseInt(newsalary);
                                                     }
 
                                                 }
@@ -158,9 +165,15 @@ class EmployeeSalaryController {
                                                     {
                                                         errorCount++;
                                                         var n = temp.fine;
-                                                        n = n.replaceAll('.','')
-                                                        n = n.replace('₫','')
-                                                        fineSum += parseInt(n);
+                                                        var newsalary = ''
+                                                        for (const item of n) {
+                                                            if (item!= '.' && item !='₫')
+                                                            newsalary += item
+                                                        }
+                                                        newsalary = newsalary.trim()
+                                                        // n = n.replaceAll('.','')
+                                                        // n = n.replace('₫','')
+                                                        fineSum += parseInt(newsalary);
                                                     }
 
                                                 }
