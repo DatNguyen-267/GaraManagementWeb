@@ -10,14 +10,8 @@
           </div>
           <div class="modal-body">Xác nhận xuất kho</div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" id="btnModalExport">Xác nhận</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Đóng
-            </button>
+            <button type="button" class="btn btn--send-dialog" id="btnModalExport">Xác nhận</button>
+            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
           </div>
         </div>
       </div>
@@ -44,18 +38,22 @@
     </div>
     <div class="info-group">
       <label for="">Ngày tạo phiếu:</label>
-      <label>{{voucher.createdAt}}</label>
+      <label id="create-date">{{voucher.createdAt}}</label>
     </div>
     <div class="info-group">
       <label for="">Ngày xuất kho:</label>
-      <label>{{voucher.updatedAt}}</label>
+      <label id="export-date">{{voucher.updatedAt}}</label>
     </div>
   </div>
 
   <div class="toolbar">
       <div class="toolbar__search">
-          <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm vật tư" id="search-key">
-          <span class="toolbar__search-icon ti-search"> </span>
+          <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
+        </div>
       </div>
       <div class="toolbar__filter"></div>
       <div class="toolbar__btn">
@@ -71,7 +69,7 @@
         <th scope="col">Giá bán</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="table-data">
       {{#each details}}
         <tr>
           <td>{{this.material_name}}</td>
@@ -94,32 +92,30 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () { 
 
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
+
+    var createDateLabel = document.getElementById('create-date').innerHTML
+    var exportDateLabel = document.getElementById('export-date').innerHTML
+    var createDate = new Date(Date.parse(createDateLabel))
+    var exportDate = new Date(Date.parse(exportDateLabel))
+
+    document.getElementById('create-date').innerHTML = `${createDate.getDate()}/${createDate.getMonth()}/${createDate.getFullYear()}`
+    document.getElementById('export-date').innerHTML = `${exportDate.getDate()}/${exportDate.getMonth()}/${exportDate.getFullYear()}`
+
     var btnModalExport = document.getElementById('btnModalExport')
     var formExport = document.forms['form-export']
 
     btnModalExport.onclick = function () {
       formExport.submit()
-    }
-
-    document.getElementById('search-key').onkeyup = function() {
-      var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("search-key");
-        filter = input.value;
-        table = document.getElementById("material-list");
-        tr = $("tbody tr");
-        for (i = 0; i < tr.length; i++) {
-          var td1 = tr[i].getElementsByTagName("td")[0];
-          if (td1) {
-            txtValue = td1.textContent || td1.innerText;
-            filter = filter.toUpperCase();
-            txtValue = txtValue.toUpperCase();
-            if (txtValue.includes(filter)) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
-          }   
-        }
     }
   })
 </script>

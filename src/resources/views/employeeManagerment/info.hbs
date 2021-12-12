@@ -53,8 +53,8 @@
                   <p>SĐT: {{this.creatorPhoneNumber}}</p>
                 </div>
                 <div class = "btn-container">
-                  <button class="btn btn-edit-dateoff" startDate = "{{this.startDate}}" endDate = "{{this.endDate}}" reson = "{{this.reson}}" check = "{{this.havePermission}}" dateoffID = "{{this._id}}"><i class="fas fa-pen"></i></button>
-                  <button class="btn btn-delete-dateoff" dateoffID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-info" startDate = "{{this.startDate}}" endDate = "{{this.endDate}}" reson = "{{this.reson}}" check = "{{this.havePermission}}" dateoffID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+                  <button class="btn btn-danger" dateoffID = "{{this._id}}"><i class="fas fa-trash"></i></button>
                 </div>
               </div>
               {{/each}}
@@ -78,8 +78,8 @@
               <p>SĐT: {{this.creatorPhoneNumber}}</p>
             </div>
             <div class = "btn-container">
-              <button class="btn btn-edit-error" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" description = "{{this.description}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
-              <button class="btn btn-delete-error" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+              <button class="btn btn-info" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" description = "{{this.description}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+              <button class="btn btn-danger" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
             </div>
           </div>
           {{/each}}
@@ -103,9 +103,9 @@
                       <input type="date" class="form-control dataStr" name="startDate" id = "n_startDate">
                       <!--data -->
                       <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
-                      <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
-                      <input type="hidden" class="form-control data" name="creator" value="Trần Ngọc Dung">
-                      <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="0986123123">
+                     <input type="hidden" class="form-control data" name="creatorID" value="{{User._id}}">
+                      <input type="hidden" class="form-control data" name="creator" value="{{User.name}}">
+                      <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="{{User.phoneNumber}}">  
                       <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
                       <span class="form-message"></span>
                     </div>
@@ -250,9 +250,9 @@
                       <span class="form-message"></span>
                       <!--data -->
                       <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
-                      <input type="hidden" class="form-control data" name="creatorID" value="61984f1f5bb16bc3ae4caed8">
-                      <input type="hidden" class="form-control data" name="creator" value="Trần Ngọc Dung">
-                      <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="0986123123">
+                      <input type="hidden" class="form-control data" name="creatorID" value="{{User._id}}">
+                      <input type="hidden" class="form-control data" name="creator" value="{{User.name}}">
+                      <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="{{User.phoneNumber}}">  
                       <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>
 
                     </div>

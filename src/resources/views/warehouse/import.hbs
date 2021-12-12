@@ -13,13 +13,6 @@
       <div class="modal-body">
         <div class="container-fluid"> 
           <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="add-id" name="import_id"/>
-              <span class="form-message"></span>
-            </div>
-          </div>
-          <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
               <select class="form-control" name="of_supplier" id="add-supplier">
@@ -63,13 +56,6 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="p-2 row">
-            <label for="" class="col-3 col-form-label">Mã phiếu nhập kho</label>
-            <div class="col-9">
-              <input type="text" class="form-control" id="edit-id" name="import_id"/>
-              <span class="form-message"></span>
-            </div>
-          </div>
           <div class="p-2 row">
             <label for="" class="col-3 col-form-label">Nhà cung cấp</label>
             <div class="col-9 form-group">
@@ -132,8 +118,12 @@
   </div>
 <div class="toolbar">
     <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm phiếu nhập kho" id="search-key">
-        <span class="toolbar__search-icon ti-search"> </span>
+        <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
+        </div>
     </div>
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
@@ -144,7 +134,6 @@
 <table class="table table--default" id="import-list">
   <thead class="thead-dark"> 
     <tr>
-      <th scope="col">Mã phiếu nhập kho</th>
       <th scope="col">Nhà cung cấp</th>
       <th scope="col">Ngày nhập kho</th>
       <th scope="col">Tổng tiền</th>
@@ -152,20 +141,19 @@
       <th scope="col" colspan="3">Thao tác</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="table-data">
     {{#each vouchers}}
       <tr>
-        <td>{{this.import_id}}</td>
         <td>{{this.of_supplier.name}}</td>
-        <td>{{this.import_date}}đ</td>
+        <td>{{this.import_date}}</td>
         <td>{{this.total_price}}đ</td>
         <td scope="row">
           <div class="{{isImportedStyle this.imported}}">{{isImportedStatus this.imported}}</div>
         </td>
         <td>
           <button class="btn--view-item" data-id="{{this._id}}">Xem</button>
-          <button class="btn--delete-item" data-id="{{this._id}}" {{isDisable this.imported}} data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
           <button class="btn--edit-item" data-id="{{this._id}}" {{isDisable this.imported}} data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+          <button class="btn--delete-item" data-id="{{this._id}}" {{isDisable this.imported}} data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
         </td>
       </tr>
     {{/each}}
@@ -184,12 +172,22 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
     // Validate
     Validator({
       form: '#form-add',
       errorSelector: '.form-message',
       rules: [
-        Validator.isRequire('#add-id', 'Vui lòng nhập mã nhập kho'),
         Validator.isRequireSelectBox('#add-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
         Validator.isRequire('#add-date', 'Vui lòng chọn ngày tạo phiếu nhập kho')
       ],
@@ -203,7 +201,6 @@
       form: '#form-edit',
       errorSelector: '.form-message',
       rules: [
-        Validator.isRequire('#edit-id', 'Vui lòng nhập mã nhập kho'),
         Validator.isRequireSelectBox('#edit-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
         Validator.isRequire('#edit-date', 'Vui lòng chọn ngày tạo phiếu nhập kho')
       ],
@@ -225,6 +222,12 @@
 
     var voucherID
 
+    var tableData = document.getElementById('table-data').rows
+    for(var row of tableData) {
+      var date = new Date(Date.parse(row.cells[1].textContent))
+      row.cells[1].textContent = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+    }
+
     for(var item of btnView) {
       item.onclick = function () {
         var voucherID = this.getAttribute('data-id')
@@ -244,8 +247,7 @@
       item.onclick = function() {
         var rowData = this.parentElement.parentElement
 
-        document.getElementById('edit-id').value = rowData.cells[0].textContent
-        document.getElementById('edit-date').value = rowData.cells[2].textContent
+        document.getElementById('edit-date').value = rowData.cells[1].textContent
 
         voucherID = this.getAttribute('data-id')
         btnModalEdit.setAttribute('data-id', voucherID)
@@ -258,25 +260,5 @@
       formDelete.submit()
     }
 
-    document.getElementById('search-key').onkeyup = function() {
-      var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("search-key");
-        filter = input.value;
-        table = document.getElementById("import-list");
-        tr = $("tbody tr");
-        for (i = 0; i < tr.length; i++) {
-          var td1 = tr[i].getElementsByTagName("td")[0];
-          if (td1) {
-            txtValue = td1.textContent || td1.innerText;
-            filter = filter.toUpperCase();
-            txtValue = txtValue.toUpperCase();
-            if (txtValue.includes(filter)) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
-          }   
-        }
-    }
   })
 </script>
