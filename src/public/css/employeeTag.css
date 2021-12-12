@@ -10,10 +10,6 @@ html {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif; }
 
-a, a:hover, a {
-  text-decoration: none;
-  color: #626262; }
-
 .flex {
   display: flex; }
   .flex-jc-sb {

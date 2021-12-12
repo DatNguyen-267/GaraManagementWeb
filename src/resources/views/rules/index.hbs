@@ -8,10 +8,16 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<title>Danh sách nhân viên</title>
+<title>Quản lý quy định</title>
     <div class = "grid__content">
         <header class = "employeeList__header">
-        <h1 class = "template__title">Quản lý quy định</h1>
+        <div class="header__breadcrumb">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Quản lý quy định</a></li>
+              </ol>
+          </nav>
+        </div>
         <div class="toolbar">
           <div class="toolbar__search">
             <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm quy định" aria-label="Search" onkeyup="search()">
@@ -199,6 +205,7 @@ crossorigin="anonymous"></script>
       rules: [
         Validator.isRequire('#n_content', 'Vui nhập tên quy định'),
         Validator.isRequire('#n_description', 'Vui nhập mô tả'),
+        Validator.isDuplicate('#n_content', '#ruleTable',1, 'Tên quy định đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formAddEmployee.action = 'rules/create'

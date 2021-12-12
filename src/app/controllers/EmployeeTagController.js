@@ -17,16 +17,17 @@ class EmployeeTagController {
                             .then((employee) =>{
                                 var data = [];
                                 for (var item of tag){
-                                    var flat = "false"
+                                    var flat = "true"
+                                    var count = 0;
                                     for (var temp of employee){
-                                        if (temp.position == item.position)
+                                        if (item._id.toString() == temp.position)
                                         {
-                                            flat = "true";
-                                            break;
+                                            count++;
+                                            flat = "false";
                                         }
                                     
                                     }
-                                    data.push({item:mongooseToOject(item),flat})
+                                    data.push({item:mongooseToOject(item),flat,count})
                                 }
                                     res.render('employeeTag/index', {
                                         tag: mutipleMongooseToObject(tag),

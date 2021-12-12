@@ -7,10 +7,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<title>Danh sách nhân viên</title>
+<title>Quản lý chức vụ</title>
 <div class = "grid__content">
   <header class = "employeeTag__header">
-        <h1 class = "template__title">Quản lý chức vụ</h1>
+        <div class="header__breadcrumb">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Quản lý chức vụ</a></li>
+              </ol>
+          </nav>
+        </div>
         <div class="toolbar">
           <div class="toolbar__search">
             <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
@@ -53,7 +59,7 @@
               </table> 
         </div>
         <!-- add -->
-        <form method="POST" action="employeeTag/create">
+        <form method="POST" action="employeeTag/create" id = "form-add-tag" name = "form-add">
             <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content body__infoModal">
@@ -67,15 +73,18 @@
                   <form>
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label">Tên chức vụ:</label>
-                        <input type="text" class="form-control" name="name" >
+                        <input type="text" class="form-control" name="name"id ="n_tag" >
+                        <span class="form-message"></span>
                       </div>
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label">Lương:</label>
                         <input type="text" class="form-control" name="salary" id = "n_salary">
+                        <span class="form-message"></span>
                       </div>
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label" >Hệ số tăng lương:</label>
                         <input type="text" class="form-control" name="percent" id = "n_percent" placeholder="%/năm">
+                        <span class="form-message"></span>
                       </div>
                       <div style="float:left; width: 32%">
                         <div class="form-check">
@@ -130,7 +139,7 @@
           </div>
         </form>
         <!-- Modified -->
-        <form method="POST" name = "form-edit" action = "">
+        <form method="POST" name = "form-edit" action = "" id = "form-edit-tag">
             <div class="modal fade " id="modifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content body__infoModal">
@@ -145,14 +154,17 @@
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label">Tên chức vụ:</label>
                         <input type="text" class="form-control" name="name"  id = "m_tag">
+                        <span class="form-message"></span>
                       </div>
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label">Lương:</label>
                         <input type="text" class="form-control" name="salary"  id = "m_salary" class = "salaryIp">
+                        <span class="form-message"></span>
                       </div>
                       <div class="form-group">
                         <label for="reception-add-lincense" class="col-form-label" aria-placeholder="%/năm">Hệ số tăng lương:</label>
                         <input type="text" class="form-control" name="percent" id = "m_percent">
+                        <span class="form-message"></span>
                       </div>
                       <div style="float:left; width: 32%">
                         <div class="form-check">
@@ -240,6 +252,7 @@
       var tdActive;
       var btnDelete = $('#btn-delete')
       var btnAcceptEdit = $('#btn-accept-edit')
+      var formAddTag = document.forms['form-add']
       var formEdit = document.forms['form-edit']
       var formDelete = document.forms['form-delete']
       var btnEdit = $('.btn-edit')
@@ -323,8 +336,39 @@
 
 
       });
+      document.addEventListener('DOMContentLoaded', function () {
+        Validator({
+          form: '#form-add-tag', // id của cái form cần validate
+          errorSelector: '.form-message', // tên class để hiện cái lỗi
+          rules: [
+            Validator.isRequire('#n_tag', 'Vui nhập tên chức vụ'),
+            Validator.isRequire('#n_salary', 'Vui nhập lương'),
+            Validator.isRequire('#n_percent', 'Vui hệ số tăng lương'),
+            Validator.isDuplicate('#n_tag', '#tagTable',1, 'Tên chức vụ đã tồn tại. Vui lòng nhập lại!')
+          ],
+          onSubmit: function() {
+              formAddTag.submit()  
+            }
+          });
+
+
+        Validator({
+        form: '#form-edit-tag', // id của cái form cần validate
+        errorSelector: '.form-message', // tên class để hiện cái lỗi
+        rules: [
+          Validator.isRequire('#m_tag', 'Vui nhập tên chức vụ'),
+          Validator.isRequire('#m_salary', 'Vui nhập lương'),
+          Validator.isRequire('#m_percent', 'Vui hệ số tăng lương'),
+          Validator.isDuplicate('#m_tag', '#tagTable',1, 'Tên chức vụ đã tồn tại. Vui lòng nhập lại!')
+        ],
+        onSubmit: function() {
+            formAddTag.submit()  
+          }
+        });
+      })
       
       
+    
       btnAcceptEdit.click(function() {
         
         formEdit.action = 'employeeTag/' + tagID + '/edit?_method=PUT'

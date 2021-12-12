@@ -14,7 +14,7 @@
                   <li class="breadcrumb-item"><a href="#">Danh sách nhân viên</a></li>
               </ol>
           </nav>
-        </div>
+      </div>
       <header class = "employeeList__header">
 
         <div class="toolbar">
@@ -338,6 +338,9 @@
         Validator.isRequire('#n_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
         Validator.isNumber('#n_cmnd'),
         Validator.isNumber('#n_phoneNumber'),
+        Validator.isDuplicate('#n_email', '#employeeTable',4, 'Email đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#n_phoneNumber', '#employeeTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#n_cmnd', '#employeeTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
             
