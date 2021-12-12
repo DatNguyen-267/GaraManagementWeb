@@ -9,10 +9,11 @@
   </div>
   <div class="ctner__customer-history">
     <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input"
-          placeholder="Tìm kiếm thông tin khách hàng...">
-        <span class="ti-search toolbar__search-icon"></span>
+      <div class="search-form">
+        <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+        <button type="button" class="search-button">
+              <span class="ti-search "> </span>
+          </button>
 
       </div>
       {{!-- <div class="dropdown toolbar__filter">
@@ -31,7 +32,7 @@
       <table class="table table--default">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#Stt</th>
+            <th scope="col">#STT</th>
             <th scope="col">Họ và tên</th>
             <th scope="col">CMND</th>
             <th scope="col">Email</th>

@@ -116,7 +116,7 @@
           <form>
             <div class="form-group">
               <label for="form-edit-name" class="col-form-label">Hiệu xe:</label>
-              <input type="text" class="form-control" id="form-edit-name" name="name">
+              <input type="text" class="form-control" id="form-edit-name" name="name" data-old="">
               <span class="form-message"></span>
             </div>
           </form>
@@ -156,6 +156,7 @@
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
         Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
+        Validator.isDuplicate('#form-edit-name', '#table-data',1 , 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'
@@ -169,16 +170,19 @@
     var btnAcceptEdit = $('#btn-accept-edit')
     var btnEdit = $('.btn-edit')
     var inputEditName = document.querySelector('#form-edit-name')
+    var oldValue 
     const btnAcceptDelete = document.querySelector('#btn-accept-delete')
     const formDelete = document.forms['form-delete']
 
     $('#form-edit').on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         brandId = button.data('id')
+        
     })
     btnEdit.click(function(){
       var row = $(this).parents('tr')[0]
       $('#form-edit-name').val(row.cells[1].textContent)
+      $('#form-edit-name').attr('data-old', row.cells[1].textContent )
     })
     var canDelete
     $('#modal-delete').on('shown.bs.modal', function (event) {
