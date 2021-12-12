@@ -147,8 +147,12 @@
   </div>
 <div class="toolbar">
     <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-key" placeholder="Tìm kiếm vật tư">
-        <span class="toolbar__search-icon ti-search"> </span>
+        <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
+        </div>
     </div>
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
@@ -168,7 +172,7 @@
       <th scope="col" colspan="2">Thao tác</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="table-data">
     {{#each materials}}
       <tr>
         <td>{{this.name}}</td>
@@ -177,8 +181,8 @@
         <td>{{this.import_price}}đ</td>
         <td>{{this.sell_price}}đ</td>
         <td>
-          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
           <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
         </td>
       </tr>
     {{/each}}
@@ -219,6 +223,17 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
 
     Validator({
       form: '#form-add',

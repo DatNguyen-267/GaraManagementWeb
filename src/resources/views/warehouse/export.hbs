@@ -68,8 +68,12 @@
   </div>
 <div class="toolbar">
     <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
-        <span class="toolbar__search-icon ti-search"> </span>
+        <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
+        </div>
     </div>
     <div class="toolbar__filter"></div>
     <div class="toolbar__btn">
@@ -86,7 +90,7 @@
       <th scope="col" colspan="2">Thao tác</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="table-data">
     {{#each vouchers}}
       <tr>
         <td>{{this.of_repair}}</td>
@@ -116,6 +120,17 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
 
     Validator({
       form: '#form-add',
