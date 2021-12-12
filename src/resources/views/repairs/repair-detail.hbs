@@ -110,10 +110,12 @@
                             <td scope="row">{{this.sell_price}}</td>
                             <td scope="row">{{this.total_money}}</td>
                             <td class="td-contain-check-icon" scope="row" >
-                                <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
+                                <i class="fas fa-check-circle icon-check--on" {{isShow this.contracted}} ></i>
+                                {{!-- <span {{isShow this.contracted}} class="check-circle icon-check--on"></span> --}}
                             </td> 
                             <td class="td-contain-check-icon" scope="row" >
-                                <span {{isShow this.exported}} class="oi oi-circle-check icon-check--on"></span>
+                                {{!-- <span {{isShow this.exported}} class="check-circle icon-check--on"></span> --}}
+                                <i class="fas fa-check-circle icon-check--on" {{isShow this.exported}} ></i>
                             </td>
                             <td {{isHidden ../Repair.isSuccess}} class="td-contain-btn" scope="row"> 
                                 <button {{isDisable this.contracted}} class="btn--edit-item btn--disable" data-toggle="modal" 
@@ -157,7 +159,8 @@
                     <td scope="row" >{{this.wage_name}}</td>
                     <td scope="row">{{this.wage_money}}</td>
                     <td class="td-contain-check-icon" scope="row" >
-                        <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
+                        <i class="fas fa-check-circle icon-check--on" {{isShow this.contracted}} ></i>
+                        {{!-- <span {{isShow this.contracted}} class="check-circle icon-check--on"></span> --}}
                     </td> 
                     <td scope="row"  class="td-contain-btn" {{isHidden ../Repair.isSuccess}}>
                         <button {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#modal-edit-wage" data-id="{{this._id}}">Sửa</button>
