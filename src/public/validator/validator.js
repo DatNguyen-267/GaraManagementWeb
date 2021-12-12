@@ -152,12 +152,14 @@ Validator.isDuplicate = function (selector, tableData, index , errorMessage) {
             for (var row of rows) {
                 checkList.push(row.cells[index].textContent)
             }
-            console.log(value.toString())
-            console.log(checkList)
-            console.log((checkList.includes(value.toString())))
-            if ((checkList.includes(value.toString()))) return errorMessage
+            console.log(selector)
+            var oldValue = document.querySelector(selector).getAttribute('data-old')
+            if (oldValue) {
+                if (oldValue == value.toString()) return undefined
+            }
+            if (checkList.includes(value.toString())) return errorMessage
             else return undefined
-            // if )  
+
         }
     }
 }
