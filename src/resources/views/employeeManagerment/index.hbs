@@ -1,7 +1,7 @@
 
 <link rel="stylesheet" href="/css/employeeManagerment.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<title>Nghỉ phép và vi phạm</title>
     <div class = "grid__content">
       <div class="header__breadcrumb">
           <nav aria-label="breadcrumb">
@@ -13,10 +13,12 @@
       <header class = "employeeManagerment__header">
         
         <div class="toolbar">
-          <div class="toolbar__search">
-            <input class="toolbar__search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search" onkeyup="search()">
-            <span class="ti-search toolbar__search-icon"> </span>
-          </div>
+          <div class="search-form">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+              <button type="button" class="search-button">
+                <span class="ti-search "> </span>
+              </button>
+            </div>
         </div>
       </header>
       <body class = "employeeManagerment__body">
@@ -103,10 +105,13 @@
 
 
     <script>
-      var employeeID;
+      
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var employeeID;
       var id;
       var infoForm = document.forms['info-form'];
-      function search(){
+      $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -125,7 +130,7 @@
             }
           }   
         }
-      }
+      })
       $('#managerTable tbody tr').click(function () {
         id = $(this).attr('employeeID')
         $('#info_employeeName').text("Tên nhân viên: " + $(this).children('#employeeName').text());
@@ -133,10 +138,5 @@
         infoForm.action = 'employeeManagerment/' + id + '/info'
         infoForm.submit();
       });
-      function modified(){
-        
-      };
-
-      document.addEventListener('DOMContentLoaded', function () {
     });
     </script>

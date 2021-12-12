@@ -21,7 +21,7 @@ const reportsaleRouter =require('./reportsale')
 const reportinventoryRouter =require('./reportinventory')
 const loginRouter =require('./login')
 const dashboardRouter =require('./dashboard')
-
+const registerRouter = require('./register')
 const ruleRouter = require('./rules')
 
 
@@ -50,6 +50,8 @@ function route(app) {
       app.use('/:profile/employeeManagerment', employeeManagermentRouter)
 
       app.use('/:profile/rules', ruleRouter)
+
+      app.use('/:profile/register', registerRouter)
       
       app.use('/:profile/customer', customerRouter)
 
