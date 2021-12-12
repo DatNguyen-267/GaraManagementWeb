@@ -123,12 +123,16 @@
 {{!-- Danh sách phiếu nhập kho --}}
 
 <div class="grid__content">
-  <div class="template__title">
-    Danh sách phiếu nhập kho
-</div>
+  <div class="header__breadcrumb">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Danh sách phiếu nhập kho</a></li>
+        </ol>
+    </nav>
+  </div>
 <div class="toolbar">
     <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
+        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm phiếu nhập kho" id="search-key">
         <span class="toolbar__search-icon ti-search"> </span>
     </div>
     <div class="toolbar__filter"></div>
@@ -137,7 +141,7 @@
     </div>
 </div>
 
-<table class="table table--default">
+<table class="table table--default" id="import-list">
   <thead class="thead-dark"> 
     <tr>
       <th scope="col">Mã phiếu nhập kho</th>
@@ -167,7 +171,7 @@
     {{/each}}
   </tbody>
 </table>
-
+</div>
 
 <form name="form-view" method="GET" action=""></form>
 <form name="form-delete" method="POST" action=""></form>
@@ -252,6 +256,27 @@
       voucherID = this.getAttribute('data-id')
       formDelete.action = 'import/' + voucherID + '/delete?_method=DELETE'
       formDelete.submit()
+    }
+
+    document.getElementById('search-key').onkeyup = function() {
+      var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-key");
+        filter = input.value;
+        table = document.getElementById("import-list");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+        }
     }
   })
 </script>

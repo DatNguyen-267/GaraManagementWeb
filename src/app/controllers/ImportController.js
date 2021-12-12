@@ -62,11 +62,12 @@ class ImportController {
             })
             .then((position) => {
                 ImportDetail.find({ of_voucher: req.params.idVoucher }).populate('material').then((details) => {
-                    Voucher.findById(req.params.idVoucher).then((voucher) => {
+                    Voucher.findById(req.params.idVoucher).populate('of_supplier').then((voucher) => {
                         Material.find({ of_supplier: voucher.of_supplier }).then((materials) => {
                             res.render('warehouse/import_detail', {
                                 materials: mutipleMongooseToObject(materials),
                                 details: mutipleMongooseToObject(details),
+                                voucher: mongooseToOject(voucher),
                                 activeManagementWarehouse: true,
                                 activeImport: true,
                                 Permissions: mongooseToOject(position.permissions),
@@ -119,7 +120,6 @@ class ImportController {
                     ImportVoucher.updateOne({ _id: detail.of_voucher }, { total_price: total }).then(() => res.redirect('back'))
                 })
             })
-
         })
     }
 

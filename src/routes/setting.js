@@ -4,5 +4,6 @@ const router = express.Router()
 
 router.get('/', settingController.show)
 router.post('/edit-gara-information', settingController.editGaraInformation)
+router.post('/change-password', settingController.changePassword)
 
 module.exports = router;

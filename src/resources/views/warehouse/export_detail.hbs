@@ -1,36 +1,87 @@
-<div class="grid__content">
-  <div class="template__title">
-    Danh sách phiếu xuất kho > Danh sách vật tư
-</div>
-<div class="toolbar">
-    <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
-        <span class="toolbar__search-icon ti-search"> </span>
-    </div>
-    <div class="toolbar__filter"></div>
-    <div class="toolbar__btn">
-        <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="">Xuất kho</button>
-    </div>
+{{!-- Modal xuất kho --}}
+<div class="modal fade" id="exportModal" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Nhập kho</h5>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">Xác nhận xuất kho</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" id="btnModalExport">Xác nhận</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
 </div>
 
-<table class="table table--default">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Tên vật tư</th>
-      <th scope="col">Số lượng</th>
-      <th scope="col">Giá bán</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each details}}
+<div class="grid__content">
+  <div class="header__breadcrumb">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/{{User._id}}/export">Danh sách phiếu xuất kho</a></li>
+            <li class="breadcrumb-item"><a href="#">Danh sách vật tư</a></li>
+        </ol>
+    </nav>
+  </div>
+
+  <div class="import-detail">
+    <div class="info-group">
+      <label for="">Mã phiếu xuất kho:</label>
+      <label>{{voucher._id}}</label>
+    </div>
+    <div class="info-group">
+      <label for="">Mã sửa chữa:</label>
+      <label>{{voucher.of_repair._id}}</label>
+    </div>
+    <div class="info-group">
+      <label for="">Ngày tạo phiếu:</label>
+      <label>{{voucher.createdAt}}</label>
+    </div>
+    <div class="info-group">
+      <label for="">Ngày xuất kho:</label>
+      <label>{{voucher.updatedAt}}</label>
+    </div>
+  </div>
+
+  <div class="toolbar">
+      <div class="toolbar__search">
+          <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm vật tư" id="search-key">
+          <span class="toolbar__search-icon ti-search"> </span>
+      </div>
+      <div class="toolbar__filter"></div>
+      <div class="toolbar__btn">
+          <button class="toolbar__btn-add btn btn-primary" {{isDisable voucher.exported}} data-toggle="modal" data-target="#exportModal">Xuất kho</button>
+      </div>
+  </div>
+
+  <table class="table table--default" id="material-list">
+    <thead class="thead-dark">
       <tr>
-        <td>{{this.material_name}}</td>
-        <td>{{this.amount}}</td>
-        <td>{{this.sell_price}}</td>
+        <th scope="col">Tên vật tư</th>
+        <th scope="col">Số lượng</th>
+        <th scope="col">Giá bán</th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each details}}
+        <tr>
+          <td>{{this.material_name}}</td>
+          <td>{{this.amount}}</td>
+          <td>{{this.sell_price}}đ</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
 
 <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -38,6 +89,37 @@
   crossorigin="anonymous"
 ></script>
 
+<form name="form-export" method="POST" action="{{voucher._id}}/export/?_method=PUT"></form>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function () { })
+  document.addEventListener('DOMContentLoaded', function () { 
+
+    var btnModalExport = document.getElementById('btnModalExport')
+    var formExport = document.forms['form-export']
+
+    btnModalExport.onclick = function () {
+      formExport.submit()
+    }
+
+    document.getElementById('search-key').onkeyup = function() {
+      var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-key");
+        filter = input.value;
+        table = document.getElementById("material-list");
+        tr = $("tbody tr");
+        for (i = 0; i < tr.length; i++) {
+          var td1 = tr[i].getElementsByTagName("td")[0];
+          if (td1) {
+            txtValue = td1.textContent || td1.innerText;
+            filter = filter.toUpperCase();
+            txtValue = txtValue.toUpperCase();
+            if (txtValue.includes(filter)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }   
+        }
+    }
+  })
 </script>
