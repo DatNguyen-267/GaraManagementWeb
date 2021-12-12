@@ -145,7 +145,7 @@
     {{#each vouchers}}
       <tr>
         <td>{{this.of_supplier.name}}</td>
-        <td>{{this.import_date}}đ</td>
+        <td>{{this.import_date}}</td>
         <td>{{this.total_price}}đ</td>
         <td scope="row">
           <div class="{{isImportedStyle this.imported}}">{{isImportedStatus this.imported}}</div>
@@ -222,6 +222,12 @@
 
     var voucherID
 
+    var tableData = document.getElementById('table-data').rows
+    for(var row of tableData) {
+      var date = new Date(Date.parse(row.cells[1].textContent))
+      row.cells[1].textContent = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+    }
+
     for(var item of btnView) {
       item.onclick = function () {
         var voucherID = this.getAttribute('data-id')
@@ -241,7 +247,7 @@
       item.onclick = function() {
         var rowData = this.parentElement.parentElement
 
-        document.getElementById('edit-date').value = rowData.cells[2].textContent
+        document.getElementById('edit-date').value = rowData.cells[1].textContent
 
         voucherID = this.getAttribute('data-id')
         btnModalEdit.setAttribute('data-id', voucherID)

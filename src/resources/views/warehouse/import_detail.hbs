@@ -158,16 +158,12 @@
 
   <div class="import-detail">
     <div class="info-group">
-      <label for="">Mã phiếu nhập kho:</label>
-      <label id="label-repair-id">{{voucher.import_id}}</label>
-    </div>
-    <div class="info-group">
       <label for="">Nhà cung cấp:</label>
       <label id="label-repair-id">{{voucher.of_supplier.name}}</label>
     </div>
     <div class="info-group">
       <label for="">Ngày nhập kho:</label>
-      <label id="label-repair-id">{{voucher.import_date}}</label>
+      <label id="import-date">{{voucher.import_date}}</label>
     </div>
     <div class="info-group">
       <label for="">Tổng tiền</label>
@@ -270,6 +266,10 @@
         formEdit.submit()
       }
     })
+
+    var importDateLabel = document.getElementById('import-date').innerHTML
+    var date = new Date(Date.parse(importDateLabel))
+    document.getElementById('import-date').innerHTML = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
 
     var addMaterialForm = document.getElementById('addMaterialForm')
     var btnDelete = document.querySelectorAll('.btn--delete-item')
