@@ -1,4 +1,6 @@
 const Supplier = require('../models/Supplier')
+const Material = require('../models/Material')
+const ImportVoucher = require('../models/ImportVoucher')
 const Position = require('../models/Position')
 const { mutipleMongooseToObject, mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
@@ -36,11 +38,19 @@ class SupplierController {
 
     delete(req, res, next) {
         const idDelete = req.params.id
-        Supplier.delete({ _id: idDelete })
-            .then(() => {
-                res.redirect('back')
+        Material.find({ of_supplier: idDelete }).then((materials) => {
+            ImportVoucher.find({of_supplier: idDelete }).then((vouchers) => {
+                if(materials.length == 0 && vouchers.length == 0) {
+                    Supplier.delete({ _id: idDelete })
+                    .then(() => {
+                        res.redirect('back')
+                    })
+                    .catch(next)
+                } else {
+                    res.redirect('back')
+                }
             })
-            .catch(next)
+        })
     }
 
     edit(req, res, next) {

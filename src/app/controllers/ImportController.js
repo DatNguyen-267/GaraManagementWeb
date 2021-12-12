@@ -62,11 +62,13 @@ class ImportController {
             })
             .then((position) => {
                 ImportDetail.find({ of_voucher: req.params.idVoucher }).populate('material').then((details) => {
-                    Voucher.findById(req.params.idVoucher).then((voucher) => {
+                    Voucher.findById(req.params.idVoucher).populate('of_supplier').then((voucher) => {
                         Material.find({ of_supplier: voucher.of_supplier }).then((materials) => {
                             res.render('warehouse/import_detail', {
                                 materials: mutipleMongooseToObject(materials),
                                 details: mutipleMongooseToObject(details),
+                                voucher: mongooseToOject(voucher),
+                                isEmpty: (details.length ? false : true),
                                 activeManagementWarehouse: true,
                                 activeImport: true,
                                 Permissions: mongooseToOject(position.permissions),
@@ -90,7 +92,7 @@ class ImportController {
                     var total = voucher.total_price + material.amount * material.import_price
                     Material.updateOne({ _id: material.material }, { import_price: material.import_price }).then(() => { })
                     ImportVoucher.updateOne({ _id: req.params.idVoucher }, { total_price: total }).then(() => {
-                        res.redirect('back')
+                        res.redirect('/' + res.locals.employee._id + '/import/detail/' + req.params.idVoucher)
                     })
                 })
             })
@@ -103,7 +105,7 @@ class ImportController {
                 var total = voucher.total_price - detail.amount * detail.import_price
                 ImportVoucher.updateOne({ _id: detail.of_voucher }, { total_price: total }).then(() => {
                     ImportDetail.deleteOne({ _id: idDelete }).then(() => {
-                        res.redirect('back')
+                        res.redirect('/' + res.locals.employee._id + '/import/detail/' + voucher._id)
                     })
                 })
             })
@@ -119,7 +121,6 @@ class ImportController {
                     ImportVoucher.updateOne({ _id: detail.of_voucher }, { total_price: total }).then(() => res.redirect('back'))
                 })
             })
-
         })
     }
 

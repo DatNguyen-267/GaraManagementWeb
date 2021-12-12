@@ -1,61 +1,112 @@
 <link rel="stylesheet" href="/css/setting.css">
 
+
+{{!-- Modal thay đổi thông tin gara --}}
+<div class="modal fade" id="editInformationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST" name="form-edit-gara-information" id="form-edit-gara-information">
+        <div class="modal-header">
+            <h5 class="modal-title">Sửa thông tin gara</h5>
+            <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="p-2 row">
+                    <label for="" class="col-3 col-form-label">Tên gara</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="edit-gara-name" name="gara_name" value={{setting.gara_name}} />
+                        <span class="form-message"></span>
+                    </div>
+                </div>
+                <div class="p-2 row">
+                    <label for="" class="col-3 col-form-label">Số điện thoại</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="edit-telephone" name="telephone" value={{setting.telephone}} />
+                        <span class="form-message"></span>
+                    </div>
+                </div>
+                <div class="p-2 row">
+                    <label for="" class="col-3 col-form-label">Địa chỉ</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="edit-address" name="address" value={{setting.address}}/>
+                        <span class="form-message"></span>
+                    </div>
+                </div>
+                <div class="p-2 row">
+                    <label for="" class="col-3 col-form-label">Email</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="edit-email" name="email" value={{setting.email}} />
+                        <span class="form-message"></span>
+                    </div>
+                </div>
+                <div class="p-2 row">
+                    <label for="" class="col-3 col-form-label">Số xe tối đa trong ngày</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="edit-max-receptions" name="max_receptions" value={{setting.max_receptions}} />
+                        <span class="form-message"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn--send-dialog">Thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <div class="container">
     <div class="left-container">
-        <h2>Thông tin gara</h2>
-        <form method="POST" class="container-fluid" name="form-edit-gara-information" id="form-edit-gara-information">
+        <div class="left-container__gara-information">
+            <h2>Thông tin gara</h2>
             <div class="form-group">
                 <label for="">Tên gara</label>
-                <input type="text" class="form-control" id="edit-gara-name" name="gara_name" value="{{setting.gara_name}}">
-                <span class="form-message"></span>
+                <input type="text" readonly class="form-control" name="gara_name" value="{{setting.gara_name}}">
             </div>
             <div class="form-group">
                 <label for="">Số điện thoại</label>
-                <input type="text" class="form-control" id="edit-telephone" name="telephone" value="{{setting.telephone}}">
-                <span class="form-message"></span>
+                <input type="text" readonly class="form-control" name="telephone" value="{{setting.telephone}}">
             </div>
             <div class="form-group">
                 <label for="">Địa chỉ</label>
-                <input type="text" class="form-control" id="edit-address" name="address" value="{{setting.address}}">
-                <span class="form-message"></span>
+                <input type="text" readonly class="form-control" name="address" value="{{setting.address}}">
             </div>
             <div class="form-group">
                 <label for="">Email</label>
-                <input type="text" class="form-control" id="edit-email" name="email" value="{{setting.email}}">
-                <span class="form-message"></span>
+                <input type="text" readonly class="form-control" name="email" value="{{setting.email}}">
             </div>
             <div class="form-group">
                 <label for="">Số xe tối đa trong ngày</label>
-                <input type="text" class="form-control" id="edit-max-receptions" name="max_receptions" value="{{setting.max_receptions}}">
-                <span class="form-message"></span>
+                <input type="text" readonly class="form-control" name="max_receptions" value="{{setting.max_receptions}}">
             </div>
-            <button type="submit" class="btn btn-primary">Thay đổi</button>
-            <button type="button" class="btn btn-primary" id="reset-gara-information-btn">Hoàn tác</button>
-            </form>
+            <button class="btn btn--send-dialog" data-toggle="modal" data-target="#editInformationModal">Thay đổi</button>
+        </div>
+        <div class="left-container__log-out">
+            <button class="btn btn--send-dialog" id="log-out-btn" data-toggle="modal" data-target="">Đăng xuất</button>
+        </div>
     </div>
+
     <div class="right-container">
         <h2>Thay đổi mật khẩu</h2>
-        <form class="form-inline container-fluid justify-content-between" id="form-verify-password">
-            <div class="form-group mb-2">
-                <label for="" class="sr-only"></label>
-                <input type="text" readonly class="form-control-plaintext" id="" value="email@example.com">
+        <form method="POST" class="container-fluid" id="form-change-password">
+            <div class="form-group">
+                <label for="">Nhập mật khẩu cũ</label>
+                <input type="password" class="form-control" name="old_password" id="old-password">
+                <span class="form-message"></span>
             </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="" placeholder="Nhập mật khẩu cũ">
+            <div class="form-group">
+                <label for="">Nhập mật khẩu mới</label>
+                <input type="password" class="form-control" name="new_password" id="new-password">
+                <span class="form-message"></span>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Xác nhận</button>
-        </form>
-        <form class="form-inline container-fluid justify-content-between" id="form-change-password">
-            <div class="form-group mb-2">
-                <label for="" class="sr-only"></label>
-                <input type="text" readonly class="form-control-plaintext" id="" value="email@example.com">
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="" placeholder="Nhập mật khẩu mới">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Thay đổi</button>
+            <button type="submit" class="btn btn--send-dialog" id="change-password-btn">Thay đổi</button>
+            <label></label>
         </form>
     </div>
 </div>
@@ -66,12 +117,10 @@
         crossorigin="anonymous">
 </script>
 
-<form method="GET" name="form-reset-information"></form>
-<form method="POST" name="form-edit-password"></form>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-      Validator({
+      
+    Validator({
       form: '#form-edit-gara-information',
       errorSelector: '.form-message',
       rules: [
@@ -89,16 +138,29 @@
       }
     })
 
+    Validator({
+      form: '#form-change-password',
+      errorSelector: '.form-message',
+      rules: [
+        Validator.isRequire('#old-password', 'Vui lòng nhập mật khẩu cũ'),
+        Validator.isRequire('#new-password', 'Vui lòng nhập mật khẩu mới')
+      ],
+      onSubmit: function () {
+          formChangePassword.action = 'setting/change-password'
+          formChangePassword.submit()
+      }
+    })
+
+    var changePasswordBtn = document.getElementById('change-password-btn')
+    var oldPassword = document.getElementById('old-password')
+    var newPassword = document.getElementById('new-password')
     var formEditGaraInformation = document.forms['form-edit-gara-information']
-    var resetGaraInformation = document.getElementById('reset-gara-information-btn')
-    var resetInformationForm = document.forms['form-reset-information']
-    var verifyChangePasswordForm = document.forms['form-change-password']
+    var formChangePassword = document.forms['form-change-password']
 
-    resetGaraInformation.onclick = function() {
-        resetGaraInformation.action = 'setting'
-        resetInformationForm.submit()
-    }
+    changePasswordBtn.disabled = true
 
-
+    const onChanged = () => changePasswordBtn.disabled = false
+    oldPassword.onkeypress = onChanged
+    newPassword.onkeypress = onChanged
   })
 </script>

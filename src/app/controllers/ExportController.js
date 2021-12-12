@@ -81,7 +81,7 @@ class ExportController {
                         })
                 }
             }).then(() => {
-                res.redirect('back')
+                res.redirect('/' + res.locals.employee._id + '/export')
             })
         })
             .catch(next)

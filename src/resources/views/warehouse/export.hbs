@@ -59,9 +59,13 @@
 
 {{!-- Danh sách phiếu xuất kho --}}
 <div class="grid__content">
-  <div class="template__title">
-    Danh sách phiếu xuất kho
-</div>
+  <div class="header__breadcrumb">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Danh sách phiếu xuất kho</a></li>
+        </ol>
+    </nav>
+  </div>
 <div class="toolbar">
     <div class="toolbar__search">
         <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm...">
@@ -98,6 +102,7 @@
     {{/each}}
   </tbody>
 </table>
+</div>
 
 
 <form name="form-view" method="GET" action=""></form>
