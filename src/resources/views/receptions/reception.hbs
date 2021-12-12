@@ -9,9 +9,11 @@
   </div>
   <div class="ctner">
     <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin xe...">
-        <span class="ti-search toolbar__search-icon"> </span>
+      <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
       </div>
 
       <div class="dropdown toolbar__filter">
@@ -32,7 +34,7 @@
       </div>
     </div>
     <div class="list-reception">
-      <table class="table table--default">
+      <table class="table">
         <colgroup>
             <col style="width: 70px;">
             <col >
@@ -46,7 +48,7 @@
         </colgroup>
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#STT</th>
+            <th scope="col">#Mã phiếu tiếp nhận</th>
             <th scope="col">Biển số xe</th>
             <th scope="col">Hiệu xe</th>
             <th scope="col">Tên khách hàng</th>
@@ -57,13 +59,14 @@
             <th scope="col" ></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="table-data">
           {{#each Receptions}}
           <tr data-id="{{this._id}}">
-            <th scope="row"> {{sum @index 1}} </th>
+            {{!-- {{sum @index 1}} --}}
+            <td scope="row">  {{this._id}} </td>
             <td>{{this.license}}</td>
             <td>{{this.brand.name}}</td>
-            <td>{{this.of_customer.name}}</td>
+            <td data-id="{{this.of_customer._id}}">{{this.of_customer.name}}</td>
             <td hidden>{{this.phone}}</td>
             <td>{{this.receptionDate}}</td>
             <td>
@@ -185,7 +188,7 @@
             </div>
             <div class="form-group">
               <label for="reception-add-receptionDate" class="col-form-label">Ngày tiếp nhận:</label>
-              <input type="date" class="form-control" id="reception-add-receptionDate" name="receptionDate" value="2021-09-10">
+              <input type="date" class="form-control" id="reception-add-receptionDate" name="receptionDate" >
               <span class="form-message"></span>
             </div>
           </form>
@@ -205,7 +208,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Thêm phiếu tiếp nhận</h5>
+          <h5 class="modal-title">Sửa phiếu tiếp nhận</h5>
           <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -214,9 +217,15 @@
           <form>
             <div class="form-group">
               <label for="reception-edit-name" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" class="form-control" id="reception-edit-name" name="name">
+              <select class="form-control" name="of_customer" id="reception-edit-name"> 
+                    <option>--- Chọn khách hàng ---</option>
+                    {{#each Customers}}   
+                      <option value="{{this._id}}" data-phone={{this.phone}}>{{this.name}}</option>
+                    {{/each}}
+              </select>
               <span class="form-message"></span>
             </div>
+
             <div class="form-group">
               <label for="reception-edit-lincense" class="col-form-label">Biển số xe:</label>
               <input type="text" class="form-control" id="reception-edit-license" name="license">
@@ -322,6 +331,16 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // VALIDATE
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
     Validator({
       form: '#form-add-reception', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
@@ -384,7 +403,7 @@
       var id = $(this).data('id')
       var rowData = $(this).parents('tr')[0]
       $('#reception-edit-license').val(rowData.cells[1].textContent)
-      $('#reception-edit-name').val(rowData.cells[3].textContent)
+      {{!-- $('#reception-edit-name').val(rowData.cells[3].textContent) --}}
       $('#reception-edit-phone').val(rowData.cells[4].textContent)
       //var mydate = new Date(rowData.cells[5].textContent);
       //$('#reception-edit-receptionDate').val(new Date(mydate).toDateString())
@@ -394,6 +413,14 @@
         if (selecteBrand.options[i].textContent == rowData.cells[2].textContent)
           selecteBrand.options.item(i).selected = 'selected'
       }
+
+      var selecteCustomer = document.querySelector('#reception-edit-name')
+      console.log(selecteCustomer)
+      for (var i = 0 ; i < selecteCustomer.options.length ; i++) {
+        if (selecteCustomer.options[i].value == rowData.cells[3].getAttribute('data-id'))
+          selecteCustomer.options.item(i).selected = 'selected'
+      }
+
     })
     btnAcceptDelete.click(function () {
       if (receptionId != null) {

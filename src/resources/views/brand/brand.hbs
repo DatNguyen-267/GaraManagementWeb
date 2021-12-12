@@ -11,16 +11,18 @@
   </div>
 
   <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input" placeholder="Tìm kiếm thông tin xe...">
-        <span class="ti-search toolbar__search-icon"> </span>
+      <div class="search-form">
+          <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+          <button type="button" class="search-button">
+            <span class="ti-search "> </span>
+          </button>
       </div>
       <div class="toolbar__btn">
           <button class="toolbar__btn-add btn btn-primary" data-toggle="modal" data-target="#modal-add">Thêm hiệu xe</button>
       </div>
   </div>
   {{!-- THÊM --}}
-  <table class="table">
+  <table class="table" >
     <colgroup>
       <col>
       <col>
@@ -28,18 +30,20 @@
     </colgroup>
     <thead class="thead-dark">
       <tr>
+        <th scope="col">STT</th>
         <th scope="col">Mã hiệu xe</th>
         <th scope="col">Tên hiệu xe</th>
         <th scope="col" colspan="2"></th>
       </tr>
     </thead>
-      <tbody>
+      <tbody id="table-data" >
         {{#each Data}}
         <tr>
           {{!-- 1 hiệu xe --}}
+          <th scope="row">{{@index}}</th>
           <td>{{this.brand._id}}</td>
           <td>{{this.brand.name}}</td>
-          <td class="row-btn">
+          <td class="row-btn--center">
             <button class="btn btn--edit-item btn-edit" data-id="{{this.brand._id}}" 
             data-name="{{this.brand.name}}" data-toggle="modal" data-target="#modal-edit">Sửa</button>
             <button class="btn btn--delete-item btn-delete" data-id="{{this.brand._id}}" data-candelete="{{this.canDelete}}"
@@ -114,7 +118,7 @@
           <form>
             <div class="form-group">
               <label for="form-edit-name" class="col-form-label">Hiệu xe:</label>
-              <input type="text" class="form-control" id="form-edit-name" name="name">
+              <input type="text" class="form-control" id="form-edit-name" name="name" data-old="">
               <span class="form-message"></span>
             </div>
           </form>
@@ -130,6 +134,18 @@
 <div id="message-no-delete" data-nodelete="{{NoDelete}}"></div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+    });
+
     window.onload = function() {
       if ($('#message-no-delete').data('nodelete')) {
         alert("Không thể xóa hiệu xe này vì đang được sử dụng ở phiếu tiếp nhận")
@@ -141,24 +157,26 @@
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
         Validator.isRequire('#input-name', 'Vui lòng nhập tên hiệu xe'),
+        Validator.isDuplicate('#input-name', '#table-data',1, 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formAdd.action = 'brand/create' 
           formAdd.submit()
         }
       })
-      const formEdit = document.forms['form-edit']
-      Validator({
-        form: '#form-edit', // id của cái form cần validate
-        errorSelector: '.form-message', // tên class để hiện cái lỗi
-        rules: [
-          Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
-        ],
-        onSubmit: function() {
-            formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'
-            formEdit.submit()
-          }
-        })
+    const formEdit = document.forms['form-edit']
+    Validator({
+      form: '#form-edit', // id của cái form cần validate
+      errorSelector: '.form-message', // tên class để hiện cái lỗi
+      rules: [
+        Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
+        Validator.isDuplicate('#form-edit-name', '#table-data',1 , 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
+      ],
+      onSubmit: function() {
+          formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'
+          formEdit.submit()
+        }
+      })
 
     var brandId;
     var tdActive;
@@ -166,16 +184,19 @@
     var btnAcceptEdit = $('#btn-accept-edit')
     var btnEdit = $('.btn-edit')
     var inputEditName = document.querySelector('#form-edit-name')
+    var oldValue 
     const btnAcceptDelete = document.querySelector('#btn-accept-delete')
     const formDelete = document.forms['form-delete']
 
     $('#form-edit').on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         brandId = button.data('id')
+        
     })
     btnEdit.click(function(){
       var row = $(this).parents('tr')[0]
       $('#form-edit-name').val(row.cells[1].textContent)
+      $('#form-edit-name').attr('data-old', row.cells[1].textContent )
     })
     var canDelete
     $('#modal-delete').on('shown.bs.modal', function (event) {

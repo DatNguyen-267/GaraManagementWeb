@@ -114,7 +114,17 @@ input.disabled {
   padding-top: 8px!important;
 }
 // TEMPLATE KHUNG
-.row-btn {
+.row-btn--left {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.row-btn--right {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.row-btn--center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -133,6 +143,7 @@ input.disabled {
   margin: 16px 32px;
   display: flex;
   flex-direction: column;
+  
 }
 
 /* ANIMATION */

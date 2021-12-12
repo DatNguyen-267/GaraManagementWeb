@@ -13,6 +13,8 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     --}}
     <link rel="stylesheet" href="/font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/font/fontawesome-free-5.15.4-web/css/all.css">
+    <link rel="stylesheet" href="/css/template.css">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/app.css">
 
@@ -30,7 +32,7 @@
                     </button>
                 </div>
                 <div class="menu__body-item ">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCar}} " type="button"
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCar}} "{{checkPermission Permissions 1}} type="button"
                         data-toggle="collapse" data-target="#menu__body-sublist-quanlyxe">
                         <span class="menu__body-mainlist-icon ti-car"></span>
                         <div class="menu__body-mainlist-name">Quản lý xe</div>
@@ -44,11 +46,13 @@
                             class="menu__body-sublist-item {{activeItemMenu activeRepair}}">Theo dõi sửa chữa</div>
                         <div data-transfer="http://localhost:8080/{{User._id}}/brand"
                             class="menu__body-sublist-item {{activeItemMenu activeBrand}}">Quản lý hiệu xe</div>
+                        <div data-transfer="http://localhost:8080/{{User._id}}/wage"
+                            class="menu__body-sublist-item {{activeItemMenu activeWage}}">Quản lý tiền công</div>
                     </div>
                 </div>
 
                 <div class="menu__body-item ">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}} " type="button"
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}}  {{checkPermission Permissions 2}}" type="button"
                         data-toggle="collapse" data-target="#menu__body-sublist-management-customer">
                         <span class="menu__body-mainlist-icon ti-user"></span>
                         <div class="menu__body-mainlist-name">Quản lý khách hàng</div>
@@ -66,7 +70,7 @@
                     </div>
                 </div>
                 <div class="menu__body-item ">
-                    <button class="menu__body-mainlist {{activeMainMenu activeEmployee}} " type="button"
+                    <button class="menu__body-mainlist {{activeMainMenu activeEmployee}} "{{checkPermission Permissions 3}} type="button"
                         data-toggle="collapse" data-target="#menu__body-sublist-employee">
                         <span class="menu__body-mainlist-icon ti-car"></span>
                         <div class="menu__body-mainlist-name">Quản nhân viên</div>
@@ -87,7 +91,7 @@
                     </div>
                 </div>
                 <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementWarehouse}} " type="button"
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementWarehouse}} "{{checkPermission Permissions 4}} type="button"
                         data-toggle="collapse" data-target="#menu__body-sublist-management-warehouse">
                         <span class="menu__body-mainlist-icon ti-package"></span>
                         <div class="menu__body-mainlist-name">Quản lý kho</div>
@@ -106,7 +110,7 @@
                     </div>
                 </div>
                 <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementReport}} " type="button"
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementReport}} "{{checkPermission Permissions 5}} type="button"
                         data-toggle="collapse" data-target="#menu__body-sublist-management-report">
                         <span class="menu__body-mainlist-icon ti-bar-chart"></span>
                         <div class="menu__body-mainlist-name">Báo cáo thống kê</div>
@@ -121,7 +125,7 @@
                     </div>
                 </div>
                 <div class="menu__body-item">
-                    <button class="menu__body-mainlist {{activeMainMenu activeSetting}} " type="button" id="setting"
+                    <button class="menu__body-mainlist {{activeMainMenu activeSetting}} "{{checkPermission Permissions 6}} type="button" id="setting"
                         data-transfer="http://localhost:8080/{{User._id}}/setting">
                             <span class="menu__body-mainlist-icon ti-home"></span>
                             <div class="menu__body-mainlist-name">Cài đặt</div>
@@ -133,7 +137,7 @@
             {{{body}}}
         </div>
     </div>
-    <form method="GET" name="form-transfer"></form>
+    <form method="GET" name="form-transfer" hidden></form>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -144,7 +148,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
+    
 
     <script src="/validator/validator.js"></script>
     <script src="/table2excel/table2excel.js"></script>
@@ -166,9 +170,10 @@
             }
             
         }
-        btnMainMenu.click(function(){
-            if (item.querySelector('.menu__body-sublist')) { 
-                if (this.querySelector('.menu__body-sublist').classList.contains('show'))
+        var btnMain = $('.menu__body-mainlist')
+        btnMain.click(function(){
+            if (this.parentElement.querySelector('.menu__body-sublist')) { 
+                if (this.querySelector('.menu__body-mainlist-icon-expand').style.transform == "rotate(-90deg)")
                 this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(0deg)"
                 else  this.querySelector('.menu__body-mainlist-icon-expand').style.transform = "rotate(-90deg)"
             }

@@ -29,10 +29,10 @@ class WageController {
                             }
                             res.render('wage/wage', {
                                 wages: mutipleMongooseToObject(wages),
-                                // activeManagementWage: true,
-                                // activeWage: true,
-                                 Permissions: mongooseToOject(position.permissions),
-                                 User: mongooseToOject(res.locals.employee)
+                                activeManagementCar: true,
+                                activeWage: true,
+                                Permissions: mongooseToOject(position.permissions),
+                                User: mongooseToOject(res.locals.employee)
                             })
                     })
                     .catch(next)
@@ -42,60 +42,71 @@ class WageController {
     create(req, res, next) {
         var check = 0
         const wage = new Wage(req.body)
-        Wage.find({})
-        .then(wages => {
-            for (const iteam of wages) {
-                if( iteam.name == wage.name && iteam._id !=req.params.id)
-                {
-                    check = 1
-                }
-            }
-            if(check == 1){
-               res.render('wage/wage', {
-                    wages: mutipleMongooseToObject(wages),
-                    // activeManagementWage: true,
-                    // activeWage: true,
-                    check,
-                })
-            }
-            else{
-                wage.save()
-                .then(() => {
-                    res.redirect('back')
+        wage.save()
+        .then(() => {
+            res.redirect('back')
 
-                })
-                .catch(next)
-            }
         })
         .catch(next)
+        // Wage.find({})
+        // .then(wages => {
+        //     for (const iteam of wages) {
+        //         if( iteam.name == wage.name && iteam._id !=req.params.id)
+        //         {
+        //             check = 1
+        //         }
+        //     }
+        //     if(check == 1){
+        //        res.render('wage/wage', {
+        //             wages: mutipleMongooseToObject(wages),
+        //             activeManagementCar: true,
+        //             activeWage: true,
+        //             check,
+        //         })
+        //     }
+        //     else{
+        //         wage.save()
+        //         .then(() => {
+        //             res.redirect('back')
+
+        //         })
+        //         .catch(next)
+        //     }
+            
+        // })
+        // .catch(next)
         
     }
     edit(req, res, next) {
-        var check = 0
-        const wage = new Wage(req.body)
-        Wage.find({})
-        .then(wages => {
-            for (const iteam of wages) {
-                if( iteam.name == wage.name && iteam._id !=req.params.id)
-                {
-                    check = 2
-                }
-            }
-            if(check == 2){
-               res.render('wage/wage', {
-                    wages: mutipleMongooseToObject(wages),
-                    // activeManagementWage: true,
-                    // activeWage: true,
-                    check,
-                })
-            }
-            else{
-                Wage.updateOne({ _id: req.params.id }, req.body)
-                .then(() => res.redirect('back'))
-                .catch(next)
-            }
-        })
+        Wage.updateOne({ _id: req.params.id }, req.body)
+        .then(() => res.redirect('back'))
         .catch(next)
+        // var check = 0
+        // const wage = new Wage(req.body)
+        // Wage.find({})
+        // .then(wages => {
+        //     for (const iteam of wages) {
+        //         if( iteam.name == wage.name && iteam._id !=req.params.id)
+        //         {
+        //             check = 2
+        //         }
+        //     }
+        //     if(check == 2){
+        //        res.render('wage/wage', {
+        //             wages: mutipleMongooseToObject(wages),
+        //             activeManagementCar: true,
+        //             activeWage: true,
+        //             check,
+        //         })
+        //     }
+        //     else{
+        //         Wage.updateOne({ _id: req.params.id }, req.body)
+        //         .then(() => res.redirect('back'))
+        //         .catch(next)
+        //     }
+            
+        // })
+        // .catch(next)
         
     }
     delete(req, res, next) {

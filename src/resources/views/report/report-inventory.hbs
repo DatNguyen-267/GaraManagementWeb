@@ -1,7 +1,14 @@
 <link rel="stylesheet" href="/css/report-inventory.css">
 <div class="container__report-inventory">
+    <div class="header__breadcrumb">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Báo cáo tồn</a></li>
+          </ol>
+      </nav>
+    </div>
     <div class="header__report-inventory">
-        <div class="header__report-inventory__title">Báo cáo tồn</div>
+        
     </div>
     <div class="ctner__report-inventory">
         <div class="toolbar__report-inventory">
@@ -33,17 +40,16 @@
                     <button class="toolbar__btn-add btn btn--primary" data-toggle="modal"
                         data-target="#form-add-report-inventory" id="toobar-btn-add">Lập báo
                         cáo</button>
-                    {{!-- <button class="toolbar__btn-edit btn btn--edit-item" data-toggle="modal"
-                        data-target="#form-edit-report-inventory">Sửa báo cáo</button> --}}
+                    <button class="toolbar__btn-export-excel btn btn--primary" id="toolbar-btn-export-excel">Xuất Excel</button> 
                     <button class="toolbar__btn-print btn btn-success" id="toolbar-btn-print">Xuất bản in</button>
                 </div>
             </div>
         </div>
         <div class="list-report-inventory" id="printtableArea">
-            <table class="table table--default">
+            <table class="table table--default" id="data-table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#Stt</th>
+                        <th scope="col">#STT</th>
                         <th scope="col">Tên vật tư</th>
                         <th scope="col">Tồn đầu</th>
                         <th scope="col">Phát sinh</th>
@@ -91,11 +97,11 @@
                     <form>
                         <div class="form-group">
                             <label for="report-inventory-add-month" class="col-form-label">Tháng:</label>
-                            <input type="text" class="form-control" id="report-inventory-add-month" name="month">
+                            <input type="text" class="form-control" id="report-inventory-add-month" name="month" readonly required>
                         </div>
                         <div class="form-group">
                             <label for="report-inventory-add-year" class="col-form-label">Năm:</label>
-                            <input type="text" class="form-control" id="report-inventory-add-year" name="year" required>
+                            <input type="text" class="form-control" id="report-inventory-add-year" name="year" required readonly>
                         </div>
 
                         <div class="form-group">
@@ -107,7 +113,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn--close-dialog" data-dismiss="modal">Đóng</button>
-                    <button id="btn-add-report-inventory" type="submit" class="btn btn--send-dialog">Thêm</button>
+                    <button id="btn-add-report-inventory" type="submit" class="btn btn--send-dialog">Lập báo cáo</button>
                 </div>
             </div>
         </div>
@@ -212,6 +218,13 @@
         var btnPrint = $('.toolbar__btn-print')
         var check = btnSearch.data('check')
         var report_inventory_date = document.getElementById('report-inventory-date-input').value
+
+        //Xuất excel
+        document.getElementById('toolbar-btn-export-excel').onclick = function () {
+            var table2Excel = new Table2Excel()
+            table2Excel.export(document.getElementById('data-table'), 'Báo cáo tồn')
+        }
+
         //Xuất bản In
         btnPrint.click(function () {
             var printContents = document.getElementById('printtableArea').innerHTML;

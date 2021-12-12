@@ -12,10 +12,11 @@
   </div>
   <div class="ctner__customer">
     <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input"
-          placeholder="Tìm kiếm thông tin khách hàng...">
-        <span class="ti-search toolbar__search-icon"></span>
+      <div class="search-form">
+        <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+        <button type="button" class="search-button">
+              <span class="ti-search "> </span>
+          </button>
 
       </div>
       {{!-- <div class="dropdown toolbar__filter">
@@ -33,10 +34,10 @@
         khách hàng</button>
     </div>
     <div class="list-customer">
-      <table class="table table--default">
+      <table class="table table--default" id="table-data">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#Stt</th>
+            <th scope="col">#STT</th>
             <th scope="col">Họ và tên</th>
             <th scope="col">Ngày sinh</th>
             <th scope="col">Địa chỉ</th>
@@ -90,7 +91,7 @@
           <form>
             <div class="form-group">
               <label for="customer-add-name" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" class="form-control" id="customer-add-name" name="name" required>
+              <input type="text" class="form-control" id="customer-add-name" name="name">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
@@ -100,22 +101,22 @@
             </div>
             <div class="form-group">
               <label for="customer-add-address" class="col-form-label">Địa chỉ:</label>
-              <input type="text" class="form-control" id="customer-add-address" name="address" required>
+              <input type="text" class="form-control" id="customer-add-address" name="address">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-phone" class="col-form-label">Số điện thoại:</label>
-              <input type="text" class="form-control" id="customer-add-phone" name="phone" required>
+              <input type="text" class="form-control" id="customer-add-phone" name="phone">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-email" class="col-form-label">Email:</label>
-              <input type="email" class="form-control" id="customer-add-email" name="email" required>
+              <input type="email" class="form-control" id="customer-add-email" name="email">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-add-birthday" class="col-form-label">Ngày sinh:</label>
-              <input type="date" class="form-control" id="customer-add-birthday" name="birthday" required>
+              <input type="date" class="form-control" id="customer-add-birthday" name="birthday">
               <span class="form-message" id="birthday_error" ></span>
             </div>
           </form>
@@ -197,7 +198,7 @@
           <form>
             <div class="form-group">
               <label for="customer-edit-name" class="col-form-label">Tên khách hàng:</label>
-              <input type="text" class="form-control" id="customer-edit-name" name="name" required>
+              <input type="text" class="form-control" id="customer-edit-name" name="name">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
@@ -207,22 +208,22 @@
             </div>
             <div class="form-group">
               <label for="customer-add-address" class="col-form-label">Địa chỉ:</label>
-              <input type="text" class="form-control" id="customer-edit-address" name="address" required>
+              <input type="text" class="form-control" id="customer-edit-address" name="address">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-edit-phone" class="col-form-label">Số điện thoại:</label>
-              <input type="text" class="form-control" id="customer-edit-phone" name="phone" required>
+              <input type="text" class="form-control" id="customer-edit-phone" name="phone">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-edit-email" class="col-form-label">Email:</label>
-              <input type="email" class="form-control" id="customer-edit-email" name="email" required>
+              <input type="email" class="form-control" id="customer-edit-email" name="email">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="customer-edit-birthday" class="col-form-label">Ngày sinh:</label>
-              <input type="date" class="form-control" id="customer-edit-birthday" name="birthday"required>
+              <input type="date" class="form-control" id="customer-edit-birthday" name="birthday">
               <span class="form-message"></span>
             </div>
           </form>
@@ -320,6 +321,7 @@
         Validator.isRequire('#customer-add-address', 'Vui chọn nhập địa chỉ'),
         Validator.isRequire('#customer-add-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isNumber('#customer-add-cardIdentify'),
+        Validator.isDuplicate('#customer-add-cardIdentify', '#table-body',4, 'CMND đã tồn tại. Vui lòng nhập lại!'),
         Validator.minLength('#customer-add-cardIdentify', 9),
         Validator.isRequire('#customer-add-email', 'Vui lòng nhập email'),
         Validator.isEmail('#customer-add-email'),
@@ -342,6 +344,7 @@
         Validator.isRequire('#customer-edit-address', 'Vui chọn nhập địa chỉ'),
         Validator.isRequire('#customer-edit-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isNumber('#customer-edit-cardIdentify'),
+        Validator.isDuplicate('#customer-edit-cardIdentify', '#table-body',4, 'CMND đã tồn tại. Vui lòng nhập lại!'),
         Validator.minLength('#customer-edit-cardIdentify', 9),
         Validator.isRequire('#customer-edit-email', 'Vui lòng nhập email'),
         Validator.isEmail('#customer-edit-email'),
@@ -397,6 +400,7 @@
       $('#customer-edit-address').val(rowData.cells[3].textContent)
       $('#customer-edit-phone').val(rowData.cells[6].textContent)
       $('#customer-edit-email').val(rowData.cells[5].textContent)
+      $('#customer-edit-cardIdentify').attr('data-old', rowData.cells[4].textContent )
 
     })
     //btnSubmitEdit.click(function () {

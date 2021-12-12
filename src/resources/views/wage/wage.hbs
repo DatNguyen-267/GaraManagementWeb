@@ -12,10 +12,11 @@
   </div>
   <div class="ctner__wage">
     <div class="toolbar">
-      <div class="toolbar__search">
-        <input type="text" class="toolbar__search-input" id="search-input"
-          placeholder="Tìm kiếm thông tin tiền công...">
-        <span class="ti-search toolbar__search-icon"></span>
+      <div class="search-form">
+        <input type="search" value="" placeholder="Tìm kiếm" class="search-input" id="search-input">
+        <button type="button" class="search-button">
+              <span class="ti-search "> </span>
+        </button>
 
       </div>
       {{!-- <div class="dropdown toolbar__filter">
@@ -31,18 +32,21 @@
       </div> --}}
       <button class="dropdown toolbar__btn btn btn--primary" data-toggle="modal" data-target="#modal-add-wage">Thêm tiền công</button>
     </div>
-    <div class="list-wage">
-      <table class="table table--default">
-         <colgroup>
-            <col style="width: 70px;">
+
+      <table class="table">
+          <colgroup>
+            <col >
+            <col >
+            <col >
             <col >
             <col >
             {{!-- <col >  --}}
-            <col style="width: 230px;"> 
+            <col style="width: 100px;"> 
         </colgroup>
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#Stt</th>
+            <th scope="col">#STT</th>
+            <th scope="col">Mã tiền công</th>
             <th scope="col">Loại tiền công</th>
             <th scope="col">Số tiền công</th>
             <th scope="col" colspan="2"></th>
@@ -52,10 +56,11 @@
           {{#each wages}}
           <tr data-id="{{this._id}}">
             <th scope="row">{{@index}}</th>
+            <td>{{this._id}}</td>
             <td>{{this.name}}</td>
             <td>{{this.money}}</td>
             <td></td>
-            <td>
+            <td class="row-btn--left">
               <button class="btn--edit-item" data-id="{{this._id}}" data-notedit="{{this.not_edit}}" data-toggle="modal"
                 data-target="#form-edit-wage" data-id="">Sửa</button>
               <button class="btn--delete-item" data-id="{{this._id}}" data-notdelete="{{this.not_delete}}"
@@ -65,7 +70,7 @@
           {{/each}}
         </tbody>
       </table>
-    </div>
+  
   </div>
 </div>
 
@@ -86,12 +91,12 @@
           <form>
             <div class="form-group">
               <label for="wage-add-name" class="col-form-label">Tên tiền công:</label>
-              <input type="text" class="form-control" id="wage-add-name" name="name" required>
+              <input type="text" class="form-control" id="wage-add-name" name="name">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="wage-add-money" class="col-form-label">Số tiền công (VND):</label>
-              <input type="text" class="form-control" id="wage-add-money" name="money" required>
+              <input type="text" class="form-control" id="wage-add-money" name="money">
               <span class="form-message"></span>
             </div>
           </form>
@@ -122,12 +127,12 @@
           <form>
             <div class="form-group">
               <label for="wage-edit-name" class="col-form-label">Tên tiền công:</label>
-              <input type="text" class="form-control" id="wage-edit-name" name="name" required>
+              <input type="text" class="form-control" id="wage-edit-name" name="name">
               <span class="form-message"></span>
             </div>
             <div class="form-group">
               <label for="wage-edit-money" class="col-form-label">Số tiền công (VND):</label>
-              <input type="text" class="form-control" id="wage-edit-money" name="money" required>
+              <input type="text" class="form-control" id="wage-edit-money" name="money">
               <span class="form-message"></span>
             </div>
             
@@ -185,17 +190,17 @@
         });
     });
     //Hiện thông báo khi bị trùng loại tiền công
-    var check_cardIdentify = document.getElementById('check_cardIdentify').value
-    if(check_cardIdentify == 1){
-      if(confirm("Không thể thêm do trùng loại tiền công!!!") == true || confirm("Không thể thêm do trùng loại tiền công!!!") == false){
-        history.back()
-      }
-    }
-    if(check_cardIdentify == 2){
-      if(confirm("Không thể sửa đổi do trùng loại tiền công!!!") == true || confirm("Không thể sửa đổi do trùng loại tiền công!!!") == false){
-        history.back()
-      }
-    }
+    //var check_cardIdentify = document.getElementById('check_cardIdentify').value
+    //if(check_cardIdentify == 1){
+    //  if(confirm("Không thể thêm do trùng loại tiền công!!!") == true || confirm("Không thể thêm do trùng loại tiền công!!!") == false){
+    //    history.back()
+    //  }
+    //}
+    //if(check_cardIdentify == 2){
+    //  if(confirm("Không thể sửa đổi do trùng loại tiền công!!!") == true || confirm("Không thể sửa đổi do trùng loại tiền công!!!") == false){
+    //    history.back()
+    //  }
+    //}
     //Validate
 
     Validator({
@@ -203,6 +208,7 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#wage-add-name', 'Vui lòng nhập tên tiền công'),
+        Validator.isDuplicate('#wage-add-name', '#table-body',2, 'Loại tiền công đã tồn tại. Vui lòng nhập lại!'),
         Validator.isRequire('#wage-add-money', 'Vui lòng nhập tiền công'),
         Validator.isNumber('#wage-add-money'),
         //Validator.minLength('#reception-add-receptionDate',6),
@@ -217,6 +223,7 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#wage-edit-name', 'Vui lòng nhập tên tiền công'),
+        Validator.isDuplicate('#wage-edit-name', '#table-body',2, 'Loại tiền công đã tồn tại. Vui lòng nhập lại!'),
         Validator.isRequire('#wage-edit-money', 'Vui lòng nhập số tiền công'),
         Validator.isNumber('#wage-edit-money'),
         //Validator.minLength('#reception-add-receptionDate',6),
@@ -258,8 +265,9 @@
     btnEdit.click(function () {
       var id = $(this).data('id')
       var rowData = $(this).parents('tr')[0]
-      $('#wage-edit-name').val(rowData.cells[1].textContent)
-      $('#wage-edit-money').val(rowData.cells[2].textContent)
+      $('#wage-edit-name').val(rowData.cells[2].textContent)
+      $('#wage-edit-money').val(rowData.cells[3].textContent)
+      $('#wage-edit-name').attr('data-old',rowData.cells[2].textContent)
 
     })
     //btnSubmitEdit.click(function () {
