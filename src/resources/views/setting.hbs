@@ -61,31 +61,35 @@
 </div>
 
 
-
 <div class="container">
     <div class="left-container">
-        <h2>Thông tin gara</h2>
-        <div class="form-group">
-            <label for="">Tên gara</label>
-            <input type="text" readonly class="form-control" name="gara_name" value="{{setting.gara_name}}">
+        <div class="left-container__gara-information">
+            <h2>Thông tin gara</h2>
+            <div class="form-group">
+                <label for="">Tên gara</label>
+                <input type="text" readonly class="form-control" name="gara_name" value="{{setting.gara_name}}">
+            </div>
+            <div class="form-group">
+                <label for="">Số điện thoại</label>
+                <input type="text" readonly class="form-control" name="telephone" value="{{setting.telephone}}">
+            </div>
+            <div class="form-group">
+                <label for="">Địa chỉ</label>
+                <input type="text" readonly class="form-control" name="address" value="{{setting.address}}">
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" readonly class="form-control" name="email" value="{{setting.email}}">
+            </div>
+            <div class="form-group">
+                <label for="">Số xe tối đa trong ngày</label>
+                <input type="text" readonly class="form-control" name="max_receptions" value="{{setting.max_receptions}}">
+            </div>
+            <button class="btn btn--send-dialog" data-toggle="modal" data-target="#editInformationModal">Thay đổi</button>
         </div>
-        <div class="form-group">
-            <label for="">Số điện thoại</label>
-            <input type="text" readonly class="form-control" name="telephone" value="{{setting.telephone}}">
+        <div class="left-container__log-out">
+            <button class="btn btn--send-dialog" id="log-out-btn" data-toggle="modal" data-target="">Đăng xuất</button>
         </div>
-        <div class="form-group">
-            <label for="">Địa chỉ</label>
-            <input type="text" readonly class="form-control" name="address" value="{{setting.address}}">
-        </div>
-        <div class="form-group">
-            <label for="">Email</label>
-            <input type="text" readonly class="form-control" name="email" value="{{setting.email}}">
-        </div>
-        <div class="form-group">
-            <label for="">Số xe tối đa trong ngày</label>
-            <input type="text" readonly class="form-control" name="max_receptions" value="{{setting.max_receptions}}">
-        </div>
-        <button class="btn btn--send-dialog" data-toggle="modal" data-target="#editInformationModal">Thay đổi</button>
     </div>
 
     <div class="right-container">
@@ -101,8 +105,8 @@
                 <input type="password" class="form-control" name="new_password" id="new-password">
                 <span class="form-message"></span>
             </div>
-            <button type="submit" class="btn btn--send-dialog">Thay đổi</button>
-            <label {{isHidden passwordActivity.notChanged}}>{{passwordActivity.notification}}</label>
+            <button type="submit" class="btn btn--send-dialog" id="change-password-btn">Thay đổi</button>
+            <label></label>
         </form>
     </div>
 </div>
@@ -147,8 +151,16 @@
       }
     })
 
+    var changePasswordBtn = document.getElementById('change-password-btn')
+    var oldPassword = document.getElementById('old-password')
+    var newPassword = document.getElementById('new-password')
     var formEditGaraInformation = document.forms['form-edit-gara-information']
     var formChangePassword = document.forms['form-change-password']
 
+    changePasswordBtn.disabled = true
+
+    const onChanged = () => changePasswordBtn.disabled = false
+    oldPassword.onkeypress = onChanged
+    newPassword.onkeypress = onChanged
   })
 </script>

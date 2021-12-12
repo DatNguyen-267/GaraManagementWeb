@@ -29,8 +29,6 @@ class MaterialController {
                         .catch(next)
                 })
             })
-
-
     }
 
     create(req, res, next) {
