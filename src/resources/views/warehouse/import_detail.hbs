@@ -183,7 +183,7 @@
       <div class="toolbar__filter"></div>
       <div class="toolbar__btn">
           <button class="toolbar__btn-add btn btn-primary" {{isDisable voucher.imported}} data-toggle="modal" data-target="#addModal">Thêm vật tư</button>
-          <button class="toolbar__btn-add btn btn-primary" {{isDisable voucher.imported}} data-bs-toggle="modal" data-bs-target="#importModal">Nhập kho</button>
+          <button class="toolbar__btn-add btn btn-primary" {{isDisable voucher.imported}} {{isDisable isEmpty}} data-bs-toggle="modal" data-bs-target="#importModal">Nhập kho</button>
       </div>
   </div>
 
