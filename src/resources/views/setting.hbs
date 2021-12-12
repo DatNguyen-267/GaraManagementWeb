@@ -117,6 +117,8 @@
         crossorigin="anonymous">
 </script>
 
+<form name="form-log-out" method="GET" action="/login"></form>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
       
@@ -152,15 +154,21 @@
     })
 
     var changePasswordBtn = document.getElementById('change-password-btn')
+    var logOutBtn = document.getElementById('log-out-btn')
     var oldPassword = document.getElementById('old-password')
     var newPassword = document.getElementById('new-password')
     var formEditGaraInformation = document.forms['form-edit-gara-information']
     var formChangePassword = document.forms['form-change-password']
+    var formLogOut = document.forms['form-log-out']
+
 
     changePasswordBtn.disabled = true
-
     const onChanged = () => changePasswordBtn.disabled = false
-    oldPassword.onkeypress = onChanged
-    newPassword.onkeypress = onChanged
+    oldPassword.onkeyup = onChanged
+    newPassword.onkeyup = onChanged
+
+    logOutBtn.onclick = function () {
+        formLogOut.submit()
+    }
   })
 </script>
