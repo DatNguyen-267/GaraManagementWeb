@@ -167,8 +167,6 @@ Validator.checkReEnter = function (selector, input1 , errorMessage) {
     return {
         selector: selector,
         test: function (value) {
-            console.log(value)
-            console.log(document.querySelector(input1))
             if (value == document.querySelector(input1).value)
                 return undefined
             else return errorMessage
