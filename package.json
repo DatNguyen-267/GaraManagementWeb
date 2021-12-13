@@ -31,6 +31,7 @@
     "morgan": "^1.10.0",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.15",
+    "password-hash": "^1.2.2",
     "prettier": "^2.4.1"
   }
 }

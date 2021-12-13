@@ -28,7 +28,7 @@
     </header>
     <body class = "register__body">
         <div class = "table-responsive">
-            <table class="table table--default employeeList__body__table" id = "accountTable" >
+            <table class="table  employeeList__body__table" id = "accountTable" >
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
@@ -199,7 +199,7 @@
           $("#deleteModal").modal();
       });
 
-     Validator({
+    Validator({
       form: '#form-add-account', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
@@ -207,6 +207,7 @@
         Validator.isRequire('#n_account', 'Vui lòng nhập tên tài khoản'),
         Validator.isRequire('#n_password', 'Vui lòng nhập mật khẩu'),
         Validator.isRequire('#n_rePassword', 'Vui lòng nhập lại mật khẩu'),
+        Validator.checkReEnter('#n_rePassword','#n_password', 'Mật khẩu nhập lại không giống nhau'),
         Validator.isDuplicate('#n_account', '#accountTable',2, 'Tên tài khoản đã tồn tại. Vui lòng nhập lại!'),
       ],
       onSubmit: function() {

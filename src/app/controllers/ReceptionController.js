@@ -18,6 +18,7 @@ const { render } = require('node-sass')
 
 const Position = require('../models/Position')
 const Setting = require('../models/Setting')
+const hash = require('password-hash')
 
 class ReceptionController {
     show(req, res, next) {
@@ -35,7 +36,6 @@ class ReceptionController {
                         Setting.find({})
                             .then((setting) => {
                                 for (const item of receptions) {
-                                    
                                     if (((new Date(item.receptionDate)).getYear() == now.getYear())
                                         && ((new Date(item.receptionDate)).getMonth() == now.getMonth())
                                         && ((new Date(item.receptionDate)).getDate() == now.getDate())) {
