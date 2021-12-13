@@ -22,7 +22,7 @@
             <button id="btn-ordered" class="repair-detail__toolbar-item btn btn-primary"
                 data-toggle="modal" data-target="#modal-ordered">Lệnh sửa</button>
             <button id="btn-success" class="repair-detail__toolbar-item btn btn-primary"
-            data-toggle="modal" data-target="#modal-success" data-error= "{{canSuccess}}">Xác nhận hoàn thành</button>
+                data-toggle="modal" data-target="#modal-success" data-error= "{{canSuccess}}">Xác nhận hoàn thành</button>
         </div>
     </div>
 
@@ -878,8 +878,13 @@
         var formAcceptSuccess = document.forms['form-accept-success']
 
         btnAcceptSuccess.onclick = function() {
-            formAcceptSuccess.action = 'accept-success-repair?_method=PUT'
-            formAcceptSuccess.submit()
+            var data = $('#btn-success').data('error')
+            if (data == true) {
+                formAcceptSuccess.action = 'accept-success-repair?_method=PUT'
+                formAcceptSuccess.submit()
+            }
+            else alert('Không thể hoàn thành phiếu sửa chữa này vì chưa đủ điều kiện hoàn thành, còn tồn tại vật tư chưa xuất!!')
+            
         }
 
         var repairStatus = document.querySelector('#repair-status')
