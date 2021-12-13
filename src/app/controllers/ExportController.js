@@ -49,23 +49,23 @@ class ExportController {
                             const newMaterial = new ExportDetail()
                             newMaterial.of_voucher = newVoucher._id
                             newMaterial.of_repair_material = detail._id
+                            newMaterial.of_employee = res.locals.employee._id
                             newMaterial.material = detail.material
                             newMaterial.material_name = detail.material_name
                             newMaterial.amount = detail.amount
                             newMaterial.sell_price = detail.sell_price
                             newMaterial.of_employee = res.locals.employee._id
-                            newMaterial.total_price = newMaterial.amount * newMaterial.sell_price
+                            newMaterial.total_price = detail.amount * detail.sell_price
                             newMaterial.save().then(() => { })
                         }
                     }).then(() => {
                         ExportVoucher.findById(newVoucher._id).then((voucher) => {
                             ExportDetail.find({of_voucher: voucher._id}).then((details) => {
+                                var total = 0
                                 for(var detail of details) {
-                                    var temp = detail
-                                    ExportVoucher.updateOne({_id: newVoucher._id}, {
-                                        total_price: temp.total_price + detail.total_price
-                                    }).then(() => {})
+                                    total += detail.total_price
                                 }
+                                ExportVoucher.updateOne({_id: voucher._id}, {total_price: total}).then(() => {})
                             }).then(() => {
                                 res.redirect('back')
                             })

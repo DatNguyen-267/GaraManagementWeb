@@ -10,7 +10,7 @@ const ExportDetail = new Schema({
     material_name: { type: String },
     amount: { type: Schema.Types.Number },
     sell_price: { type: Schema.Types.Number },
-    total_price: { type: Schema.Types.Number }
+    total_price: { type: Schema.Types.Number, default: 0 }
 }, {
     timestamps: true,
 })
