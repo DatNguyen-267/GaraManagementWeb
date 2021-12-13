@@ -49,6 +49,7 @@ class ExportController {
                             const newMaterial = new ExportDetail()
                             newMaterial.of_voucher = newVoucher._id
                             newMaterial.of_repair_material = detail._id
+                            newMaterial.of_employee = res.locals.employee._id
                             newMaterial.material = detail.material
                             newMaterial.material_name = detail.material_name
                             newMaterial.amount = detail.amount
