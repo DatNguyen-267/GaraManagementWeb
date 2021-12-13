@@ -195,8 +195,8 @@
     })
     btnEdit.click(function(){
       var row = $(this).parents('tr')[0]
-      $('#form-edit-name').val(row.cells[1].textContent)
-      $('#form-edit-name').attr('data-old', row.cells[1].textContent )
+      $('#form-edit-name').val(row.cells[2].textContent)
+      $('#form-edit-name').attr('data-old', row.cells[2].textContent )
     })
     var canDelete
     $('#modal-delete').on('shown.bs.modal', function (event) {

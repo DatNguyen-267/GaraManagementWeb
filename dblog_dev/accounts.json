@@ -6,7 +6,7 @@
     "$oid": "6197772eb3ff373a1df6a697"
   },
   "account": "admin",
-  "password": "sha1$4f0c7ff4$1$c1fec8ae3cfa60c9098879f273fc344db6253e29",
+  "password": "sha1$5dc6c5a3$1$69a6dbcf86ed50b7c46ed66e5000e242febcb02e",
   "updatedAt": {
     "$date": "2021-12-13T08:39:18.174Z"
   }
