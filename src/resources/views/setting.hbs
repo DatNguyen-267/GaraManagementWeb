@@ -94,11 +94,11 @@
 
     <div class="right-container">
         <h2>Thay đổi mật khẩu</h2>
-        <form method="POST" class="container-fluid" id="form-change-password">
-            <div class="form-group">
+        <form method="POST" class="container-fluid" id="form-change-password" >
+            <div class="form-group {{invalid}}" >
                 <label for="">Nhập mật khẩu cũ</label>
                 <input type="password" class="form-control" name="old_password" id="old-password" data-old="{{account.password}}">
-                <span class="form-message"></span>
+                <span class="form-message">{{error}}</span>
             </div>
             <div class="form-group">
                 <label for="">Nhập mật khẩu mới</label>
@@ -111,7 +111,7 @@
     </div>
 </div>
 
-
+<div hidden id="message-success" data-id="{{isSuccessChange}}"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
         crossorigin="anonymous">
@@ -121,6 +121,11 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () { 
+        window.onload = function() {
+            if ($('#message-success').data('id') == true) {
+                alert("Đổi mật khẩu thành công")
+            }
+        }
     Validator({
         form: '#form-edit-gara-information',
         errorSelector: '.form-message',
@@ -169,5 +174,7 @@
     logOutBtn.onclick = function () {
         formLogOut.submit()
     }
+
+    
     })
 </script>

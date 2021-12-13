@@ -6,14 +6,25 @@
     "$oid": "6197772eb3ff373a1df6a697"
   },
   "account": "admin",
-  "password": "admin"
+  "password": "sha1$4f0c7ff4$1$c1fec8ae3cfa60c9098879f273fc344db6253e29",
+  "updatedAt": {
+    "$date": "2021-12-13T08:39:18.174Z"
+  }
 },{
   "_id": {
-    "$oid": "61b1bf6d6ad927bd712e2ebd"
+    "$oid": "61b6ea1c620a8919c923f3b9"
   },
   "of_employee": {
-    "$oid": "61a0e6ef6aa8c665eb148883"
+    "$oid": "61b6e844dcbace1337a52ec0"
   },
-  "account": "quanly",
-  "password": "quanly"
+  "account": "kiet",
+  "password": "sha1$61d75065$1$628034abba2e4158012e273ca11c51bb7ecb0b0c",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T06:37:16.989Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T06:37:16.989Z"
+  },
+  "__v": 0
 }]
