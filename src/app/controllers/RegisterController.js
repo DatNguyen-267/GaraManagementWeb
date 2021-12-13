@@ -15,19 +15,19 @@ class RegisterController {
             .then((position) => { 
                 Account.find({})
                     .then((account)=> { 
-                        Employee.find({})
+                        Employee.find({}).populate({path:'position'}) 
                         .then((employees) =>{
                             var data = [];
                             var noAccounts = [];
                             for (var item of account){
                                 for (var employee of employees){
-                                    if (item.of_employee.toString() == employee._id.toString()){
+                                    if (item.of_employee.toString() == employee._id.toString() && employee.position.isAdmin == "false"){
                                         data.push({item:mongooseToOject(item),employee:mongooseToOject(employee)})
                                     }
                                 }
                             }
                             for (var employee of employees){
-                                if (employee.haveAccount == "false"){
+                                if (employee.haveAccount == "false" && employee.position.isAdmin == "false"){
                                     noAccounts.push({employee:mongooseToOject(employee)})
                                 }
                             }

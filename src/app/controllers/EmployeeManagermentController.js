@@ -14,7 +14,7 @@ class EmployeeManagermentController {
                 return position
             })
             .then((position) => { 
-                Employee.find({})
+                Employee.find({}).populate({path:'position'})
                 .then((employees)=> {
                     Error.find({})
                         .then((errors) =>{
@@ -22,19 +22,23 @@ class EmployeeManagermentController {
                                 .then((dateoffs) =>{
                                     var data = [];
                                     for (var employee of employees){
-                                        var errorCount =0
-                                        var dateoffCount = 0;
-                                        for (var error of errors){
-                                            if (employee._id == error.employeeID){
-                                                errorCount++;
+                                        if (employee.position.isAdmin == "false")
+                                        {
+                                            var errorCount =0
+                                            var dateoffCount = 0;
+                                            for (var error of errors){
+                                                if (employee._id == error.employeeID){
+                                                    errorCount++;
+                                                }
                                             }
-                                        }
-                                        for (var date of dateoffs){
-                                            if (employee._id == date.employeeID){
-                                                dateoffCount++;
+                                            for (var date of dateoffs){
+                                                if (employee._id == date.employeeID){
+                                                    dateoffCount++;
+                                                }
                                             }
+                                            data.push({employee: mongooseToOject(employee),errorCount,dateoffCount})
                                         }
-                                        data.push({employee: mongooseToOject(employee),errorCount,dateoffCount})
+                                        
                                     }
                                     res.render('employeeManagerment/index', {
                                         data,
@@ -68,6 +72,7 @@ class EmployeeManagermentController {
                                         Rule.find()
                                             .then((rule) =>{
                                                 //res.send(rule)
+                                                
                                         res.render('employeeManagerment/info', {
                                             employee: mongooseToOject(employee),
                                             dateoff: mutipleMongooseToObject(dateoff),
