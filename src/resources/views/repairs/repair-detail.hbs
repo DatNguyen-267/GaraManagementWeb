@@ -22,7 +22,7 @@
             <button id="btn-ordered" class="repair-detail__toolbar-item btn btn-primary"
                 data-toggle="modal" data-target="#modal-ordered">Lệnh sửa</button>
             <button id="btn-success" class="repair-detail__toolbar-item btn btn-primary"
-            data-toggle="modal" data-target="#modal-success">Xác nhận hoàn thành</button>
+                data-toggle="modal" data-target="#modal-success" data-error= "{{canSuccess}}">Xác nhận hoàn thành</button>
         </div>
     </div>
 
@@ -110,10 +110,12 @@
                             <td scope="row">{{this.sell_price}}</td>
                             <td scope="row">{{this.total_money}}</td>
                             <td class="td-contain-check-icon" scope="row" >
-                                <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
+                                <i class="fas fa-check-circle icon-check--on" {{isShow this.contracted}} ></i>
+                                {{!-- <span {{isShow this.contracted}} class="check-circle icon-check--on"></span> --}}
                             </td> 
                             <td class="td-contain-check-icon" scope="row" >
-                                <span {{isShow this.exported}} class="oi oi-circle-check icon-check--on"></span>
+                                {{!-- <span {{isShow this.exported}} class="check-circle icon-check--on"></span> --}}
+                                <i class="fas fa-check-circle icon-check--on" {{isShow this.exported}} ></i>
                             </td>
                             <td {{isHidden ../Repair.isSuccess}} class="td-contain-btn" scope="row"> 
                                 <button {{isDisable this.contracted}} class="btn--edit-item btn--disable" data-toggle="modal" 
@@ -157,7 +159,8 @@
                     <td scope="row" >{{this.wage_name}}</td>
                     <td scope="row">{{this.wage_money}}</td>
                     <td class="td-contain-check-icon" scope="row" >
-                        <span {{isShow this.contracted}} class="oi oi-circle-check icon-check--on"></span>
+                        <i class="fas fa-check-circle icon-check--on" {{isShow this.contracted}} ></i>
+                        {{!-- <span {{isShow this.contracted}} class="check-circle icon-check--on"></span> --}}
                     </td> 
                     <td scope="row"  class="td-contain-btn" {{isHidden ../Repair.isSuccess}}>
                         <button {{isDisable this.contracted}} class="btn--edit-item" data-toggle="modal" data-target="#modal-edit-wage" data-id="{{this._id}}">Sửa</button>
@@ -615,7 +618,7 @@
                             </div>
                             <div class="info-group">
                                 <label for="">Ngày báo giá:</label>
-                                <label id="quote-date" ></labelquote-date-print>
+                                <label id="quote-date" ></label>
                             </div>
                         </div>
                         <label >Danh sách vật tư</label>
@@ -875,8 +878,13 @@
         var formAcceptSuccess = document.forms['form-accept-success']
 
         btnAcceptSuccess.onclick = function() {
-            formAcceptSuccess.action = 'accept-success-repair?_method=PUT'
-            formAcceptSuccess.submit()
+            var data = $('#btn-success').data('error')
+            if (data == true) {
+                formAcceptSuccess.action = 'accept-success-repair?_method=PUT'
+                formAcceptSuccess.submit()
+            }
+            else alert('Không thể hoàn thành phiếu sửa chữa này vì chưa đủ điều kiện hoàn thành, còn tồn tại vật tư chưa xuất!!')
+            
         }
 
         var repairStatus = document.querySelector('#repair-status')
@@ -1187,7 +1195,7 @@
             detailWageIdDelete = button.data('id')
         })
         btnAcceptDeleteWage.onclick = function() {
-            formDeleteWage.action = 'repairs/'+ repairId + '/'  + detailWageIdDelete + '/delete-detail-wage?_method=DELETE'
+            formDeleteWage.action =   detailWageIdDelete + '/delete-detail-wage?_method=DELETE'
             formDeleteWage.submit()
         }
         // XÓA nhân viên sửa chữa
@@ -1207,6 +1215,8 @@
             //
             document.querySelector('#quote-date').textContent = (new Date()).toISOString().substring(0, 10)
             console.log($('#quote-date').textContent)
+            document.querySelector('#quote-date-print').textContent = (new Date()).toISOString().substring(0, 10)
+            console.log($('#quote-date-print').textContent)
         })
     })
 </script>

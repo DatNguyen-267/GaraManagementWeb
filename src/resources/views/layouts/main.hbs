@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="menu__body-item ">
-                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}}  {{checkPermission Permissions 2}}" type="button"
+                    <button class="menu__body-mainlist {{activeMainMenu activeManagementCustomer}}"  {{checkPermission Permissions 2}} type="button"
                         data-toggle="collapse" data-target="#menu__body-sublist-management-customer">
                         <span class="menu__body-mainlist-icon ti-user"></span>
                         <div class="menu__body-mainlist-name">Quản lý khách hàng</div>
@@ -70,9 +70,9 @@
                     </div>
                 </div>
                 <div class="menu__body-item ">
-                    <button class="menu__body-mainlist {{activeMainMenu activeEmployee}} "{{checkPermission Permissions 3}} type="button"
+                    <button class="menu__body-mainlist {{activeMainMenu activeEmployee}} " {{checkPermission Permissions 3}} type="button"
                         data-toggle="collapse" data-target="#menu__body-sublist-employee">
-                        <span class="menu__body-mainlist-icon ti-car"></span>
+                        <span class="menu__body-mainlist-icon ti-id-badge"></span>
                         <div class="menu__body-mainlist-name">Quản nhân viên</div>
                         <span class="menu__body-mainlist-icon-expand ti-angle-left"></span>
                     </button>
@@ -83,12 +83,12 @@
                         <div data-transfer="http://localhost:8080/{{User._id}}/employeeManagerment"
                             class="menu__body-sublist-item {{activeItemMenu activeManager}}">Nghỉ và vi phạm</div>
                         <div data-transfer="http://localhost:8080/{{User._id}}/employeeSalary"
-                            class="menu__body-sublist-item {{activeItemMenu activeSalary}}">Lương</div>
-                        <div data-transfer="http://localhost:8080/{{User._id}}/employeeTag"
+                            class="menu__body-sublist-item {{activeItemMenu activeSalary}}">Quản lý lương</div>
+                        <div data-transfer="http://localhost:8080/{{User._id}}/employeeTag" {{checkPermission Permissions 7}}
                             class="menu__body-sublist-item {{activeItemMenu activeTag}}">Quản lý chức vụ</div>
-                        <div data-transfer="http://localhost:8080/{{User._id}}/rules"
-                            class="menu__body-sublist-item {{activeItemMenu activeRule}}">Quản lý quy định</div>
-                        <div data-transfer="http://localhost:8080/{{User._id}}/register"
+                        <div data-transfer="http://localhost:8080/{{User._id}}/rules" {{checkPermission Permissions 8}}
+                            class="menu__body-sublist-item {{activeItemMenu activeRule}}">Quản lý quy định nhân viên</div>
+                        <div data-transfer="http://localhost:8080/{{User._id}}/register" {{checkPermission Permissions 9}}
                             class="menu__body-sublist-item {{activeItemMenu activeAccountManager}}">Quản lý tài khoản</div>
                     </div>
                 </div>

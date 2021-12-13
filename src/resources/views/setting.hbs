@@ -31,7 +31,7 @@
                 <div class="p-2 row">
                     <label for="" class="col-3 col-form-label">Địa chỉ</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" id="edit-address" name="address" value="{{setting.address}}" />
+                        <input type="text" class="form-control" id="edit-address" name="address" value="{{setting.address}}"/>
                         <span class="form-message"></span>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="p-2 row">
-                    <label for="" class="col-3 col-form-label">Số xe tối đa trong ngày</label>
+                    <label for="" class="col-3 col-form-label">Số xe tiếp nhận tối đa trong ngày</label>
                     <div class="col-9">
                         <input type="text" class="form-control" id="edit-max-receptions" name="max_receptions" value="{{setting.max_receptions}}" />
                         <span class="form-message"></span>
@@ -82,7 +82,7 @@
                 <input type="text" readonly class="form-control" name="email" value="{{setting.email}}">
             </div>
             <div class="form-group">
-                <label for="">Số xe tối đa trong ngày</label>
+                <label for="">Số xe tiếp nhận tối đa trong ngày</label>
                 <input type="text" readonly class="form-control" name="max_receptions" value="{{setting.max_receptions}}">
             </div>
             <button class="btn btn--send-dialog" data-toggle="modal" data-target="#editInformationModal">Thay đổi</button>
@@ -120,37 +120,36 @@
 <form name="form-log-out" method="GET" action="/login"></form>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      
+    document.addEventListener('DOMContentLoaded', function () { 
     Validator({
-      form: '#form-edit-gara-information',
-      errorSelector: '.form-message',
-      rules: [
-        Validator.isRequire('#edit-gara-name', 'Vui lòng nhập tên gara'),
-        Validator.isRequire('#edit-telephone', 'Vui lòng nhập số điện thoại'),
-        Validator.isRequire('#edit-address', 'Vui lòng nhập địa chỉ'),
-        Validator.isRequire('#edit-email', 'Vui lòng nhập email'),
-        Validator.isEmail('#edit-email'),
-        Validator.isRequire('#edit-max-receptions', 'Vui lòng số lượng tối đa trong ngày'),
-        Validator.isNumber('#edit-max-receptions')
-      ],
-      onSubmit: function () {
-          formEditGaraInformation.action = 'setting/edit-gara-information'
-          formEditGaraInformation.submit()
-      }
+        form: '#form-edit-gara-information',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequire('#edit-gara-name', 'Vui lòng nhập tên gara'),
+            Validator.isRequire('#edit-telephone', 'Vui lòng nhập số điện thoại'),
+            Validator.isRequire('#edit-address', 'Vui lòng nhập địa chỉ'),
+            Validator.isRequire('#edit-email', 'Vui lòng nhập email'),
+            Validator.isEmail('#edit-email'),
+            Validator.isRequire('#edit-max-receptions', 'Vui lòng số lượng tối đa trong ngày'),
+            Validator.isNumber('#edit-max-receptions')
+        ],
+        onSubmit: function () {
+            formEditGaraInformation.action = 'setting/edit-gara-information'
+            formEditGaraInformation.submit()
+        }
     })
 
     Validator({
-      form: '#form-change-password',
-      errorSelector: '.form-message',
-      rules: [
-        Validator.isRequire('#old-password', 'Vui lòng nhập mật khẩu cũ'),
-        Validator.isRequire('#new-password', 'Vui lòng nhập mật khẩu mới')
-      ],
-      onSubmit: function () {
-          formChangePassword.action = 'setting/change-password'
-          formChangePassword.submit()
-      }
+        form: '#form-change-password',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequire('#old-password', 'Vui lòng nhập mật khẩu cũ'),
+            Validator.isRequire('#new-password', 'Vui lòng nhập mật khẩu mới')
+        ],
+        onSubmit: function () {
+            formChangePassword.action = 'setting/change-password'
+            formChangePassword.submit()
+        }
     })
 
     var changePasswordBtn = document.getElementById('change-password-btn')
@@ -170,5 +169,5 @@
     logOutBtn.onclick = function () {
         formLogOut.submit()
     }
-  })
+    })
 </script>

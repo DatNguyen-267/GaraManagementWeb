@@ -5,6 +5,7 @@ const Tag = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
+const passwordHash = require('password-hash')
 
 class RegisterController {
     show(req,res,next) {// request , respond , next
@@ -49,8 +50,8 @@ class RegisterController {
     };
 
     create(req,res,next){
-        const newAccount = new Account(req.body)
-        //res.send(req.body)
+        var newAccount = new Account(req.body)
+        newAccount.password = passwordHash.generate('kiet');
         Employee.updateOne({_id: req.body.of_employee},{$set:{haveAccount:"true"}})
             .then(()=>{
                 newAccount.save()

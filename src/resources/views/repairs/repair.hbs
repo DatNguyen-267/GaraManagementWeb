@@ -51,6 +51,7 @@
                       <button class="btn-view btn btn--primary btn--item" data-toggle="modal" data-target="#form-edit" data-id="{{this._id}}">Chi tiết</button>
                       <button 
                         {{isHidden this.isSuccess}}
+                        {{isHidden this.contracted}}
                       class="btn-delete btn btn-danger btn--item btn--item-min-width" 
                       data-toggle="modal" data-target="#form-delete" data-id="{{this._id}}">Xóa</button>
                   </td>

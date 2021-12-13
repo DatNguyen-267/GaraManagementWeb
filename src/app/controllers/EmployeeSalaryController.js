@@ -52,17 +52,24 @@ class EmployeeSalaryController {
                                                 else
                                                     lastDate = d + '/'+ (m+1).toString() + '/' +y;
 
-                                                for(var temp of error){     
-                                                    if (item._id == temp.employeeID){
-                                                        
-                                                        if (new Date(temp.date)  >= firstDay &&  new Date(temp.date)  <= lastDay)
-                                                        {
-                                                            errorCount++;
-                                                            var n = temp.fine;
-                                                            n = n.replaceAll('.','')
-                                                            n = n.replace('₫','')
-                                                            fineSum += parseInt(n);
+                                            for(var temp of error){     
+                                                if (item._id == temp.employeeID){
+                                                    
+                                                    if (new Date(temp.date)  >= firstDay &&  new Date(temp.date)  <= lastDay)
+                                                    {
+                                                        errorCount++;
+                                                        var n = temp.fine;
+                                                        var newsalary = ''
+    
+                                                        for (const item of n) {
+                                                            if (item!= '.' && item !='₫')
+                                                            newsalary += item
                                                         }
+                                                        newsalary = newsalary.trim()
+                                                        // n = n.replaceAll('.','')
+                                                        // n = n.replace('₫','')
+                                                        fineSum += parseInt(newsalary);
+                                                    }
 
                                                     }
                                                 }
@@ -76,8 +83,8 @@ class EmployeeSalaryController {
 
                                                     }
                                                 }
-                                                var salary = salaryCal(item.salary,item.percent,item.startDate,Date.now());
-                                                
+                                                var salary = salaryCal(item.salary, item.percent, item.startDate, Date.now(), res);
+                                            
                                                 var finalSalary = salary - fineSum
                                                 var formatter = new Intl.NumberFormat('vi-VN', {
                                                     style: 'currency',
@@ -88,6 +95,8 @@ class EmployeeSalaryController {
                                                 finalSalary = formatter.format(finalSalary.toString());
                                                 data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount,mSalary})
                                             }
+                                            
+                                            
                                             
                                         }
                                         res.render('employeeSalary/index', {
@@ -161,9 +170,15 @@ class EmployeeSalaryController {
                                                     {
                                                         errorCount++;
                                                         var n = temp.fine;
-                                                        n = n.replaceAll('.','')
-                                                        n = n.replace('₫','')
-                                                        fineSum += parseInt(n);
+                                                        var newsalary = ''
+                                                        for (const item of n) {
+                                                            if (item!= '.' && item !='₫')
+                                                            newsalary += item
+                                                        }
+                                                        newsalary = newsalary.trim()
+                                                        // n = n.replaceAll('.','')
+                                                        // n = n.replace('₫','')
+                                                        fineSum += parseInt(newsalary);
                                                     }
 
                                                 }
@@ -237,16 +252,23 @@ class EmployeeSalaryController {
     
 }
 
-function salaryCal(salary,percent,startDate,today){
+function salaryCal(salary, percent, startDate, today, res) {
+    
     if (percent == null || salary == null) return;
-    percent = percent.replace('%','');
+    percent = percent.replace('%', '');
+  
     var startDate = new Date(startDate);
     var ageDifMs = today - startDate;
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     var workYears = Math.abs(ageDate.getUTCFullYear() - 1970);
-    salary = salary.replaceAll('.','')
-    salary = salary.replace('₫','')
-    var temp = parseInt(salary) * 1.0;
+    var newsalary = ''
+    
+    for (const item of salary) {
+        if (item!= '.' && item !='₫')
+        newsalary += item
+    }
+    newsalary = newsalary.trim()
+    var temp = parseInt(newsalary) * 1.0;
     for(var i = 0; i < workYears; i++){
       temp += temp * parseInt(percent) / 100.0
     }

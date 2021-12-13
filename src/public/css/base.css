@@ -296,7 +296,8 @@ input.disabled {
 
 .icon-check--on {
   text-align: left;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 1000;
   color: #218838; }
 
 .td-contain-btn {

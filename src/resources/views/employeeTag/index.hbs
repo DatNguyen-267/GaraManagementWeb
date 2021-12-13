@@ -32,7 +32,7 @@
     </header>
     <body class = "employeeTag__body">
         <div class = "table-responsive">
-            <table class="table table--default employeeTag__body__table" id = "tagTable">
+            <table class="table  employeeTag__body__table" id = "tagTable">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col" >#</th>
@@ -46,7 +46,7 @@
                   {{#each data}}
                   
                   <tr permission-data = "{{this.item.permissions}}" id-tag = "{{this.item._id}}" >
-                    <td class = "count">{{sum @index 1}}</td>
+                    <th class = "count">{{sum @index 1}}</th>
                     <td class = "tag">{{this.item.name}}</td>
                     <td class = "salary">{{this.item.salary}}</td>
                     <td class = "percent">{{this.item.percent}}</td>
@@ -206,7 +206,7 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="6" id="check_6" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý qui định
+                            Quản lý thông tin gara
                           </label>
                         </div>
                       </div>
@@ -220,7 +220,7 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="8" id="check_8" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý quy định
+                            Quản lý quy định nhân viên
                           </label>
                         </div>
                       </div>
@@ -228,13 +228,7 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="9" id="check_9" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Quản lý tài khoản
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="6" id="check_6" name="permissions">
-                          <label class="form-check-label" for="flexCheckChecked">
-                            Chọn cc a`
+                            Quản lý tài khoản 
                           </label>
                         </div>
                       </div>

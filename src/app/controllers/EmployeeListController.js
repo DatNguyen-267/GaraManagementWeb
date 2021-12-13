@@ -16,8 +16,7 @@ class EmployeeListController {
             .then((position) => { 
                 Employee.find({}).populate({path:'position'})
                     .then((employee)=> {
-                       
-                        Tag.find({})
+                        Tag.find({isAdmin: "false"})
                         .then((tag) =>{
                             var data = []
                             var userID = res.locals.employee._id

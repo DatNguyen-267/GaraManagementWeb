@@ -23,7 +23,7 @@
       </header>
       <body class = "employeeManagerment__body">
           <div class = "table-responsive">
-            <table class="table table--default employeeManagerment__body__table" id = "managerTable">
+            <table class="table  employeeManagerment__body__table" id = "managerTable">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">#</th>
@@ -43,7 +43,7 @@
                     <td>{{this.errorCount}}</td>
                     <td>{{this.dateoffCount}}</td>  
                     <td>
-                       <button class = "btn--view-item" employeeID = "{{this.employee._id}}" employeeNumber = "{{this.employee.phoneNumber}}">Xem</i></button>
+                      <button class = "btn--view-item" employeeID = "{{this.employee._id}}" employeeNumber = "{{this.employee.phoneNumber}}">Xem</i></button>
                     </td>
                   </tr>
                   {{/each}}

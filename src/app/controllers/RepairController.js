@@ -138,6 +138,13 @@ class RepairController {
                     return position
                     })
                     .then((position) => { 
+                        var canSuccess = true
+                        for (const item of data.detail_Materials) {
+                            if (item.exported == false) {
+                                canSuccess = false
+                                break
+                            }
+                        }
                         res.render('repairs/repair-detail', {
                             Detail_Materials: mutipleMongooseToObject(data.detail_Materials),
                             Detail_Wages: mutipleMongooseToObject(data.detail_Wages),
@@ -148,6 +155,7 @@ class RepairController {
                             Wages: mutipleMongooseToObject(data.wages),
                             activeManagementCar: true,
                             activeRepair: true,
+                            canSuccess: canSuccess,
                             Permissions: mongooseToOject(position.permissions),
                             User: mongooseToOject(res.locals.employee)
                 })
