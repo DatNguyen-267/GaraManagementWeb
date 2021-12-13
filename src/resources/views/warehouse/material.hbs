@@ -46,6 +46,13 @@
               <span class="form-message"></span>
             </div>
           </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Số lượng/label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="add-amount" name="amount" />
+              <span class="form-message"></span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -178,8 +185,8 @@
         <td>{{this.name}}</td>
         <td>{{this.of_supplier.name}}</td>
         <td>{{this.amount}}</td>
-        <td>{{this.import_price}}đ</td>
-        <td>{{this.sell_price}}đ</td>
+        <td>{{this.import_price}}</td>
+        <td>{{this.sell_price}}</td>
         <td>
           <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
           <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
@@ -318,6 +325,12 @@
         document.getElementById('edit-name').value = rowData.cells[0].textContent
         document.getElementById('edit-import-price').value = rowData.cells[3].textContent
         document.getElementById('edit-sell-price').value = rowData.cells[4].textContent
+
+        var selectedSupplier = document.querySelector('#edit-supplier')
+        for (var i = 0 ; i < selectedSupplier.options.length ; i++) {
+          if (selectedSupplier.options[i].textContent == rowData.cells[1].textContent)
+          selectedSupplier.options.item(i).selected = 'selected'
+        }
 
         materialId = this.getAttribute('data-id')
       }
