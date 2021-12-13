@@ -86,13 +86,12 @@
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Nhân viên:</label>
-                      <select class = "form-control" placeholder="" id = "n_employee">
+                      <select class = "form-control" placeholder="" id = "n_employee" name = "of_employee" >
                             <option>--- Chọn nhân viên ---</option>
                             {{#each noAccounts}}
-                            <option value="{{this.name}}" tag = "{{this.employee.Tag}}" phoneNumber ="{{this.employee.phoneNumber}}" eID = "{{this.employee._id}}" class= "nOps">{{this.employee.name}}</option>
+                            <option value="{{this.employee._id}}" tag = "{{this.employee.Tag}}" phoneNumber ="{{this.employee.phoneNumber}}" eID = "{{this.employee._id}}" class= "nOps">{{this.employee.name}}</option>
                             {{/each}}
                       </select>
-                      <input type="hidden" id = "n_eID" name = "of_employee">
                       <span class="form-message"></span>
                     </div>
                     <div class="form-group">
@@ -204,42 +203,18 @@
       form: '#form-add-account', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
-        //Validator.isRequireSelectBox('#n_employee','--- Chọn nhân viên ---', 'Vui lòng chọn nhân viên'),
-        //Validator.isRequire('#n_account', 'Vui lòng nhập tên tài khoản'),
-        //Validator.isRequire('#n_password', 'Vui lòng nhập mật khẩu'),
-        //Validator.isRequire('#n_rePassword', 'Vui lòng nhập lại mật khẩu'),
-        //Validator.isDuplicate('#n_account', '#accountTable',2, 'Tên tài khoản đã tồn tại. Vui lòng nhập lại!'),
+        Validator.isRequireSelectBox('#n_employee','--- Chọn nhân viên ---', 'Vui lòng chọn nhân viên'),
+        Validator.isRequire('#n_account', 'Vui lòng nhập tên tài khoản'),
+        Validator.isRequire('#n_password', 'Vui lòng nhập mật khẩu'),
+        Validator.isRequire('#n_rePassword', 'Vui lòng nhập lại mật khẩu'),
+        Validator.isDuplicate('#n_account', '#accountTable',2, 'Tên tài khoản đã tồn tại. Vui lòng nhập lại!'),
       ],
       onSubmit: function() {
           formAdd.action = 'register/create'
-          $('#n_eID').val($('.nOps:selected').attr('eID'));
           formAdd.submit()
         }
       })
       //modified validator  
-      Validator({
-      form: '#form-edit-employeeList', // id của cái form cần validate
-      errorSelector: '.form-message', // tên class để hiện cái lỗi
-      rules: [
-        Validator.isRequireSelectBox('#m_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
-        Validator.isRequire('#m_name', 'Vui nhập tên nhân viên'),
-        Validator.isRequire('#m_address', 'Vui nhập địa chỉ'),
-        Validator.isRequire('#m_email', 'Vui nhập email'),
-        Validator.isRequire('#m_phoneNumber', 'Vui lòng nhập số điện thoại'),
-        Validator.isEmail('#m_email'),
-        Validator.isRequire('#m_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
-        Validator.isNumber('#m_cmnd'),
-        Validator.isNumber('#m_phoneNumber'),
-        Validator.isDuplicate('#m_email', '#accountTable',4, 'Email đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#m_phoneNumber', '#accountTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#m_cmnd', '#accountTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
-      ],
-      onSubmit: function() {
-          formEdit.action = 'employeeList/' + employeeID + '/edit?_method=PUT' 
-          $('#m_tagID').val($('.mOps:selected').attr('tagID'));
-          formEdit.submit()
-        }
-      })
 
       
 

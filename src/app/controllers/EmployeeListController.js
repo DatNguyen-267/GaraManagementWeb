@@ -14,13 +14,15 @@ class EmployeeListController {
             return position
             })
             .then((position) => { 
-                Employee.find({})
+                Employee.find({}).populate({path:'position'})
                     .then((employee)=> {
+                       
                         Tag.find({})
                         .then((tag) =>{
                             var data = []
                             var userID = res.locals.employee._id
                             for (var item of employee){
+                                if (item.position.isAdmin == "false")
                                 data.push({item:mongooseToOject(item),userID})
                             }
                             res.render('employeeList/index', {

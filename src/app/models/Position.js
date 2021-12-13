@@ -8,7 +8,8 @@ const Position = new Schema({
     name: String,
     salary: {type: String, default: '0'},
     percent: {type: String},
-    permissions: {type:Array}
+    permissions: {type:Array},
+    isAdmin : String,   
 }, {
     timestamps: true,
 })
