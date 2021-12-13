@@ -5,6 +5,7 @@ const Schema = mongoose.Schema
 
 const ExportVoucher = new Schema({
     of_repair: { type: Schema.Types.ObjectId, ref: 'Repair' },
+    of_employee: {type: Schema.Types.ObjectId, ref: 'Employee'},
     exported: { type: Schema.Types.Boolean, default: false },
     detail: { type: Schema.Types.ObjectId, ref: 'ExportDetail' },
     

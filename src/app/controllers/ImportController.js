@@ -15,7 +15,7 @@ class ImportController {
             })
             .then((position) => {
                 Supplier.find({}).then((suppliers) => {
-                    Voucher.find({}).populate('of_supplier', 'name')
+                    Voucher.find({}).populate('of_supplier', 'name').populate('of_employee', 'name')
                         .then((vouchers) => {
                             res.render('warehouse/import', {
                                 vouchers: mutipleMongooseToObject(vouchers),
@@ -32,6 +32,7 @@ class ImportController {
 
     create(req, res, next) {
         const newVoucher = new Voucher(req.body)
+        newVoucher.of_employee = res.locals.employee._id
         newVoucher.save()
             .then(() => {
                 res.redirect('back')
@@ -62,7 +63,7 @@ class ImportController {
             })
             .then((position) => {
                 ImportDetail.find({ of_voucher: req.params.idVoucher }).populate('material').then((details) => {
-                    Voucher.findById(req.params.idVoucher).populate('of_supplier').then((voucher) => {
+                    Voucher.findById(req.params.idVoucher).populate('of_supplier').populate('of_employee', 'name').then((voucher) => {
                         Material.find({ of_supplier: voucher.of_supplier }).then((materials) => {
                             res.render('warehouse/import_detail', {
                                 materials: mutipleMongooseToObject(materials),

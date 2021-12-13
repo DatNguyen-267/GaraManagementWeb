@@ -136,6 +136,7 @@
     <tr>
       <th scope="col">Nhà cung cấp</th>
       <th scope="col">Ngày nhập kho</th>
+      <th scope="col">Nhân viên phụ trách</th>
       <th scope="col">Tổng tiền</th>
       <th scope="col">Trạng thái</th>
       <th scope="col" colspan="3">Thao tác</th>
@@ -146,7 +147,8 @@
       <tr>
         <td>{{this.of_supplier.name}}</td>
         <td>{{this.import_date}}</td>
-        <td>{{this.total_price}}đ</td>
+        <td>{{this.of_employee.name}}</td>
+        <td>{{this.total_price}}</td>
         <td scope="row">
           <div class="{{isImportedStyle this.imported}}">{{isImportedStatus this.imported}}</div>
         </td>
