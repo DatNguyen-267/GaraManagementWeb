@@ -98,7 +98,7 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="2" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý Khách hàng
+                            Quản lý khách hàng
                           </label>
                         </div>
                       </div>
@@ -120,13 +120,35 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="5" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Báo cáo
+                            Quản lý báo cáo
                           </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="6" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý quy định
+                            Quản lý thông tin gara
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left;width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="7" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý chức vụ
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="8" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Quản lý quy định nhân viên
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left;width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="9" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý tài khoản 
                           </label>
                         </div>
                       </div>
@@ -338,7 +360,6 @@
         }
       })
       $(".btn--edit-item").click(function() {
-
           var data = $(this).closest("tr").attr('permission-data');
           var permission = [];
           var start = 0;
@@ -356,16 +377,16 @@
           $('#m_salary').val($(this).closest("tr").find(".salary").text());
           $('#m_percent').val($(this).closest("tr").find(".percent").text());
           $('#m_tag').attr('data-old', $(this).closest("tr").find(".tag").text())
-          for (var i = 1; i<=6;i++){
+          for (var i = 1; i<=9;i++){
               var x = "#check_" + (i).toString();
-              $(x).attr('checked', false);
+              $(x).prop('checked', false);
           }
           permission.forEach(element => {
              var x = "#check_" + (element);
-              $(x).attr('checked', true);
+              $(x).prop('checked', true);
           });
           $("#modifiedModal").modal(); 
-
+          //*/
 
       });
         Validator({
