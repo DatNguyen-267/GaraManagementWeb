@@ -38,7 +38,7 @@
                     <th scope="col"></th> 
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-data">
                   
                   {{#each data}}
                   <tr accountID = "{{this.item._id}}">
@@ -161,7 +161,7 @@
           });
       var ID;
       //search
-      $("#searchKey").change(function(){
+      {{!-- $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -180,7 +180,7 @@
             }
           }   
         }
-      })
+      }) --}}
 
 
       
@@ -223,6 +223,17 @@
         formDelete.action = 'register/'+  ID + '/delete?_method=DELETE'
         formDelete.submit();
       })
+      $(document).ready(function () {
+      $('#searchKey').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+      });
+      
     });
 
       

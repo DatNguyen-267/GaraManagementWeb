@@ -34,7 +34,7 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-data">
                   {{#each data}}
                   <tr>
                     <th scope="row">{{sum @index 1}}</th>
@@ -115,7 +115,7 @@
         var employeeID;
       var id;
       var infoForm = document.forms['info-form'];
-      $("#searchKey").change(function(){
+      {{!-- $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -134,7 +134,7 @@
             }
           }   
         }
-      })
+      }) --}}
       $(".btn--view-item").click(function() {
           id = $(this).attr('employeeID')
           $('#info_employeeName').text("Tên nhân viên: " + $(this).children('#employeeName').text());
@@ -149,5 +149,15 @@
         infoForm.action = 'employeeManagerment/' + id + '/info'
         infoForm.submit();
       });*/
+      $(document).ready(function () {
+      $('#searchKey').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+      });
     });
     </script>

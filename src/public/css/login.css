@@ -10,17 +10,19 @@
 /* End Global rules */
 /* Start body rules */
 body {
-  background-image: white;
+  background-image: linear-gradient(-225deg, #daf0fd 0%, #9fd9fa 50%);
+  background-image: linear-gradient(to top, #b3dff8 0%, #bbe0f5 50%);
   background-attachment: fixed;
   background-repeat: no-repeat;
-  font-family: 'Abel', sans-serif;
   opacity: .95;
   /* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */ }
 
-/* |||||||||||||||||||||||||||||||||||||||||||||*/
-/* //////////////////////////////////////////// */
-/* End body rules */
-/* Start form  attributes */
+.background {
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: block;
+  position: absolute; }
+
 form {
   width: 450px;
   min-height: 500px;
@@ -29,8 +31,8 @@ form {
   margin: 2% auto;
   box-shadow: 0 9px 50px rgba(234, 177, 149, 0.31);
   padding: 2%;
-  background-image: linear-gradient(-225deg, #63c7ff 0%, #63c7ff 100%);
-  background-image: linear-gradient(to top, #63c7ff 0%, #bbe0f5 100%); }
+  background-image: white;
+  background-color: white; }
 
 /* form Container */
 form .con {
@@ -42,51 +44,23 @@ form .con {
   flex-wrap: wrap;
   margin: 0 auto; }
 
-/* the header form form */
 header {
   margin: 2% auto 10% auto;
   text-align: center; }
 
-/* Login title form form */
 header h2 {
   font-size: 250%;
   color: #3e403f; }
 
-/*  A welcome message or an explanation of the login form */
 header p {
   letter-spacing: 0.05em; }
 
-/* //////////////////////////////////////////// */
-/* //////////////////////////////////////////// */
-.input-item {
-  background: #fff;
-  color: #333;
-  padding: 14.5px 0px 15px 9px;
-  border-radius: 5px 0px 0px 5px; }
-
-/* Show/hide password Font Icon */
-#eye {
-  background: #fff;
-  color: #333;
-  margin: 5.9px 0 0 0;
-  margin-left: -20px;
-  padding: 15px 9px 19px 0px;
-  border-radius: 0px 5px 5px 0px;
-  float: right;
-  position: relative;
-  right: 1%;
-  top: -.2%;
-  z-index: 5;
-  cursor: pointer; }
-
-/* inputs form  */
 input[class="form-input"] {
   width: 240px;
   height: 50px;
   margin-top: 2%;
   padding: 15px;
   font-size: 16px;
-  font-family: 'Abel', sans-serif;
   color: #5E6472;
   outline: none;
   border: none;
@@ -101,10 +75,6 @@ input:focus {
   transform: translateX(-2px);
   border-radius: 5px; }
 
-/* //////////////////////////////////////////// */
-/* //////////////////////////////////////////// */
-/* input[type="text"] {min-width: 250px;} */
-/* buttons  */
 button {
   display: inline-block;
   color: #252537;
@@ -121,22 +91,12 @@ button {
   margin: 7% auto;
   letter-spacing: 0.05em; }
 
-/* Submits */
-.submits {
-  width: 48%;
-  display: inline-block;
-  float: left;
-  margin-left: 2%; }
-
-/*       Forgot Password button FAF3DD  */
 .frgt-pass {
   background: transparent; }
 
-/*     Sign Up button  */
 .sign-up {
   background: #B8F2E6; }
 
-/* buttons hover */
 button:hover {
   transform: translatey(3px);
   box-shadow: none; }
@@ -153,4 +113,18 @@ button:hover {
 
 .message-error {
   font-family: "Roboto", sans-serif;
-  margin-top: 4px; }
+  margin-top: 4px;
+  font-size: 13px; }
+
+.form-input {
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  margin: 10px 0; }
+
+.form-input i {
+  font-size: 16px;
+  padding: 0 8px; }
+
+.log-in {
+  background-color: var(--primary-color);
+  color: white; }

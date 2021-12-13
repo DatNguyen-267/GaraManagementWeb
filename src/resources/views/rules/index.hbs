@@ -1,12 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 <title>Quản lý quy định</title>
     <div class = "grid__content">
@@ -14,7 +8,7 @@ crossorigin="anonymous"></script>
         <div class="header__breadcrumb">
           <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Quản lý quy định</a></li>
+                  <li class="breadcrumb-item"><a href="#">Quản lý quy định nhân viên</a></li>
               </ol>
           </nav>
         </div>
@@ -41,7 +35,7 @@ crossorigin="anonymous"></script>
                     <th scope="col"></th> 
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-data">
                   
                   {{#each rule}}
                     <tr ruleID = "{{this._id}}">
@@ -158,7 +152,7 @@ crossorigin="anonymous"></script>
       document.addEventListener('DOMContentLoaded', function () {
         var ID;
 
-      $("#searchKey").change(function(){
+      {{!-- $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -177,7 +171,7 @@ crossorigin="anonymous"></script>
             }
           }   
         }
-      })
+      }) --}}
       Date.prototype.toDateInputValue = (function() {
           var local = new Date(this);
           local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -246,6 +240,17 @@ crossorigin="anonymous"></script>
         formDelete.action = 'rules/'+  ID + '/delete?_method=DELETE'
         formDelete.submit();
       })
+      $(document).ready(function () {
+      $('#searchKey').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+      });
+      
     });
 
       

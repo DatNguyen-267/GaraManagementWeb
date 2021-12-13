@@ -5,7 +5,7 @@
 <div class="modal fade" id="editInformationModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form method="POST" name="form-edit-gara-information" id="form-edit-gara-information">
+    <form method="POST" name="form-edit-gara-information" id="form-edit-gara-information">
         <div class="modal-header">
             <h5 class="modal-title">Sửa thông tin gara</h5>
             <button type="button reception__form-btn-close" class="close" data-dismiss="modal" aria-label="Close">
@@ -85,10 +85,7 @@
                 <label for="">Số xe tiếp nhận tối đa trong ngày</label>
                 <input type="text" readonly class="form-control" name="max_receptions" value="{{setting.max_receptions}}">
             </div>
-            <button class="btn btn--send-dialog" data-toggle="modal" data-target="#editInformationModal">Thay đổi</button>
-        </div>
-        <div class="left-container__log-out">
-            <button class="btn btn--send-dialog" id="log-out-btn" data-toggle="modal" data-target="">Đăng xuất</button>
+            <button class="btn btn--send-dialog btn-change-info" data-toggle="modal" data-target="#editInformationModal">Thay đổi</button>
         </div>
     </div>
 
@@ -105,8 +102,13 @@
                 <input type="password" class="form-control" name="new_password" id="new-password">
                 <span class="form-message"></span>
             </div>
-            <button type="submit" class="btn btn--send-dialog" id="change-password-btn">Thay đổi</button>
-            <label></label>
+            <div class="btn-option">
+                <button type="submit" class="btn btn--send-dialog" id="change-password-btn">Thay đổi</button>
+                <div class="log-out">
+                    <button class="btn btn--send-dialog" id="log-out-btn" data-toggle="modal" data-target="">Đăng xuất</button>
+                </div>
+            </div>
+            
         </form>
     </div>
 </div>

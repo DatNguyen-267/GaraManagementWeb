@@ -14,3 +14,11 @@
   display: flex;
   padding: 10px;
   justify-content: center; }
+
+.btn-option {
+  display: flex;
+  justify-content: space-between; }
+
+.btn-change-info {
+  margin-top: 16px;
+  margin-left: -2px; }

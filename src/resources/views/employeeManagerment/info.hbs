@@ -64,7 +64,7 @@
                 <button type="button" class="btn btn-primary" style="margin: .4rem" data-toggle="modal" data-target="#errorAddModal"><i class="fas fa-plus"></i></i></button>
           </div>
           {{#each error}}
-           <div class = "item shadow">
+          <div class = "item shadow">
             <div class = "info">
               <p><strong><i class="fab fa-wpforms"></i> Phiếu vi phạm</strong></p>
               <p>Lỗi vi phạm: {{this.content}}</p>
@@ -103,7 +103,7 @@
                       <input type="date" class="form-control dataStr" name="startDate" id = "n_startDate">
                       <!--data -->
                       <input type="hidden" class="form-control data" name="employeeID" value={{employee._id}}>
-                     <input type="hidden" class="form-control data" name="creatorID" value="{{User._id}}">
+                      <input type="hidden" class="form-control data" name="creatorID" value="{{User._id}}">
                       <input type="hidden" class="form-control data" name="creator" value="{{User.name}}">
                       <input type="hidden" class="form-control data" name="creatorPhoneNumber" value="{{User.phoneNumber}}">  
                       <input type="hidden" class="form-control data" name="eID" value={{employee._id}}>

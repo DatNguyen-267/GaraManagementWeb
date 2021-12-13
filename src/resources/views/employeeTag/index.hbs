@@ -19,7 +19,8 @@
         </div>
         <div class="toolbar">
           <div class="search-form">
-            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" 
+                placeholder="Tìm kiếm thông tin chức vụ" aria-label="Search">
               <button type="button" class="search-button">
                 <span class="ti-search "> </span>
               </button>
@@ -42,7 +43,7 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-data">
                   {{#each data}}
                   
                   <tr permission-data = "{{this.item.permissions}}" id-tag = "{{this.item._id}}" >
@@ -340,7 +341,7 @@
         $('#n_salary').val(temp);
       });
 
-      $("#searchKey").change(function(){
+      {{!-- $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -356,9 +357,8 @@
               tr[i].style.display = "none";
             }
           }   
-                 
         }
-      })
+      }) --}}
       $(".btn--edit-item").click(function() {
           var data = $(this).closest("tr").attr('permission-data');
           var permission = [];
@@ -430,7 +430,16 @@
             alert("Tồn tại nhân viên thuộc chức vụ này!!! Vui lòng kiểm tra lại!!!")
       })
       });
-      
+      $(document).ready(function () {
+      $('#searchKey').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+      });
       
 
       

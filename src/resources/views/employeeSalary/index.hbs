@@ -15,7 +15,7 @@
         <h7>{{firstDate}} - {{lastDate}}</h7>
         <div class="toolbar">
           <div class="search-form">
-            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin nhân viên" aria-label="Search">
+            <input class="search-input" style="padding:.4rem" type="search " id = "searchKey" placeholder="Tìm kiếm thông tin lương" aria-label="Search">
               <button type="button" class="search-button">
                 <span class="ti-search "> </span>
               </button>
@@ -44,7 +44,7 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-data">
                     {{#each data}}
                     <tr percent = "{{this.item.percent}}" startDate = "{{this.item.startDate}}" salary = "{{this.item.salary}}" 
                     dateoffCount = "{{this.dateOffCount}}" errorCount = "{{this.errorCount}}" mSalary = "{{this.mSalary}}">
@@ -208,7 +208,7 @@
         $("#infoModal").modal();
         $('#i_finalSalary').text($(this).closest("tr").find("#finalSalary").text());
       });*/
-      $("#searchKey").change(function(){
+      {{!-- $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
         filter = input.value;
@@ -227,7 +227,7 @@
             }
           }   
         }
-      })
+      }) --}}
       
       $(".btn--view-item").click(function() {
         $('#i_name').text($(this).closest("tr").find("#name").text());
@@ -257,5 +257,15 @@
           var table2Excel = new Table2Excel()
           table2Excel.export(document.getElementById('table-data'), 'Bảng lương')
       }
+      $(document).ready(function () {
+      $('#searchKey').on('keyup', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        var keyword = $(this).val().toLowerCase();
+        $('#table-data tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(keyword) > -1);
+        });
+        });
+      });
     });
     </script>
