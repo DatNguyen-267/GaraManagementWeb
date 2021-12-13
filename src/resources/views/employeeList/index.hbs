@@ -42,22 +42,22 @@
                     <th scope="col"></th> 
                   </tr>
                 </thead>
-                <tbody>
+                <tbody > 
                   
-                  {{#each employee}}
-                    <tr employeeID = "{{this._id}}"   n >
-                    <th scope="row">{{sum @index 1}}</th>
-                    <td id = "name">{{this.name}}</td>
-                    <td id = "address">{{this.address}}</td>
-                    <td id = "phoneNumber">{{this.phoneNumber}}</td>
-                    <td id = "email">{{this.email}}</td>
-                    <td id = "CMND">{{this.CMND}}</td>  
-                    <td id = "tag">{{this.Tag}}</td>
-                    <td id = "startDate">{{this.startDate}}</td>
-                    <td>
-                      <button class = "btn--edit-item">Sửa</i></button>
-                      <button class = "btn--delete-item">Xóa</i></button>
-                    </td>           
+                  {{#each data}}
+                    <tr employeeID = "{{this.item._id}}">
+                      <th scope="row">{{sum @index 1}}</th>
+                      <td id = "name">{{this.item.name}}</td>
+                      <td id = "address">{{this.item.address}}</td>
+                      <td id = "phoneNumber">{{this.item.phoneNumber}}</td>
+                      <td id = "email">{{this.item.email}}</td>
+                      <td id = "CMND">{{this.item.CMND}}</td>  
+                      <td id = "tag">{{this.item.Tag}}</td>
+                      <td id = "startDate">{{this.item.startDate}}</td>
+                      <td>
+                        <button class = "btn--edit-item">Sửa</i></button>
+                        <button class = "btn--delete-item" eID = "{{this.item._id}}" userID ="{{this.userID}}">Xóa</i></button>
+                      </td>           
                   </tr>
                   {{/each}}
                 </tbody>
@@ -311,10 +311,15 @@
 
 
       $(".btn--delete-item").click(function() {
+          if ($(this).attr('eID') == $(this).attr('userID')) {
+            alert("Không thể xóa nhân viên đang đăng nhập!!!");
+            return
+          }
           var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
           $("#informLabel").text(temp);
           employeeID = $(this).closest("tr").attr('employeeID');
-          $("#deleteModal").modal();
+          
+          //$("#deleteModal").modal();
       });
       $('#employeeTable tbody tr').click(function () {
         employeeID = $(this).attr('employeeID')

@@ -41,12 +41,13 @@
                 <tbody>
                   
                   {{#each data}}
+                  <tr accountID = "{{this.item._id}}">
                     <th scope="row">{{sum @index 1}}</th>
                     <td id = "account">{{this.item.account}}</td>
                     <td id = "name">{{this.employee.name}}</td>
                     <td id = "tag">{{this.employee.Tag}}</td>
                     <td>
-                      <button class = "btn--delete-item">Xóa</i></button>
+                      <button class = "btn--delete-item" eID = "{{this.employee._id}}" >Xóa</i></button>
                     </td>           
                   </tr>
                   {{/each}}
@@ -85,13 +86,12 @@
                     </div>
                     <div class="form-group">
                       <label for="reception-add-receptionDate" class="col-form-label">Nhân viên:</label>
-                      <select class = "form-control" placeholder="" id = "n_employee">
+                      <select class = "form-control" placeholder="" id = "n_employee" name = "of_employee" >
                             <option>--- Chọn nhân viên ---</option>
                             {{#each noAccounts}}
-                            <option value="{{this.name}}" tag = "{{this.employee.Tag}}" phoneNumber ="{{this.employee.phoneNumber}}" eID = "{{this.employee._id}}" class= "nOps">{{this.employee.name}}</option>
+                            <option value="{{this.employee._id}}" tag = "{{this.employee.Tag}}" phoneNumber ="{{this.employee.phoneNumber}}" eID = "{{this.employee._id}}" class= "nOps">{{this.employee.name}}</option>
                             {{/each}}
                       </select>
-                      <input type="hidden" id = "n_eID" name = "of_employee">
                       <span class="form-message"></span>
                     </div>
                     <div class="form-group">
@@ -121,13 +121,14 @@
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa nhân viên</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa tài khoản</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <label id = "informLabel">Bạn có chắc chắn muốn xóa nhân viên không?</label>
+                    <input type="hidden" id = "d_eID" name = "of_employee">
+                    <label id = "informLabel">Bạn có chắc chắn muốn xóa tài khoản này không?</label>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -158,7 +159,7 @@
             style: 'currency',
             currency: 'VND',
           });
-      var employeeID;
+      var ID;
       //search
       $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
@@ -193,9 +194,8 @@
       });
 
       $(".btn--delete-item").click(function() {
-          var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
-          $("#informLabel").text(temp);
-          employeeID = $(this).closest("tr").attr('employeeID');
+          ID = $(this).closest("tr").attr('accountID');
+          $('#d_eID').val($(this).attr('eID'));
           $("#deleteModal").modal();
       });
 
@@ -211,39 +211,15 @@
       ],
       onSubmit: function() {
           formAdd.action = 'register/create'
-          $('#n_eID').val($('.nOps:selected').attr('eID'));
           formAdd.submit()
         }
       })
       //modified validator  
-      Validator({
-      form: '#form-edit-employeeList', // id của cái form cần validate
-      errorSelector: '.form-message', // tên class để hiện cái lỗi
-      rules: [
-        Validator.isRequireSelectBox('#m_tag','--- Chọn loại nhân viên ---', 'Vui chọn khách hàng'),
-        Validator.isRequire('#m_name', 'Vui nhập tên nhân viên'),
-        Validator.isRequire('#m_address', 'Vui nhập địa chỉ'),
-        Validator.isRequire('#m_email', 'Vui nhập email'),
-        Validator.isRequire('#m_phoneNumber', 'Vui lòng nhập số điện thoại'),
-        Validator.isEmail('#m_email'),
-        Validator.isRequire('#m_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
-        Validator.isNumber('#m_cmnd'),
-        Validator.isNumber('#m_phoneNumber'),
-        Validator.isDuplicate('#m_email', '#accountTable',4, 'Email đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#m_phoneNumber', '#accountTable',3, 'Số điện thoại đã tồn tại. Vui lòng nhập lại!'),
-        Validator.isDuplicate('#m_cmnd', '#accountTable',5, 'CMND đã tồn tại. Vui lòng nhập lại!')
-      ],
-      onSubmit: function() {
-          formEdit.action = 'employeeList/' + employeeID + '/edit?_method=PUT' 
-          $('#m_tagID').val($('.mOps:selected').attr('tagID'));
-          formEdit.submit()
-        }
-      })
 
       
 
       btnDelete.click(function() {
-        formDelete.action = 'employeeList/'+  employeeID + '/delete?_method=DELETE'
+        formDelete.action = 'register/'+  ID + '/delete?_method=DELETE'
         formDelete.submit();
       })
     });

@@ -11,7 +11,7 @@ class EmployeeTagController {
             return position
             })
             .then((position) => {
-                Tag.find({})
+                Tag.find({isAdmin: "false"})
                     .then((tag)=> {
                         Employee.find({})
                             .then((employee) =>{

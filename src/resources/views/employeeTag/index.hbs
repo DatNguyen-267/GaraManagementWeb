@@ -172,13 +172,13 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="1" id="check_1" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Quản lý quy định
+                            Quản lý xe
                           </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="2" id="check_2" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý nhân viên
+                            Quản lý khách hàng
                           </label>
                         </div>
                       </div>
@@ -186,13 +186,13 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="3" id="check_3" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Quản lý dịch vụ
+                            Quản lý nhân viên
                           </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="4" id="check_4" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Quản lý khách hàng
+                            Quản lý kho
                           </label>
                         </div>
                       </div>
@@ -200,13 +200,41 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="5" id="check_5" name="permissions">
                           <label class="form-check-label" for="flexCheckDefault">
-                            Quản lý kho
+                            Quản lý báo cáo
                           </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="6" id="check_6" name="permissions">
                           <label class="form-check-label" for="flexCheckChecked">
-                            Báo cáo
+                            Quản lý qui định
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left;width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="7" id="check_7" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý chức vụ
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="8" id="check_8" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Quản lý quy định
+                          </label>
+                        </div>
+                      </div>
+                      <div style="float:left;width: 32%">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="9" id="check_9" name="permissions">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Quản lý tài khoản
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="6" id="check_6" name="permissions">
+                          <label class="form-check-label" for="flexCheckChecked">
+                            Chọn cc a`
                           </label>
                         </div>
                       </div>
@@ -334,9 +362,13 @@
           $('#m_salary').val($(this).closest("tr").find(".salary").text());
           $('#m_percent').val($(this).closest("tr").find(".percent").text());
           $('#m_tag').attr('data-old', $(this).closest("tr").find(".tag").text())
+          for (var i = 1; i<=6;i++){
+              var x = "#check_" + (i).toString();
+              $(x).attr('checked', false);
+          }
           permission.forEach(element => {
              var x = "#check_" + (element);
-            $(x).attr('checked', 'checked');
+              $(x).attr('checked', true);
           });
           $("#modifiedModal").modal(); 
 
