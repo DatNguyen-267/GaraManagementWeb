@@ -53,8 +53,8 @@
                   <p>SĐT: {{this.creatorPhoneNumber}}</p>
                 </div>
                 <div class = "btn-container">
-                  <button class="btn btn-info" startDate = "{{this.startDate}}" endDate = "{{this.endDate}}" reson = "{{this.reson}}" check = "{{this.havePermission}}" dateoffID = "{{this._id}}"><i class="fas fa-pen"></i></button>
-                  <button class="btn btn-danger" dateoffID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-info btn-edit-dateoff" startDate = "{{this.startDate}}" endDate = "{{this.endDate}}" reson = "{{this.reson}}" check = "{{this.havePermission}}" dateoffID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+                  <button class="btn btn-danger btn-delete-dateoff" dateoffID = "{{this._id}}"><i class="fas fa-trash"></i></button>
                 </div>
               </div>
               {{/each}}
@@ -78,8 +78,8 @@
               <p>SĐT: {{this.creatorPhoneNumber}}</p>
             </div>
             <div class = "btn-container">
-              <button class="btn btn-info" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" description = "{{this.description}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
-              <button class="btn btn-danger" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+              <button class="btn btn-info btn-edit-error" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" description = "{{this.description}}" errorID = "{{this._id}}" class = ><i class="fas fa-pen"></i></button>
+              <button class="btn btn-danger btn-delete-error" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
             </div>
           </div>
           {{/each}}
@@ -364,6 +364,7 @@
 
 
     <script>
+      document.addEventListener('DOMContentLoaded', function () {
       var id;
       var formatter = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -390,7 +391,7 @@
           $("#m_StartDate").val($(this).attr('startDate'));
           $("#m_EndDate").val($(this).attr('endDate'));
           $("#m_Reson").val($(this).attr('reson'));
-          if ($(this).attr('havePermission') == "true"){
+          if ($(this).attr('check') == "true"){
             $("#CP").prop("checked","true");
           }
           else{
@@ -419,9 +420,6 @@
           id = $(this).attr('errorID');
           $("#deleteErrorModal").modal();
       });
-      //
-      document.addEventListener('DOMContentLoaded', function () {
-      
       var tdActive;
       var btnDeleteDateOff = $('#btn-delete-d')
       var btnAcceptEditDateOff = $('#btn-accept-edit-d')
