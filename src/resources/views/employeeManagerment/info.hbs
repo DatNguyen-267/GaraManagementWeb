@@ -1,11 +1,5 @@
 
 <link rel="stylesheet" href="/css/managermentInfo.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <title>Nghỉ phép và vi phạm</title>
 <div class = "grid__content">
@@ -53,8 +47,8 @@
                   <p>SĐT: {{this.creatorPhoneNumber}}</p>
                 </div>
                 <div class = "btn-container">
-                  <button class="btn btn-info" startDate = "{{this.startDate}}" endDate = "{{this.endDate}}" reson = "{{this.reson}}" check = "{{this.havePermission}}" dateoffID = "{{this._id}}"><i class="fas fa-pen"></i></button>
-                  <button class="btn btn-danger" dateoffID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+                  <button class="btn-edit-dateoff btn btn-info" startDate = "{{this.startDate}}" endDate = "{{this.endDate}}" reson = "{{this.reson}}" check = "{{this.havePermission}}" dateoffID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+                  <button class=" btn-delete-dateoff btn btn-danger" dateoffID = "{{this._id}}"><i class="fas fa-trash"></i></button>
                 </div>
               </div>
               {{/each}}
@@ -78,8 +72,8 @@
               <p>SĐT: {{this.creatorPhoneNumber}}</p>
             </div>
             <div class = "btn-container">
-              <button class="btn btn-info" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" description = "{{this.description}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
-              <button class="btn btn-danger" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
+              <button class="btn-edit-error btn btn-info" date = "{{this.date}}" content = "{{this.content}}" fine = "{{this.fine}}" description = "{{this.description}}" errorID = "{{this._id}}"><i class="fas fa-pen"></i></button>
+              <button class="btn-delete-error btn btn-danger" errorID = "{{this._id}}"><i class="fas fa-trash"></i></button>
             </div>
           </div>
           {{/each}}
@@ -363,62 +357,7 @@
 </div>
 
 
-    <script>
-      var id;
-      var formatter = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-        });
-      $('#m_Fine').change(function() {
-        var temp = $('#m_Fine').val();
-        temp = temp.replaceAll('.','')
-        temp = temp.replace('₫','')
-        temp = formatter.format(temp);
-        $('#m_Fine').val(temp);
-      });
-      $('#n_Fine').change(function() {
-        var temp = $('#n_Fine').val();
-        temp = temp.replaceAll('.','')
-        temp = temp.replace('₫','')
-        temp = formatter.format(temp);
-        $('#n_Fine').val(temp);
-      });
-      //dateoff
-      
-      $(".btn-edit-dateoff").click(function() {
-          id = $(this).attr('dateoffID');
-          $("#m_StartDate").val($(this).attr('startDate'));
-          $("#m_EndDate").val($(this).attr('endDate'));
-          $("#m_Reson").val($(this).attr('reson'));
-          if ($(this).attr('havePermission') == "true"){
-            $("#CP").prop("checked","true");
-          }
-          else{
-            $("#KP").prop("checked","true");
-          }
-          $("#modifiedDateOffModal").modal();
-      });
-      $(".btn-delete-dateoff").click(function() {
-          id = $(this).attr('dateoffID');
-          $("#deleteDateOffModal").modal();
-      });
-      //error
-      $('.content').change(function(){
-            $('.fine').val("");
-             $('.fine').attr("placeholder",$('option:selected', this).attr('fine'))
-      });
-      $(".btn-edit-error").click(function() {
-          id = $(this).attr('errorID');
-          $("#m_Date").val($(this).attr('date'));
-          $("#m_Content").val($(this).attr('content'));
-          $("#m_Fine").val($(this).attr('fine'));
-          $("#m_Description").val($(this).attr('description'));
-          $("#modifiedErrorModal").modal();
-      });
-      $(".btn-delete-error").click(function() {
-          id = $(this).attr('errorID');
-          $("#deleteErrorModal").modal();
-      });
+    <script>   
       //
       document.addEventListener('DOMContentLoaded', function () {
       
@@ -511,9 +450,61 @@
         }
       })
 
-
-    }
-
-    );
+      var id;
+      var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+      $('#m_Fine').change(function() {
+        var temp = $('#m_Fine').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#m_Fine').val(temp);
+      });
+      $('#n_Fine').change(function() {
+        var temp = $('#n_Fine').val();
+        temp = temp.replaceAll('.','')
+        temp = temp.replace('₫','')
+        temp = formatter.format(temp);
+        $('#n_Fine').val(temp);
+      });
+      //dateoff
+      
+      $(".btn-edit-dateoff").click(function() {
+          id = $(this).attr('dateoffID');
+          $("#m_StartDate").val($(this).attr('startDate'));
+          $("#m_EndDate").val($(this).attr('endDate'));
+          $("#m_Reson").val($(this).attr('reson'));
+          if ($(this).attr('havePermission') == "true"){
+            $("#CP").prop("checked","true");
+          }
+          else{
+            $("#KP").prop("checked","true");
+          }
+          $("#modifiedDateOffModal").modal();
+      });
+      $(".btn-delete-dateoff").click(function() {
+          id = $(this).attr('dateoffID');
+          $("#deleteDateOffModal").modal();
+      });
+      //error
+      $('.content').change(function(){
+            $('.fine').val("");
+            $('.fine').attr("placeholder",$('option:selected', this).attr('fine'))
+      });
+      $(".btn-edit-error").click(function() {
+          id = $(this).attr('errorID');
+          $("#m_Date").val($(this).attr('date'));
+          $("#m_Content").val($(this).attr('content'));
+          $("#m_Fine").val($(this).attr('fine'));
+          $("#m_Description").val($(this).attr('description'));
+          $("#modifiedErrorModal").modal();
+      });
+      $(".btn-delete-error").click(function() {
+          id = $(this).attr('errorID');
+          $("#deleteErrorModal").modal();
+      });
+    });
     
     </script>
