@@ -371,7 +371,7 @@
                     id="select-edit-material">
                         <option>-- Chọn vật tư --</option>
                         {{#each Materials}}
-                        <option data-id="{{this._id}}" data-amount="{{this.amount}} "
+                        <option data-id="{{this._id}}" data-amount="{{this.amount}}"
                             data-sellprice="{{this.sell_price}}">{{this.name}}</option>
                         {{/each}}
                     </select>
@@ -1183,7 +1183,7 @@
             detailMaterialIdDelete = button.data('id')
         })
         btnAcceptDeleteMaterial.onclick = function() {
-            formDeleteMaterial.action = 'repairs/' +repairId + '/' + detailMaterialIdDelete + '/delete-detail-material?_method=DELETE'
+            formDeleteMaterial.action =  detailMaterialIdDelete + '/delete-detail-material?_method=DELETE'
             formDeleteMaterial.submit()
         }
         // XÓA Tiền công
@@ -1207,7 +1207,7 @@
             detailEmployeeIdDelete = button.data('id')
         })
         btnAcceptDeleteEmployee.onclick = function() {
-            formDeleteEmployee.action = 'repairs/' + repairId + '/' + detailEmployeeIdDelete + '/delete-detail-employee?_method=DELETE'
+            formDeleteEmployee.action =  detailEmployeeIdDelete + '/delete-detail-employee?_method=DELETE'
             formDeleteEmployee.submit()
         }
 

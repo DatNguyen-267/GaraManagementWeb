@@ -1,0 +1,96 @@
+[{
+  "_id": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "name": "Bánh xeeeeeee",
+  "of_supplier": {
+    "$oid": "61b5ee18c5ad0fa7db8155df"
+  },
+  "amount": 17,
+  "import_price": 500000,
+  "sell_price": 2400000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T13:47:31.925Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:22:57.169Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b616f8c2f61fc009ca6424"
+  },
+  "name": "Bánh xe 101",
+  "of_supplier": {
+    "$oid": "61b5ee2fc5ad0fa7db8155f5"
+  },
+  "amount": 15,
+  "import_price": 1000000,
+  "sell_price": 1300000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T15:36:24.192Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T02:46:56.390Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6a015cbcb4c5a2f8cb76d"
+  },
+  "name": "Bình Xăng 403",
+  "of_supplier": {
+    "$oid": "61b5ee5ac5ad0fa7db815667"
+  },
+  "amount": 10,
+  "import_price": 300000,
+  "sell_price": 1300000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T01:21:25.465Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:09.682Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "name": "Kính Hậu TR",
+  "of_supplier": {
+    "$oid": "61b5ee18c5ad0fa7db8155df"
+  },
+  "amount": 10,
+  "import_price": 1200000,
+  "sell_price": 135000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T01:22:22.429Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:51.038Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6fe33a8f269f16ecdb112"
+  },
+  "name": "Bóng đèn",
+  "of_supplier": {
+    "$oid": "61b5ee18c5ad0fa7db8155df"
+  },
+  "amount": 10,
+  "import_price": 50000,
+  "sell_price": 60000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T08:02:59.153Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:51.035Z"
+  },
+  "__v": 0
+}]
