@@ -8,7 +8,7 @@ const ExportVoucher = new Schema({
     of_employee: {type: Schema.Types.ObjectId, ref: 'Employee'},
     exported: { type: Schema.Types.Boolean, default: false },
     detail: { type: Schema.Types.ObjectId, ref: 'ExportDetail' },
-    total_price: {type: Number}
+    total_price: {type: Number, default: 0}
 }, {
     timestamps: true,
 })
