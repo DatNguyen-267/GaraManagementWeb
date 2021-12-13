@@ -255,7 +255,7 @@
       console.log(btnExport)
       btnExport.onclick = function() {
           var table2Excel = new Table2Excel()
-          table2Excel.export(document.getElementById('table-data'), 'Bảng lương')
+          table2Excel.export(document.getElementById('employeeTable'), 'Bảng lương')
       }
       $(document).ready(function () {
       $('#searchKey').on('keyup', function (event) {

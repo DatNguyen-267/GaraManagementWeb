@@ -125,7 +125,7 @@ class EmployeeSalaryController {
                 return position
             })
             .then((position) => { 
-                Employee.find({})
+                Employee.find({}).populate({path:'position'})
                     .then((employee)=> {
                         Error.find()
                             .then((error) =>{
@@ -159,8 +159,9 @@ class EmployeeSalaryController {
                                             lastDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
                                         else
                                             lastDate = d + '/'+ (m+1).toString() + '/' +y;
-                                        for (var item of employee){
-                                            var fineSum = 0;
+                                        for (var item of employee) {
+                                            if (item.position.isAdmin == "false") {
+                                                var fineSum = 0;
                                             var errorCount = 0;
                                             var dateOffCount = 0;
                                             for(var temp of error){     
@@ -202,6 +203,8 @@ class EmployeeSalaryController {
                                             fineSum = formatter.format(fineSum.toString());
                                             finalSalary = formatter.format(finalSalary.toString());
                                             data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount})
+                                            }
+                                            
                                         }
                                         res.render('employeeSalary/index', {
                                             employee: mutipleMongooseToObject(employee),
