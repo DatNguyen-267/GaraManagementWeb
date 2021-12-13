@@ -14,12 +14,16 @@ class SettingController {
             })
             .then((position) => {
                 Setting.findById(settingID).then((setting) => {
-                    res.render('setting', {
-                        setting: mongooseToOject(setting),
-                        activeSetting: true,
-                        Permissions: mongooseToOject(position.permissions),
-                        User: mongooseToOject(res.locals.employee)
+                    Account.findOne({of_employee: res.locals.employee._id}).then((account) => {
+                        res.render('setting', {
+                            setting: mongooseToOject(setting),
+                            account: mongooseToOject(account),
+                            activeSetting: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(res.locals.employee)
+                        })
                     })
+                    
                 })
             })
     }
