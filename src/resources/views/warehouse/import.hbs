@@ -248,8 +248,15 @@
     for(var item of btnEdit) {
       item.onclick = function() {
         var rowData = this.parentElement.parentElement
+        console.log(rowData.cells[1].textContent)
 
-        document.getElementById('edit-date').value = rowData.cells[1].textContent
+        document.getElementById('edit-date').value = (new Date(rowData.cells[1].textContent)).toISOString().substring(0,10)
+
+        var selectedSupplier = document.querySelector('#edit-supplier')
+        for (var i = 0 ; i < selectedSupplier.options.length ; i++) {
+          if (selectedSupplier.options[i].textContent == rowData.cells[0].textContent)
+            selectedSupplier.options.item(i).selected = 'selected'
+        }
 
         voucherID = this.getAttribute('data-id')
         btnModalEdit.setAttribute('data-id', voucherID)
