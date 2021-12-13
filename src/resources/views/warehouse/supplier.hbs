@@ -207,19 +207,16 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#add-name', 'Vui lòng nhập mã tên nhà cung cấp'),
+        Validator.isDuplicate('#add-name', '#table-data', 0, 'Tên nhà cung cấp bị trùng'),
         Validator.isRequire('#add-email', 'Vui lòng nhập email nhà cung cấp'),
+        Validator.isDuplicate('#add-email', '#table-data', 1, 'Email nhà cung cấp bị trùng'),
         Validator.isEmail('#add-email'),
         Validator.isRequire('#add-telephone', 'Vui lòng nhập số điện thoại nhà cung cấp'),
         Validator.isNumber('#add-telephone')
       ],
       onSubmit: function () {
-        var name = document.getElementById('add-name').value
-        if(!checkExist(name)) {
-          formAdd.action = 'supplier/create'
-          formAdd.submit()
-        } else {
-          alert("Nhà cung cấp này đã tồn tại")
-        }
+        formAdd.action = 'supplier/create'
+        formAdd.submit()
       }
     })
 
@@ -228,19 +225,16 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#edit-name', 'Vui lòng nhập mã tên nhà cung cấp'),
+        Validator.isDuplicate('#edit-name', '#table-data', 0, 'Tên nhà cung cấp bị trùng'),
         Validator.isRequire('#edit-email', 'Vui lòng nhập email nhà cung cấp'),
+        Validator.isDuplicate('#edit-email', '#table-data', 1, 'Email nhà cung cấp bị trùng'),
         Validator.isEmail('#edit-email'),
         Validator.isRequire('#edit-telephone', 'Vui lòng nhập số điện thoại nhà cung cấp'),
         Validator.isNumber('#edit-telephone')
       ],
       onSubmit: function () {
-        var name = document.getElementById('edit-name').value
-        if(!checkExist(name)) {
-          formEdit.action = 'supplier/' + supplierID + '/?_method=PUT'
+        formEdit.action = 'supplier/' + supplierID + '/?_method=PUT'
         formEdit.submit()
-        } else {
-          alert("Nhà cung cấp này đã tồn tại")
-        }
       }
     })
 
