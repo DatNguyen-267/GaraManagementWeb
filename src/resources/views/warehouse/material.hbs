@@ -46,6 +46,13 @@
               <span class="form-message"></span>
             </div>
           </div>
+          <div class="p-2 row">
+            <label for="" class="col-3 col-form-label">Số lượng</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="add-amount" name="amount" />
+              <span class="form-message"></span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -173,16 +180,16 @@
     </tr>
   </thead>
   <tbody id="table-data">
-    {{#each materials}}
+    {{#each data}}
       <tr>
-        <td>{{this.name}}</td>
-        <td>{{this.of_supplier.name}}</td>
-        <td>{{this.amount}}</td>
-        <td>{{this.import_price}}</td>
-        <td>{{this.sell_price}}</td>
+        <td>{{this.material.name}}</td>
+        <td>{{this.material.of_supplier.name}}</td>
+        <td>{{this.material.amount}}</td>
+        <td>{{this.material.import_price}}</td>
+        <td>{{this.material.sell_price}}</td>
         <td>
-          <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
-          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+          <button class="btn--edit-item" data-id="{{this.material._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+          <button class="btn--delete-item" data-id="{{this.material._id}}" data-canDelete={{this.canDelete}} data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
         </td>
       </tr>
     {{/each}}
@@ -200,13 +207,13 @@
     </tr>
   </thead>
   <tbody>
-    {{#each materials}}
+    {{#each data}}
       <tr>
-        <td>{{this.name}}</td>
-        <td>{{this.of_supplier.name}}</td>
-        <td>{{this.amount}}</td>
-        <td>{{this.import_price}}</td>
-        <td>{{this.sell_price}}</td>
+        <td>{{this.material.name}}</td>
+        <td>{{this.material.of_supplier.name}}</td>
+        <td>{{this.material.amount}}</td>
+        <td>{{this.material.import_price}}</td>
+        <td>{{this.material.sell_price}}</td>
       </tr>
     {{/each}}
   </tbody>
@@ -243,8 +250,10 @@
         Validator.isRequireSelectBox('#add-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
         Validator.isRequire('#add-import-price', 'Vui lòng nhập giá nhập vật tư'),
         Validator.isRequire('#add-sell-price', 'Vui lòng nhập giá bán vật tư'),
+        Validator.isRequire('#add-amount', 'Vui lòng nhập số lượng'),
         Validator.isNumber('#add-import-price'),
         Validator.isNumber('#add-sell-price'),
+        Validator.isNumber('#add-amount'),
       ],
       onSubmit: function () {
         formAdd.action = 'material/create'
@@ -283,21 +292,11 @@
     var formEdit = document.forms['form-edit']
 
     var materialID
-
-    var materialList = document.getElementById('table-data').rows
-    const checkExist = (name) => {
-      for(var row of materialList) {
-        if(name == row.cells[0].textContent) {
-          return true
-        }
-      }
-      return false
-    }
+    var canDelete
 
     for(var item of btnDelete) {
       item.onclick = function() {
-        var materialId = this.getAttribute('data-id')
-        btnModalDelete.setAttribute('data-id', materialId)
+        materialId = this.getAttribute('data-id')
       }
     }
 
@@ -320,11 +319,19 @@
     }
 
     btnModalDelete.onclick = function () {
-      materialId = this.getAttribute('data-id')
-      formDelete.action = 'material/' + materialId + '/delete?_method=DELETE'
-      formDelete.submit()
+      if(canDelete) {
+        formDelete.action = 'material/' + materialId + '/delete?_method=DELETE'
+        formDelete.submit()
+      } else {
+        alert('Không thể xóa vì loại vật tư này đang được sử dụng!')
+      }
     }
 
-
+    $('#deleteModal').on('shown.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      console.log(button)
+      canDelete = button.data('candelete')
+      console.log(canDelete)
+    })
   })
 </script>

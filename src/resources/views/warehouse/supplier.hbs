@@ -146,14 +146,14 @@
     </tr>
   </thead>
   <tbody id="table-data">
-    {{#each suppliers}}
+    {{#each data}}
       <tr>
-        <td>{{this.name}}</td>
-        <td>{{this.email}}</td>
-        <td>{{this.telephone}}</td>
+        <td>{{this.supplier.name}}</td>
+        <td>{{this.supplier.email}}</td>
+        <td>{{this.supplier.telephone}}</td>
         <td>
-          <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
-          <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+          <button class="btn--edit-item" data-id="{{this.supplier._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
+          <button class="btn--delete-item" data-id="{{this.supplier._id}}" data-canDelete="{{this.canDelete}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
         </td>
       </tr>
     {{/each}}
@@ -170,11 +170,11 @@
     </tr>
   </thead>
   <tbody>
-    {{#each suppliers}}
+    {{#each data}}
       <tr>
-        <td>{{this.name}}</td>
-        <td>{{this.email}}</td>
-        <td>{{this.telephone}}</td>
+        <td>{{this.supplier.name}}</td>
+        <td>{{this.supplier.email}}</td>
+        <td>{{this.supplier.telephone}}</td>
       </tr>
     {{/each}}
   </tbody>
@@ -262,6 +262,7 @@
     var formEdit = document.forms['form-edit']
 
     var supplierID
+    var canDelete
     
     for(var item of btnDelete) {
       item.onclick = function() {
@@ -284,9 +285,12 @@
     }
 
     btnModalDelete.onclick = function () {
-      supplierID = this.getAttribute('data-id')
-      formDelete.action = 'supplier/' + supplierID + '/delete?_method=DELETE'
+      if(canDelete) {
+        formDelete.action = 'supplier/' + supplierID + '/delete?_method=DELETE'
       formDelete.submit()
+      } else {
+        alert('Không thể xóa vì nhà cung cấp đang được sử dụng!')
+      }
     }
 
     $(document).ready(function () {
@@ -299,5 +303,12 @@
         });
         });
     });
+
+    $('#deleteModal').on('shown.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      console.log(button)
+      canDelete = button.data('candelete')
+      console.log(canDelete)
+    })
   })
 </script>

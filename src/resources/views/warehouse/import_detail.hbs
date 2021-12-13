@@ -191,7 +191,7 @@
         <th scope="col">Tên vật tư</th>
         <th scope="col">Số lượng</th>
         <th scope="col">Giá nhập</th>
-        <th scope="col" colspan="2">Thao tác</th>
+        <th scope="col" colspan="2" {{isHidden voucher.imported}}>Thao tác</th>
       </tr>
     </thead>
     <tbody id="table-data">
@@ -200,7 +200,7 @@
           <td>{{this.material.name}}</td>
           <td>{{this.amount}}</td>
           <td>{{this.import_price}}</td>
-          <td>
+          <td {{isHidden ../voucher.imported}}>
             <button class="btn--edit-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
             <button class="btn--delete-item" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
           </td>
@@ -300,6 +300,12 @@
         
         document.getElementById('edit-amount').value = rowData.cells[1].textContent
         document.getElementById('edit-import-price').value = rowData.cells[2].textContent
+
+        var selectedSupplier = document.querySelector('#edit-material')
+        for (var i = 0 ; i < selectedSupplier.options.length ; i++) {
+          if (selectedSupplier.options[i].textContent == rowData.cells[0].textContent)
+            selectedSupplier.options.item(i).selected = 'selected'
+        }
       }
     }
 

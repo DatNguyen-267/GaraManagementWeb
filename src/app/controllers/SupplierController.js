@@ -14,8 +14,34 @@ class SupplierController {
             .then((position) => {
                 Supplier.find({})
                     .then((suppliers) => {
+                        const data = []
+
+                        ImportVoucher.find({}).then((vouchers) => {
+                            Material.find({}).then((materials) => {
+                                for (var supplier of suppliers) {
+                                    var canDelete = true
+
+                                    for (var voucher of vouchers) {
+                                        if (voucher.of_supplier.toString() == supplier._id.toString()) {
+                                            canDelete = false
+                                            break;
+                                        }
+                                    }
+
+                                    for (var material of materials) {
+                                        if (material.of_supplier.toString() == supplier._id.toString()) {
+                                            canDelete = false
+                                            break;
+                                        }
+                                    }
+
+                                    data.push({ supplier: mongooseToOject(supplier), canDelete: canDelete })
+                                }
+                            })
+                        })
+
                         res.render('warehouse/supplier', {
-                            suppliers: mutipleMongooseToObject(suppliers),
+                            data: data,
                             activeManagementWarehouse: true,
                             activeSupplier: true,
                             Permissions: mongooseToOject(position.permissions),
