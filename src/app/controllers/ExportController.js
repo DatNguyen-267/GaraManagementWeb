@@ -16,6 +16,7 @@ class ExportController {
             .then((position) => {
                 Repair.find({}).then((repairs) => {
                     var list = []
+                    var resList = []
                     Repair_Detail_Material.find({ contracted: true, exported: false }).populate('of_repair')
                         .then((materials) => {
                             for (var material of materials) {
@@ -23,10 +24,22 @@ class ExportController {
                                     list.push(material.of_repair)
                                 }
                             }
-                            ExportVoucher.find({}).populate('of_employee', 'name').then((vouchers) => {
+                            ExportVoucher.find({}).populate('of_employee', 'name').populate('of_repair').then((vouchers) => {
+                                for (var item of list) {
+                                    var check = true
+                                    for (var voucher of vouchers) {
+                                        if (item._id.toString() == voucher.of_repair._id.toString()) {
+                                            check = false
+                                            break
+                                        }
+                                        if (check)
+                                        resList.push((item))
+                                }
+                                }
+                                
                                 res.render('warehouse/export', {
                                     vouchers: mutipleMongooseToObject(vouchers),
-                                    repairs: mutipleMongooseToObject(list),
+                                    repairs: mutipleMongooseToObject(resList),
                                     activeManagementWarehouse: true,
                                     activeExport: true,
                                     Permissions: mongooseToOject(position.permissions),
