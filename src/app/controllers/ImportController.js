@@ -130,7 +130,7 @@ class ImportController {
             for (var detail of details) {
                 Material.findOne({ _id: detail.material }).then((material) => {
                     var temp = detail
-                    Material.updateOne({ _id: detail.material },
+                    Material.updateOne({ _id: temp.material },
                         {
                             amount: material.amount + temp.amount,
                             import_price: temp.import_price

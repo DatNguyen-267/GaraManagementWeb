@@ -18,6 +18,7 @@ class ExportController {
                     let list = []
                     for (var repair of repairs) {
                         Repair_Detail_Material.find({ of_repair: repair._id, contracted: true, exported: false }).then((materials) => {
+                            
                             if (materials.length) {
                                 list.push(repair)
                             }
