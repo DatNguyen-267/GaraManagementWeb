@@ -21,7 +21,8 @@
     "mongoose": "^6.0.12",
     "mongoose-delete": "^0.5.4",
     "mongoose-slug-generator": "^1.0.4",
-    "npm": "^8.1.4"
+    "npm": "^8.1.4",
+    "password-hash": "^1.2.2"
   },
   "devDependencies": {
     "express-handlebars": "^5.3.5",
