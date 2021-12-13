@@ -151,7 +151,8 @@
     var tableData = document.getElementById('table-data').rows
     for(var row of tableData) {
       var date = new Date(Date.parse(row.cells[1].textContent))
-      row.cells[1].textContent = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+      console.log(date)
+      row.cells[1].textContent = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     }
 
     var btnExport = document.querySelectorAll('.btn--export-item')

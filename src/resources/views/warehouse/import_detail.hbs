@@ -267,7 +267,7 @@
 
     var importDateLabel = document.getElementById('import-date').innerHTML
     var date = new Date(Date.parse(importDateLabel))
-    document.getElementById('import-date').innerHTML = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+    document.getElementById('import-date').innerHTML = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     var addMaterialForm = document.getElementById('addMaterialForm')
     var btnDelete = document.querySelectorAll('.btn--delete-item')

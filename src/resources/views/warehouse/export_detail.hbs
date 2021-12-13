@@ -116,8 +116,8 @@
     var createDate = new Date(Date.parse(createDateLabel))
     var exportDate = new Date(Date.parse(exportDateLabel))
 
-    document.getElementById('create-date').innerHTML = `${createDate.getDate()}/${createDate.getMonth()}/${createDate.getFullYear()}`
-    document.getElementById('export-date').innerHTML = `${exportDate.getDate()}/${exportDate.getMonth()}/${exportDate.getFullYear()}`
+    document.getElementById('create-date').innerHTML = `${createDate.getDate()}/${createDate.getMonth() + 1}/${createDate.getFullYear()}`
+    document.getElementById('export-date').innerHTML = `${exportDate.getDate()}/${exportDate.getMonth() + 1}/${exportDate.getFullYear()}`
 
     var btnModalExport = document.getElementById('btnModalExport')
     var formExport = document.forms['form-export']
