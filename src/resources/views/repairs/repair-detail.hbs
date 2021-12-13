@@ -105,7 +105,7 @@
                         <tr>
                             <td scope="row">{{sum @index 1}}</td>
                             <td scope="row">{{this.content}}</td>
-                            <td scope="row">{{this.material_name}}</td>
+                            <td scope="row" data-id="{{this.material}}">{{this.material_name}}</td>
                             <td scope="row">{{this.amount}}</td>
                             <td scope="row">{{this.sell_price}}</td>
                             <td scope="row">{{this.total_money}}</td>
@@ -156,7 +156,7 @@
                 {{#each Detail_Wages}}
                 <tr>
                     <td scope="row">{{sum @index 1}}</td>
-                    <td scope="row" >{{this.wage_name}}</td>
+                    <td scope="row" data-id="{{this.wage}}" >{{this.wage_name}}</td>
                     <td scope="row">{{this.wage_money}}</td>
                     <td class="td-contain-check-icon" scope="row" >
                         <i class="fas fa-check-circle icon-check--on" {{isShow this.contracted}} ></i>
@@ -892,9 +892,6 @@
         var btnContract = $('#btn-contract')
         var btnOrdered = $('#btn-ordered')
         var btnSuccess = $('#btn-success')
-        console.log(btnQuote)
-        console.log(btnContract)
-        console.log(btnOrdered)
         var isQuoted = repairStatus.getAttribute('data-quoted')
         var isContracted = repairStatus.getAttribute('data-contracted')
         var isOrdered = repairStatus.getAttribute('data-ordered')
@@ -1090,9 +1087,11 @@
             $('#input-edit-content').val(rowFocus.cells[1].textContent)
             $('#input-edit-sell-price').val(rowFocus.cells[4].textContent)
             $('#input-edit-total-money').val(rowFocus.cells[5].textContent)
-            console.log(rowFocus.cells[2].textContent)
+           
             for (var i = 1 ; i < selectMaterialEdit.options.length; i++) {
-                if (rowFocus.cells[2].textContent == selectMaterialEdit.options[i].textContent){
+                
+                
+                if (rowFocus.cells[2].getAttribute('data-id') == selectMaterialEdit.options[i].getAttribute('data-id')){
                     selectMaterialEdit.options.item(i).selected = 'selected'
                     materialSelectedEdit = selectMaterialEdit.options.item(i)
                     
@@ -1130,7 +1129,7 @@
             $('#input-edit-wage-money').val(wageItemFocus.cells[2].textContent)
         
             for(var i = 1; i < selectEditWage.options.length; i++){
-                if (selectEditWage.options[i].text == wageItemFocus.cells[1].textContent) {
+                if (selectEditWage.options[i].getAttribute('data-id') == wageItemFocus.cells[1].getAttribute('data-id')) {
                     selectEditWage.options.item(i).selected = 'selected'
                     break;
                 }
