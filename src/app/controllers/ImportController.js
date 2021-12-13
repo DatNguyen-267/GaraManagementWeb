@@ -128,8 +128,8 @@ class ImportController {
     importMaterial(req, res, next) {
         ImportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
             for (var detail of details) {
-                var temp = detail
                 Material.findOne({ _id: detail.material }).then((material) => {
+                    var temp = detail
                     Material.updateOne({ _id: detail.material },
                         {
                             amount: material.amount + temp.amount,
