@@ -87,6 +87,7 @@
       <th scope="col">Mã sửa chữa</th>  
       <th scope="col">Ngày tạo phiếu</th>
       <th scope="col">Nhân viên phụ trách</th>
+      <th scope="col">Tổng tiền</th>
       <th scope="col">Trạng thái</th>
       <th scope="col" colspan="2">Thao tác</th>
     </tr>
@@ -97,6 +98,7 @@
         <td>{{this.of_repair}}</td>
         <td>{{this.createdAt}}</td>
         <td>{{this.of_employee.name}}</td>
+        <td>{{this.total_price}}</td>
         <td scope="row">
           <div class="{{isExportedStyle this.exported}}">{{isExportedStatus this.exported}}</div>
         </td>
