@@ -41,12 +41,13 @@
                 <tbody>
                   
                   {{#each data}}
+                  <tr accountID = "{{this.item._id}}">
                     <th scope="row">{{sum @index 1}}</th>
                     <td id = "account">{{this.item.account}}</td>
                     <td id = "name">{{this.employee.name}}</td>
                     <td id = "tag">{{this.employee.Tag}}</td>
                     <td>
-                      <button class = "btn--delete-item">Xóa</i></button>
+                      <button class = "btn--delete-item" eID = "{{this.employee._id}}" >Xóa</i></button>
                     </td>           
                   </tr>
                   {{/each}}
@@ -121,13 +122,14 @@
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa nhân viên</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa tài khoản</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <label id = "informLabel">Bạn có chắc chắn muốn xóa nhân viên không?</label>
+                    <input type="hidden" id = "d_eID" name = "of_employee">
+                    <label id = "informLabel">Bạn có chắc chắn muốn xóa tài khoản này không?</label>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -158,7 +160,7 @@
             style: 'currency',
             currency: 'VND',
           });
-      var employeeID;
+      var ID;
       //search
       $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
@@ -193,9 +195,8 @@
       });
 
       $(".btn--delete-item").click(function() {
-          var temp  = "Bạn có chắc chắn muốn xóa nhân viên " +  $(this).closest("tr").find("#name").text() + " ?";
-          $("#informLabel").text(temp);
-          employeeID = $(this).closest("tr").attr('employeeID');
+          ID = $(this).closest("tr").attr('accountID');
+          $('#d_eID').val($(this).attr('eID'));
           $("#deleteModal").modal();
       });
 
@@ -203,11 +204,11 @@
       form: '#form-add-account', // id của cái form cần validate
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
-        Validator.isRequireSelectBox('#n_employee','--- Chọn nhân viên ---', 'Vui lòng chọn nhân viên'),
-        Validator.isRequire('#n_account', 'Vui lòng nhập tên tài khoản'),
-        Validator.isRequire('#n_password', 'Vui lòng nhập mật khẩu'),
-        Validator.isRequire('#n_rePassword', 'Vui lòng nhập lại mật khẩu'),
-        Validator.isDuplicate('#n_account', '#accountTable',2, 'Tên tài khoản đã tồn tại. Vui lòng nhập lại!'),
+        //Validator.isRequireSelectBox('#n_employee','--- Chọn nhân viên ---', 'Vui lòng chọn nhân viên'),
+        //Validator.isRequire('#n_account', 'Vui lòng nhập tên tài khoản'),
+        //Validator.isRequire('#n_password', 'Vui lòng nhập mật khẩu'),
+        //Validator.isRequire('#n_rePassword', 'Vui lòng nhập lại mật khẩu'),
+        //Validator.isDuplicate('#n_account', '#accountTable',2, 'Tên tài khoản đã tồn tại. Vui lòng nhập lại!'),
       ],
       onSubmit: function() {
           formAdd.action = 'register/create'
@@ -243,7 +244,7 @@
       
 
       btnDelete.click(function() {
-        formDelete.action = 'employeeList/'+  employeeID + '/delete?_method=DELETE'
+        formDelete.action = 'register/'+  ID + '/delete?_method=DELETE'
         formDelete.submit();
       })
     });

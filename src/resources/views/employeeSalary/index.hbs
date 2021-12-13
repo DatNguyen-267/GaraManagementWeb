@@ -45,6 +45,7 @@
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Số tiền phạt</th>
                     <th scope="col">Lương</th>   
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,7 +58,10 @@
                       <td id = "name">{{this.item.name}}</td>
                       <td id = "tag">{{this.item.Tag}}</td>
                       <td id = "sum">{{this.fineSum}}</td>
-                      <td id = "finalSalary">{{this.finalSalary}}</td>      
+                      <td id = "finalSalary">{{this.finalSalary}}</td>
+                      <td>
+                       <button class = "btn--view-item">Xem</i></button>
+                      </td>   
                     </tr>
                     {{/each}}
               </table> 
@@ -170,7 +174,7 @@
           return rs;
       }
       const employee = {id:"",name:"",address:"",phoneNumber:"",email:"",citizenID:""};
-      $('#employeeTable tbody tr').click(function () {
+      /*$('#employeeTable tbody tr').click(function () {
         $('#i_name').text($(this).closest("tr").find("#name").text());
         $('#i_tag').text($(this).closest("tr").find("#tag").text());
         $('#i_salary').text($(this).closest("tr").attr('mSalary'));
@@ -181,7 +185,7 @@
         $('#i_percent').text($(this).closest("tr").attr("percent"));
         $("#infoModal").modal();
         $('#i_finalSalary').text($(this).closest("tr").find("#finalSalary").text());
-      });
+      });*/
       $("#searchKey").change(function(){
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchKey");
@@ -203,7 +207,19 @@
         }
       })
       
+      $(".btn--view-item").click(function() {
+        $('#i_name').text($(this).closest("tr").find("#name").text());
+        $('#i_tag').text($(this).closest("tr").find("#tag").text());
+        $('#i_salary').text($(this).closest("tr").attr('mSalary'));
+        $('#i_bonus').val($(this).closest("tr").find("#bonus").text());
+        $('#i_errorSum').text($(this).closest("tr").find("#sum").text());
+        $('#i_dateoffCount').text($(this).closest("tr").attr("dateoffCount"));
+        $('#i_errorCount').text($(this).closest("tr").attr("errorCount"));
+        $('#i_percent').text($(this).closest("tr").attr("percent"));
+        $('#i_finalSalary').text($(this).closest("tr").find("#finalSalary").text());
+        $("#infoModal").modal();
 
+      });
       var tdActive;
       var btnChange = $('#btn-change')
       var formGetInfo = document.forms['form-info']

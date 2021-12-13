@@ -1,4 +1,5 @@
 const Employee = require('../models/Employee')
+const Account = require('../models/Account')
 const Error = require('../models/ManagermentError')
 const DateOff = require('../models/EmployeeManagerment')
 const Tag = require('../models/Position')
@@ -17,7 +18,13 @@ class EmployeeListController {
                     .then((employee)=> {
                         Tag.find({})
                         .then((tag) =>{
+                            var data = []
+                            var userID = res.locals.employee._id
+                            for (var item of employee){
+                                data.push({item:mongooseToOject(item),userID})
+                            }
                             res.render('employeeList/index', {
+                                data,
                                 employee: mutipleMongooseToObject(employee),
                                 tag: mutipleMongooseToObject(tag),
                                 activeEmployee: true,
@@ -54,11 +61,14 @@ class EmployeeListController {
             .then(()=>{
                 Error.delete({employeeID:idDelete})
                     .then(() =>{
-                        Employee.delete({_id:idDelete})
-                            .then(()=> {
-                                res.redirect('back')
-                            }) 
-                            .catch(next)
+                        Account.delete({of_employee:idDelete})
+                            .then(() =>{
+                                Employee.delete({_id:idDelete})
+                                .then(()=> {
+                                    res.redirect('back')
+                                }) 
+                                .catch(next)
+                            })
                     })
                 
             })
