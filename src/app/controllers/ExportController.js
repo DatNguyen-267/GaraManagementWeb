@@ -29,14 +29,21 @@ class ExportController {
                                     var check = true
                                     for (var voucher of vouchers) {
                                         if (item._id.toString() == voucher.of_repair._id.toString()) {
-                                            check = false
+                                            var count = 0
+                                            for (const material of materials) {
+                                                if (material.of_repair._id.toString() == item._id.toString()) {
+                                                    count++
+                                                }
+                                            }
+                                            if (count == voucher.amountDetail)
+                                                check = false
                                             break
-                                        }
-                                        if (check)
+                                        } 
+                                    }
+                                    if (check && item.edited == false && item.ordered == true)
                                         resList.push((item))
                                 }
-                                }
-                                
+                                // res.send(list)
                                 res.render('warehouse/export', {
                                     vouchers: mutipleMongooseToObject(vouchers),
                                     repairs: mutipleMongooseToObject(resList),
@@ -76,43 +83,52 @@ class ExportController {
     }
 
     create(req, res, next) {
-        ExportVoucher.deleteOne({ of_repair: req.body.of_repair, exported: false }).then(() => {
-            var newVoucher = new ExportVoucher(req.body)
-            newVoucher.save()
-                .then(() => {
-                    Repair_Detail_Material.find({ of_repair: req.body.of_repair, contracted: true, exported: false }).then((details) => {
-                        for (var detail of details) {
-                            var newMaterial = new ExportDetail()
-                            newMaterial.of_voucher = newVoucher._id
-                            newMaterial.of_repair_material = detail._id
-                            // newMaterial.of_employee = res.locals.employee._id
-                            newMaterial.material = detail.material
-                            newMaterial.material_name = detail.material_name
-                            newMaterial.amount = detail.amount
-                            newMaterial.sell_price = detail.sell_price
-                            // newMaterial.of_employee = res.locals.employee._id
-                            newMaterial.total_price = detail.amount * detail.sell_price
-                            newMaterial.save().then(() => { })
-                        }
-                    }).then(() => {
-                        ExportVoucher.findById(newVoucher._id).then((voucher) => {
-                            ExportDetail.find({of_voucher: voucher._id}).then((details) => {
-                                var total = 0
-                                for(var detail of details) {
-                                    total += detail.total_price
-                                }
-                                ExportVoucher.updateOne({ _id: voucher._id }, {
-                                    total_price: total,
-                                    of_employee: res.locals.employee._id,
-                                }).then(() => { })
-                            }).then(() => {
-                                res.redirect('back')
+        ExportVoucher.findOne({ of_repair: req.body.of_repair, exported: false })
+            .then((oldExportVoucher) => {
+                ExportDetail.deleteMany({ of_voucher: oldExportVoucher._id })
+                    .then(() => {
+                    ExportVoucher.deleteOne({ of_repair: req.body.of_repair, exported: false }).then(() => {
+                        var newVoucher = new ExportVoucher(req.body)
+                        newVoucher.save()
+                            .then(() => {
+                                Repair_Detail_Material.find({ of_repair: req.body.of_repair, contracted: true, exported: false }).then((details) => {
+                                    for (var detail of details) {
+                                        var newMaterial = new ExportDetail()
+                                        newMaterial.of_voucher = newVoucher._id
+                                        newMaterial.of_repair_material = detail._id
+                                        // newMaterial.of_employee = res.locals.employee._id
+                                        newMaterial.material = detail.material
+                                        newMaterial.material_name = detail.material_name
+                                        newMaterial.amount = detail.amount
+                                        newMaterial.sell_price = detail.sell_price
+                                        // newMaterial.of_employee = res.locals.employee._id
+                                        newMaterial.total_price = detail.amount * detail.sell_price
+                                        newMaterial.save().then(() => { })
+                                    }
+                                }).then(() => {
+                                    ExportVoucher.findById(newVoucher._id).then((voucher) => {
+                                        ExportDetail.find({of_voucher: voucher._id}).then((details) => {
+                                            var total = 0
+                                            for(var detail of details) {
+                                                total += detail.total_price
+                                            }
+                                            ExportVoucher.updateOne({ _id: voucher._id }, {
+                                                total_price: total,
+                                                of_employee: res.locals.employee._id,
+                                                amountDetail: details.length,
+                                            }).then(() => { })
+                                        }).then(() => {
+                                            res.redirect('back')
+                                        })
+                                    })
+                                })
                             })
                         })
-                    })
+                    .catch(next)
                 })
-        })
-            .catch(next)
+            })
+        
+        
     }
 
     export(req, res, next) {
