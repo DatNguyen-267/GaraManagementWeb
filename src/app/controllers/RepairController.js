@@ -21,7 +21,7 @@ class RepairController {
             return position
             })
             .then((position) => {
-                Repair.find({}).populate('of_reception')
+                Repair.find({}).populate({ path: 'of_reception', populate: {path: 'of_customer'}})
                 .then((repairs) => {
                     Reception.find({}).populate('of_customer')
                         .then((receptions) => {

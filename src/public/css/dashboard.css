@@ -13,19 +13,20 @@
   flex-direction: row;
   align-items: center;
   padding: 8px;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 8px 16px;
   height: 150px;
   color: white;
   align-items: center;
   text-align: center;
-  background-color: var(--primary-color); }
+  background-color: var(--primary-color);
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2); }
 
 .performance__content-item:nth-child(1) {
   background-color: var(--primary-color); }
 
 .performance__content-item:nth-child(2) {
-  background-color: #6dd4b1; }
+  background-color: #ff7b36; }
 
 .performance__content-item:nth-child(3) {
   background-color: #a66dd4; }
@@ -34,11 +35,7 @@
   background-color: #63c7ff; }
 
 .performance__content-item:nth-child(5) {
-  background-color: #ff7b36; }
-
-.performance__content-item:hover {
-  background: linear-gradient(to bottom right, #23a6d5, var(--primary-color));
-  animation: gradient 15s ease infinite; }
+  background-color: #6dd4b1; }
 
 @keyframes gradient {
   0% {
@@ -65,7 +62,8 @@
 
 .performance__content-item-number {
   text-align: left;
-  font-size: 20px; }
+  font-size: 24px;
+  font-weight: 600; }
 
 .chart {
   display: flex;

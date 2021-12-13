@@ -39,11 +39,10 @@
       <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#STT</th>
+            <th scope="col">#Mã phiếu</th>
             <th scope="col">Biển số xe</th>
             <th scope="col">Hiệu xe</th>
             <th scope="col">Tên khách hàng</th>
-            <th scope="col">Số điện thoại</th>
             <th scope="col">Ngày tiếp nhận</th>
             <th scope="col">Số tiền nợ</th>
             <th scope="col">Trạng thái</th>
@@ -53,11 +52,10 @@
         <tbody id="table-body">
           {{#each listreception}}
           <tr data-id="{{this._id}}">
-            <th scope="row">{{@index}}</th>
+            <th scope="row">{{this._id}}</th>
             <td>{{this.license}}</td>
             <td>{{this.brand.name}}</td>
             <td>{{this.name}}</td>
-            <td>{{this.phone}}</td>
             <td>{{this.receptionDate}}</td>
             <td>{{this.debt}}</td>
             <td>
@@ -65,11 +63,11 @@
                 {{this.status}}
               </div>
             </td>
-            <td></td>
+            {{!-- <td></td>
             <td>
               <button class="btn--view-item" data-id="{{this._id}}" data-toggle="modal"
                 data-target="#form-view-customer-history-detail" data-id="">Xem</button>
-            </td>
+            </td> --}}
           </tr>
           {{/each}}
         </tbody>

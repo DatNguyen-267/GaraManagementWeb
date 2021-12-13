@@ -250,11 +250,11 @@
               </select>
               <span class="form-message"></span>
             </div>
-            {{!-- <div class="form-group">
+            <div class="form-group">
               <label for="reception-edit-address" class="col-form-label">Ngày tiếp nhận:</label>
               <input type="date" class="form-control" id="reception-edit-receptionDate" name="receptionDate">
               <span class="form-message"></span>
-            </div> --}}
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -409,8 +409,8 @@
       $('#reception-edit-license').val(rowData.cells[1].textContent)
       {{!-- $('#reception-edit-name').val(rowData.cells[3].textContent) --}}
       $('#reception-edit-phone').val(rowData.cells[4].textContent)
-      //var mydate = new Date(rowData.cells[5].textContent);
-      //$('#reception-edit-receptionDate').val(new Date(mydate).toDateString())
+    
+      $('#reception-edit-receptionDate').val(rowData.cells[5].textContent)
 
       var selecteBrand = document.querySelector('#reception-edit-brand')
       for (var i = 0 ; i < selecteBrand.options.length ; i++) {

@@ -27,11 +27,8 @@ hr.solid {
   border-top: 1px solid #bbb;
   margin: 0 40px; }
 
-.employeeSalary__body__table tbody > tr:hover {
-  color: #ec1f55; }
-  .employeeSalary__body__table tbody > tr:hover button {
-    opacity: 1;
-    color: #ec1f55; }
+.employeeSalary__body__table tbody > tr:hover button {
+  opacity: 1; }
 
 .employeeSalary__body__table .salary {
   font-weight: 500; }

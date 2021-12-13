@@ -27,9 +27,6 @@ hr.solid {
   border-top: 1px solid #bbb;
   margin: 0 40px; }
 
-.employeeTag__body__table tbody > tr:hover {
-  color: #ec1f55; }
-
 .employeeTag__body__btnContainer {
   display: block;
   padding: 0;

@@ -38,8 +38,6 @@
             <th scope="col">CMND</th>
             <th scope="col">Email</th>
             <th scope="col">Số điện thoại</th>
-            <th scope="col">Mã phiếu</th>
-            <th scope="col">Ngày tiếp nhận</th>
             <th scope="col">Số tiền nợ</th>
             <th scope="col" colspan="2"></th>
           </tr>
@@ -52,10 +50,6 @@
             <td>{{this.cardIdentify}}</td>
             <td>{{this.email}}</td>
             <td>{{this.phone}}</td>
-            {{#each this.of_reception}}
-            <td>{{this._id}}</td>
-            <td>{{this.receptionDate}}</td>
-            {{/each}}
             <td>{{this.debt}}</td>
             <td></td>
             {{!-- <td>

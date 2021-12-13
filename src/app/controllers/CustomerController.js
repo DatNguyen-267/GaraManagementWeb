@@ -110,20 +110,18 @@ class CustomerController {
             return position
             })
             .then((position) => { 
-                Customer.find({}).populate('of_reception')
-                    .then(customers => {
-                        for (const customer of customers) {
-                            var totaldebt = 0
-                            for (const reception of customer.of_reception) {
-                                totaldebt = reception.debt + totaldebt
+                var listdebt = []
+                Promise.all([Customer.find({}), Reception.find({}).populate('of_customer')])
+                    .then(([customers, receptions]) => {
+                        for (var customer of customers) {
+                            var debt = 0
+                            for (var reception of receptions) {
+                                if (reception.of_customer._id.toString() == customer._id.toString()) {
+                                    debt += reception.debt
+                                }
                             }
-                            customer.debt = totaldebt
-                        }
-                        var listdebt = []
-                        for (const customer of customers) {
-                            if (customer.debt > 0) {
-                                listdebt.push(customer)
-                            }
+                            customer.debt = debt
+                            if (debt > 0) listdebt.push(customer)
                         }
                         res.render('customer/customer-debt', {
                             listdebt: mutipleMongooseToObject(listdebt),
@@ -133,7 +131,30 @@ class CustomerController {
                             User: mongooseToOject(res.locals.employee)
                         })
                     })
-                    .catch(next)
+                // Customer.find({}).populate('of_reception')
+                //     .then(customers => {
+                //         for (const customer of customers) {
+                //             var totaldebt = 0
+                //             for (const reception of customer.of_reception) {
+                //                 totaldebt = reception.debt + totaldebt
+                //             }
+                //             customer.debt = totaldebt
+                //         }
+                //         var listdebt = []
+                //         for (const customer of customers) {
+                //             if (customer.debt > 0) {
+                //                 listdebt.push(customer)
+                //             }
+                //         }
+                //         res.render('customer/customer-debt', {
+                //             listdebt: mutipleMongooseToObject(listdebt),
+                //             activeManagementCustomer: true,
+                //             activeCustomerDebt: true,
+                //             Permissions: mongooseToOject(position.permissions),
+                //             User: mongooseToOject(res.locals.employee)
+                //         })
+                //     })
+                //     .catch(next)
             })
         
     }

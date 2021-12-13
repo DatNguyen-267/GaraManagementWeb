@@ -59,10 +59,10 @@ hr.solid {
 .employeeSalary__body{
     &__table{
         tbody > tr:hover{
-            color: $primary-color;
+            // color: $primary-color;
             button{
                 opacity: 1;
-                color: $primary-color;
+                // color: $primary-color;
             }
         }
         .salary{
