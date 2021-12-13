@@ -17,8 +17,35 @@ class MaterialController {
                 Supplier.find({}).then((suppliers) => {
                     Material.find({}).populate('of_supplier', 'name')
                         .then((materials) => {
+                            const data = []
+
+                            ImportDetail.find({}).then((imports) => {
+                                ExportDetail.find({}).then((exports) => {
+
+                                    for (var material of materials) {
+                                        var canDelete = true
+
+                                        for (var detail of imports) {
+                                            if (detail.material.toString() == material._id.toString()) {
+                                                canDelete = false
+                                                break;
+                                            }
+                                        }
+
+                                        for (var detail of exports) {
+                                            if (detail.material.toString() == material._id.toString()) {
+                                                canDelete = false
+                                                break;
+                                            }
+                                        }
+
+                                        data.push({ material: mongooseToOject(material), canDelete: canDelete })
+                                    }
+                                })
+                            })
+
                             res.render('warehouse/material', {
-                                materials: mutipleMongooseToObject(materials),
+                                data: data,
                                 suppliers: mutipleMongooseToObject(suppliers),
                                 activeManagementWarehouse: true,
                                 activeMaterial: true,
@@ -42,14 +69,14 @@ class MaterialController {
 
     delete(req, res, next) {
         const idDelete = req.params.id
-        ImportDetail.find({material: idDelete}).then((imports) => {
-            ExportDetail.find({material: idDelete}).then((exports) => {
-                if(imports.length == 0 && exports.length == 0) {
+        ImportDetail.find({ material: idDelete }).then((imports) => {
+            ExportDetail.find({ material: idDelete }).then((exports) => {
+                if (imports.length == 0 && exports.length == 0) {
                     Material.deleteOne({ _id: idDelete })
-                    .then(() => {
-                        res.redirect('back')
-                    })
-                    .catch(next)
+                        .then(() => {
+                            res.redirect('back')
+                        })
+                        .catch(next)
                 } else {
                     res.redirect('back')
                 }

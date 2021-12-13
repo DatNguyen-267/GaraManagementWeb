@@ -54,10 +54,22 @@ class ExportController {
                             newMaterial.amount = detail.amount
                             newMaterial.sell_price = detail.sell_price
                             newMaterial.of_employee = res.locals.employee._id
+                            newMaterial.total_price = newMaterial.amount * newMaterial.sell_price
                             newMaterial.save().then(() => { })
                         }
                     }).then(() => {
-                        res.redirect('back')
+                        ExportVoucher.findById(newVoucher._id).then((voucher) => {
+                            ExportDetail.find({of_voucher: voucher._id}).then((details) => {
+                                for(var detail of details) {
+                                    var temp = detail
+                                    ExportVoucher.updateOne({_id: newVoucher._id}, {
+                                        total_price: temp.total_price + detail.total_price
+                                    }).then(() => {})
+                                }
+                            }).then(() => {
+                                res.redirect('back')
+                            })
+                        })
                     })
                 })
         })
