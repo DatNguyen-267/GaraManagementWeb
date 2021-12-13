@@ -618,7 +618,7 @@
                             </div>
                             <div class="info-group">
                                 <label for="">Ngày báo giá:</label>
-                                <label id="quote-date" ></labelquote-date-print>
+                                <label id="quote-date" ></label>
                             </div>
                         </div>
                         <label >Danh sách vật tư</label>
@@ -1195,7 +1195,7 @@
             detailWageIdDelete = button.data('id')
         })
         btnAcceptDeleteWage.onclick = function() {
-            formDeleteWage.action = 'repairs/'+ repairId + '/'  + detailWageIdDelete + '/delete-detail-wage?_method=DELETE'
+            formDeleteWage.action =   detailWageIdDelete + '/delete-detail-wage?_method=DELETE'
             formDeleteWage.submit()
         }
         // XÓA nhân viên sửa chữa
@@ -1215,6 +1215,8 @@
             //
             document.querySelector('#quote-date').textContent = (new Date()).toISOString().substring(0, 10)
             console.log($('#quote-date').textContent)
+            document.querySelector('#quote-date-print').textContent = (new Date()).toISOString().substring(0, 10)
+            console.log($('#quote-date-print').textContent)
         })
     })
 </script>
