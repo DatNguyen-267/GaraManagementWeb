@@ -15,47 +15,69 @@ class ExportController {
             })
             .then((position) => {
                 Repair.find({}).then((repairs) => {
-                    let list = []
-                    for (var repair of repairs) {
-                        Repair_Detail_Material.find({ of_repair: repair._id, contracted: true, exported: false }).then((materials) => {
-                            
-                            if (materials.length) {
-                                list.push(repair)
+                    var list = []
+                    Repair_Detail_Material.find({ contracted: true, exported: false }).populate('of_repair')
+                        .then((materials) => {
+                            for (var material of materials) {
+                                if (!list.includes(material.of_repair)) {
+                                    list.push(material.of_repair)
+                                }
                             }
-                        }).then(() => { })
-                    }
-
-                    ExportVoucher.find({}).populate('of_employee', 'name').then((vouchers) => {
-                        res.render('warehouse/export', {
-                            vouchers: mutipleMongooseToObject(vouchers),
-                            repairs: mutipleMongooseToObject(list),
-                            activeManagementWarehouse: true,
-                            activeExport: true,
-                            Permissions: mongooseToOject(position.permissions),
-                            User: mongooseToOject(res.locals.employee)
+                            ExportVoucher.find({}).populate('of_employee', 'name').then((vouchers) => {
+                                res.render('warehouse/export', {
+                                    vouchers: mutipleMongooseToObject(vouchers),
+                                    repairs: mutipleMongooseToObject(list),
+                                    activeManagementWarehouse: true,
+                                    activeExport: true,
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(res.locals.employee)
+                                })
+                            })
                         })
-                    })
                 })
-                    .catch(next)
+                    
+                // Repair.find({}).then((repairs) => {
+                //     let list = []
+                //     for (var repair of repairs) {
+                //         Repair_Detail_Material.find({ of_repair: repair._id, contracted: true, exported: false }).then((materials) => {
+                //             if (materials.length) {
+                //                 list.push(repair)
+                //             }
+                //         }).then(() => { })
+                //     }
+                    
+                //     ExportVoucher.find({}).populate('of_employee', 'name').then((vouchers) => {
+                //         res.send(list)
+                //         res.render('warehouse/export', {
+                //             vouchers: mutipleMongooseToObject(vouchers),
+                //             repairs: mutipleMongooseToObject(list),
+                //             activeManagementWarehouse: true,
+                //             activeExport: true,
+                //             Permissions: mongooseToOject(position.permissions),
+                //             User: mongooseToOject(res.locals.employee)
+                //         })
+                //     })
+                // })
+                //     .catch(next)
             })
     }
 
     create(req, res, next) {
         ExportVoucher.deleteOne({ of_repair: req.body.of_repair, exported: false }).then(() => {
-            const newVoucher = new ExportVoucher(req.body)
+            var newVoucher = new ExportVoucher(req.body)
             newVoucher.save()
                 .then(() => {
                     Repair_Detail_Material.find({ of_repair: req.body.of_repair, contracted: true, exported: false }).then((details) => {
                         for (var detail of details) {
-                            const newMaterial = new ExportDetail()
+                            var newMaterial = new ExportDetail()
                             newMaterial.of_voucher = newVoucher._id
                             newMaterial.of_repair_material = detail._id
-                            newMaterial.of_employee = res.locals.employee._id
+                            // newMaterial.of_employee = res.locals.employee._id
                             newMaterial.material = detail.material
                             newMaterial.material_name = detail.material_name
                             newMaterial.amount = detail.amount
                             newMaterial.sell_price = detail.sell_price
-                            newMaterial.of_employee = res.locals.employee._id
+                            // newMaterial.of_employee = res.locals.employee._id
                             newMaterial.total_price = detail.amount * detail.sell_price
                             newMaterial.save().then(() => { })
                         }
@@ -66,7 +88,10 @@ class ExportController {
                                 for(var detail of details) {
                                     total += detail.total_price
                                 }
-                                ExportVoucher.updateOne({_id: voucher._id}, {total_price: total}).then(() => {})
+                                ExportVoucher.updateOne({ _id: voucher._id }, {
+                                    total_price: total,
+                                    of_employee: res.locals.employee._id,
+                                }).then(() => { })
                             }).then(() => {
                                 res.redirect('back')
                             })

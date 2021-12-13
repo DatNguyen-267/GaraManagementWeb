@@ -4,12 +4,68 @@
   },
   "address": "TIEN GIANG SOUTH SIDE",
   "date_of_birth": "26/07/2001",
-  "name": "Đạt",
+  "name": "Nguyễn Thành Đạt",
   "position": {
     "$oid": "61b1bd286ad927bd712e2e89"
   },
   "CMND": "312323023",
   "email": "datn@gmail.com",
-  "salary": "15000000",
-  "phoneNumber": "089698867"
+  "salary": "12.000.000 ₫",
+  "phoneNumber": "089698867",
+  "Tag": "ADMIN",
+  "percent": "5%",
+  "startDate": "2019-02-12",
+  "updatedAt": {
+    "$date": "2021-12-13T02:40:36.012Z"
+  }
+},{
+  "_id": {
+    "$oid": "61b6242418d3923831d10729"
+  },
+  "name": "Trần Quang Tuấn",
+  "CMND": "320232652",
+  "email": "tuan@gmail.com",
+  "address": "DaLat",
+  "phoneNumber": "096963633",
+  "salary": "8.200.000 ₫",
+  "Tag": "Quản lý",
+  "percent": "5%",
+  "haveAccount": "true",
+  "startDate": "2021-12-12",
+  "position": {
+    "$oid": "61b1bee46ad927bd712e2ea2"
+  },
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T16:32:36.907Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T04:30:17.511Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6e844dcbace1337a52ec0"
+  },
+  "name": "Huỳnh Anh Kiệt",
+  "CMND": "216525256",
+  "email": "hak@gami.com",
+  "address": "Quãng Ngãi",
+  "phoneNumber": "0875255222",
+  "salary": "8.200.000 ₫",
+  "Tag": "Quản lý",
+  "percent": "5%",
+  "haveAccount": "true",
+  "startDate": "2021-12-13",
+  "position": {
+    "$oid": "61b1bee46ad927bd712e2ea2"
+  },
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T06:29:24.539Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T06:37:16.981Z"
+  },
+  "__v": 0
 }]

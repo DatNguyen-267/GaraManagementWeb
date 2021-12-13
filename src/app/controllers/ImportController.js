@@ -126,14 +126,14 @@ class ImportController {
     }
 
     importMaterial(req, res, next) {
-        ImportDetail.find({ of_voucher: req.params.idVoucher }).then((details) => {
+        ImportDetail.find({ of_voucher: req.params.idVoucher }).then(async (details) => {
             for (var detail of details) {
-                Material.findOne({ _id: detail.material }).then((material) => {
-                    var temp = detail
-                    Material.updateOne({ _id: temp.material },
+                var detailTemp = detail
+                await Material.findOne({ _id: detailTemp.material }).then((material) => {
+                    Material.updateOne({ _id: detailTemp.material },
                         {
-                            amount: material.amount + temp.amount,
-                            import_price: temp.import_price
+                            amount: material.amount + detailTemp.amount,
+                            import_price: detailTemp.import_price
                         })
                         .then(() => { })
                 })
