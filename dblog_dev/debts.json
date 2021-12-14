@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "61b74659c123d28346fc9b64"
+  },
+  "money_pay": 200000,
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b745b0c123d28346fc9800"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:10:49.596Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:10:49.596Z"
+  },
+  "__v": 0
+}]
