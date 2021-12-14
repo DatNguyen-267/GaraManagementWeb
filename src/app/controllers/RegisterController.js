@@ -51,7 +51,7 @@ class RegisterController {
 
     create(req,res,next){
         var newAccount = new Account(req.body)
-        newAccount.password = passwordHash.generate('kiet');
+        newAccount.password = passwordHash.generate(req.body.password);
         Employee.updateOne({_id: req.body.of_employee},{$set:{haveAccount:"true"}})
             .then(()=>{
                 newAccount.save()
