@@ -1,0 +1,106 @@
+[{
+  "_id": {
+    "$oid": "61b71854696b48ace18b0fa8"
+  },
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "exported": true,
+  "total_price": 5070000,
+  "amountDetail": 4,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T09:54:28.201Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:42.631Z"
+  },
+  "__v": 0,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  }
+},{
+  "_id": {
+    "$oid": "61b71a69c2226b8a38cb1a2e"
+  },
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "exported": false,
+  "total_price": 7200000,
+  "amountDetail": 3,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T10:03:21.170Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:21.182Z"
+  },
+  "__v": 0,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  }
+},{
+  "_id": {
+    "$oid": "61b743efc123d28346fc948b"
+  },
+  "of_repair": {
+    "$oid": "61b7386e57f2b91ac8f85e80"
+  },
+  "exported": true,
+  "total_price": 2700000,
+  "amountDetail": 1,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:00:31.170Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:00:38.016Z"
+  },
+  "__v": 0,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  }
+},{
+  "_id": {
+    "$oid": "61b7461fc123d28346fc9a62"
+  },
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "exported": true,
+  "total_price": 1590000,
+  "amountDetail": 2,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:09:51.779Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:10:19.640Z"
+  },
+  "__v": 0,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  }
+},{
+  "_id": {
+    "$oid": "61b7502250dbe38573ec6d1e"
+  },
+  "of_repair": {
+    "$oid": "61b74ff650dbe38573ec6c82"
+  },
+  "exported": true,
+  "total_price": 5400000,
+  "amountDetail": 1,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:52:34.510Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:53:32.145Z"
+  },
+  "__v": 0,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  }
+}]

@@ -1,0 +1,276 @@
+[{
+  "_id": {
+    "$oid": "61b71854696b48ace18b0fab"
+  },
+  "total_price": 2400000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71854696b48ace18b0fa8"
+  },
+  "of_repair_material": {
+    "$oid": "61b6bad6fa3fc877194fed8b"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "createdAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71854696b48ace18b0fac"
+  },
+  "total_price": 2400000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71854696b48ace18b0fa8"
+  },
+  "of_repair_material": {
+    "$oid": "61b6bbc3fa3fc877194fef7d"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "createdAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71854696b48ace18b0fad"
+  },
+  "total_price": 135000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71854696b48ace18b0fa8"
+  },
+  "of_repair_material": {
+    "$oid": "61b713f1cc6ea8686f06d539"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "material_name": "Kính Hậu TR",
+  "amount": 1,
+  "sell_price": 135000,
+  "createdAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71854696b48ace18b0fae"
+  },
+  "total_price": 135000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71854696b48ace18b0fa8"
+  },
+  "of_repair_material": {
+    "$oid": "61b71477b3472f8a1eedea00"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "material_name": "Kính Hậu TR",
+  "amount": 1,
+  "sell_price": 135000,
+  "createdAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:28.205Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71a69c2226b8a38cb1a31"
+  },
+  "total_price": 2400000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71a69c2226b8a38cb1a2e"
+  },
+  "of_repair_material": {
+    "$oid": "61b71848696b48ace18b0f28"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "createdAt": {
+    "$date": "2021-12-13T10:03:21.177Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:21.177Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71a69c2226b8a38cb1a32"
+  },
+  "total_price": 2400000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71a69c2226b8a38cb1a2e"
+  },
+  "of_repair_material": {
+    "$oid": "61b71879696b48ace18b10db"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "createdAt": {
+    "$date": "2021-12-13T10:03:21.178Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:21.178Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71a69c2226b8a38cb1a33"
+  },
+  "total_price": 2400000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71a69c2226b8a38cb1a2e"
+  },
+  "of_repair_material": {
+    "$oid": "61b71a5ac2226b8a38cb19ba"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "createdAt": {
+    "$date": "2021-12-13T10:03:21.178Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:21.178Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b743efc123d28346fc948e"
+  },
+  "total_price": 2700000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b743efc123d28346fc948b"
+  },
+  "of_repair_material": {
+    "$oid": "61b742dc429ce0eb5549e43b"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "material_name": "Kính Hậu TR",
+  "amount": 2,
+  "sell_price": 1350000,
+  "createdAt": {
+    "$date": "2021-12-13T13:00:31.173Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:00:31.173Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7461fc123d28346fc9a65"
+  },
+  "total_price": 240000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b7461fc123d28346fc9a62"
+  },
+  "of_repair_material": {
+    "$oid": "61b745c6c123d28346fc9851"
+  },
+  "material": {
+    "$oid": "61b6fe33a8f269f16ecdb112"
+  },
+  "material_name": "Bóng đèn",
+  "amount": 4,
+  "sell_price": 60000,
+  "createdAt": {
+    "$date": "2021-12-13T13:09:51.783Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:09:51.783Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7461fc123d28346fc9a66"
+  },
+  "total_price": 1350000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b7461fc123d28346fc9a62"
+  },
+  "of_repair_material": {
+    "$oid": "61b74602c123d28346fc99b2"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "material_name": "Kính Hậu TR",
+  "amount": 1,
+  "sell_price": 1350000,
+  "createdAt": {
+    "$date": "2021-12-13T13:09:51.783Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:09:51.783Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7502250dbe38573ec6d21"
+  },
+  "total_price": 5400000,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b7502250dbe38573ec6d1e"
+  },
+  "of_repair_material": {
+    "$oid": "61b7500c50dbe38573ec6cab"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "material_name": "Kính Hậu TR",
+  "amount": 4,
+  "sell_price": 1350000,
+  "createdAt": {
+    "$date": "2021-12-13T13:52:34.514Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:52:34.514Z"
+  },
+  "__v": 0
+}]

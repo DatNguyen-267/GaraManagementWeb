@@ -3,8 +3,11 @@
     "$oid": "61b38a12cac11240da1afbd6"
   },
   "gara_name": "DGara",
-  "telephone": "0919467684",
+  "telephone": "0919467654",
   "address": "Khu phố 6, Thủ Đức, Thành phố Hồ Chí Minh",
   "email": "dgara@gmail.com",
-  "max_receptions": 30
+  "max_receptions": "5",
+  "updatedAt": {
+    "$date": "2021-12-13T07:37:29.655Z"
+  }
 }]

@@ -1,0 +1,127 @@
+[{
+  "_id": {
+    "$oid": "61b621b818d3923831d10254"
+  },
+  "wage_name": "Thay nhớt",
+  "wage_money": 20000,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6003d99d2d2cdc2c8d02b"
+  },
+  "wage": {
+    "$oid": "61b5eb1b250dff915c610592"
+  },
+  "createdAt": {
+    "$date": "2021-12-12T16:22:16.154Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T16:22:20.695Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6badafa3fc877194feda4"
+  },
+  "wage_name": "Thay phụ tùng",
+  "wage_money": 50000,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "wage": {
+    "$oid": "61b5eb14250dff915c610582"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T03:15:38.463Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:38:04.957Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71dfe606af461a323d637"
+  },
+  "wage_name": "Rửa xe",
+  "wage_money": 30000,
+  "contracted": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "wage": {
+    "$oid": "61b5eb0d250dff915c610572"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:18:38.985Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:18:38.985Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b742ea429ce0eb5549e498"
+  },
+  "wage_name": "Thay nhớt",
+  "wage_money": 20000,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b7386e57f2b91ac8f85e80"
+  },
+  "wage": {
+    "$oid": "61b5eb1b250dff915c610592"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T12:56:10.446Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T12:56:13.055Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b745cdc123d28346fc9883"
+  },
+  "wage_name": "Rửa xe",
+  "wage_money": 30000,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "wage": {
+    "$oid": "61b5eb0d250dff915c610572"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:08:29.670Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:09:32.112Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b745dac123d28346fc98b8"
+  },
+  "wage_name": "Thay phụ tùng",
+  "wage_money": 50000,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "wage": {
+    "$oid": "61b5eb14250dff915c610582"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:08:42.429Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:09:32.112Z"
+  },
+  "__v": 0
+}]

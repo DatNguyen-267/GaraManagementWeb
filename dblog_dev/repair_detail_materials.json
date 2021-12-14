@@ -1,0 +1,351 @@
+[{
+  "_id": {
+    "$oid": "61b613405dfa7a540b15771b"
+  },
+  "content": "uhhh",
+  "material_name": "Bánh xe",
+  "amount": 2,
+  "sell_price": 2400000,
+  "total_money": 4800000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6003d99d2d2cdc2c8d02b"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-12T15:20:32.057Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T01:23:28.690Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6b27bcac4100af3d1414f"
+  },
+  "content": "t7h8u",
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "total_money": 2400000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T02:39:55.061Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:11.164Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6bad6fa3fc877194fed8b"
+  },
+  "content": "Thay bánh xe bên trái phía trước",
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "total_money": 2400000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T03:15:34.036Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:42.636Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6bbc3fa3fc877194fef7d"
+  },
+  "content": "Thay thêm bánh xe bên phải",
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "total_money": 2400000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T03:19:31.016Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:42.636Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b713f1cc6ea8686f06d539"
+  },
+  "content": "Thay kính hậu bên trái",
+  "material_name": "Kính Hậu TR",
+  "amount": 1,
+  "sell_price": 135000,
+  "total_money": 135000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:35:45.340Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:42.636Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71477b3472f8a1eedea00"
+  },
+  "content": "bên trái",
+  "material_name": "Kính Hậu TR",
+  "amount": 1,
+  "sell_price": 135000,
+  "total_money": 135000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:37:59.013Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:42.636Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71848696b48ace18b0f28"
+  },
+  "content": "dsadasdasd",
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "total_money": 2400000,
+  "exported": false,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:54:16.622Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:11.164Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71879696b48ace18b10db"
+  },
+  "content": "rgrrgrt",
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "total_money": 2400000,
+  "exported": false,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:55:05.224Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:11.164Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71a5ac2226b8a38cb19ba"
+  },
+  "content": "asdsadada",
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "total_money": 2400000,
+  "exported": false,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:03:06.303Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:11.164Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71dfb606af461a323d61e"
+  },
+  "content": "rhfh6h65",
+  "material_name": "Bánh xe",
+  "amount": 1,
+  "sell_price": 2400000,
+  "total_money": 2400000,
+  "exported": false,
+  "contracted": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "material": {
+    "$oid": "61b5fd73b5e84d0604c19b67"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:18:35.748Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:18:35.748Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b742dc429ce0eb5549e43b"
+  },
+  "content": "dadsadsa",
+  "material_name": "Kính Hậu TR",
+  "amount": 2,
+  "sell_price": 1350000,
+  "total_money": 2700000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b7386e57f2b91ac8f85e80"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T12:55:56.736Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:00:38.021Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b745c6c123d28346fc9851"
+  },
+  "content": "Thay 4 bóng đèn xe trước",
+  "material_name": "Bóng đèn",
+  "amount": 4,
+  "sell_price": 60000,
+  "total_money": 240000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "material": {
+    "$oid": "61b6fe33a8f269f16ecdb112"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:08:22.266Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:10:19.644Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b74602c123d28346fc99b2"
+  },
+  "content": "Kính hậu bên phải",
+  "material_name": "Kính Hậu TR",
+  "amount": 1,
+  "sell_price": 1350000,
+  "total_money": 1350000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:09:22.807Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:10:19.644Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7500c50dbe38573ec6cab"
+  },
+  "content": "Thay 2 cái và 2 cái mang về",
+  "material_name": "Kính Hậu TR",
+  "amount": 4,
+  "sell_price": 1350000,
+  "total_money": 5400000,
+  "exported": true,
+  "contracted": true,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b74ff650dbe38573ec6c82"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:52:12.305Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:53:32.149Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,129 @@
+[{
+  "_id": {
+    "$oid": "61b5ecadc5ad0fa7db81511d"
+  },
+  "of_reception": [
+    {
+      "$oid": "61b6002999d2d2cdc2c8cfbb"
+    }
+  ],
+  "name": "Nguyễn Thành Đạt",
+  "cardIdentify": "312326562",
+  "birthday": "2001-12-12",
+  "address": "Tiền Giang",
+  "phone": "0958485266",
+  "email": "datnguyen@gmail.com",
+  "debt": 0,
+  "number_of_reception": 0,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:35:57.756Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T13:59:05.224Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b5ecd5c5ad0fa7db815138"
+  },
+  "of_reception": [
+    {
+      "$oid": "61b60bebdd7b4980959413e3"
+    }
+  ],
+  "name": "Phạm Quốc Đăng",
+  "cardIdentify": "326562369",
+  "birthday": "2001-06-04",
+  "address": "TPHCM",
+  "phone": "0955858585",
+  "email": "dangpham@gmail.com",
+  "debt": 0,
+  "number_of_reception": 0,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-12T12:36:37.647Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T14:49:15.411Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6ba02fa3fc877194fec83"
+  },
+  "of_reception": [
+    {
+      "$oid": "61b6ba02fa3fc877194fec85"
+    },
+    {
+      "$oid": "61b7382b57f2b91ac8f85d8b"
+    }
+  ],
+  "debt": 0,
+  "number_of_reception": 0,
+  "deleted": false,
+  "name": "Huỳnh Anh Kiệt",
+  "cardIdentify": "405464060",
+  "address": "Quang Ngãi",
+  "phone": "0953636324",
+  "email": "hak@gmail.com",
+  "birthday": "2001-02-01",
+  "createdAt": {
+    "$date": "2021-12-13T03:12:02.918Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T12:10:19.525Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7456ac123d28346fc96b4"
+  },
+  "of_reception": [
+    {
+      "$oid": "61b745b0c123d28346fc9800"
+    }
+  ],
+  "name": "Châu Chí Cường",
+  "cardIdentify": "321526253",
+  "birthday": "2001-03-26",
+  "address": "TienGiang",
+  "phone": "0966855851",
+  "email": "ccc@gmail.com",
+  "debt": 0,
+  "number_of_reception": 0,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:06:50.128Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:08:00.059Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b74f2a50dbe38573ec6c06"
+  },
+  "of_reception": [
+    {
+      "$oid": "61b74f2a50dbe38573ec6c08"
+    }
+  ],
+  "debt": 0,
+  "number_of_reception": 0,
+  "deleted": false,
+  "name": "Nguyễn Ngọc Thiện",
+  "cardIdentify": "326526396",
+  "address": "Hà Nội",
+  "phone": "0974581252",
+  "email": "nnt@gmail.com",
+  "birthday": "2021-12-13",
+  "createdAt": {
+    "$date": "2021-12-13T13:48:26.079Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:48:26.090Z"
+  },
+  "__v": 0
+}]

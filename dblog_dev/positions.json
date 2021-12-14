@@ -24,7 +24,7 @@
   "_id": {
     "$oid": "61b1bee46ad927bd712e2ea2"
   },
-  "name": "Quản lý",
+  "name": "quản lý",
   "positions": [
     "1",
     "2",
@@ -38,11 +38,74 @@
   "percent": "5%",
   "permissions": [
     "1",
-    "3"
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "8"
   ],
   "salary": "8.200.000 ₫",
   "updatedAt": {
-    "$date": "2021-12-13T04:30:17.516Z"
+    "$date": "2021-12-13T13:33:12.948Z"
   },
   "isAdmin": "false"
+},{
+  "_id": {
+    "$oid": "61b710bf68d8e8735eb94e4e"
+  },
+  "name": "Tiếp tân",
+  "salary": "7.000.000 ₫",
+  "percent": "5%",
+  "permissions": [
+    "1",
+    "2"
+  ],
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T09:22:07.937Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:22:07.937Z"
+  },
+  "__v": 0,
+  "isAdmin": "false"
+},{
+  "_id": {
+    "$oid": "61b71c4f606af461a323cd02"
+  },
+  "name": "Nhân viên sửa chữa",
+  "salary": "10.000.000 ₫",
+  "percent": "5%",
+  "permissions": [
+    "1"
+  ],
+  "isAdmin": "false",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T10:11:27.144Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:11:27.144Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71c98606af461a323cf58"
+  },
+  "name": "Nhân viên quản lý kho",
+  "salary": "9.000.000 ₫",
+  "percent": "5%",
+  "permissions": [
+    "4"
+  ],
+  "isAdmin": "false",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T10:12:40.376Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:12:40.376Z"
+  },
+  "__v": 0
 }]

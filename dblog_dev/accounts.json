@@ -6,9 +6,9 @@
     "$oid": "6197772eb3ff373a1df6a697"
   },
   "account": "admin",
-  "password": "sha1$5dc6c5a3$1$69a6dbcf86ed50b7c46ed66e5000e242febcb02e",
+  "password": "sha1$22294fa0$1$92b7531f66620a18d69134b330b12e4291e7658d",
   "updatedAt": {
-    "$date": "2021-12-13T08:39:18.174Z"
+    "$date": "2021-12-13T14:39:49.638Z"
   }
 },{
   "_id": {
@@ -25,6 +25,23 @@
   },
   "updatedAt": {
     "$date": "2021-12-13T06:37:16.989Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7eb4bb84b7591299fe5b2"
+  },
+  "of_employee": {
+    "$oid": "61b71d05606af461a323d303"
+  },
+  "account": "nam",
+  "password": "sha1$fa6530d4$1$07f467ea958e8d35d438c17588481e6a48ca90c2",
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-14T00:54:35.727Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-14T00:54:35.727Z"
   },
   "__v": 0
 }]

@@ -28,10 +28,10 @@
   "address": "DaLat",
   "phoneNumber": "096963633",
   "salary": "8.200.000 ₫",
-  "Tag": "Quản lý",
+  "Tag": "quản lý",
   "percent": "5%",
   "haveAccount": "true",
-  "startDate": "2021-12-12",
+  "startDate": "2021-10-23",
   "position": {
     "$oid": "61b1bee46ad927bd712e2ea2"
   },
@@ -40,7 +40,7 @@
     "$date": "2021-12-12T16:32:36.907Z"
   },
   "updatedAt": {
-    "$date": "2021-12-13T04:30:17.511Z"
+    "$date": "2021-12-13T16:18:43.922Z"
   },
   "__v": 0
 },{
@@ -53,10 +53,10 @@
   "address": "Quãng Ngãi",
   "phoneNumber": "0875255222",
   "salary": "8.200.000 ₫",
-  "Tag": "Quản lý",
+  "Tag": "quản lý",
   "percent": "5%",
   "haveAccount": "true",
-  "startDate": "2021-12-13",
+  "startDate": "2021-09-18",
   "position": {
     "$oid": "61b1bee46ad927bd712e2ea2"
   },
@@ -65,7 +65,57 @@
     "$date": "2021-12-13T06:29:24.539Z"
   },
   "updatedAt": {
-    "$date": "2021-12-13T06:37:16.981Z"
+    "$date": "2021-12-13T16:18:48.597Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71d05606af461a323d303"
+  },
+  "name": "Nguyễn Hoàng Nam",
+  "CMND": "0633652252",
+  "email": "namnguyen@gmail.com",
+  "address": "Tiền Giang",
+  "phoneNumber": "0946855220",
+  "salary": "7.000.000 ₫",
+  "Tag": "Tiếp tân",
+  "percent": "5%",
+  "haveAccount": "true",
+  "startDate": "2021-10-18",
+  "position": {
+    "$oid": "61b710bf68d8e8735eb94e4e"
+  },
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T10:14:29.946Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-14T00:54:35.723Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71d52606af461a323d35c"
+  },
+  "name": "Phan Văn Hoàn",
+  "CMND": "320526262",
+  "email": "hoanphan@gmail.com",
+  "address": "TPHCM",
+  "phoneNumber": "0946858522",
+  "salary": "10.000.000 ₫",
+  "Tag": "Nhân viên sửa chữa",
+  "percent": "5%",
+  "haveAccount": "false",
+  "startDate": "2020-07-24",
+  "position": {
+    "$oid": "61b71c4f606af461a323cd02"
+  },
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T10:15:46.048Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T16:19:02.574Z"
   },
   "__v": 0
 }]

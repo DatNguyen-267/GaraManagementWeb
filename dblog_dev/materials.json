@@ -2,26 +2,26 @@
   "_id": {
     "$oid": "61b5fd73b5e84d0604c19b67"
   },
-  "name": "Bánh xeeeeeee",
+  "name": "Bánh xe",
   "of_supplier": {
     "$oid": "61b5ee18c5ad0fa7db8155df"
   },
   "amount": 17,
   "import_price": 500000,
-  "sell_price": 2400000,
+  "sell_price": 700000,
   "deleted": false,
   "createdAt": {
     "$date": "2021-12-12T13:47:31.925Z"
   },
   "updatedAt": {
-    "$date": "2021-12-13T10:22:57.169Z"
+    "$date": "2021-12-13T12:55:41.909Z"
   },
   "__v": 0
 },{
   "_id": {
     "$oid": "61b616f8c2f61fc009ca6424"
   },
-  "name": "Bánh xe 101",
+  "name": "Bánh xe 9G",
   "of_supplier": {
     "$oid": "61b5ee2fc5ad0fa7db8155f5"
   },
@@ -33,26 +33,26 @@
     "$date": "2021-12-12T15:36:24.192Z"
   },
   "updatedAt": {
-    "$date": "2021-12-13T02:46:56.390Z"
+    "$date": "2021-12-13T14:01:33.026Z"
   },
   "__v": 0
 },{
   "_id": {
     "$oid": "61b6a015cbcb4c5a2f8cb76d"
   },
-  "name": "Bình Xăng 403",
+  "name": "Bình Xăng",
   "of_supplier": {
     "$oid": "61b5ee5ac5ad0fa7db815667"
   },
   "amount": 10,
   "import_price": 300000,
-  "sell_price": 1300000,
+  "sell_price": 400000,
   "deleted": false,
   "createdAt": {
     "$date": "2021-12-13T01:21:25.465Z"
   },
   "updatedAt": {
-    "$date": "2021-12-13T10:04:09.682Z"
+    "$date": "2021-12-13T14:00:49.876Z"
   },
   "__v": 0
 },{
@@ -63,15 +63,15 @@
   "of_supplier": {
     "$oid": "61b5ee18c5ad0fa7db8155df"
   },
-  "amount": 10,
+  "amount": 3,
   "import_price": 1200000,
-  "sell_price": 135000,
+  "sell_price": 1350000,
   "deleted": false,
   "createdAt": {
     "$date": "2021-12-13T01:22:22.429Z"
   },
   "updatedAt": {
-    "$date": "2021-12-13T10:04:51.038Z"
+    "$date": "2021-12-13T13:53:32.153Z"
   },
   "__v": 0
 },{
@@ -91,6 +91,82 @@
   },
   "updatedAt": {
     "$date": "2021-12-13T10:04:51.035Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7511c50dbe38573ec6e7d"
+  },
+  "name": "Bình ắc quy NS60",
+  "of_supplier": {
+    "$oid": "61b5ee5ac5ad0fa7db815667"
+  },
+  "amount": 11,
+  "import_price": 520000,
+  "sell_price": 570000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:56:44.242Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:56:44.242Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7513c50dbe38573ec6e90"
+  },
+  "name": "Bình ắc quy GS",
+  "of_supplier": {
+    "$oid": "61b5ee5ac5ad0fa7db815667"
+  },
+  "amount": 6,
+  "import_price": 680000,
+  "sell_price": 735000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:57:16.424Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:57:16.424Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7517150dbe38573ec6ea3"
+  },
+  "name": "Lốp xe tải",
+  "of_supplier": {
+    "$oid": "61b5eda0c5ad0fa7db8155c9"
+  },
+  "amount": 7,
+  "import_price": 320000,
+  "sell_price": 370000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:58:09.215Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:58:09.215Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b751b050dbe38573ec6ec6"
+  },
+  "name": "Trụ lái",
+  "of_supplier": {
+    "$oid": "61b5eda0c5ad0fa7db8155c9"
+  },
+  "amount": 2,
+  "import_price": 170000,
+  "sell_price": 200000,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2021-12-13T13:59:12.238Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:59:12.238Z"
   },
   "__v": 0
 }]

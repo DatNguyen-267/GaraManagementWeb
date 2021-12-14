@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "61b6b318cac4100af3d1434f"
+  },
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b6002999d2d2cdc2c8cfbb"
+  },
+  "money_pay": 4820000,
+  "createdAt": {
+    "$date": "2021-12-13T02:42:32.148Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T02:42:32.148Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b74403c123d28346fc953b"
+  },
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b7382b57f2b91ac8f85d8b"
+  },
+  "money_pay": 2720000,
+  "createdAt": {
+    "$date": "2021-12-13T13:00:51.470Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:00:51.470Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b74665c123d28346fc9bcc"
+  },
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b745b0c123d28346fc9800"
+  },
+  "money_pay": 1670000,
+  "createdAt": {
+    "$date": "2021-12-13T13:11:01.212Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:11:01.212Z"
+  },
+  "__v": 0
+}]

@@ -1,13 +1,139 @@
 [{
   "_id": {
-    "$oid": "618f733b420b800515415deb"
+    "$oid": "61b6003d99d2d2cdc2c8d02b"
   },
-  "baogia": "true",
-  "biensoxe": "5555",
-  "hopdong": "true",
-  "matiepnhan": "618e6366effb4f053f5e3c2c",
-  "ngaysuachua": "06-07-2021",
-  "tenkhachhang": "Dat",
-  "tienno": "1.000.000",
-  "trangthai": "New"
+  "customer_name": "Nguyễn Thành Đạt",
+  "debt": 4820000,
+  "quoted": true,
+  "contracted": true,
+  "ordered": true,
+  "isSuccess": true,
+  "edited": false,
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b6002999d2d2cdc2c8cfbb"
+  },
+  "status": "Hoàn thành",
+  "createdAt": {
+    "$date": "2021-12-12T13:59:25.593Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T02:39:22.013Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "customer_name": "Phạm Quốc Đăng",
+  "debt": 12030000,
+  "quoted": false,
+  "contracted": true,
+  "ordered": true,
+  "isSuccess": false,
+  "edited": true,
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b60bebdd7b4980959413e3"
+  },
+  "status": "Đang sửa chữa",
+  "createdAt": {
+    "$date": "2021-12-13T02:39:41.088Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:18:38.988Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "customer_name": "Huỳnh Anh Kiệt",
+  "debt": 5120000,
+  "quoted": true,
+  "contracted": true,
+  "ordered": true,
+  "isSuccess": true,
+  "edited": false,
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b6ba02fa3fc877194fec85"
+  },
+  "status": "Hoàn thành",
+  "createdAt": {
+    "$date": "2021-12-13T03:15:13.814Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:16:54.975Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b7386e57f2b91ac8f85e80"
+  },
+  "customer_name": "Huỳnh Anh Kiệt",
+  "debt": 2720000,
+  "quoted": true,
+  "contracted": true,
+  "ordered": true,
+  "isSuccess": true,
+  "edited": false,
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b7382b57f2b91ac8f85d8b"
+  },
+  "status": "Hoàn thành",
+  "createdAt": {
+    "$date": "2021-12-13T12:11:26.412Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:00:44.469Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "customer_name": "Châu Chí Cường",
+  "debt": 1670000,
+  "quoted": true,
+  "contracted": true,
+  "ordered": true,
+  "isSuccess": true,
+  "edited": false,
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b745b0c123d28346fc9800"
+  },
+  "status": "Hoàn thành",
+  "createdAt": {
+    "$date": "2021-12-13T13:08:05.289Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:10:25.277Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b74ff650dbe38573ec6c82"
+  },
+  "customer_name": "Nguyễn Ngọc Thiện",
+  "debt": 5400000,
+  "quoted": false,
+  "contracted": true,
+  "ordered": true,
+  "isSuccess": false,
+  "edited": false,
+  "deleted": false,
+  "of_reception": {
+    "$oid": "61b74f2a50dbe38573ec6c08"
+  },
+  "status": "Đang sửa chữa",
+  "createdAt": {
+    "$date": "2021-12-13T13:51:50.505Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:52:18.055Z"
+  },
+  "__v": 0
 }]

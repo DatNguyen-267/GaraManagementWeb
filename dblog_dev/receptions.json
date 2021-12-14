@@ -1,39 +1,183 @@
 [{
   "_id": {
-    "$oid": "618e6366effb4f053f5e3c2c"
+    "$oid": "61b6002999d2d2cdc2c8cfbb"
   },
-  "brand": "KIA",
+  "brand": {
+    "$oid": "61b5eac2250dff915c61045e"
+  },
+  "license": "hyhhh",
+  "phone": "0958485266",
   "debt": 0,
-  "license": "D999D",
-  "name": "Nguyễn Thành Đạt",
-  "phone": "0919367584",
-  "slug": "D999D",
-  "receptionDate": "",
-  "status": "New",
+  "total_money": 4820000,
+  "receptionDate": "2021-12-12",
+  "isSuccess": true,
+  "isSuccessRepair": true,
+  "isDebt": false,
+  "deleted": false,
+  "status": "Hoàn thành",
+  "of_customer": {
+    "$oid": "61b5ecadc5ad0fa7db81511d"
+  },
+  "createdAt": {
+    "$date": "2021-12-12T13:59:05.217Z"
+  },
   "updatedAt": {
-    "$date": "2021-11-13T06:42:08.537Z"
+    "$date": "2021-12-13T02:42:32.152Z"
+  },
+  "__v": 0,
+  "of_repair": {
+    "$oid": "61b6003d99d2d2cdc2c8d02b"
   }
 },{
   "_id": {
-    "$oid": "618e691cc8ed8f364b5d11a1"
+    "$oid": "61b60bebdd7b4980959413e3"
   },
-  "name": "Nguyễn Hoàng Nam",
-  "license": "NN777",
-  "brand": "Mec",
-  "phone": "0975535435",
-  "receptionDate": "2021-11-12",
+  "brand": {
+    "$oid": "61b5ead6250dff915c610483"
+  },
+  "license": "tuhij5",
+  "phone": "0955858585",
+  "debt": 9600000,
+  "total_money": 9600000,
+  "receptionDate": "2021-12-12",
+  "isSuccess": false,
+  "isSuccessRepair": false,
+  "isDebt": false,
   "deleted": false,
-  "debt": 0,
-  "status": "New",
+  "status": "Đang sửa chữa",
+  "of_customer": {
+    "$oid": "61b5ecd5c5ad0fa7db815138"
+  },
   "createdAt": {
-    "$date": "2021-11-12T13:16:12.963Z"
+    "$date": "2021-12-12T14:49:15.403Z"
   },
   "updatedAt": {
-    "$date": "2021-11-13T06:13:24.714Z"
+    "$date": "2021-12-13T10:03:12.566Z"
   },
-  "slug": "nn777",
   "__v": 0,
-  "deletedAt": {
-    "$date": "2021-11-13T06:13:24.713Z"
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  }
+},{
+  "_id": {
+    "$oid": "61b6ba02fa3fc877194fec85"
+  },
+  "brand": {
+    "$oid": "61b5eacf250dff915c610470"
+  },
+  "name": "Huỳnh Anh Kiệt",
+  "license": "23hak23",
+  "phone": "0953636325",
+  "debt": 5120000,
+  "total_money": 5120000,
+  "receptionDate": "2021-12-13",
+  "isSuccess": false,
+  "isSuccessRepair": true,
+  "isDebt": false,
+  "deleted": false,
+  "status": "Chờ thanh toán",
+  "of_customer": {
+    "$oid": "61b6ba02fa3fc877194fec83"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T03:12:02.923Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:16:54.981Z"
+  },
+  "__v": 0,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  }
+},{
+  "_id": {
+    "$oid": "61b7382b57f2b91ac8f85d8b"
+  },
+  "brand": {
+    "$oid": "61b5eac2250dff915c61045e"
+  },
+  "license": "koilkk",
+  "phone": "0953636324",
+  "debt": 0,
+  "total_money": 2720000,
+  "receptionDate": "2021-06-13",
+  "isSuccess": true,
+  "isSuccessRepair": true,
+  "isDebt": false,
+  "deleted": false,
+  "status": "Hoàn thành",
+  "of_customer": {
+    "$oid": "61b6ba02fa3fc877194fec83"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T12:10:19.518Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:00:51.471Z"
+  },
+  "__v": 0,
+  "of_repair": {
+    "$oid": "61b7386e57f2b91ac8f85e80"
+  }
+},{
+  "_id": {
+    "$oid": "61b745b0c123d28346fc9800"
+  },
+  "brand": {
+    "$oid": "61b5eae4250dff915c6104b9"
+  },
+  "license": "HT789I",
+  "phone": "0966855851",
+  "debt": 0,
+  "total_money": 1670000,
+  "receptionDate": "2021-08-13",
+  "isSuccess": true,
+  "isSuccessRepair": true,
+  "isDebt": true,
+  "deleted": false,
+  "status": "Hoàn thành",
+  "of_customer": {
+    "$oid": "61b7456ac123d28346fc96b4"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:08:00.054Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:11:01.213Z"
+  },
+  "__v": 0,
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  }
+},{
+  "_id": {
+    "$oid": "61b74f2a50dbe38573ec6c08"
+  },
+  "brand": {
+    "$oid": "61b5eaab250dff915c61044c"
+  },
+  "name": "Nguyễn Ngọc Thiện",
+  "license": "TT879TT",
+  "phone": "0974581252",
+  "debt": 5400000,
+  "total_money": 5400000,
+  "receptionDate": "2021-08-13",
+  "isSuccess": false,
+  "isSuccessRepair": false,
+  "isDebt": false,
+  "deleted": false,
+  "status": "Đang sửa chữa",
+  "of_customer": {
+    "$oid": "61b74f2a50dbe38573ec6c06"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:48:26.085Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:52:18.057Z"
+  },
+  "__v": 0,
+  "of_repair": {
+    "$oid": "61b74ff650dbe38573ec6c82"
   }
 }]

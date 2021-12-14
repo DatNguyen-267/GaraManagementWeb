@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "61b71a91c2226b8a38cb1af1"
+  },
+  "material": {
+    "$oid": "61b6a015cbcb4c5a2f8cb76d"
+  },
+  "import_price": 300000,
+  "amount": 10,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71a87c2226b8a38cb1ad1"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:04:01.579Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:01.579Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71ab2c2226b8a38cb1b76"
+  },
+  "material": {
+    "$oid": "61b6fe33a8f269f16ecdb112"
+  },
+  "import_price": 50000,
+  "amount": 10,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71aa6c2226b8a38cb1b56"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:04:34.020Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:34.020Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71abac2226b8a38cb1b8c"
+  },
+  "material": {
+    "$oid": "61b6a04ecbcb4c5a2f8cb79d"
+  },
+  "import_price": 1200000,
+  "amount": 1,
+  "deleted": false,
+  "of_voucher": {
+    "$oid": "61b71aa6c2226b8a38cb1b56"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:04:42.441Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:42.441Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "61b71a87c2226b8a38cb1ad1"
+  },
+  "of_supplier": {
+    "$oid": "61b5ee5ac5ad0fa7db815667"
+  },
+  "import_date": {
+    "$date": "2021-12-13T00:00:00Z"
+  },
+  "total_price": 3000000,
+  "imported": true,
+  "deleted": false,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:03:51.436Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:09.683Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b71aa6c2226b8a38cb1b56"
+  },
+  "of_supplier": {
+    "$oid": "61b5ee18c5ad0fa7db8155df"
+  },
+  "import_date": {
+    "$date": "2021-12-13T00:00:00Z"
+  },
+  "total_price": 1700000,
+  "imported": true,
+  "deleted": false,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:04:22.700Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:04:51.038Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61b76a0c9492ffd1c1fbf03d"
+  },
+  "of_supplier": {
+    "$oid": "61b5ee5ac5ad0fa7db815667"
+  },
+  "import_date": {
+    "$date": "2021-12-13T00:00:00Z"
+  },
+  "total_price": 0,
+  "imported": false,
+  "deleted": false,
+  "of_employee": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T15:43:08.395Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T15:43:08.395Z"
+  },
+  "__v": 0
+}]

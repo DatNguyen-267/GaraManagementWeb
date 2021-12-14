@@ -1,0 +1,281 @@
+[{
+  "_id": {
+    "$oid": "61b613435dfa7a540b157745"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6003d99d2d2cdc2c8d02b"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-12T15:20:35.754Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T15:20:35.759Z"
+  },
+  "__v": 0,
+  "total_money": "4800000"
+},{
+  "_id": {
+    "$oid": "61b621bc18d3923831d1027d"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6003d99d2d2cdc2c8d02b"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-12T16:22:20.678Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-12T16:22:20.684Z"
+  },
+  "__v": 0,
+  "total_money": "4820000"
+},{
+  "_id": {
+    "$oid": "61b6b291cac4100af3d141c7"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T02:40:17.095Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T02:40:17.100Z"
+  },
+  "__v": 0,
+  "total_money": "2400000"
+},{
+  "_id": {
+    "$oid": "61b6bba0fa3fc877194fef30"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T03:18:57.003Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T03:18:57.011Z"
+  },
+  "__v": 0,
+  "total_money": "2450000"
+},{
+  "_id": {
+    "$oid": "61b6bbd2fa3fc877194fefa6"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T03:19:46.293Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T03:19:46.300Z"
+  },
+  "__v": 0,
+  "total_money": "4850000"
+},{
+  "_id": {
+    "$oid": "61b7140acc6ea8686f06d617"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:36:10.078Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:36:10.084Z"
+  },
+  "__v": 0,
+  "total_money": "4985000"
+},{
+  "_id": {
+    "$oid": "61b7147cb3472f8a1eedea29"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6bac1fa3fc877194fed63"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:38:04.940Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:38:04.947Z"
+  },
+  "__v": 0,
+  "total_money": "5120000"
+},{
+  "_id": {
+    "$oid": "61b7184c696b48ace18b0f51"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:54:20.869Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:54:20.874Z"
+  },
+  "__v": 0,
+  "total_money": "4800000"
+},{
+  "_id": {
+    "$oid": "61b7187c696b48ace18b1104"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T09:55:08.705Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T09:55:08.709Z"
+  },
+  "__v": 0,
+  "total_money": "7200000"
+},{
+  "_id": {
+    "$oid": "61b71a5fc2226b8a38cb19e3"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b6b26dcac4100af3d14127"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T10:03:11.151Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T10:03:11.158Z"
+  },
+  "__v": 0,
+  "total_money": "9600000"
+},{
+  "_id": {
+    "$oid": "61b742ed429ce0eb5549e4c1"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b7386e57f2b91ac8f85e80"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T12:56:13.033Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T12:56:13.048Z"
+  },
+  "__v": 0,
+  "total_money": "2720000"
+},{
+  "_id": {
+    "$oid": "61b745e4c123d28346fc98e1"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:08:52.051Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:08:52.057Z"
+  },
+  "__v": 0,
+  "total_money": "320000"
+},{
+  "_id": {
+    "$oid": "61b7460cc123d28346fc99db"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b745b5c123d28346fc9828"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:09:32.099Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:09:32.105Z"
+  },
+  "__v": 0,
+  "total_money": "1670000"
+},{
+  "_id": {
+    "$oid": "61b7501050dbe38573ec6cd4"
+  },
+  "exported": false,
+  "deleted": false,
+  "of_repair": {
+    "$oid": "61b74ff650dbe38573ec6c82"
+  },
+  "employee_create": {
+    "$oid": "6197772eb3ff373a1df6a697"
+  },
+  "createdAt": {
+    "$date": "2021-12-13T13:52:16.349Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-13T13:52:16.354Z"
+  },
+  "__v": 0,
+  "total_money": "5400000"
+}]
