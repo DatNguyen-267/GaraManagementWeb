@@ -42,12 +42,8 @@ class EmployeeListController {
     };
 
     create(req,res,next){
-        const newEmployeeManagerment = new Employee(req.body)
-        newEmployeeManagerment.save()
-            .then(() => {
-                res.redirect('back')
-            }) // Khi thành công 
-            .catch(next) // Khi thất bại
+        res.send(req.body);
+        
     }
     edit(req,res,next){
         Employee.updateOne({_id: req.params.id} , req.body)
