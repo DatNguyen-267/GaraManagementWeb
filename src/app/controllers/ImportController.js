@@ -6,28 +6,32 @@ const { mutipleMongooseToObject, mongooseToOject } = require('../../util/mongoos
 const { render } = require('node-sass')
 const ImportVoucher = require('../models/ImportVoucher')
 const Position = require('../models/Position')
-
+const Employee = require('../models/Employee')
 class ImportController {
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-                return position
-            })
-            .then((position) => {
-                Supplier.find({}).then((suppliers) => {
-                    Voucher.find({}).populate('of_supplier', 'name').populate('of_employee', 'name')
-                        .then((vouchers) => {
-                            res.render('warehouse/import', {
-                                vouchers: mutipleMongooseToObject(vouchers),
-                                suppliers: mutipleMongooseToObject(suppliers),
-                                activeManagementWarehouse: true,
-                                activeImport: true,
-                                Permissions: mongooseToOject(position.permissions),
-                                User: mongooseToOject(res.locals.employee)
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) =>{
+                Position.findOne({ _id: employee.position })
+                .then((position) => {
+                    return position
+                })
+                .then((position) => {
+                    Supplier.find({}).then((suppliers) => {
+                        Voucher.find({}).populate('of_supplier', 'name').populate('of_employee', 'name')
+                            .then((vouchers) => {
+                                res.render('warehouse/import', {
+                                    vouchers: mutipleMongooseToObject(vouchers),
+                                    suppliers: mutipleMongooseToObject(suppliers),
+                                    activeManagementWarehouse: true,
+                                    activeImport: true,
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(employee)
+                                })
                             })
-                        })
-                }).catch(next)
+                    }).catch(next)
+                })
             })
+        
     }
 
     create(req, res, next) {

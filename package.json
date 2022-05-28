@@ -16,7 +16,9 @@
   },
   "homepage": "https://github.com/DatNguyen-267/nodejs_blog#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.12",
     "mongoose-delete": "^0.5.4",

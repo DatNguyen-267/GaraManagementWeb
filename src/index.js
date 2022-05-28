@@ -12,10 +12,11 @@ const db = require("./config/db");
 const { $where } = require("./app/models/EmployeeManagerment");
 const LoadProfileMiddleWare = require("./app/middlewares/LoadProfile");
 const bodyParser = require("body-parser");
+var cookieParser = require('cookie-parser');
 
 // Connect DB
 db.connect();
-
+app.use(cookieParser("secret"));
 app.use(methodOverride("_method"));
 
 app.use(LoadProfileMiddleWare);

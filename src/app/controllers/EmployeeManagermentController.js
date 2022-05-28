@@ -9,50 +9,54 @@ const { render } = require('node-sass')
 const { mongooseToOject } = require('../../util/mongoose')
 class EmployeeManagermentController {
     show(req, res, next) {// request , respond , next
-        Tag.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-                return position
-            })
-            .then((position) => { 
-                Employee.find({}).populate({path:'position'})
-                .then((employees)=> {
-                    Error.find({})
-                        .then((errors) =>{
-                            DateOff.find({})
-                                .then((dateoffs) =>{
-                                    var data = [];
-                                    for (var employee of employees){
-                                        if (employee.position.isAdmin == "false")
-                                        {
-                                            var errorCount =0
-                                            var dateoffCount = 0;
-                                            for (var error of errors){
-                                                if (employee._id == error.employeeID){
-                                                    errorCount++;
-                                                }
-                                            }
-                                            for (var date of dateoffs){
-                                                if (employee._id == date.employeeID){
-                                                    dateoffCount++;
-                                                }
-                                            }
-                                            data.push({employee: mongooseToOject(employee),errorCount,dateoffCount})
-                                        }
-                                        
-                                    }
-                                    res.render('employeeManagerment/index', {
-                                        data,
-                                        activeEmployee: true,
-                                        activeManager: true,
-                                        Permissions: mongooseToOject(position.permissions),
-                                        User: mongooseToOject(res.locals.employee)
-                            })
-                        })
-                    
-                    })
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) =>{
+                Tag.findOne({ _id: employee.position })
+                .then((position) => {
+                    return position
                 })
-                .catch(next)
+                .then((position) => { 
+                    Employee.find({}).populate({path:'position'})
+                    .then((employees)=> {
+                        Error.find({})
+                            .then((errors) =>{
+                                DateOff.find({})
+                                    .then((dateoffs) =>{
+                                        var data = [];
+                                        for (var employee of employees){
+                                            if (employee.position.isAdmin == "false")
+                                            {
+                                                var errorCount =0
+                                                var dateoffCount = 0;
+                                                for (var error of errors){
+                                                    if (employee._id == error.employeeID){
+                                                        errorCount++;
+                                                    }
+                                                }
+                                                for (var date of dateoffs){
+                                                    if (employee._id == date.employeeID){
+                                                        dateoffCount++;
+                                                    }
+                                                }
+                                                data.push({employee: mongooseToOject(employee),errorCount,dateoffCount})
+                                            }
+                                            
+                                        }
+                                        res.render('employeeManagerment/index', {
+                                            data,
+                                            activeEmployee: true,
+                                            activeManager: true,
+                                            Permissions: mongooseToOject(position.permissions),
+                                            User: mongooseToOject(res.locals.employee)
+                                })
+                            })
+                        
+                        })
+                    })
+                    .catch(next)
+                })
             })
+        
         
     };
 

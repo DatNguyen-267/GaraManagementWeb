@@ -82,7 +82,9 @@ function route(app) {
 
   app.use("/login", loginRouter);
   app.use("/", siteRouter);
-
+    app.get('*', function(req, res) {
+      res.redirect('/login');
+  });
   // app.post('/search', (req,res) => {
   //   console.log(req.body)
   //   res.send('')

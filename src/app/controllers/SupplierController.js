@@ -4,10 +4,12 @@ const ImportVoucher = require('../models/ImportVoucher')
 const Position = require('../models/Position')
 const { mutipleMongooseToObject, mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
-
+const Employee = require('../models/Employee')
 class SupplierController {
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
+        Employee.findOne({_id: req.user.of_employee})
+        .then((employee) =>{
+            Position.findOne({ _id: employee.position })
             .then((position) => {
                 return position
             })
@@ -45,11 +47,13 @@ class SupplierController {
                             activeManagementWarehouse: true,
                             activeSupplier: true,
                             Permissions: mongooseToOject(position.permissions),
-                            User: mongooseToOject(res.locals.employee)
+                            User: mongooseToOject(employee)
                         })
                     })
                     .catch(next)
             })
+        })
+        
 
     }
 

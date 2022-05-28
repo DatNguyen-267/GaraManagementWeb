@@ -3,10 +3,12 @@ const Tag = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
-
+const Employee = require('../models/Employee')
 class RuleController {
     show(req,res,next) {// request , respond , next
-        Tag.findOne({ _id: res.locals.employee.position })
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) =>{
+                Tag.findOne({ _id: employee.position })
             .then((position) => {
             return position
             })
@@ -18,12 +20,14 @@ class RuleController {
                             activeEmployee: true,
                             activeRule: true,
                             Permissions: mongooseToOject(position.permissions),
-                            User: mongooseToOject(res.locals.employee)
+                            User: mongooseToOject(employee)
                     }
                     )
                     })
                 })
                 .catch(next)
+            })
+        
                         
         
     };

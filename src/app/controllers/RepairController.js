@@ -16,41 +16,45 @@ const Setting = require('../models/Setting')
 var listReception
 class RepairController {
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-            return position
-            })
-            .then((position) => {
-                Repair.find({}).populate({ path: 'of_reception', populate: {path: 'of_customer'}})
-                .then((repairs) => {
-                    Reception.find({}).populate('of_customer')
-                        .then((receptions) => {
-                            var waitReceptions = []
-                            for (var reception of receptions) {
-                                var check = true
-                                for (var repair of repairs) {
-                                    if (!repair.of_reception._id) continue
-                                    if (!reception._id) continue
-                                    if (repair.of_reception._id.toString() == reception._id.toString()) {
-                                        check = false
-                                        break
-                                    }
-                                }
-                                if (check == true) waitReceptions.push(reception)
-                            }
-                            res.render('repairs/repair', {
-                                repairs: mutipleMongooseToObject(repairs),
-                                waitReceptions: mutipleMongooseToObject(waitReceptions),
-                                activeManagementCar: true,
-                                activeRepair: true,
-                                Permissions: mongooseToOject(position.permissions),
-                                User: mongooseToOject(res.locals.employee)
-                                })
-                        })
-                        .catch(next)
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) =>{
+                Position.findOne({ _id: employee.position })
+                .then((position) => {
+                return position
                 })
-                .catch(next)
-        })
+                .then((position) => {
+                    Repair.find({}).populate({ path: 'of_reception', populate: {path: 'of_customer'}})
+                    .then((repairs) => {
+                        Reception.find({}).populate('of_customer')
+                            .then((receptions) => {
+                                var waitReceptions = []
+                                for (var reception of receptions) {
+                                    var check = true
+                                    for (var repair of repairs) {
+                                        if (!repair.of_reception._id) continue
+                                        if (!reception._id) continue
+                                        if (repair.of_reception._id.toString() == reception._id.toString()) {
+                                            check = false
+                                            break
+                                        }
+                                    }
+                                    if (check == true) waitReceptions.push(reception)
+                                }
+                                res.render('repairs/repair', {
+                                    repairs: mutipleMongooseToObject(repairs),
+                                    waitReceptions: mutipleMongooseToObject(waitReceptions),
+                                    activeManagementCar: true,
+                                    activeRepair: true,
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(employee)
+                                    })
+                            })
+                            .catch(next)
+                    })
+                    .catch(next)
+            })
+            })
+        
         
     }
     create(req, res, next) {

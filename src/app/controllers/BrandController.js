@@ -4,13 +4,17 @@ const Reception = require('../models/Reception')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
-
+const Employee = require('../models/Employee');
 class BrandController {
     // Nhiều hàm điều khiển
     // Thêm Xóa Sửa hiệu xe
     
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
+        console.log("tst")
+        console.log(res.employee)
+        Employee.findOne({ _id: req.user.of_employee })
+            .then((employee =>{
+                Position.findOne({ _id: employee.position })
             .then((position) => {
                 return position
             })
@@ -53,6 +57,8 @@ class BrandController {
                         .catch(next)
                     })
             })
+            }))
+        
         
     } 
     create(req,res,next){

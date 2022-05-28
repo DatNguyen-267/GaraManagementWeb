@@ -9,35 +9,39 @@ const { render } = require('node-sass')
 
 class EmployeeListController {
     show(req,res,next) {// request , respond , next
-        Tag.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-            return position
-            })
-            .then((position) => { 
-                Employee.find({}).populate({path:'position'})
-                    .then((employee)=> {
-                        Tag.find({isAdmin: "false"})
-                        .then((tag) =>{
-                            var data = []
-                            var userID = res.locals.employee._id
-                            for (var item of employee){
-                                if (item.position.isAdmin == "false")
-                                data.push({item:mongooseToOject(item),userID})
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) =>{
+                Tag.findOne({ _id: employee.position })
+                .then((position) => {
+                return position
+                })
+                .then((position) => { 
+                    Employee.find({}).populate({path:'position'})
+                        .then((employees)=> {
+                            Tag.find({isAdmin: "false"})
+                            .then((tag) =>{
+                                var data = []
+                                var userID = employees._id
+                                for (var item of employees){
+                                    if (item.position.isAdmin == "false")
+                                    data.push({item:mongooseToOject(item),userID})
+                                }
+                                res.render('employeeList/index', {
+                                    data,
+                                    employee: mutipleMongooseToObject(employees),
+                                    tag: mutipleMongooseToObject(tag),
+                                    activeEmployee: true,
+                                    activeList: true,
+                                    Permissions: mongooseToOject(position.permissions),
+                                    User: mongooseToOject(employee)
                             }
-                            res.render('employeeList/index', {
-                                data,
-                                employee: mutipleMongooseToObject(employee),
-                                tag: mutipleMongooseToObject(tag),
-                                activeEmployee: true,
-                                activeList: true,
-                                Permissions: mongooseToOject(position.permissions),
-                                User: mongooseToOject(res.locals.employee)
-                        }
-                        )
+                            )
+                            })
                         })
-                    })
-                    .catch(next)
+                        .catch(next)
+                })
             })
+        
         
     };
 

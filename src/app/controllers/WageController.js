@@ -6,37 +6,41 @@ const { render, NULL } = require('node-sass')
 const { SchemaTypes } = require('mongoose')
 const Position = require('../models/Position')
 const Repair_Detail_Wage = require('../models/Repair_Detail_Wage.js')
-
+const Employee = require('../models/Employee')
 class WageController {
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
-             .then((position) => {
-             return position
-             })
-             .then((position) => { 
-                Promise.all([
-                    Wage.find({}), Repair_Detail_Wage.find({})])
-                        .then(([wages, repair_detail_wages]) => {
-                            for (const wage of wages) {
-                                var id_wage = wage._id.toString()
-                                for(const iteam of repair_detail_wages){
-                                    var id = iteam.wage._id.toString()
-                                    if(id == id_wage){
-                                        wage.not_delete = true
-                                        wage.not_edit = true
-                                    }
-                                }
-                            }
-                            res.render('wage/wage', {
-                                wages: mutipleMongooseToObject(wages),
-                                activeManagementCar: true,
-                                activeWage: true,
-                                Permissions: mongooseToOject(position.permissions),
-                                User: mongooseToOject(res.locals.employee)
-                            })
-                    })
-                    .catch(next)
+        Employee.findOne({_id: req.user.of_employee})
+        .then((employee) =>{
+            Position.findOne({ _id: employee.position })
+            .then((position) => {
+            return position
             })
+            .then((position) => { 
+               Promise.all([
+                   Wage.find({}), Repair_Detail_Wage.find({})])
+                       .then(([wages, repair_detail_wages]) => {
+                           for (const wage of wages) {
+                               var id_wage = wage._id.toString()
+                               for(const iteam of repair_detail_wages){
+                                   var id = iteam.wage._id.toString()
+                                   if(id == id_wage){
+                                       wage.not_delete = true
+                                       wage.not_edit = true
+                                   }
+                               }
+                           }
+                           res.render('wage/wage', {
+                               wages: mutipleMongooseToObject(wages),
+                               activeManagementCar: true,
+                               activeWage: true,
+                               Permissions: mongooseToOject(position.permissions),
+                               User: mongooseToOject(employee)
+                           })
+                   })
+                   .catch(next)
+           })
+        })
+        
     }
 
     create(req, res, next) {

@@ -6,10 +6,12 @@ const Repair = require('../models/Repair')
 const Material = require('../models/Material')
 const Repair_Detail_Material = require('../models/Repair_Detail_Material')
 const Position = require('../models/Position')
-
+const Employee = require('../models/Employee')
 class ExportController {
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) =>{
+                Position.findOne({ _id: employee.position })
             .then((position) => {
                 return position
             })
@@ -50,11 +52,13 @@ class ExportController {
                                     activeManagementWarehouse: true,
                                     activeExport: true,
                                     Permissions: mongooseToOject(position.permissions),
-                                    User: mongooseToOject(res.locals.employee)
+                                    User: mongooseToOject(employee)
                                 })
                             })
                         })
                 })
+            })
+        
                     
                 // Repair.find({}).then((repairs) => {
                 //     let list = []

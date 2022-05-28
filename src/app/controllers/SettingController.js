@@ -6,52 +6,56 @@ const Setting = require("../models/Setting");
 const Account = require("../models/Account");
 const settingID = "61b38a12cac11240da1afbd6";
 const passwordHash = require("password-hash");
-
+const Employee = require('../models/Employee')
 class SettingController {
   show(req, res, next) {
-    Position.findOne({ _id: res.locals.employee.position })
-      .then((position) => {
-        // res.send(position);
-        return position;
-      })
-      .then((position) => {
-        Setting.findById(settingID).then((setting) => {
-          Account.findOne({ of_employee: res.locals.employee._id }).then(
-            (account) => {
-              // res.send(req.query)
-              if (req.query._error) {
-                res.render("setting", {
-                  setting: mongooseToOject(setting),
-                  account: mongooseToOject(account),
-                  activeSetting: true,
-                  error: "Mật khẩu cũ không chính xác",
-                  invalid: "invalid",
-                  Permissions: mongooseToOject(position.permissions),
-                  User: mongooseToOject(res.locals.employee),
-                });
+    Employee.findOne({_id: req.user.of_employee})
+      .then((employee) =>{
+        Position.findOne({ _id: employee.position })
+        .then((position) => {
+          // res.send(position);
+          return position;
+        })
+        .then((position) => {
+          Setting.findById(settingID).then((setting) => {
+            Account.findOne({ of_employee: employee._id }).then(
+              (account) => {
+                // res.send(req.query)
+                if (req.query._error) {
+                  res.render("setting", {
+                    setting: mongooseToOject(setting),
+                    account: mongooseToOject(account),
+                    activeSetting: true,
+                    error: "Mật khẩu cũ không chính xác",
+                    invalid: "invalid",
+                    Permissions: mongooseToOject(position.permissions),
+                    User: mongooseToOject(employee),
+                  });
+                }
+                if (req.query._success) {
+                  res.render("setting", {
+                    setting: mongooseToOject(setting),
+                    account: mongooseToOject(account),
+                    activeSetting: true,
+                    isSuccessChange: true,
+                    Permissions: mongooseToOject(position.permissions),
+                    User: mongooseToOject(employee),
+                  });
+                } else {
+                  res.render("setting", {
+                    setting: mongooseToOject(setting),
+                    account: mongooseToOject(account),
+                    activeSetting: true,
+                    Permissions: mongooseToOject(position.permissions),
+                    User: mongooseToOject(employee),
+                  });
+                }
               }
-              if (req.query._success) {
-                res.render("setting", {
-                  setting: mongooseToOject(setting),
-                  account: mongooseToOject(account),
-                  activeSetting: true,
-                  isSuccessChange: true,
-                  Permissions: mongooseToOject(position.permissions),
-                  User: mongooseToOject(res.locals.employee),
-                });
-              } else {
-                res.render("setting", {
-                  setting: mongooseToOject(setting),
-                  account: mongooseToOject(account),
-                  activeSetting: true,
-                  Permissions: mongooseToOject(position.permissions),
-                  User: mongooseToOject(res.locals.employee),
-                });
-              }
-            }
-          );
+            );
+          });
         });
-      });
+      })
+    
   }
   // showError(req, res, next) {
   //         Position.findOne({ _id: res.locals.employee.position })

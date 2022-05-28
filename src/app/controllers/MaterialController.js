@@ -6,10 +6,12 @@ const Position = require('../models/Position')
 const { mutipleMongooseToObject } = require('../../util/mongoose')
 const { mongooseToOject } = require('../../util/mongoose')
 const { render } = require('node-sass')
-
+const Employee = require('../models/Employee')
 class MaterialController {
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) => {
+                Position.findOne({ _id: employee.position })
             .then((position) => {
                 return position
             })
@@ -50,12 +52,14 @@ class MaterialController {
                                 activeManagementWarehouse: true,
                                 activeMaterial: true,
                                 Permissions: mongooseToOject(position.permissions),
-                                User: mongooseToOject(res.locals.employee)
+                                User: mongooseToOject(employee)
                             })
                         })
                         .catch(next)
                 })
             })
+            })
+        
     }
 
     create(req, res, next) {

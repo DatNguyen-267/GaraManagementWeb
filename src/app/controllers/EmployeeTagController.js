@@ -6,41 +6,45 @@ const { render } = require('node-sass')
 
 class EmployeeTagController {
     show(req, res, next) {// request , respond , next
-        Tag.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-            return position
-            })
-            .then((position) => {
-                Tag.find({isAdmin: "false"})
-                    .then((tag)=> {
-                        Employee.find({})
-                            .then((employee) =>{
-                                var data = [];
-                                for (var item of tag){
-                                    var flat = "true"
-                                    var count = 0;
-                                    for (var temp of employee){
-                                        if (item._id.toString() == temp.position)
-                                        {
-                                            count++;
-                                            flat = "false";
+        Employee.findOne({_id: req.user.of_employee})
+            .then((em) =>{
+                Tag.findOne({ _id: em.position })
+                .then((position) => {
+                return position
+                })
+                .then((position) => {
+                    Tag.find({isAdmin: "false"})
+                        .then((tag)=> {
+                            Employee.find({})
+                                .then((employee) =>{
+                                    var data = [];
+                                    for (var item of tag){
+                                        var flat = "true"
+                                        var count = 0;
+                                        for (var temp of employee){
+                                            if (item._id.toString() == temp.position)
+                                            {
+                                                count++;
+                                                flat = "false";
+                                            }
+                                        
                                         }
-                                    
+                                        data.push({item:mongooseToOject(item),flat,count})
                                     }
-                                    data.push({item:mongooseToOject(item),flat,count})
-                                }
-                                    res.render('employeeTag/index', {
-                                        tag: mutipleMongooseToObject(tag),
-                                        activeEmployee: true,
-                                        activeTag: true,
-                                        Permissions: mongooseToOject(position.permissions),
-                                        User: mongooseToOject(res.locals.employee),
-                                        data
+                                        res.render('employeeTag/index', {
+                                            tag: mutipleMongooseToObject(tag),
+                                            activeEmployee: true,
+                                            activeTag: true,
+                                            Permissions: mongooseToOject(position.permissions),
+                                            User: mongooseToOject(em),
+                                            data
+                                        })
                                     })
-                                })
-                                .catch(next)
-                                })
+                                    .catch(next)
+                                    })
+                })
             })
+        
         
     };
 

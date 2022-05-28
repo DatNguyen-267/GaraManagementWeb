@@ -8,113 +8,117 @@ const { render } = require('node-sass')
 const { mongooseToOject } = require('../../util/mongoose')
 class EmployeeSalaryController {
     show(req, res, next) {// request , respond , next
-        Tag.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-                return position
-            })
-            .then((position) => { 
-                Employee.find({}).populate({path:'position'})
-                    .then((employee)=> {
-                        Error.find()
-                            .then((error) =>{
-                                DateOff.find()
-                                    .then((dateoff) =>{
-                                        var data = []
-                                        var today,firstDate,lastDate,mSalary;
-                                        for (var item of employee){
-                                            if (item.position.isAdmin == "false")
-                                            {
-                                                var fineSum = 0;
-                                                var errorCount = 0;
-                                                var dateOffCount = 0;
-                                                var x = new Date();
-                                                var m = x.getMonth();
-                                                var y = x.getFullYear();
-                                                var d = x.getDate();
-                                                if (m + 1 < 10)
-                                                today = y + '-'+ '0' + (m+1).toString();
-                                                else
-                                                    today = y + '-' + (m+1).toString();
-                                                var firstDay = new Date(y, m, 1);
-                                                m = firstDay.getMonth();
-                                                y = firstDay.getFullYear();
-                                                var d = firstDay.getDate();
-                                                if (m + 1 < 10)
-                                                    firstDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
-                                                else
-                                                    firstDate = d + '/'+ (m+1).toString() + '/' +y;
-                                                var lastDay = new Date(y, m + 1, 0);
-                                                m = lastDay.getMonth();
-                                                y = lastDay.getFullYear();
-                                                var d = lastDay.getDate();
-                                                if (m + 1 < 10)
-                                                    lastDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
-                                                else
-                                                    lastDate = d + '/'+ (m+1).toString() + '/' +y;
-
-                                            for(var temp of error){     
-                                                if (item._id == temp.employeeID){
-                                                    
-                                                    if (new Date(temp.date)  >= firstDay &&  new Date(temp.date)  <= lastDay)
-                                                    {
-                                                        errorCount++;
-                                                        var n = temp.fine;
-                                                        var newsalary = ''
+        Employee.findOne({_id: req.user.of_employee})
+            .then((em) =>{
+                Tag.findOne({ _id: em.position })
+                .then((position) => {
+                    return position
+                })
+                .then((position) => { 
+                    Employee.find({}).populate({path:'position'})
+                        .then((employees)=> {
+                            Error.find()
+                                .then((error) =>{
+                                    DateOff.find()
+                                        .then((dateoff) =>{
+                                            var data = []
+                                            var today,firstDate,lastDate,mSalary;
+                                            for (var item of employees){
+                                                if (item.position.isAdmin == "false")
+                                                {
+                                                    var fineSum = 0;
+                                                    var errorCount = 0;
+                                                    var dateOffCount = 0;
+                                                    var x = new Date();
+                                                    var m = x.getMonth();
+                                                    var y = x.getFullYear();
+                                                    var d = x.getDate();
+                                                    if (m + 1 < 10)
+                                                    today = y + '-'+ '0' + (m+1).toString();
+                                                    else
+                                                        today = y + '-' + (m+1).toString();
+                                                    var firstDay = new Date(y, m, 1);
+                                                    m = firstDay.getMonth();
+                                                    y = firstDay.getFullYear();
+                                                    var d = firstDay.getDate();
+                                                    if (m + 1 < 10)
+                                                        firstDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
+                                                    else
+                                                        firstDate = d + '/'+ (m+1).toString() + '/' +y;
+                                                    var lastDay = new Date(y, m + 1, 0);
+                                                    m = lastDay.getMonth();
+                                                    y = lastDay.getFullYear();
+                                                    var d = lastDay.getDate();
+                                                    if (m + 1 < 10)
+                                                        lastDate = d + '/'+ '0' + (m+1).toString() + '/' +y;
+                                                    else
+                                                        lastDate = d + '/'+ (m+1).toString() + '/' +y;
     
-                                                        for (const item of n) {
-                                                            if (item!= '.' && item !='₫')
-                                                            newsalary += item
-                                                        }
-                                                        newsalary = newsalary.trim()
-                                                        // n = n.replaceAll('.','')
-                                                        // n = n.replace('₫','')
-                                                        fineSum += parseInt(newsalary);
-                                                    }
-
-                                                    }
-                                                }
-
-                                                for(var temp of dateoff){     
+                                                for(var temp of error){     
                                                     if (item._id == temp.employeeID){
-                                                        if (new Date(temp.startDate)  >= firstDay &&  new Date(temp.startDate)  <= lastDay)
+                                                        
+                                                        if (new Date(temp.date)  >= firstDay &&  new Date(temp.date)  <= lastDay)
                                                         {
-                                                            dateOffCount++;
+                                                            errorCount++;
+                                                            var n = temp.fine;
+                                                            var newsalary = ''
+        
+                                                            for (const item of n) {
+                                                                if (item!= '.' && item !='₫')
+                                                                newsalary += item
+                                                            }
+                                                            newsalary = newsalary.trim()
+                                                            // n = n.replaceAll('.','')
+                                                            // n = n.replace('₫','')
+                                                            fineSum += parseInt(newsalary);
                                                         }
-
+    
+                                                        }
                                                     }
+    
+                                                    for(var temp of dateoff){     
+                                                        if (item._id == temp.employeeID){
+                                                            if (new Date(temp.startDate)  >= firstDay &&  new Date(temp.startDate)  <= lastDay)
+                                                            {
+                                                                dateOffCount++;
+                                                            }
+    
+                                                        }
+                                                    }
+                                                    var salary = salaryCal(item.salary, item.percent, item.startDate, Date.now(), res);
+                                                
+                                                    var finalSalary = salary - fineSum
+                                                    var formatter = new Intl.NumberFormat('vi-VN', {
+                                                        style: 'currency',
+                                                        currency: 'VND',
+                                                    });
+                                                    mSalary = formatter.format(salary.toString());
+                                                    fineSum = formatter.format(fineSum.toString());
+                                                    finalSalary = formatter.format(finalSalary.toString());
+                                                    data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount,mSalary})
                                                 }
-                                                var salary = salaryCal(item.salary, item.percent, item.startDate, Date.now(), res);
-                                            
-                                                var finalSalary = salary - fineSum
-                                                var formatter = new Intl.NumberFormat('vi-VN', {
-                                                    style: 'currency',
-                                                    currency: 'VND',
-                                                });
-                                                mSalary = formatter.format(salary.toString());
-                                                fineSum = formatter.format(fineSum.toString());
-                                                finalSalary = formatter.format(finalSalary.toString());
-                                                data.push({item:mongooseToOject(item),fineSum,finalSalary,dateOffCount,errorCount,mSalary})
+                                                
+                                                
+                                                
                                             }
-                                            
-                                            
-                                            
-                                        }
-                                        res.render('employeeSalary/index', {
-                                            employee: mutipleMongooseToObject(employee),
-                                            data,
-                                            activeEmployee: true,
-                                            activeSalary: true,
-                                            Permissions: mongooseToOject(position.permissions),
-                                            User: mongooseToOject(res.locals.employee),
-                                            today,
-                                            firstDate,
-                                            lastDate,
+                                            res.render('employeeSalary/index', {
+                                                employee: mutipleMongooseToObject(employees),
+                                                data,
+                                                activeEmployee: true,
+                                                activeSalary: true,
+                                                Permissions: mongooseToOject(position.permissions),
+                                                User: mongooseToOject(em),
+                                                today,
+                                                firstDate,
+                                                lastDate,
+                                            })
                                         })
-                                    })
-                            })
-                            .catch(next)
-                    })
-        })
+                                })
+                                .catch(next)
+                        })
+            })
+            })
+        
         
     };
 

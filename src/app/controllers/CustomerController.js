@@ -5,26 +5,30 @@ const { mongooseToOject } = require('../../util/mongoose')
 const { render, NULL } = require('node-sass')
 const { SchemaTypes } = require('mongoose')
 const Position = require('../models/Position')
-
+const Employee = require('../models/Employee')
 class CustomerController {
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-            return position
-            })
-            .then((position) => { 
-                Customer.find({})
-                .then(customers => {
-                    res.render('customer/customer', {
-                        customers: mutipleMongooseToObject(customers),
-                        activeManagementCustomer: true,
-                        activeCustomer: true,
-                        Permissions: mongooseToOject(position.permissions),
-                        User: mongooseToOject(res.locals.employee)
-                    })
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) =>{
+                Position.findOne({ _id: employee.position })
+                .then((position) => {
+                return position
                 })
-                .catch(next)
+                .then((position) => { 
+                    Customer.find({})
+                    .then(customers => {
+                        res.render('customer/customer', {
+                            customers: mutipleMongooseToObject(customers),
+                            activeManagementCustomer: true,
+                            activeCustomer: true,
+                            Permissions: mongooseToOject(position.permissions),
+                            User: mongooseToOject(employee)
+                        })
+                    })
+                    .catch(next)
+                })
             })
+        
     }
 
     create(req, res, next) {

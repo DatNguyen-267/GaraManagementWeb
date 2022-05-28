@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-
+const { cookieJwtAuth } = require('../middleware/cookieJwtAuth')
 const repairController = require('../app/controllers/RepairController')
 
 
@@ -21,10 +21,10 @@ router.delete('/:id/delete', repairController.delete)
 router.delete('/:id/:idDetail/delete-detail-material', repairController.deleteDetailMaterial)
 router.delete('/:id/:idDetail/delete-detail-wage', repairController.deleteDetailWage)
 router.delete('/:id/:idDetail/delete-detail-employee', repairController.deleteDetailEmployee)
-router.get('/:id/repair-detail', repairController.repairDetail)
-router.get('/:id/quote', repairController.quote)
-router.get('/:id/contract', repairController.contract)
-router.get('/:id/contract-detail', repairController.contractDetail)
-router.get('/', repairController.show)
+router.get('/:id/repair-detail',cookieJwtAuth, repairController.repairDetail)
+router.get('/:id/quote',cookieJwtAuth, repairController.quote)
+router.get('/:id/contract',cookieJwtAuth, repairController.contract)
+router.get('/:id/contract-detail',cookieJwtAuth, repairController.contractDetail)
+router.get('/',cookieJwtAuth, repairController.show)
 
 module.exports = router

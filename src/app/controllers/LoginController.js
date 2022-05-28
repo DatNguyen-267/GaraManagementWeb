@@ -4,6 +4,15 @@ const { render } = require('node-sass')
 const Account = require('../models/Account')
 const Role = require('../models/Role')
 const passwordHash = require('password-hash')
+const JWT = require("jsonwebtoken")
+const encodedToken = (userID) => {
+    return JWT.sign({
+        iss: "Garage",
+        sub: userID,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 0.042)
+    }, "JWT_CODE")
+}
 
 
 class LoginController {
@@ -28,7 +37,14 @@ class LoginController {
             .then((account) => {
                 if (account) {
                     if (passwordHash.verify(req.body.password, account.password)) {
-                    res.redirect('/' + account.of_employee+ '/dashboard') 
+                        const token = encodedToken(account._id)
+                        res.cookie('token', token, {
+                          httpOnly: true,
+                          sameSite: true,
+                          signed: true,
+                          secure: true
+                        });
+                        res.redirect('/' + account.of_employee+ '/dashboard') 
                     }
                     else res.redirect('/login/error')
                 }

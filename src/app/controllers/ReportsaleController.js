@@ -6,7 +6,7 @@ const { SchemaTypes } = require('mongoose')
 const Reception = require('../models/Reception.js')
 const Report_Sale_Detail = require('../models/Report_Sale_Detail.js')
 const Position = require('../models/Position')
-
+const Employee = require('../models/Employee')
 //Hàm đổi string sang date
 function stringToDate(_date, _format, _delimiter) {
     var formatLowerCase = _format.toLowerCase();
@@ -21,90 +21,95 @@ function stringToDate(_date, _format, _delimiter) {
     return formatedDate;
 }
 class ReportsaleController {
+    
     show(req, res, next) {
-        Position.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-                return position
-            })
-            .then((position) => {
-                Report_Sale.find({})
-                    .then(report_sales => {
-                        var check = 0
-                        var report_sale
-                        var today = new Date()
-                        var month = today.getMonth() + 1
-                        var year = today.getFullYear()
-                        var report_sale_date
-                        var total_money = 0
-                        var list = []
-
-                        for (const iteam of report_sales) {
-                            if (iteam.month == month && iteam.year == year) {
-                                report_sale = iteam
+        Employee.findOne({_id: req.user.of_employee})
+            .then((employee) => {
+                Position.findOne({ _id: employee.position })
+                .then((position) => {
+                    return position
+                })
+                .then((position) => {
+                    Report_Sale.find({})
+                        .then(report_sales => {
+                            var check = 0
+                            var report_sale
+                            var today = new Date()
+                            var month = today.getMonth() + 1
+                            var year = today.getFullYear()
+                            var report_sale_date
+                            var total_money = 0
+                            var list = []
+    
+                            for (const iteam of report_sales) {
+                                if (iteam.month == month && iteam.year == year) {
+                                    report_sale = iteam
+                                }
                             }
-                        }
-                        if (report_sale == null) {
-                            Reception.find({ isSuccess: true }).populate('of_customer').populate('brand')
-                                .then(Receptions => {
-
-                                    var firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().substring(0, 10);
-                                    var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().substring(0, 10);
-                                    for (const reception of Receptions) {
-                                        if (reception.receptionDate >= firstDay && reception.receptionDate <= lastDay) {
-                                            total_money = total_money + reception.total_money
-                                            list.push(reception)
+                            if (report_sale == null) {
+                                Reception.find({ isSuccess: true }).populate('of_customer').populate('brand')
+                                    .then(Receptions => {
+    
+                                        var firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().substring(0, 10);
+                                        var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().substring(0, 10);
+                                        for (const reception of Receptions) {
+                                            if (reception.receptionDate >= firstDay && reception.receptionDate <= lastDay) {
+                                                total_money = total_money + reception.total_money
+                                                list.push(reception)
+                                            }
                                         }
-                                    }
-                                    res.render('report/report-sale', {
-                                        list: mutipleMongooseToObject(list),
-                                        report_sales: mutipleMongooseToObject(report_sales),
-                                        total_money,
-                                        report_sale_date,
-                                        month,
-                                        year,
-                                        check,
-                                        activeManagementReport: true,
-                                        activeReportSale: true,
-                                        Permissions: mongooseToOject(position.permissions),
-                                        User: mongooseToOject(res.locals.employee)
+                                        res.render('report/report-sale', {
+                                            list: mutipleMongooseToObject(list),
+                                            report_sales: mutipleMongooseToObject(report_sales),
+                                            total_money,
+                                            report_sale_date,
+                                            month,
+                                            year,
+                                            check,
+                                            activeManagementReport: true,
+                                            activeReportSale: true,
+                                            Permissions: mongooseToOject(position.permissions),
+                                            User: mongooseToOject(employee)
+                                        })
+    
                                     })
-
-                                })
-                                .catch(next)
-                        }
-                        else {
-                            check = 1
-                            Report_Sale_Detail.find({ of_report_sale: report_sale }).populate('of_reception')
-                                .then(report_sale_details => {
-
-                                    report_sale_date = report_sale.report_sale_date
-
-                                    for (const iteam of report_sale_details) {
-                                        total_money = total_money + iteam.of_reception.total_money
-                                        list.push(iteam.of_reception)
-                                    }
-                                    //res.send(list)
-                                    res.render('report/report-sale', {
-                                        list: mutipleMongooseToObject(list),
-                                        report_sales: mutipleMongooseToObject(report_sales),
-                                        total_money,
-                                        report_sale_date,
-                                        month,
-                                        year,
-                                        check,
-                                        activeManagementReport: true,
-                                        activeReportSale: true,
-                                        Permissions: mongooseToOject(position.permissions),
-                                        User: mongooseToOject(res.locals.employee)
+                                    .catch(next)
+                            }
+                            else {
+                                check = 1
+                                Report_Sale_Detail.find({ of_report_sale: report_sale }).populate('of_reception')
+                                    .then(report_sale_details => {
+    
+                                        report_sale_date = report_sale.report_sale_date
+    
+                                        for (const iteam of report_sale_details) {
+                                            total_money = total_money + iteam.of_reception.total_money
+                                            list.push(iteam.of_reception)
+                                        }
+                                        //res.send(list)
+                                        res.render('report/report-sale', {
+                                            list: mutipleMongooseToObject(list),
+                                            report_sales: mutipleMongooseToObject(report_sales),
+                                            total_money,
+                                            report_sale_date,
+                                            month,
+                                            year,
+                                            check,
+                                            activeManagementReport: true,
+                                            activeReportSale: true,
+                                            Permissions: mongooseToOject(position.permissions),
+                                            User: mongooseToOject(employee)
+                                        })
+    
                                     })
-
-                                })
-                                .catch(next)
-                        }
-                    })
-                    .catch(next)
-
+                                    .catch(next)
+                            }
+                        })
+                        .catch(next)
+    
+                })
             })
+        
     }
     create(req, res, next) {
         Position.findOne({ _id: res.locals.employee.position })
