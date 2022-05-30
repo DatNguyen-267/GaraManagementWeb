@@ -157,7 +157,7 @@
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
         Validator.isRequire('#input-name', 'Vui lòng nhập tên hiệu xe'),
-        Validator.isDuplicate('#input-name', '#table-data',1, 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#input-name', '#table-data',2, 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formAdd.action = 'brand/create' 
@@ -170,7 +170,7 @@
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
         Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
-        Validator.isDuplicate('#form-edit-name', '#table-data', 1 , 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#form-edit-name', '#table-data', 2 , 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'

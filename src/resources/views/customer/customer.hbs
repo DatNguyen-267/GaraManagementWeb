@@ -322,12 +322,12 @@
         Validator.isRequire('#customer-add-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isNumber('#customer-add-cardIdentify'),
         Validator.isDuplicate('#customer-add-cardIdentify', '#table-body',4, 'CMND đã tồn tại. Vui lòng nhập lại!'),
-        Validator.minLength('#customer-add-cardIdentify', 9),
+        Validator.minLength('#customer-add-cardIdentify', 9, "CMND tối thiểu là 9 số"),
         Validator.isRequire('#customer-add-email', 'Vui lòng nhập email'),
         Validator.isEmail('#customer-add-email'),
         Validator.isRequire('#customer-add-phone', 'Vui lòng nhập số điện thoại'),
         Validator.isNumber('#customer-add-phone'),
-        Validator.minLength('#customer-add-phone', 10),
+        Validator.minLength('#customer-add-phone', 10, "Số điện thoại tối thiểu là 10 số"),
         //Validator.minLength('#reception-add-receptionDate',6),
       ],
       onSubmit: function () {
@@ -345,12 +345,14 @@
         Validator.isRequire('#customer-edit-cardIdentify', 'Vui lòng nhập CMND'),
         Validator.isNumber('#customer-edit-cardIdentify'),
         Validator.isDuplicate('#customer-edit-cardIdentify', '#table-body',4, 'CMND đã tồn tại. Vui lòng nhập lại!'),
-        Validator.minLength('#customer-edit-cardIdentify', 9),
+        Validator.minLength('#customer-edit-cardIdentify', 9, "CMND tối thiểu là 9 số"),
+
         Validator.isRequire('#customer-edit-email', 'Vui lòng nhập email'),
         Validator.isEmail('#customer-edit-email'),
         Validator.isRequire('#customer-edit-phone', 'Vui lòng nhập số điện thoại'),
         Validator.isNumber('#customer-edit-phone'),
-        Validator.minLength('#customer-edit-phone', 10),
+        Validator.minLength('#customer-edit-phone', 10, "Số điện thoại tối thiểu là 10 số"),
+
         //Validator.minLength('#reception-add-receptionDate',6),
       ],
       onSubmit: function () {
