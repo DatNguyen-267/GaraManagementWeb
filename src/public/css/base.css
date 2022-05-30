@@ -2,7 +2,7 @@
   --primary-color: rgb(0, 123, 255);
   --behind-color: #f2f7ff;
   --primary-color-rgba: #ee4d2d80;
-  --background-color: #F8F7FD;
+  --background-color: #f8f7fd;
   --success-color: #28a745;
   --pending-color: #cf9c01;
   --warning-color: #ffc107;
@@ -313,7 +313,8 @@ input.disabled {
 
 .table th,
 .table td {
-  padding: 6px !important; }
+  padding: 6px !important;
+  font-size: 14px !important; }
 
 .status--new {
   border: 2px solid var(--success-color);
