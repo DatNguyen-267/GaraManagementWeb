@@ -35,7 +35,9 @@ class EmployeeManagermentController {
                                                 }
                                                 for (var date of dateoffs){
                                                     if (employee._id == date.employeeID){
-                                                        dateoffCount++;
+                                                        var diff =  Date.parse(date.endDate) - Date.parse(date.startDate) ;
+                                                        diff /= 86400000
+                                                        dateoffCount+= diff+1;
                                                     }
                                                 }
                                                 data.push({employee: mongooseToOject(employee),errorCount,dateoffCount})
@@ -62,10 +64,9 @@ class EmployeeManagermentController {
 
     infoShow(req,res,next) {// request , respond , next
         const id = req.params.id;
-        Tag.findOne({ _id: res.locals.employee.position })
-            .then((position) => {
-                return position
-            })
+        Employee.findOne({_id: req.user.of_employee})
+            .then((user) => {
+                Tag.findOne({ _id: user.position })
             .then((position) => { 
                 Employee.findOne({_id: id})
                     .then((employee)=> {
@@ -85,7 +86,7 @@ class EmployeeManagermentController {
                                             activeEmployee: true,
                                             activeManager: true,
                                             Permissions: mongooseToOject(position.permissions),
-                                            User: mongooseToOject(res.locals.employee)
+                                            User: mongooseToOject(user)
                                     }
                                     )
                                 })
@@ -95,6 +96,8 @@ class EmployeeManagermentController {
                     })
                     .catch(next)
             })
+            })
+        
         
     };
 
