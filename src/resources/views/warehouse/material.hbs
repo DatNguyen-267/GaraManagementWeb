@@ -171,6 +171,7 @@
 <table class="table " id="material-list">
   <thead class="thead-dark"> 
     <tr>
+      <th scope="col">STT</th>
       <th scope="col">Tên vật tư</th>
       <th scope="col">Nhà cung cấp</th>
       <th scope="col">Số lượng</th>
@@ -182,6 +183,7 @@
   <tbody id="table-data">
     {{#each data}}
       <tr>
+        <td>{{@index}}</td>
         <td>{{this.material.name}}</td>
         <td>{{this.material.of_supplier.name}}</td>
         <td>{{this.material.amount}}</td>
@@ -209,6 +211,7 @@
   <tbody>
     {{#each data}}
       <tr>
+        
         <td>{{this.material.name}}</td>
         <td>{{this.material.of_supplier.name}}</td>
         <td>{{this.material.amount}}</td>
@@ -247,6 +250,7 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#add-name', 'Vui lòng nhập tên vật tư'),
+        Validator.isDuplicate('#add-name', '#table-data',1, 'Vật tư đã tồn tại. Vui lòng nhập lại!'),
         Validator.isRequireSelectBox('#add-supplier', '-- Nhà cung cấp --', 'Vui lòng chọn nhà cung cấp'),
         Validator.isRequire('#add-import-price', 'Vui lòng nhập giá nhập vật tư'),
         Validator.isRequire('#add-sell-price', 'Vui lòng nhập giá bán vật tư'),
