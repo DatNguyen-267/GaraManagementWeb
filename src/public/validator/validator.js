@@ -167,6 +167,7 @@ Validator.isDuplicate = function (selector, tableData, index, errorMessage) {
       for (var row of rows) {
         checkList.push(row.cells[index].textContent);
       }
+      console.log(checkList);
       console.log(selector);
       var oldValue = document.querySelector(selector).getAttribute("data-old");
       if (oldValue) {
