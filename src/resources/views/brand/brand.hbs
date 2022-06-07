@@ -30,8 +30,8 @@
     </colgroup>
     <thead class="thead-dark">
       <tr>
-        <th scope="col">STT</th>
-        <th scope="col">Mã hiệu xe</th>
+        <th scope="col">#STT</th>
+        {{!-- <th scope="col">Mã hiệu xe</th> --}}
         <th scope="col">Tên hiệu xe</th>
         <th scope="col" colspan="2"></th>
       </tr>
@@ -41,9 +41,9 @@
         <tr>
           {{!-- 1 hiệu xe --}}
           <th scope="row">{{sum @index 1}}</th>
-          <td>{{this.brand._id}}</td>
+          {{!-- <td>{{this.brand._id}}</td> --}}
           <td>{{this.brand.name}}</td>
-          <td class="row-btn--center">
+          <td class="" style="display: flex; justify-content: left;">
             <button class="btn btn--edit-item btn-edit" data-id="{{this.brand._id}}" 
             data-name="{{this.brand.name}}" data-toggle="modal" data-target="#modal-edit">Sửa</button>
             <button class="btn btn--delete-item btn-delete" data-id="{{this.brand._id}}" data-candelete="{{this.canDelete}}"
@@ -157,7 +157,7 @@
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
         Validator.isRequire('#input-name', 'Vui lòng nhập tên hiệu xe'),
-        Validator.isDuplicate('#input-name', '#table-data',2, 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#input-name', '#table-data',1, 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formAdd.action = 'brand/create' 
@@ -170,7 +170,7 @@
       errorSelector: '.form-message', // tên class để hiện cái lỗi
       rules: [
         Validator.isRequire('#form-edit-name', 'Vui lòng nhập tên hiệu xe'),
-        Validator.isDuplicate('#form-edit-name', '#table-data', 2 , 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
+        Validator.isDuplicate('#form-edit-name', '#table-data', 1 , 'Hiệu xe đã tồn tại. Vui lòng nhập lại!')
       ],
       onSubmit: function() {
           formEdit.action = 'brand/' + brandId + '/edit?_method=PUT'
@@ -195,8 +195,8 @@
     })
     btnEdit.click(function(){
       var row = $(this).parents('tr')[0]
-      $('#form-edit-name').val(row.cells[2].textContent)
-      $('#form-edit-name').attr('data-old', row.cells[2].textContent )
+      $('#form-edit-name').val(row.cells[1].textContent)
+      $('#form-edit-name').attr('data-old', row.cells[1].textContent )
     })
     var canDelete
     $('#modal-delete').on('shown.bs.modal', function (event) {

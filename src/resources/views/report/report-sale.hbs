@@ -63,7 +63,7 @@
                 <tbody>
                     {{#each list}}
                     <tr data-id="{{this._id}}">
-                        <th scope="row">{{@index}}</th>
+                        <th scope="row">{{ sum @index 1}}</th>
                         <td>{{this.license}}</td>
                         <td>{{this.brand.name}}</td>
                         <td>{{this.of_customer.name}}</td>

@@ -27,10 +27,9 @@
           <a class="toolbar__filter-item dropdown-item" href="#">Đã hoàn thành</a>
         </div>
       </div> --}}
-      <div class="car-present">
+      <div class="">
         Số xe tiếp nhận ngày hôm nay: 
-        <label id="car-of-gara" for="">{{CarPresent}}</label>
-        /<label id="max-car-reception" for="">{{MaxCar}}</label>
+        <label id="car-of-gara" for="">{{CarPresent}}</label>/<label id="max-car-reception" for="">{{MaxCar}}</label>
       </div>
       <div class="toolbar__btn">
         <button class="header__btn-add btn btn-primary" data-toggle="modal">Thêm phiếu
@@ -129,7 +128,7 @@
               <select class="form-control" name="oldCustomer" id="add-old-customer"> 
                     <option>--- Chọn khách hàng ---</option>
                     {{#each Customers}}   
-                    <option value="{{this._id}}" data-phone={{this.phone}}>{{this.name}}</option>
+                    <option value="{{this._id}}" data-phone={{this.phone}} data-license={{this.license}}>{{this.name}}</option>
                     {{/each}}
               </select>
               <span class="form-message"></span>
@@ -489,8 +488,10 @@
 
     selectOldCustomer.onchange = function() {
       var phone = this.options[this.options.selectedIndex].getAttribute('data-phone')
+      var license = this.options[this.options.selectedIndex].getAttribute('data-license')
       console.log(phone)
       $('#reception-add-phone').val(phone)
+      $('#reception-add-license').val(license)
     }
 
     var btnHeaderAdd = document.querySelector('.header__btn-add')
