@@ -156,12 +156,22 @@ class ReceptionController {
       .then(() => res.redirect("back"))
       .catch(next);
   }
-  delete(req, res, next) {
+  async delete(req, res, next) {
     Reception.deleteOne({ _id: req.params.id })
-      .then(() => {
-        Repair.deleteOne({ of_reception: req.params.id }).then(() => {
-          res.redirect("back");
-        });
+      .then(async () => {
+        await Repair.deleteOne({ of_reception: req.params.id }).then(
+          async () => {
+            await Customer.updateOne(
+              { of_reception: req.params.id },
+              {
+                $pullAll: {
+                  of_reception: [{ _id: req.params.id }],
+                },
+              }
+            );
+            res.redirect("back");
+          }
+        );
       })
       .catch(next);
   }
