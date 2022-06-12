@@ -308,13 +308,13 @@
       item.onclick = function() {
         var rowData = this.parentElement.parentElement
 
-        document.getElementById('edit-name').value = rowData.cells[0].textContent
-        document.getElementById('edit-import-price').value = rowData.cells[3].textContent
-        document.getElementById('edit-sell-price').value = rowData.cells[4].textContent
+        document.getElementById('edit-name').value = rowData.cells[1].textContent
+        document.getElementById('edit-import-price').value = rowData.cells[4].textContent
+        document.getElementById('edit-sell-price').value = rowData.cells[5].textContent
 
         var selectedSupplier = document.querySelector('#edit-supplier')
         for (var i = 0 ; i < selectedSupplier.options.length ; i++) {
-          if (selectedSupplier.options[i].textContent == rowData.cells[1].textContent)
+          if (selectedSupplier.options[i].textContent == rowData.cells[2].textContent)
             selectedSupplier.options.item(i).selected = 'selected'
         }
 

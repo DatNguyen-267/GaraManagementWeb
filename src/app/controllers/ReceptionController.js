@@ -157,9 +157,9 @@ class ReceptionController {
       .catch(next);
   }
   delete(req, res, next) {
-    Reception.delete({ _id: req.params.id })
+    Reception.deleteOne({ _id: req.params.id })
       .then(() => {
-        Repair.delete({ of_reception: req.params.id }).then(() => {
+        Repair.deleteOne({ of_reception: req.params.id }).then(() => {
           res.redirect("back");
         });
       })
