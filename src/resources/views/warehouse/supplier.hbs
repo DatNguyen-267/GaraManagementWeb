@@ -225,9 +225,9 @@
       errorSelector: '.form-message',
       rules: [
         Validator.isRequire('#edit-name', 'Vui lòng nhập mã tên nhà cung cấp'),
-        Validator.isDuplicate('#edit-name', '#table-data', 0, 'Tên nhà cung cấp bị trùng'),
+        {{!-- Validator.isDuplicate('#edit-name', '#table-data', 0, 'Tên nhà cung cấp bị trùng'), --}}
         Validator.isRequire('#edit-email', 'Vui lòng nhập email nhà cung cấp'),
-        Validator.isDuplicate('#edit-email', '#table-data', 1, 'Email nhà cung cấp bị trùng'),
+        {{!-- Validator.isDuplicate('#edit-email', '#table-data', 1, 'Email nhà cung cấp bị trùng'), --}}
         Validator.isEmail('#edit-email'),
         Validator.isRequire('#edit-telephone', 'Vui lòng nhập số điện thoại nhà cung cấp'),
         Validator.isNumber('#edit-telephone')

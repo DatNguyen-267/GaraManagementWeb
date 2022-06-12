@@ -336,6 +336,7 @@
         Validator.isRequire('#n_phoneNumber', 'Vui lòng nhập số điện thoại'),
         Validator.isEmail('#n_email'),
         Validator.isRequire('#n_cmnd', 'Vui lòng nhập chứng minh nhân dân'),
+        Validator.minLength('#n_cmnd', 9, "CMND tối thiểu là 9 số"),
         Validator.isNumber('#n_cmnd'),
         Validator.isNumber('#n_phoneNumber'),
         Validator.isDuplicate('#n_email', '#employeeTable',4, 'Email đã tồn tại. Vui lòng nhập lại!'),
